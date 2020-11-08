@@ -114,17 +114,7 @@ if($r =='Cashier'){
 
  <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3><?php echo $amount1_cash; ?></h3>
 
-              <p> My Total Interest</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
@@ -192,7 +182,7 @@ else{
                 
               </div>
               <!-- /.widget-user-image -->
-              <h3 class="widget-user-username">Stores</h3>
+              <h3 class="widget-user-username">Stores h</h3>
               <h5 class="widget-user-desc"></h5>
             </div>
             <div class="box-footer no-padding">
