@@ -1,0 +1,564 @@
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)); billsales_or$idql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($cETE}
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$bproductcod AND action='lorda$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($csalqtqtsales_order
+
+
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($cD+
+
+
+
+
+ $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arraProduc$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+
+ $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));" $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))sn$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));CProductCustomerDamagedamageDAMAGE $sqwl = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arrdamage_profile.php?id=$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))
+                  $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$Action$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+
+
+
+
+
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));profile$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));view_damagcation
+                  $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array(Date
+                  $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array(datetypeType$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arrcationlo_$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));Time $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array(damage$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$Fix$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));,ex$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))eex
+$ex="Register,type$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));:";
+_$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));,action$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))h$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arrCu$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))C
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));               
+              $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arrProduct Type$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$no$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(a$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c, nCReasonreason$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b) W$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array(locaLocation
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array(datedate
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))Actionact$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c/$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));a
+
+
+
+
+<?php
+if
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$action($action=="$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));"){$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($d$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)Damag
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))$date$date=$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(argreen$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($caction$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arralocatio
+
+
+=,$b)$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)jco
+$iii$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array(gas
+
+
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arrGas Weightgas_weighcommentcomment$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));damage$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(adamage$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$
+
+
+
+
+
+
+
+
+
+
+
+damage$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+                  $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)type
+                  $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b))actiodamageFIXDamag$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)); product_name=''gen
+
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(arrayproducts W$d$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));+ $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)) $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)) $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b) $sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+
+
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$bdama1$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($damagAdd New Damag$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));_$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sqlocation,dpostsavedaloca
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));date("Y/m/d;$g=
+$h= "  ) '';reasonlocatio$sdamadamageql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($cgreason$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b));$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$b)d;
+
+$sql = "UPDATE products 
+        SET qty=qty+?
+		WHERE product_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($c,$productproductcustomercustomercomplain_no,customer_name,cylinder_no,cylinder_type,reason,location,date,ac
