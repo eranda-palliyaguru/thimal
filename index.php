@@ -182,7 +182,7 @@ else{
                 
               </div>
               <!-- /.widget-user-image -->
-              <h3 class="widget-user-username">Stores h</h3>
+              <h3 class="widget-user-username">Stores </h3>
               <h5 class="widget-user-desc"></h5>
             </div>
             <div class="box-footer no-padding">
