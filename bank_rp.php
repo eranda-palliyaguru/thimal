@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -28,11 +28,11 @@ include_once("sidebar.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -57,44 +57,44 @@ include_once("sidebar.php");
         <li class="active">Advanced Elements</li>
       </ol>
     </section>
-   
+
    <br>
-   
 
-     <form method="get">   
+
+     <form method="get">
 	<center>
-	
-			  
-			  
-			
 
-From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" /> 
-To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/> 
+
+
+
+
+From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" />
+To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/>
 
 
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
- 
- 
-			  
-		<br>	  
-			  
-      
-			 
+
+
+
+		<br>
+
+
+
 			 </center>
-			 </form> 
-   
-   
+			 </form>
+
+
    <section class="content">
-   
+
      <div class="box">
             <div class="box-header">
               <h3 class="box-title">Bank Report  <a href="bank_rp_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
-			
+
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -112,31 +112,31 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 </tr>
                 </thead>
 <tbody>
-			
-<?php 
+
+<?php
 	$d1=$_GET["d1"];
 	$d2=$_GET["d2"];
 	$result = $db->prepare("SELECT * FROM bank WHERE  action='0' and date BETWEEN '$d1' and '$d2' ");
-				
+
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-					
-				  
-				 
-					$m_type=$row['type']; 
-					
+
+
+
+					$m_type=$row['type'];
+
 					if($m_type>"2"){echo '<tr style="background-color: lightgray;" >';
 					}else{echo '<tr>';}
 					   ?>
 
-			
+
                <td ><?php echo $row['id'];   ?> </td>
 	       <td ><?php if($row['type']<"3"){  ?><span class="pull-right badge bg-green" >CREDIT</spa> <?php } ?>
 	          <?php if($row['type']>"2"){  ?><span class="pull-right badge bg-red" >DEBIT</spa> <?php } ?>
 			   <?php if($row['type']=="3"){  ?><span class="pull-left badge bg-blue" >Lorry</span><span class="pull-right badge bg-red" >DEBIT</span> <?php } ?>
 	</td>
-	
+
 	       <td><?php echo $row['date'];   ?> </td>
 		<td>
 <?php if($row['type']=="2"){  ?><span class="pull-right badge bg-green" >CASH</span><?php } ?>
@@ -144,14 +144,14 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 <?php if($row['type']=="4"){  ?><span class="pull-right badge bg-red" >BANK TRANSFER</span> <?php } ?>
 <?php if($row['type']=="5"){  ?><span class="pull-right badge bg-yellow" >CHQ</span> <?php } ?>
 <?php if($row['type']=="6"){  ?><span class="pull-right badge bg-red" >CHQ RETURN</span> <?php } ?></td>
-	
-	
+
+
 	<td><?php if($row['type']<"3"){ echo "Rs.".$row['amount']; } ?></td>
 	<td><?php if($row['type']>"2"){ echo "Rs.".$row['amount']; } if($row['type']=="3"){ echo "Rs.".$row['amount']; } ?></td>
 	<td><?php echo $row['chq_no'];   ?></td>
 				<td><?php echo $row['bank'];   ?></td>
    <td><?php echo $row['balance']; ?></td>
-                  
+
                 </tr>
 
 				<?php } ?>
@@ -174,32 +174,32 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 </tr>
                 </thead>
 <tbody>
-			
-<?php 
+
+<?php
 	$d1=$_GET["d1"];
 	$d2=$_GET["d2"];
 	$tot_un=0;
 	$result = $db->prepare("SELECT * FROM bank WHERE  type='1' and chq_action='0'  ");
-				
+
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-					
-				  
-				 
-					$m_type=$row['type']; 
-					
+
+
+
+					$m_type=$row['type'];
+
 					if($m_type>"2"){echo '<tr style="background-color: lightgray;" >';
 					}else{echo '<tr>';}
 					   ?>
 
-			
+
                <td ><?php echo $row['id'];   ?> </td>
 	       <td ><?php if($row['type']<"3"){  ?><span class="pull-right badge bg-green" >CREDIT</spa> <?php } ?>
 	          <?php if($row['type']>"2"){  ?><span class="pull-right badge bg-red" >DEBIT</spa> <?php } ?>
 			   <?php if($row['type']=="3"){  ?><span class="pull-left badge bg-blue" >Lorry</span><span class="pull-right badge bg-red" >DEBIT</span> <?php } ?>
 	</td>
-	
+
 	       <td><?php echo $row['date'];   ?> </td>
 		<td>
 <?php if($row['type']=="2"){  ?><span class="pull-right badge bg-green" >CASH</span><?php } ?>
@@ -207,28 +207,28 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 <?php if($row['type']=="4"){  ?><span class="pull-right badge bg-red" >BANK TRANSFER</span> <?php } ?>
 <?php if($row['type']=="5"){  ?><span class="pull-right badge bg-yellow" >CHQ</span> <?php } ?>
 <?php if($row['type']=="6"){  ?><span class="pull-right badge bg-red" >CHQ RETURN</span> <?php } ?></td>
-	
-	
+
+
 	<td><?php if($row['type']<"3"){ echo "Rs.".$row['amount']; } ?></td>
 	<td><?php if($row['type']>"2"){ echo "Rs.".$row['amount']; } if($row['type']=="3"){ echo "Rs.".$row['amount']; } ?></td>
 	<td><?php echo $row['chq_no'];   ?></td>
 				<td><?php echo $row['bank'];   ?></td>
    <td></td>
-                  
+
                 </tr>
 
 				<?php $tot_un=$row['amount']; } ?>
 				</tbody>
 		 <tfoot   class=" bg-red"   >
-                
+
 				<td  colspan="4" ><h4>Total</h4></td>
 
               <td><h4>Rs.<?php echo $tot_un;   ?></h4></td>
 			 <td  colspan="3" ></td>
-<td></td>                  
+<td></td>
                 </tfoot>
               </table>
-	
+
 	<h2>Cheque in hand</h2>
 	<table class="table table-bordered table-striped" >
                 <thead>
@@ -240,50 +240,50 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Bank</th>
 				<th>Amount (Rs.)</th>
                   <th>#</th>
-				  
+
                 </tr>
                 </thead>
 <tbody>
-			
+
 <?php $date=date("Y-m-d"); $tot_in_hand=0;
-	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='chq' and action = '2'");				
+	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='chq' and action = '2'");
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
                $chq_date=$row['chq_date'];
 					if($chq_date==""){$dtt=0;}
-if($chq_date==""){$dtt=1;}else{					
+if($chq_date==""){$dtt=1;}else{
 $first  = new DateTime( $date );
 $second = new DateTime( $chq_date );
 $diff = $first->diff( $second );
 $dtt=$diff->format( '%r%a' );
 }
-					if($dtt<=0){
 
-	
+
+
 	?>			<tr class="record">
                <td><?php echo $row['transaction_id'];   ?> </td>
 	       <td><?php echo $row['date'];   ?> </td>
 				<td><?php echo $row['chq_date'];   ?> </td>
 	<td><?php echo $row['chq_no'];   ?></td>
 				<td><?php echo $row['bank'];   ?></td>
-              <td>Rs.<?php echo $row['amount'];   ?></td>                
-<td></td>                  
-                </tr>				
+              <td>Rs.<?php echo $row['amount'];   ?></td>
+<td></td>
+                </tr>
 				<?php $tot_in_hand +=$row['amount'];
-					}  } ?>
-	
+					  } ?>
+
 				</tbody>
 	<tfoot   class=" bg-aqua"   >
-                
+
 				<td  colspan="5" ><h4>Total</h4></td>
 
-              <td><h4>Rs.<?php echo $tot_in_hand;   ?></h4></td>                
-<td></td>                  
-                </tfoot>		
-                
-              </table>		 
-	
+              <td><h4>Rs.<?php echo $tot_in_hand;   ?></h4></td>
+<td></td>
+                </tfoot>
+
+              </table>
+
             </div>
             <!-- /.box-body -->
           </div>
@@ -332,21 +332,20 @@ $dtt=$diff->format( '%r%a' );
       "info": true,
       "autoWidth": false
     });
-  
+
    $(".select2").select2();
-  
+
   });
-	
-	
+
+
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
-	
+
 </script>
 </body>
 </html>
-
