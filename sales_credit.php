@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
+$user_lewal=$_SESSION['USER_LEWAL'];
 
 if($r =='Cashier'){
 
@@ -32,11 +33,11 @@ include_once("sidebar2.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -61,22 +62,22 @@ include_once("sidebar2.php");
         <li class="active">Advanced Elements</li>
       </ol>
     </section>
-   
+
    <br>
-   
 
-     <form action="sales_credit.php" method="get">   
+
+     <form action="sales_credit.php" method="get">
 	<center>
-	
-			  
-			  
-			
 
-Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value="" autocomplete="off" /> 
+
+
+
+
+Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value="" autocomplete="off" />
 
 		Customer :	<select class="form-control select2" name="cus" style="width: 350px;"  autofocus >
-      <option value="all">Select Customer</option>            
-                  
+      <option value="all">Select Customer</option>
+
 				  <?php
                 $result = $db->prepare("SELECT * FROM customer ");
 		$result->bindParam(':userid', $res);
@@ -92,53 +93,53 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
- 
- 
-			  
-		<br>	  
-			  
-      
-			 
+
+
+
+		<br>
+
+
+
 			 </center>
-			 </form> 
-   
-   
+			 </form>
+
+
    <section class="content">
-   
+
      <div class="box">
             <div class="box-header">
               <h3 class="box-title">Credit Report  <a href="sales_credit_print.php?r=<?php echo $_GET['r'] ?>&cus=<?php echo $_GET['cus'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
-			
+
             <div class="box-body">
-	       <table  class="table table-bordered table-striped">
-                <thead>				
+	       <table id="example2" class="table table-bordered table-striped">
+                <thead>
                 <tr>
                   <th colspan="4" ></th>
 				   <th colspan="2" >12.5kg</th>
 				   <th colspan="2" >5kg</th>
-				    <th colspan="2" >37.5kg</th>					
+				    <th colspan="2" >37.5kg</th>
 					<th colspan="2" >2kg</th>
 				    <th colspan="5" >#</th>
                 </tr>
-				
+
 				<tr>
 				<th>Cus_id</th>
 				<th>Customer</th>
 				<th>Invoice</th>
 				<th>Date</th>
-				
-				   <th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-				
+
+				   <th >E</th>
+				    <th >R</th>
+					<th >E</th>
+				    <th >R</th>
+					<th >E</th>
+				    <th >R</th>
+					<th >E</th>
+				    <th >R</th>
+
 				<th>Type</th>
 				<th>Amount</th>
 				<th>Due</th>
@@ -146,98 +147,98 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 				<th>#</th>
 				</tr>
 				</thead>
-                
+
                 <tbody>
-				<?php 
+				<?php
 					$tot=0;
 	    date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
-		$pay_type="";		
-			
+		$pay_type="";
+
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
-				$customer_id=$_GET['cus'];	
-													  
+				$customer_id=$_GET['cus'];
+
 if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}else{
 	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ");}
 			    $customer->bindParam(':userid', $d2);
                 $customer->execute();
                 for($i=0; $row_cus = $customer->fetch(); $i++){
-				$cus=$row_cus['customer_id'];	
-					
-													  
+				$cus=$row_cus['customer_id'];
+
+
 	$b_tot=0;
-					
+
 	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-	
+
 				$result2z->bindParam(':userid', $d2);
                 $result2z->execute();
                 for($i=0; $row = $result2z->fetch(); $i++){
-				$sales_id=$row['sales_id'];						
-				
-		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");		
+				$sales_id=$row['sales_id'];
+
+		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
 			    $result2->bindParam(':userid', $d2);
                 $result2->execute();
                 for($i=0; $row2 = $result2->fetch(); $i++){
 				$invo=$row2['invoice_number'];
-	
+
 		 $pay_type=$row['type'];
 		$action=$row['action'];
-				
-		
+
+
 		    $date1=$row2['date'];
 			$date =  date("Y-m-d");
 				  $sday= strtotime( $date1);
                   $nday= strtotime($date);
                   $tdf= abs($nday-$sday);
                   $nbday1= $tdf/86400;
-                  $rs1= intval($nbday1);			
-		
-			$coo=$_GET['r'];				
-					
-				
-				
+                  $rs1= intval($nbday1);
+
+			$coo=$_GET['r'];
+
+
+
 		if($rs1 >= $coo){
 		$color="";$color1="";
 		if($rs1>=25){$color="yellow"; $color1="black";}
 		if($rs1>=40){$color="red"; $color1="white";}
-		
-					
+
+
 					?>
                 <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
 				<td><?php echo $row['customer_id'];?></td>
 				<td><?php echo $row2['name'];?></td>
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?></td>
-                  
-				  
+
+
  <?php
 				  $ter=4;
-			
+
 				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
 	            $pro_id=$pro_id1+1;
 				$pro_id_e=$pro_id1+5;
 			?>
-				   
-				     
-				  
-				<td><span class="pull-right badge bg-muted"><?php 			
-					
+
+
+
+				<td><span class="pull-right badge bg-muted"><?php
+
 			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
-				
+
 					$result->bindParam(':userid', $d1);
                 $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){	
+                for($i=0; $row1 = $result->fetch(); $i++){
 		 echo $row1['qty'];
 				}
 			?></span></td>
-	<td><span class="pull-right badge bg-yellow"><?php 			
-					
+	<td><span class="pull-right badge bg-yellow"><?php
+
 			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-				
+
 					$result->bindParam(':userid', $d1);
                 $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){	
+                for($i=0; $row1 = $result->fetch(); $i++){
 		 echo $row1['qty'];
 				}
 			?></span></td>
@@ -245,125 +246,126 @@ if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}
 <?php
 				  $ter1=7;
 			$tot+=$row2['amount']-$row['pay_amount'];
-				
-				
-			?>
-				   
-				     
-				  
-		
 
-					
-					
-		
-		<td><?php	echo $row['type'];	?></td>			
+
+			?>
+
+
+
+
+
+
+
+
+		<td><?php	echo $row['type'];	?></td>
 		<td><?php echo $row['amount']-$row['pay_amount'];
 			$b_tot+=$row['amount']-$row['pay_amount'];
-			if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>		
-		<td><?php	echo $rs1;	?></td>		
+			if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>
+		<td><?php	echo $rs1;	?></td>
 			<td><?php $cus_id=$row2['customer_id'];
 			$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id' ");
-				
+
 					$result->bindParam(':userid', $d1);
                 $result->execute();
-                for($i=0; $rowv = $result->fetch(); $i++){	
+                for($i=0; $rowv = $result->fetch(); $i++){
 		 echo $rowv['acc_no']." - ".$rowv['acc_name'];
 				}
-			?></td>	
-			<td><?php if($r =='admin'){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row2['transaction_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>&r=<?php echo $_GET['r'];?>"   title="Click to pay" >
+			?></td>
+			<td><?php if($user_lewal =='2'){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row2['transaction_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>&r=<?php echo $_GET['r'];?>"   title="Click to pay" >
 				  <button class="btn btn-success">Set Payment</button></a><?php } ?>
 					<a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
 				  <button class="btn btn-primary">View</button></a>
 					</td>
 					</tr>
 				<?php
-		} } 
-				} 
+		} }
+				}
 
-			if($b_tot > 1){	
-			?>	
+			if($b_tot > 1){
+			?>
 					   <tr   class=" bg-gray"   >
-                
-				<td  colspan="3" >Total</td>
+						   <td><?php echo $cus;?></td>
 
-				
+				<td >Total</td>
+  <td></td>
+
  <?php $invo="2520011210105934";
-				  $ter=4;			
+				  $ter=4;
 				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
 	            $pro_id=$pro_id1+1;
 				$pro_id_e=$pro_id1+5;
-			?>				   				     				  
+			?>
 				<td></td>
 	<td></td>
-					
+
 					<?php } ?>
 <?php
 				  $ter1=7;
-			
+
 				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
 	            $pro_id=$pro_id2+9;
-				
+
 			?>
-				   
-				     
-				  
-				
-					
+
+
+
+
+
 
 					<?php } ?>
-					
+
 			<td></td><td></td>
 		<td><span class="pull-right badge bg-red"><?php echo $b_tot; ?></span></td>
-					
-	<td></td><td></td><td></td>		
+
+	<td></td><td></td><td></td>
                 </tr>
-	<?php } } ?>				
-				
-				
-                
+	<?php } } ?>
+
+
+
                 </tbody>
-				
+
                 <tfoot   class=" bg-aqua"   >
-                
+
 				<td  colspan="3" >Total</td>
 
-				
+
  <?php $invo="2520011210105934";
-				  $ter=4;			
+				  $ter=4;
 				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
 	            $pro_id=$pro_id1+1;
 				$pro_id_e=$pro_id1+5;
-			?>				   				     				  
+			?>
 				<td></td>
 	<td></td>
-					
+
 					<?php } ?>
 <?php
 				  $ter1=7;
-			
+
 				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
 	            $pro_id=$pro_id2+9;
-				
+
 			?>
-				   
-				     
-				  
-				
-					
+
+
+
+
+
 
 					<?php } ?>
-					
+
 			<td></td><td></td>
 		<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
-					
-	<td></td><td></td><td></td>		
+
+	<td></td><td></td><td></td>
                 </tfoot>
               </table>
-				
-				
-				
-				
-				
+
+
+
+
+
 
             </div>
             <!-- /.box-body -->
@@ -371,13 +373,13 @@ if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      
-   
-   
-   
+
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
@@ -418,25 +420,25 @@ if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
+      "searching": true,
+      "ordering": false,
+      "info": false,
       "autoWidth": false
     });
-  
+
    $(".select2").select2();
-  
+
   });
-	
-	
+
+
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
-	
+
 </script>
 </body>
 </html>
