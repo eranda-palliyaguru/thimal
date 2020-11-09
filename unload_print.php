@@ -25,7 +25,7 @@
 <body onload="window.print() " style=" font-size: 13px; font-family: arial;">
 <?php
 $sec = "1";
-?><meta http-equiv="refresh" content="<?php echo $sec;?>;URL='unloading_view.php'">
+?><meta http-equiv="refresh" content="<?php echo $sec;?>;URL='loading_view.php'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
