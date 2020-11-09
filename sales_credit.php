@@ -419,11 +419,11 @@ if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}
     $("#example1").DataTable();
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
+      "lengthChange": true,
       "searching": true,
       "ordering": false,
-      "info": false,
-      "autoWidth": false
+      "info": true,
+      "autoWidth": true
     });
 
    $(".select2").select2();
@@ -433,8 +433,6 @@ if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}
 
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-
-
 
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
