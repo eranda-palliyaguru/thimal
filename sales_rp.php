@@ -63,38 +63,62 @@ th span
 
     </section>
 
+ <section class="content">
+    <div class="box box-info">
+
+          <div class="box-body">
 
 
 
      <form  method="get">
-	<center>
-
-
-
-			<strong>
-
-From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="<?php echo $_GET['d1']; ?>" autocomplete="off" />
-To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="<?php echo $_GET['d2']; ?>" autocomplete="off"/>
-
+<div class="row">
        <div class="col-md-6">
-              <div class="form-group">
-                <label>customer</label>
-                <select class="form-control select2" name="cus" style="width: 350px;" autofocus >
-                <option value="all"> All Customer </option>
+         <div class="form-group">
 
-				  <?php
-                $result = $db->prepare("SELECT * FROM customer ORDER by customer_id ASC ");
-		$result->bindParam(':userid', $res);
-		$result->execute();
-		for($i=0; $row = $result->fetch(); $i++){
-	?>
-		<option value="<?php echo $row['customer_id'];?>"><?php echo $row['customer_id']."_".$row['customer_name']; ?>    </option>
-	<?php
-				}
-			?>
-                </select>
-				</div>
+<label>Date</label>
 
+
+
+           From :<input type="text" style="width:123px; padding:4px;" name="d1" id="datepicker" value="<?php echo $_GET['d1']; ?>" autocomplete="off" />
+           To:<input type="text" style="width:123px; padding:4px;" name="d2" id="datepickerd"  value="<?php echo $_GET['d2']; ?>" autocomplete="off"/>
+
+
+
+
+
+
+             </div>
+   </div>
+
+   <div class="col-md-6">
+     <div class="form-group">
+       <label>customer</label>
+       <select class="form-control select2" name="cus" style="width: 350px;" autofocus >
+       <option value="all"> All Customer </option>
+
+ <?php
+       $result = $db->prepare("SELECT * FROM customer ORDER by customer_id ASC ");
+$result->bindParam(':userid', $res);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+?>
+<option value="<?php echo $row['customer_id'];?>"><?php echo $row['customer_id']."_".$row['customer_name']; ?>    </option>
+<?php
+}
+?>
+       </select>
+</div>
+</div>
+
+
+ </div>
+
+
+<div class="row">
+
+
+
+<div class="col-md-6">
                      <div class="form-group">
                        <label>Lorry</label>
                        <select class="form-control select2" name="lorry" style="width: 350px;" autofocus >
@@ -111,38 +135,53 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
        				}
        			?>
                        </select>
-       				</div>
-                     </div>
+       				</div>	</div>
 
+<div class="col-md-6">
+              <div class="form-group">
+                <label>products</label>
+                <select class="form-control select2" name="product" style="width: 350px;" autofocus >
+                <option value="all"> All Customer </option>
+                <option value="1"> Gas </option>
+                <option value="2"> Cylinder </option>
+                <option value="3"> Accessory </option>
+
+                </select>
+        </div></div>
+
+
+</div>
 
 
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
 
-</strong>
+
 
 		<br>
 
-         <h4> Report from&nbsp;<i class=" text-primary "><?php echo $_GET['d1'] ?></i>&nbsp;to&nbsp;<i class=" text-primary "><?php echo $_GET['d2'] ?> </i>  </h4>
 
-			 </center>
 			 </form>
 
+     </div>
+     <!-- /.box-body -->
+   </div>
 
 
-   <section class="content">
 
      <div class="box">
             <div class="box-header">
               <h3 class="box-title">Sales Report
-				<a href="sales_rp_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&cus=<?php echo $_GET['cus'] ?>"   title="Click to Print" >
+				<a href="sales_rp_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&cus=<?php echo $_GET['cus'] ?>&lorry=<?php echo $_GET['lorry'] ?>&product=<?php echo $_GET['product'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a>
 				</h3>
             </div>
             <!-- /.box-header -->
 
             <div class="box-body">
+
+
             		   <table id="example1" class="table table-bordered table-striped">
                 <thead>
 
@@ -204,7 +243,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Pay Type</th>
 				<th>Chq Date</th>
 				<th>Amount</th>
-				<th>Profit</th>
+				<th>Margin</th>
 				</tr>
 
                 </thead>
@@ -212,13 +251,24 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<?php
 	    date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
-		$tot=0;	$tot_f=0;
+$tot=0;	$tot_f=0; $cash_pay=0; $chq_pay=0; $credit_pay=0; $cash_pay1=0; $chq_pay1=0; $credit_pay1=0;
+
+$e12=''; $e5=''; $e32=''; $e2='';  $g12=''; $g5=''; $g32=''; $g2='';
+
+
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 				$cus_id=$_GET['cus'];
         $lorry =$_GET['lorry'];
-				//$d3=$_SESSION['SESS_FIRST_NAME'];
-				//$d3=$_GET['d3'];
+        $product =$_GET['product'];
+
+
+if($product=='all'){ $pro1='0'; $pro2='50'; }
+if($product=='1'){$pro1='0'; $pro2='5'; }
+if($product=='2'){$pro1='4'; $pro2='9'; }
+if($product=='3'){$pro1='9'; $pro2='50'; }
+
+
 if($cus_id=="all"){
 
   if($lorry=="all"){ $result2 = $db->prepare("SELECT * FROM sales WHERE  action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
@@ -238,13 +288,21 @@ if($cus_id=="all"){
 
 
 
-					$result2->bindParam(':userid', $d2);
-                $result2->execute();
-                for($i=0; $row2 = $result2->fetch(); $i++){
+				$result2->bindParam(':userid', $d2);
+        $result2->execute();
+        for($i=0; $row2 = $result2->fetch(); $i++){
 				$invo=$row2['invoice_number'];
 
 
+$emty_miter=0;
+        $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id > '$pro1' AND product_id < '$pro2' and  action='0' ");
 
+            $result->bindParam(':userid', $d1);
+                  $result->execute();
+                  for($i=0; $row = $result->fetch(); $i++){
+       $emty_miter = $row['qty'];
+          }
+if($emty_miter > 0){
 
 
 			?>
@@ -274,6 +332,12 @@ if($cus_id=="all"){
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 		 echo $row['qty'];
+
+
+    if ($pro_id_e=='5') { $e12+=$row['qty']; }
+    if ($pro_id_e=='6') { $e5+=$row['qty']; }
+    if ($pro_id_e=='7') { $e32+=$row['qty']; }
+    if ($pro_id_e=='8') { $e2+=$row['qty']; }
 				}
 			?></span></td>
 	<td><span class="pull-right badge bg-yellow"><?php
@@ -284,6 +348,11 @@ if($cus_id=="all"){
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 		 echo $row['qty'];
+
+     if ($pro_id=='1') { $g12+=$row['qty']; }
+     if ($pro_id=='2') { $g5+=$row['qty']; }
+     if ($pro_id=='3') { $g32+=$row['qty']; }
+     if ($pro_id=='4') { $g2+=$row['qty']; }
 				}
 			?></span></td>
 					<?php } ?>
@@ -320,6 +389,30 @@ if($cus_id=="all"){
 		 $type= $row['type'];
 		$ch_date=$row['chq_date'];
 				}
+
+        $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' AND type = 'credit'  ");
+        $result->bindParam(':userid', $d1);
+              $result->execute();
+              for($i=0; $row = $result->fetch(); $i++){
+        $credit_pay1= $row['amount'];
+        }
+        $credit_pay+= $credit_pay1;
+
+        $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' AND type = 'cash'  ");
+          $result->bindParam(':userid', $d1);
+                $result->execute();
+                for($i=0; $row = $result->fetch(); $i++){
+        $cash_pay1=$row['amount'];
+        }
+        $cash_pay+=$cash_pay1;
+
+        $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' AND type = 'chq'  ");
+            $result->bindParam(':userid', $d1);
+                  $result->execute();
+                  for($i=0; $row = $result->fetch(); $i++){
+        $chq_pay1= $row['amount'];
+          }
+          $chq_pay+= $chq_pay1;
 			?>
 
 		<td><?php echo $type;?></td>
@@ -336,7 +429,7 @@ if($cus_id=="all"){
 $tot+=$row2['amount'];
 $tot_f+=$row2['profit'];
 
-				}
+} }
 
 
 			?>
@@ -356,29 +449,21 @@ $tot_f+=$row2['profit'];
 				$pro_id_e=$pro_id1+5;
 			?>
 				<td><span class="pull-right badge bg-muted"><?php
-if($cus_id=="all"){
-			$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id_e' and action='0' ");
-}else{
-	$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id_e' and action='0' and cus_id='$cus_id' ");
-}
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-		 echo $row['sum(qty)'];
-				}
+
+        if ($pro_id_e=='5') { echo $e12; }
+        if ($pro_id_e=='6') { echo $e5; }
+        if ($pro_id_e=='7') { echo $e32; }
+        if ($pro_id_e=='8') { echo $e2; }
+
 			?></span></td>
 	<td><span class="pull-right badge bg-green"><?php
-	if($cus_id=="all"){
-			$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' ");
-	}else{
-		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' and cus_id='$cus_id' ");
 
-	}
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-		 echo $row['sum(qty)'];
-				}
+  if ($pro_id=='1') { echo $g12; }
+  if ($pro_id=='2') { echo $g5; }
+  if ($pro_id=='3') { echo $g32; }
+  if ($pro_id=='4') { echo $g2; }
+
+
 			?></span></td>
 
 					<?php } ?>
@@ -416,9 +501,11 @@ if($cus_id=="all"){
 
 	<td><span class="pull-right badge bg-muted"><?php echo $tot_f;	?></span></td>
 
-                </tfoot>
+              </tfoot>
               </table>
-
+              <h2>Cash Rs.<?php echo $cash_pay; ?></h2>
+              <h2>CHQ Rs.<?php echo $chq_pay; ?></h2>
+              <h2>Credit Rs.<?php echo $credit_pay; ?></h2>
             </div>
             <!-- /.box-body -->
           </div>
