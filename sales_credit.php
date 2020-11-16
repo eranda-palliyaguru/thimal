@@ -174,8 +174,8 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
         $group=$_GET['group'];
 
 if($customer_id=="all"){
-if($group==""){$customer = $db->prepare("SELECT * FROM customer  ");}else {
-$customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");  
+if($group=="all"){$customer = $db->prepare("SELECT * FROM customer  ");}else {
+$customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
 }
   		}else{
 	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
