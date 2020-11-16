@@ -42,9 +42,6 @@ include_once("sidebar2.php");
 
     </script>
 
-
-
-
     <!-- /.sidebar -->
   </aside>
 
@@ -90,6 +87,22 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 			?>
                 </select>
 
+<br>
+                Customer Group :	<select class="form-control select2" name="group" style="width: 350px;"  autofocus >
+                  <option value="all">Select Group</option>
+
+                      <?php
+                            $result = $db->prepare("SELECT * FROM customer_category ");
+                $result->bindParam(':userid', $res);
+                $result->execute();
+                for($i=0; $row = $result->fetch(); $i++){
+              ?>
+                <option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>    </option>
+              <?php
+                    }
+                  ?>
+                            </select>
+<br>
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
@@ -158,9 +171,14 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
 				$customer_id=$_GET['cus'];
+        $group=$_GET['group'];
 
-if($customer_id=="all"){	$customer = $db->prepare("SELECT * FROM customer  ");	}else{
-	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ");}
+if($customer_id=="all"){
+if($group==""){$customer = $db->prepare("SELECT * FROM customer  ");}else {
+$customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");  
+}
+  		}else{
+	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
 			    $customer->bindParam(':userid', $d2);
                 $customer->execute();
                 for($i=0; $row_cus = $customer->fetch(); $i++){
