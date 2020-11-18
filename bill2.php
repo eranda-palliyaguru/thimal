@@ -44,8 +44,9 @@ $sec = "1";
             <img src="gas.jpg" width="250" alt=""><BR>
 
 	  <h5>Thimal Enterprises (Pvt.) Ltd <br>
-	 33B/1 Katuwawala, boralasgamuwa
-
+	 33B/1 Katuwawala, boralasgamuwa <br>
+	 011-2 509 801
+<br>
 		  <b>Invoice no.<?php echo $_GET['id']; ?> </b><br>
 	<b>mm </b><br>
 		  Date:<?php date_default_timezone_set("Asia/Colombo");
