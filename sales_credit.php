@@ -183,7 +183,7 @@ $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
                 $customer->execute();
                 for($i=0; $row_cus = $customer->fetch(); $i++){
 				$cus=$row_cus['customer_id'];
-        $limit=$row_cus['limit'];
+        $limit=$row_cus['credit_period'];
 
 
 	$b_tot=0;
