@@ -183,6 +183,7 @@ $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
                 $customer->execute();
                 for($i=0; $row_cus = $customer->fetch(); $i++){
 				$cus=$row_cus['customer_id'];
+        $limit=$row_cus['limit'];
 
 
 	$b_tot=0;
@@ -212,14 +213,15 @@ $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
                   $nbday1= $tdf/86400;
                   $rs1= intval($nbday1);
 
-			$coo=$_GET['r'];
+			$coo=$limit;
+      $rs1=$rs1-$limit;
 
 
 
-		if($rs1 >= $coo){
+		if($rs1 >= 1){
 		$color="";$color1="";
-		if($rs1>=25){$color="yellow"; $color1="black";}
-		if($rs1>=40){$color="red"; $color1="white";}
+		if($rs1>=10){$color="yellow"; $color1="black";}
+		if($rs1>=25){$color="red"; $color1="white";}
 
 
 					?>
