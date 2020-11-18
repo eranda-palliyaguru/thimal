@@ -121,7 +121,7 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 
      <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Credit Report  <a href="sales_credit_print.php?r=<?php echo $_GET['r'] ?>&cus=<?php echo $_GET['cus'] ?>"   title="Click to Print" >
+              <h3 class="box-title">Credit Report  <a href="sales_credit_print.php?r=<?php echo $_GET['r'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
