@@ -9,7 +9,7 @@ $type = $_POST['type'];
 $date = date("Y-m-d");
 if($type=="1"){$bank_id = $_POST['chq_no1'];
 $charges = $_POST['charges1'];
-$reason = $_POST['reason1'];			  
+$reason = $_POST['reason1'];
 }else{
 $bank_id = $_POST['chq_no'];
 $charges = $_POST['charges'];
@@ -66,13 +66,13 @@ $q = $db->prepare($sql);
 $q->execute(array($amount));
 
 
-	
+
 $sql = "UPDATE payment
         SET bank_action=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
 $q->execute(array($bank_action,$pay_id));
-	
+
 $sql = "UPDATE payment
         SET chq_action=?
 		WHERE transaction_id=?";
@@ -81,7 +81,7 @@ $q->execute(array($bank_action,$pay_id));
 
 
 
-$amount_tot=$amount;
+$amount_tot=$amount+$charges;
 
 $sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod)";
 $q = $db->prepare($sql);
