@@ -357,7 +357,7 @@ if($emty_miter > 0){
 			?></span></td>
 					<?php } ?>
 <?php
-				  $ter1=7;
+				  $ter1=9;
 
 				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
 	            $pro_id=$pro_id2+10;
@@ -378,7 +378,7 @@ if($emty_miter > 0){
 			?></span></td>
 
 					<?php } ?>
-			<td></td><td></td>
+			
 		<?php
 
 			$result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' ");
