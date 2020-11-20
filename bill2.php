@@ -159,7 +159,7 @@ $sec = "1";
               </tr>
 
 <?php
-				$result1 = $db->prepare("SELECT * FROM payment WHERE invoice_no='$invo'  ");
+				$result1 = $db->prepare("SELECT * FROM payment WHERE invoice_no='$invo' and action > '0'  ");
 				$result1->bindParam(':userid', $date);
                 $result1->execute();
                 for($i=0; $row1 = $result1->fetch(); $i++){
