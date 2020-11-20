@@ -50,7 +50,7 @@ include_once("sidebar2.php");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Credit Report
+        Debtor Report
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
@@ -62,46 +62,114 @@ include_once("sidebar2.php");
 
    <br>
 
+   <section class="content">
+      <div class="box box-warning">
 
-     <form action="sales_credit.php" method="get">
-	<center>
+               <div class="box-header">
+                 <h3 class="box-title">Filter</h3>
+               </div>
+
+     <form method="get">
+
+       <div class="form-group">
+
+
+       	<div class="box-body">
+
+<div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+  <div class="input-group">
+   <div class="input-group-addon">
+        <b>Type</b>
+          </div>
+          <select class="form-control select2" name="type"  >
+            <option value="all">Total Debtors</option>
+            <option value="due">Overdue Debtors</option>
+                      </select>
+          </div>
+          </div>
+</div>
+
+<div class="col-md-6">
+  <div class="form-group">
+<div class="input-group">
+<div class="input-group-addon">
+    <b>	Customer</b>
+      </div>
+      <select class="form-control select2" name="cus"  >
+        <option value="all">Select Customer</option>
+
+  				  <?php
+                  $result = $db->prepare("SELECT * FROM customer ");
+  		$result->bindParam(':userid', $res);
+  		$result->execute();
+  		for($i=0; $row = $result->fetch(); $i++){
+  	?>
+  		<option value="<?php echo $row['customer_id'];?>"><?php echo $row['customer_name']; ?>    </option>
+  	<?php
+  				}
+  			?>
+                  </select>
+      </div>
+      </div>
+</div>
+</div>
 
 
 
+<div class="row">
+<div class="col-md-6">
+  <div class="form-group">
+<div class="input-group">
+<div class="input-group-addon">
+    <b>   Customer Group :</b>
+      </div>
+      <select class="form-control select2" name="group"  >
+        <option value="all">Select Group</option>
+
+            <?php
+                  $result = $db->prepare("SELECT * FROM customer_category ");
+      $result->bindParam(':userid', $res);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){
+      ?>
+      <option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>    </option>
+      <?php
+          }
+        ?>
+                  </select>
+      </div>
+      </div>
+</div>
 
 
-Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value="" autocomplete="off" />
+<div class="col-md-6">
+  <div class="form-group">
+<div class="input-group">
+<div class="input-group-addon">
+    <b>Lorry</b>
+      </div>
+      <select class="form-control select2" name="lorry"  >
+      <option value="all"> All Lorry </option>
 
-		Customer :	<select class="form-control select2" name="cus" style="width: 350px;"  autofocus >
-      <option value="all">Select Customer</option>
+      <?php
+      $result = $db->prepare("SELECT * FROM lorry ORDER by lorry_id ASC ");
+      $result->bindParam(':userid', $res);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){
+      ?>
+      <option ><?php echo $row['lorry_no']; ?>    </option>
+      <?php
+      }
+      ?>
+      </select>
+      </div>
+      </div>
+</div>
 
-				  <?php
-                $result = $db->prepare("SELECT * FROM customer ");
-		$result->bindParam(':userid', $res);
-		$result->execute();
-		for($i=0; $row = $result->fetch(); $i++){
-	?>
-		<option value="<?php echo $row['customer_id'];?>"><?php echo $row['customer_name']; ?>    </option>
-	<?php
-				}
-			?>
-                </select>
+</div>
 
-<br>
-                Customer Group :	<select class="form-control select2" name="group" style="width: 350px;"  autofocus >
-                  <option value="all">Select Group</option>
-
-                      <?php
-                            $result = $db->prepare("SELECT * FROM customer_category ");
-                $result->bindParam(':userid', $res);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-              ?>
-                <option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>    </option>
-              <?php
-                    }
-                  ?>
-                            </select>
 <br>
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
@@ -113,15 +181,15 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 
 
 
-			 </center>
-			 </form>
 
+			 </form>
+</div></div></div> </section>
 
    <section class="content">
 
-     <div class="box">
+     <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Credit Report  <a href="sales_credit_print.php?r=<?php echo $_GET['r'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>"   title="Click to Print" >
+              <h3 class="box-title">Debtor Report  <a href="sales_credit_print.php?type=<?php echo $_GET['type'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>&lorry=<?php echo $_GET['lorry'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
@@ -155,7 +223,7 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 
 				<th>Type</th>
 				<th>Amount</th>
-				<th>Due</th>
+				<th>Overdue</th>
 				<th>Phone no</th>
 				<th>#</th>
 				</tr>
@@ -169,9 +237,10 @@ Day Limit :<input type="text" style="width:223px; padding:4px;" name="r"  value=
 		$pay_type="";
 
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
-				//$d3=$_GET['d3'];
+				$type=$_GET['type'];
 				$customer_id=$_GET['cus'];
         $group=$_GET['group'];
+        $lorry=$_GET['lorry'];
 
 if($customer_id=="all"){
 if($group=="all"){$customer = $db->prepare("SELECT * FROM customer  ");}else {
@@ -195,7 +264,12 @@ $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
                 for($i=0; $row = $result2z->fetch(); $i++){
 				$sales_id=$row['sales_id'];
 
-		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+if ($lorry=='all') {
+	$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+}else {
+	$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
+}
+
 			    $result2->bindParam(':userid', $d2);
                 $result2->execute();
                 for($i=0; $row2 = $result2->fetch(); $i++){
@@ -213,22 +287,24 @@ $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
                   $nbday1= $tdf/86400;
                   $rs1= intval($nbday1);
 
-			$coo=$limit;
+		if($type=='due'){ $leval=$rs1-$limit;	}else { $leval=$rs1; }
+    $coo=$limit;
       $rs1=$rs1-$limit;
 
 
 
-		if($rs1 >= 1){
+		if($leval >= 1){
 		$color="";$color1="";
-		if($rs1>=10){$color="yellow"; $color1="black";}
-		if($rs1>=25){$color="red"; $color1="white";}
+		if($rs1>=30){$color="#f0f296"; $color1="black";}
+		if($rs1>=60){$color="#701144"; $color1="white";}
 
 
 					?>
-                <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
-				<td><?php echo $row['customer_id'];?></td>
+        <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
+				<td ><?php echo $row['customer_id'];?></td>
 				<td><?php echo $row2['name'];?></td>
-				<td><?php echo $row2['transaction_id'];?></td>
+				<td><?php echo $row2['transaction_id'];?>
+        <span class="pull-right badge bg-green"><?php echo $row2['lorry_no'];?> </span></td>
 				<td><?php echo $row2['date'];?></td>
 
 

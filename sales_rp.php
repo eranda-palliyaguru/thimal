@@ -310,7 +310,7 @@ if($emty_miter > 0){
 
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?>
-<span class="pull-right badge bg-yellow"><?php echo $row2['lorry_no'];?> </span>
+<span class="pull-right badge bg-green"><?php echo $row2['lorry_no'];?> </span>
         </td>
                   <td><?php echo $row2['name'];?></td>
 

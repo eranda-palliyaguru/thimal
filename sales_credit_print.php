@@ -26,7 +26,7 @@
 <?php
 include("connect.php");
 $sec = "1";
-?><meta http-equiv="refresh" content="<?php echo $sec;?>;URL='sales_credit.php?r=<?php echo $_GET['r'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>'">
+?><meta http-equiv="refresh" content="<?php echo $sec;?>;URL='sales_credit.php?type=<?php echo $_GET['type'] ?>&cus=<?php echo $_GET['cus'] ?>&lorry=<?php echo $_GET['lorry'] ?>&group=<?php echo $_GET['group'] ?>'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -49,256 +49,263 @@ $sec = "1";
 
     <!-- /.row -->
 <div class="box-body">
-           <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th colspan="4" ></th>
-				   <th colspan="2" >12.5kg</th>
-				   <th colspan="2" >5kg</th>
-				    <th colspan="2" >37.5kg</th>
-					<th colspan="2" >2kg</th>
-				    <th colspan="5" >#</th>
-                </tr>
+  <table id="example2" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th colspan="4" ></th>
+    <th colspan="2" >12.5kg</th>
+    <th colspan="2" >5kg</th>
+     <th colspan="2" >37.5kg</th>
+   <th colspan="2" >2kg</th>
+     <th colspan="5" >#</th>
+          </tr>
 
-				<tr>
-				<th>Cus_id</th>
-				<th>Customer</th>
-				<th>Invoice</th>
-				<th>Date</th>
+ <tr>
+ <th>Cus_id</th>
+ <th>Customer</th>
+ <th>Invoice</th>
+ <th>Date</th>
 
-				   <th>E</th>
-				    <th>R</th>
-					<th>E</th>
-				    <th>R</th>
-					<th>E</th>
-				    <th>R</th>
-					<th>E</th>
-				    <th>R</th>
+    <th >E</th>
+     <th >R</th>
+   <th >E</th>
+     <th >R</th>
+   <th >E</th>
+     <th >R</th>
+   <th >E</th>
+     <th >R</th>
 
-				<th>Type</th>
-				<th>Amount</th>
-				<th>Due</th>
-				<th>Phone no</th>
+ <th>Type</th>
+ <th>Amount</th>
+ <th>Overdue</th>
+ <th>Phone no</th>
+ <th>Lorry No</th>
+ </tr>
+ </thead>
 
-				</tr>
-				</thead>
-
-                <tbody>
-				<?php
-					$tot=0;
-	    date_default_timezone_set("Asia/Colombo");
-		$hh=date("Y/m/d");
-		$pay_type="";
-
-				//$d3=$_SESSION['SESS_FIRST_NAME'];
-				//$d3=$_GET['d3'];
-        $customer_id=$_GET['cus'];
-        $group=$_GET['group'];
-
-        if($customer_id=="all"){
-        if($group=="all"){$customer = $db->prepare("SELECT * FROM customer  ");}else {
-        $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
-        }
-        }else{
-        $customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
-          $customer->bindParam(':userid', $d2);
-                $customer->execute();
-                for($i=0; $row_cus = $customer->fetch(); $i++){
-        $cus=$row_cus['customer_id'];
-
-
-	$b_tot=0;
-
-	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-
-
-
-				$result2z->bindParam(':userid', $d2);
-                $result2z->execute();
-                for($i=0; $row = $result2z->fetch(); $i++){
-				$sales_id=$row['sales_id'];
-
-		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
-			    $result2->bindParam(':userid', $d2);
-                $result2->execute();
-                for($i=0; $row2 = $result2->fetch(); $i++){
-				$invo=$row2['invoice_number'];
-
-		 $pay_type=$row['type'];
-		$action=$row['action'];
-
-
-		    $date1=$row2['date'];
-			$date =  date("Y-m-d");
-				  $sday= strtotime( $date1);
-                  $nday= strtotime($date);
-                  $tdf= abs($nday-$sday);
-                  $nbday1= $tdf/86400;
-                  $rs1= intval($nbday1);
-
-			$coo=$_GET['r'];
-
-
-
-		if($rs1 >= $coo){
-		$color="";$color1="";
-		if($rs1>=25){$color="yellow"; $color1="black";}
-		if($rs1>=40){$color="red"; $color1="white";}
-
-
-					?>
-                <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
-				<td><?php echo $row['customer_id'];?></td>
-				<td><?php echo $row2['name'];?></td>
-				<td><?php echo $row2['transaction_id'];?></td>
-				<td><?php echo $row2['date'];?></td>
-
-
+          <tbody>
  <?php
-				  $ter=4;
+   $tot=0;
+date_default_timezone_set("Asia/Colombo");
+$hh=date("Y/m/d");
+$pay_type="";
 
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
+ //$d3=$_SESSION['SESS_FIRST_NAME'];
+ $type=$_GET['type'];
+ $customer_id=$_GET['cus'];
+  $group=$_GET['group'];
+  $lorry=$_GET['lorry'];
+
+if($customer_id=="all"){
+if($group=="all"){$customer = $db->prepare("SELECT * FROM customer  ");}else {
+$customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
+}
+}else{
+$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
+   $customer->bindParam(':userid', $d2);
+          $customer->execute();
+          for($i=0; $row_cus = $customer->fetch(); $i++){
+ $cus=$row_cus['customer_id'];
+  $limit=$row_cus['credit_period'];
+
+
+$b_tot=0;
+
+$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
+
+ $result2z->bindParam(':userid', $d2);
+          $result2z->execute();
+          for($i=0; $row = $result2z->fetch(); $i++){
+ $sales_id=$row['sales_id'];
+
+if ($lorry=='all') {
+$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+}else {
+$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
+}
+
+   $result2->bindParam(':userid', $d2);
+          $result2->execute();
+          for($i=0; $row2 = $result2->fetch(); $i++){
+ $invo=$row2['invoice_number'];
+
+$pay_type=$row['type'];
+$action=$row['action'];
+
+
+ $date1=$row2['date'];
+$date =  date("Y-m-d");
+   $sday= strtotime( $date1);
+            $nday= strtotime($date);
+            $tdf= abs($nday-$sday);
+            $nbday1= $tdf/86400;
+            $rs1= intval($nbday1);
+
+if($type=='due'){ $leval=$rs1-$limit;	}else { $leval=$rs1; }
+$coo=$limit;
+$rs1=$rs1-$limit;
 
 
 
-				<td><span class="pull-right badge bg-muted"><?php
+if($leval >= 1){
+$color="";$color1="";
+if($rs1>=30){$color="#f0f296"; $color1="black";}
+if($rs1>=60){$color="#701144"; $color1="white";}
 
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
 
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['qty'];
-				}
-			?></span></td>
-	<td><span class="pull-right badge bg-yellow"><?php
+   ?>
+  <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
+ <td ><?php echo $row['customer_id'];?></td>
+ <td><?php echo $row2['name'];?></td>
+ <td><?php echo $row2['transaction_id'];?></td>
+ <td><?php echo $row2['date'];?></td>
 
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
 
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['qty'];
-				}
-			?></span></td>
-					<?php } ?>
 <?php
-				  $ter1=7;
-			$tot+=$row2['amount']-$row['pay_amount'];
+   $ter=4;
 
-
-			?>
-
-
-
-
+ for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
+       $pro_id=$pro_id1+1;
+ $pro_id_e=$pro_id1+5;
+?>
 
 
 
+ <td><span class="pull-right badge bg-muted"><?php
 
-		<td><?php	echo $row['type'];	?></td>
-		<td><?php echo $row['amount']-$row['pay_amount'];
-				$b_tot+=$row['amount']-$row['pay_amount'];?></td>
-		<td><?php	echo $rs1;	?></td>
-			<td><?php $cus_id=$row2['customer_id'];
-			$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id' ");
+$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
 
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $rowv = $result->fetch(); $i++){
-		 echo $rowv['acc_no']." - ".$rowv['acc_name'];
-				}
-			?></td>
-				</tr>
+   $result->bindParam(':userid', $d1);
+          $result->execute();
+          for($i=0; $row1 = $result->fetch(); $i++){
+echo $row1['qty'];
+ }
+?></span></td>
+<td><span class="pull-right badge bg-yellow"><?php
 
-				<?php
-		} }
-				}
+$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
 
-				if($b_tot > 1){
-			?>
-				   <tr   class=" bg-gray"   >
-
-				<td  colspan="3" >Total</td>
-
-
- <?php $invo="2520011210105934";
-				  $ter=4;
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-				<td></td>
-	<td></td>
-
-					<?php } ?>
+   $result->bindParam(':userid', $d1);
+          $result->execute();
+          for($i=0; $row1 = $result->fetch(); $i++){
+echo $row1['qty'];
+ }
+?></span></td>
+   <?php } ?>
 <?php
-				  $ter1=7;
+   $ter1=7;
+$tot+=$row2['amount']-$row['pay_amount'];
 
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+9;
 
-			?>
-
+?>
 
 
 
 
 
-					<?php } ?>
-
-			<td></td><td></td>
-		<td><span class="pull-right badge bg-red"><?php echo $b_tot; ?></span></td>
-
-	<td></td><td></td>
-                </tr>
-	<?php } } ?>
 
 
 
+<td><?php	echo $row['type'];	?></td>
+<td><?php echo $row['amount']-$row['pay_amount'];
+$b_tot+=$row['amount']-$row['pay_amount'];
+if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>
+<td><?php	echo $rs1;	?></td>
+<td><?php $cus_id=$row2['customer_id'];
+$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id' ");
 
+   $result->bindParam(':userid', $d1);
+          $result->execute();
+          for($i=0; $rowv = $result->fetch(); $i++){
+echo $rowv['acc_no']." - ".$rowv['acc_name'];
+ }
+?></td>
+<td><?php echo $row2['lorry_no'];?></td>
+   </tr>
+ <?php
+} }
+ }
 
-                </tbody>
+if($b_tot > 1){
+?>
+      <tr   class=" bg-gray"   >
+        <td><?php echo $cus;?></td>
 
-                <tfoot   class=" bg-aqua"   >
+ <td >Total</td>
+<td></td>
 
-				<td  colspan="3" >Total</td>
+<?php $invo="2520011210105934";
+   $ter=4;
+ for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
+       $pro_id=$pro_id1+1;
+ $pro_id_e=$pro_id1+5;
+?>
+ <td></td>
+<td></td>
 
-
- <?php $invo="2520011210105934";
-				  $ter=4;
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-				<td></td>
-	<td></td>
-
-					<?php } ?>
+   <?php } ?>
 <?php
-				  $ter1=7;
+   $ter1=7;
 
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+9;
+ for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
+       $pro_id=$pro_id2+9;
 
-			?>
-
-
+?>
 
 
 
 
-					<?php } ?>
 
-			<td></td><td></td>
-		<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
 
-	<td></td><td></td><td></td>
-                </tfoot>
-              </table>
+   <?php } ?>
+
+<td></td><td></td>
+<td><span class="pull-right badge bg-red"><?php echo $b_tot; ?></span></td>
+
+<td></td><td></td><td></td>
+          </tr>
+<?php } } ?>
+
+
+
+          </tbody>
+
+          <tfoot   class=" bg-aqua"   >
+
+ <td  colspan="3" >Total</td>
+
+
+<?php $invo="2520011210105934";
+   $ter=4;
+ for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
+       $pro_id=$pro_id1+1;
+ $pro_id_e=$pro_id1+5;
+?>
+ <td></td>
+<td></td>
+
+   <?php } ?>
+<?php
+   $ter1=7;
+
+ for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
+       $pro_id=$pro_id2+9;
+
+?>
+
+
+
+
+
+
+   <?php } ?>
+
+<td></td><td></td>
+<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
+
+<td></td><td></td><td></td>
+          </tfoot>
+        </table>
 
 
 		 </div>
