@@ -326,7 +326,7 @@ if($emty_miter > 0){
 
 				<td><span class="pull-right badge bg-muted"><?php
 
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
+			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' AND action='0' ");
 
 					$result->bindParam(':userid', $d1);
                 $result->execute();
@@ -342,7 +342,7 @@ if($emty_miter > 0){
 			?></span></td>
 	<td><span class="pull-right badge bg-yellow"><?php
 
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
+			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' AND action='0' ");
 
 					$result->bindParam(':userid', $d1);
                 $result->execute();
@@ -368,7 +368,7 @@ if($emty_miter > 0){
 
 				<td><span class="pull-right badge bg-muted"><?php
 
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
+			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' AND action='0' ");
 
 					$result->bindParam(':userid', $d1);
                 $result->execute();
@@ -378,7 +378,7 @@ if($emty_miter > 0){
 			?></span></td>
 
 					<?php } ?>
-			
+
 		<?php
 
 			$result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' ");
@@ -390,27 +390,27 @@ if($emty_miter > 0){
 		$ch_date=$row['chq_date'];
 				}
 
-        $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' AND type = 'credit'  ");
+        $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  invoice_no='$invo' AND type = 'credit' AND action > '0'  ");
         $result->bindParam(':userid', $d1);
               $result->execute();
               for($i=0; $row = $result->fetch(); $i++){
-        $credit_pay1= $row['amount'];
+        $credit_pay1= $row['sum(amount)'];
         }
         $credit_pay+= $credit_pay1;
 
-        $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' AND type = 'cash'  ");
+        $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  invoice_no='$invo' AND type = 'cash' AND action > '0'  ");
           $result->bindParam(':userid', $d1);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-        $cash_pay1=$row['amount'];
+        $cash_pay1=$row['sum(amount)'];
         }
         $cash_pay+=$cash_pay1;
 
-        $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' AND type = 'chq'  ");
+        $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  invoice_no='$invo' AND type = 'chq' AND action > '0'  ");
             $result->bindParam(':userid', $d1);
                   $result->execute();
                   for($i=0; $row = $result->fetch(); $i++){
-        $chq_pay1= $row['amount'];
+        $chq_pay1= $row['sum(amount)'];
           }
           $chq_pay+= $chq_pay1;
 			?>
@@ -468,7 +468,7 @@ $tot_f+=$row2['profit'];
 
 					<?php } ?>
 <?php
-				  $ter1=7;
+				  $ter1=9;
 
 				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
 	            $pro_id=$pro_id2+10;
@@ -496,7 +496,7 @@ $tot_f+=$row2['profit'];
 
 					<?php } ?>
 
-			<td></td><td></td><td></td><td></td>
+			<td></td><td></td>
 		<td><span class="pull-right badge bg-muted"><?php 	echo $tot;	?></span></td>
 
 	<td><span class="pull-right badge bg-muted"><?php echo $tot_f;	?></span></td>
