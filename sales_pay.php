@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue layout-top-na">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -28,16 +28,16 @@ if($r =='admin'){
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
 
-	
+
 
 
 
@@ -49,29 +49,28 @@ if($r =='admin'){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Sales Form 
+        Sales Form
         <small>Preview</small>
       </h1>
     </section>
-	  
-	  
-     
-		  
+
+
+
+
     <!-- Main content -->
     <section class="content">
 <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Sales Pay</h3>
-			
+
 	<table id="example2" class="table table-bordered table-hover">
 			<tr>
-                <th>Product Name</th>
+        <th>Product Name</th>
 				<th>QTY</th>
-				
-                <th>Price (Rs.)</th>
+        <th>Price (Rs.)</th>
 				<th>Total (Rs.)</th>
               </tr>
-		<?php 
+		<?php
 		$total=0;
 		$invo=$_GET['id'];
 		$result = $db->prepare("SELECT * FROM sales_list WHERE invoice_no='$invo' ");
@@ -82,104 +81,107 @@ if($r =='admin'){
 				 <tr  >
 				     <td><?php echo $row['name']; ?></td>
 					 <td><?php echo $row['qty']; ?></td>
-					 
 					 <td><?php echo $row['price']; ?></td>
 					 <td><?php echo $row['amount']; ?></td>
-					
+
 				 <?php  $total+=$row['amount']; ?>
 				 </tr>
 				 <?php
 		}	?>
 			 </table>
 			<h3> Rs.<?php  echo $total; ?></h3>
-			
+
+      <?php if ($_SESSION['error']=='') {}else { ?>
+            <div class="alert alert-danger alert-dismissible">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+      <?php echo $_SESSION['error']; ?>
+      </div> <?php } $_SESSION['error']=""; ?>
+
+
          	<div class="col-md-10">
 	<form name="myForm" onsubmit="return validateForm()" action="save_sales_pay.php" method="post">
-				
-				
-		<select name="p_type" style="width: 190px;  " class="form-control" id="p_type" onchange="view_payment_date(this.value);"> 
+
+
+		<select name="p_type" style="width: 190px;  " class="form-control" id="p_type" onchange="view_payment_date(this.value);">
 			<option value="cash">Cash</option>
             <option value="credit">Credit</option>
             <option value="chq">Cheque</option>
                       </select>
-		
+
    <div class="form-group" id='credit_pay' style="display:none;">
-	   
-	   
+
+
       <br>
 	<input class="btn btn-info" type="submit" name="com" value="print" >
 		</div>
-		
-		
+
+
 		 <div class="form-group" id='cash_pay' style="display:block;">
          <label for="exampleInputPassword1">Cash Amount</label>
 			 <p id="cash_amount1" style="color: red"></p>
-         <div class="input-group"> 
+         <div class="input-group">
            <input type="text" id="cash_amount" name="cash_amount"   onkeypress="postSet()" onfocus="this.value='';" class="form-control pull-right" autocomplete="off" >
-			 
+
        </div>
      <br>
 			 <input class="btn btn-info" type="submit" name="com" value="pay" >
 		</div>
-		
-		
-		 <div class="form-group" id='chq_pay' style="display:none;"> 
+
+
+		 <div class="form-group" id='chq_pay' style="display:none;">
          <label for="exampleInputPassword1">Cheque No</label>
-         <div class="input-group"> 
+         <div class="input-group">
            <input type="text" name="chq_no" class="form-control pull-right" id="chq_no" autocomplete="off" >
 			 <p id="chq_no1" style="color: red"></p>
        </div>
 			 <label for="exampleInputPassword1">Bank</label>
-         <div class="input-group"> 
+         <div class="input-group">
            <input type="text" name="bank" id="bank" class="form-control pull-right"> <p id="bank1" style="color: red"></p>
        </div>
 			 <label for="exampleInputPassword1">Amount</label>
-         <div class="input-group"> 
+         <div class="input-group">
            <input type="text" name="chq_amount" class="form-control pull-right" id="chq_amount" autocomplete="off" > <p id="chq_amount1" style="color: red"></p>
        </div>
 			  <label for="exampleInputPassword1">Date</label>
-         <div class="input-group"> 
-           <input type="text" name="chq_date" class="form-control pull-right" id="chq_date"  autocomplete="off" data-inputmask='"mask": "9999-99-99"' data-mask><p id="chq_date1" style="color: red"></p>
+         <div class="input-group">
+           <input type="text" name="chq_date" class="form-control pull-right" id="chq_date"  autocomplete="off" data-inputmask='"alias": "yyyy-mm-dd"' data-mask><p id="chq_date1" style="color: red"></p>
        </div>
       <br>
 	<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
 	<input class="btn btn-info" name="com" type="submit" value="Pay and Print" >
-	</form>	
+	</form>
 		</div>
-		
+
 		<div id="form_continue"></div>
 	            <!-- /btn-group -->
-                
-		 
-              	
+
 		</div>
-		
-			
+
+
             </div>
           </div>
       <!-- SELECT2 EXAMPLE -->
-      
+
 		  <a  href="sales_edit.php?id=<?php echo $_GET['id']; ?>"><button  class=" btn btn-danger" style="width: 123px; height:35px; margin-:-8px;margin-left:8px;" >
-				Edit Bill 
+				Edit Bill
                 </button></a>
           <!-- /.box -->
         </div>
         <!-- /.col (right) -->
       </div>
       <!-- /.row -->
-
     </section>
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
-  
+
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
 <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -247,7 +249,7 @@ if($r =='admin'){
     );
 
     //Date picker
-	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy/mm/dd '});
+	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({
       autoclose: true
     });
@@ -278,46 +280,35 @@ if($r =='admin'){
       showInputs: false
     });
   });
-	
+
  function view_payment_date(type){
 	if(type=='credit'){
-	document.getElementById('credit_pay').style.display='block';	
+	document.getElementById('credit_pay').style.display='block';
 	document.getElementById('cash_pay').style.display='none';
 	document.getElementById('chq_pay').style.display='none';
 		} else if(type=='chq'){
-		document.getElementById('chq_pay').style.display='block';	
-		document.getElementById('credit_pay').style.display='none';	
+		document.getElementById('chq_pay').style.display='block';
+		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='none';
 			}else if(type=='cash'){
-		document.getElementById('chq_pay').style.display='none';	
-		document.getElementById('credit_pay').style.display='none';	
+		document.getElementById('chq_pay').style.display='none';
+		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='block';
 			}else {
-		document.getElementById('chq_pay').style.display='none';	
-		document.getElementById('credit_pay').style.display='none';	
+		document.getElementById('chq_pay').style.display='none';
+		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='none';
-			} 
+			}
+	 }
 
-	 }	
-	
-	
-	
-	
 </script>
-  <script type="text/javascript">
+<script type="text/javascript">
 $(function() {
-
-
 $('input[name=com]').click(function(){
-
 //Save the link in a variable called element
 $(this).hide();
-
 //Find the id of the link that was clicked
-
-
 });
-
 });
 </script>
 </body>

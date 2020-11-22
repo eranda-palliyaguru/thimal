@@ -1,15 +1,16 @@
-<?php 
+<?php
 session_start();
 date_default_timezone_set("Asia/Colombo");
 include('connect.php');
 
 $date="";
 $f=0;
-$g="non";	
+$g="non";
 $a1 = $_POST['id'];
 //$ar = $_POST['amount'];
 $type = $_POST['p_type'];
 //$c = $_POST['cus_name'];
+
 
 $result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 		$result->bindParam(':userid', $res);
@@ -20,6 +21,14 @@ $result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 			$bill_amount = $row['amount'];
 			$loding_id = $row['loading_id'];
 		}
+
+		$result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
+				$result->bindParam(':userid', $res);
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+					$balance2 = $row['balance'];
+				}
+
 
 $result = $db->prepare("SELECT * FROM customer WHERE customer_id='$cus_id' ");
 		$result->bindParam(':userid', $res);
@@ -39,16 +48,53 @@ $result = $db->prepare("SELECT sum(amount) FROM payment WHERE sales_id ='$sales_
 		}
 
 
-
 $now=date("Y-m-d");
-if($type=="chq"){
+		if($type=="chq"){
+$now=date("Y-m-d");
 	$amount_pay=0;
 	$f = $_POST['chq_no'];
 	$g = $_POST['bank'];
 	$amount=$_POST['chq_amount'];
 	$date= $_POST['chq_date'];
 	$action=2;
-} 
+
+//-------- check chq date -------//
+	if (strpos($date, 'y') !== false) {
+$_SESSION['posttimer'] = time();
+$_SESSION['error'] = " CHQ පතේ දිනය නිවැරදිව ඇතුලත් කරන්න ";
+	}
+	if (strpos($date, 'm') !== false) {
+$_SESSION['posttimer'] = time();
+$_SESSION['error'] = " CHQ පතේ දිනය නිවැරදිව ඇතුලත් කරන්න ";
+	}
+	if (strpos($date, 'd') !== false) {
+$_SESSION['posttimer'] = time();
+$_SESSION['error'] = " CHQ පතේ දිනය නිවැරදිව ඇතුලත් කරන්න ";
+	}
+				  $sday= strtotime( $now);
+                  $nday= strtotime($date);
+                  $tdf= abs($nday-$sday);
+                  $nbday1= $tdf/86400;
+                  $rs1= intval($nbday1);
+	if ($rs1 > 180) {
+								$_SESSION['posttimer'] = time();
+								$_SESSION['error'] = "  මාස 6ට වඩා දින පරාසයක් ඇති CHQ පත් ඇතුලත් කර නොහැක <br>   CHQ පතේ දිනය නිවැරදිදැයි පරික්ශාකරන්න";
+									}
+
+//-------- check chq number -------//
+if ($f=="") {
+	$_SESSION['posttimer'] = time();
+	$_SESSION['error'] = " CHQ පතේ අංකය නිවැරදිව ඇතුලත් කරන්න ";
+}
+
+//-------- check chq bank -------//
+if ($g=="") {
+	$_SESSION['posttimer'] = time();
+	$_SESSION['error'] = " CHQ පත අයත් බැංකුව නිවැරදිව ඇතුලත් කරන්න ";
+}
+
+}
+//---- ****Cash****-----//
 if($type=="cash"){
 	$amount_pay=$_POST['cash_amount'];
     $amount=$_POST['cash_amount'];
@@ -67,63 +113,28 @@ if($type=="coupon"){
     $action=2;
 }
 
+
+$action='0';
+
+
+//--------------------- Check bublicate ----------------------//
+if (isset($_POST) ) {
+   if (isset($_SESSION['posttimer'])) {
+
+				      if ( (time() - $_SESSION['posttimer']) >= 2) {
+				       // more than 2 seconds since last post
+
+
 $sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod)";
 $q = $db->prepare($sql);
 $q->execute(array(':a'=>$a1,':b'=>$amount_pay,':c'=>$amount,':d'=>$type,':e'=>$date,':h'=>$now,':f'=>$f,':g'=>$g,':cus'=>$cus_id,':crp'=>$credit_p,':sid'=>$sales_id,':act'=>$action,':lod'=>$loding_id));
 
-$action=1;
-$sql = "UPDATE sales 
+
+$sql = "UPDATE sales
         SET balance=balance-?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
 $q->execute(array($amount,$sales_id));
-
-$sql = "UPDATE sales 
-        SET action=?
-		WHERE transaction_id=?";
-$q = $db->prepare($sql);
-$q->execute(array($action,$sales_id));
-
-$time=date("H:i");
-$sql = "UPDATE sales 
-        SET time=?
-		WHERE transaction_id=?";
-$q = $db->prepare($sql);
-$q->execute(array($time,$sales_id));
-
-
-$ac=0;
-$sql = "UPDATE sales_list 
-        SET action=?
-		WHERE invoice_no=?";
-$q = $db->prepare($sql);
-$q->execute(array($ac,$a1));
-
- 
-
-$result1 = $db->prepare("SELECT count(amount) FROM payment WHERE sales_id='$sales_id'  ");
-		$result1->bindParam(':userid', $res);
-		$result1->execute();
-		for($i=0; $row1 = $result1->fetch(); $i++){
-		$count=$row1['count(amount)'];
-		}
-
-
-if($count<2){ 
-$result = $db->prepare("SELECT * FROM sales_list WHERE invoice_no='$a1' ");
-		$result->bindParam(':userid', $res);
-		$result->execute();
-		for($i=0; $row = $result->fetch(); $i++){
-$pro_id=$row['product_id'];
-$qty=$row['qty'];
-		
-$sql = "UPDATE loading_list 
-        SET qty_sold=qty_sold-?
-		WHERE loading_id=? AND product_code=?";
-$q = $db->prepare($sql);
-$q->execute(array($qty,$loding_id,$pro_id));		
-		} }
-
 
 $result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 		$result->bindParam(':userid', $res);
@@ -132,6 +143,91 @@ $result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 			$balance = $row['balance'];
 		}
 
-if($balance>1){header("location: other_pay.php?id=$a1");}else{ 
+if($balance>1){header("location: other_pay.php?id=$a1");}else{
+
+//------------- Update Action --------------//
+$action=1;
+	$sql = "UPDATE sales
+	        SET action=?
+			WHERE transaction_id=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($action,$sales_id));
+
+	$time=date("H:i");
+	$sql = "UPDATE sales
+	        SET time=?
+			WHERE transaction_id=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($time,$sales_id));
+
+	$ac=0;
+	$sql = "UPDATE sales_list
+	        SET action=?
+			WHERE invoice_no=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($ac,$a1));
+
+	$sql = "UPDATE sales_list
+					SET sales_id=?
+			WHERE invoice_no=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($sales_id,$a1));
+//-------------*/ Update Action --------------//
+
+//------------- Update QTY --------------//
+	$result = $db->prepare("SELECT * FROM sales_list WHERE invoice_no='$a1' ");
+			$result->bindParam(':userid', $res);
+			$result->execute();
+			for($i=0; $row = $result->fetch(); $i++){
+	$pro_id=$row['product_id'];
+	$qty=$row['qty'];
+
+	$sql = "UPDATE loading_list
+	        SET qty_sold=qty_sold-?
+			WHERE loading_id=? AND product_code=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($qty,$loding_id,$pro_id));
+			}
+//-------------*/ Update QTY --------------//
+
+//------------- Update payment action --------------//
+	$result = $db->prepare("SELECT * FROM payment WHERE sales_id ='$sales_id' ");
+			$result->bindParam(':userid', $res);
+			$result->execute();
+			for($i=0; $row = $result->fetch(); $i++){
+	$pay_id=$row['transaction_id'];
+	$type=$row['type'];
+
+if ($type=='cash') {
+	$action=1;
+	$sql = "UPDATE payment
+	        SET action=?
+			    WHERE transaction_id=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($action,$pay_id));
+}else {
+	$action=2;
+	$sql = "UPDATE payment
+	        SET action=?
+			    WHERE transaction_id=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($action,$pay_id));
+}
+
+			}
+//-------------*/ Update payment action --------------//
+
+
+
 header("location: bill.php?id=$a1");}
+
+} else {
+
+
+	if($balance2>1){header("location: other_pay.php?id=$a1");}else{	header("location: bill.php?id=$a1");}
+}
+}
+$_SESSION['posttimer'] = time();
+}
+
 ?>
