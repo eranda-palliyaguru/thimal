@@ -145,7 +145,7 @@ if($r =='admin'){
        </div>
 			  <label for="exampleInputPassword1">Date</label>
          <div class="input-group">
-           <input type="text" name="chq_date" class="form-control pull-right" id="chq_date"  autocomplete="off" data-inputmask='"alias": "yyyy-mm-dd"' data-mask><p id="chq_date1" style="color: red"></p>
+           <input type="text" name="chq_date" class="form-control pull-right" id="chq_date"  autocomplete="off" data-inputmask='"mask": "9999-99-99"' data-mask><p id="chq_date1" style="color: red"></p>
        </div>
       <br>
 	<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
