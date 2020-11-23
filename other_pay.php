@@ -123,6 +123,7 @@ $_SESSION['posttimer'] = time();
             <option value="credit">Credit</option>
             <option value="chq">Cheque</option>
 			<option value="coupon">Coupon</option>
+      <option value="2kg">2kg to 5kg promotion</option>
                       </select>
 
    <div class="form-group" id='credit_pay' style="display:none;">
@@ -185,6 +186,21 @@ $_SESSION['posttimer'] = time();
 	</form>
 		</div>
 
+    <div class="form-group" id='2kg' style="display:none;">
+<form action="save_sales_pay.php" method="post">
+	<input type="hidden" name="p_type" value="2kg">
+
+	   <label for="exampleInputPassword1"><span class="info-box-icon bg-">
+       <img src="icon/2.png" style="width: 40px"><input type="number" name="2kg" class="form-control pull-right"></span></label>
+
+<br><br>
+
+      <br>
+	<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+	<input class="btn btn-info" name="com" type="submit" value="Pay and Print" >
+	</form>
+		</div>
+
 		</center>
 		<div id="form_continue"></div>
 	            <!-- /btn-group -->
@@ -198,8 +214,8 @@ $_SESSION['posttimer'] = time();
              <tr>
 
               <th>Pay type</th>
-      <th>Amount </th>
-             <th>Chq no</th>
+     <th>Amount </th>
+     <th>Chq no</th>
      <th>Chq Date</th>
      <th>Bank</th>
      </tr>
@@ -370,26 +386,37 @@ $result = $db->prepare("SELECT * FROM payment WHERE   invoice_no='$invo'   ORDER
 	document.getElementById('cash_pay').style.display='none';
 	document.getElementById('chq_pay').style.display='none';
 	document.getElementById('coupon').style.display='none';
+  document.getElementById('2kg').style.display='none';
 		} else if(type=='chq'){
 		document.getElementById('chq_pay').style.display='block';
 		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='none';
 		document.getElementById('coupon').style.display='none';
+    document.getElementById('2kg').style.display='none';
 			}else if(type=='cash'){
 		document.getElementById('chq_pay').style.display='none';
 		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='block';
 		document.getElementById('coupon').style.display='none';
+    document.getElementById('2kg').style.display='none';
 			}else if(type=='coupon'){
 		document.getElementById('chq_pay').style.display='none';
 		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='none';
+    document.getElementById('2kg').style.display='none';
 		document.getElementById('coupon').style.display='block';
+  }else if(type=='2kg'){
+document.getElementById('chq_pay').style.display='none';
+document.getElementById('coupon').style.display='none';
+document.getElementById('credit_pay').style.display='none';
+document.getElementById('cash_pay').style.display='none';
+document.getElementById('2kg').style.display='block';
 			}else {
 		document.getElementById('chq_pay').style.display='none';
 		document.getElementById('credit_pay').style.display='none';
 		document.getElementById('cash_pay').style.display='none';
 		document.getElementById('coupon').style.display='none';
+    document.getElementById('2kg').style.display='none';
 			}
 	 }
 

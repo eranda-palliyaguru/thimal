@@ -100,17 +100,40 @@ if($type=="cash"){
     $amount=$_POST['cash_amount'];
 	$action=1;
 }
+//---- ****Credit****-----//
 if($type=="credit"){
     $amount=$bill_amount-$pay_balance;
 	$amount_pay=0;
 $action=2;
 }
-
+//---- ****Coupon****-----//
 if($type=="coupon"){
     $amount=$_POST['cup_amount'];
 	$f = $_POST['cup_no'];
 	$amount_pay=0;
     $action=2;
+}
+
+if($type=="2kg"){
+	$amount=0;$qty_2kg=0;
+	$amount_pay=0;
+    $action=2;
+	$result = $db->prepare("SELECT * FROM sales_list WHERE invoice_no='$a1' AND product_id='6'");
+			$result->bindParam(':userid', $res);
+			$result->execute();
+			for($i=0; $row = $result->fetch(); $i++){
+	$qty_2kg=$row['qty'];
+	$price_2kg=$row['price'];
+			}
+		$in_qty = $_POST['2kg'];
+if ($qty_2kg >= $in_qty) {
+	$amount=$price_2kg*$in_qty;
+}else {
+	$_SESSION['posttimer'] = time();
+	$_SESSION['error'] = " නිවැරදි 2kg cylinder ප්‍රමානය ඇතුලත් කරන්න  ";
+}
+	$f=$_POST['2kg'];
+
 }
 
 
@@ -213,7 +236,46 @@ if ($type=='cash') {
 	$q = $db->prepare($sql);
 	$q->execute(array($action,$pay_id));
 }
+//------------- 2kg to 5kg promotion -------------//
+if ($type=='2kg') {
+$tt=1; $qty=$row['chq_no'];$pro_co="8";
+	$result11 = $db->prepare("SELECT * FROM loading_list WHERE loading_id ='$loding_id' AND product_code='$pro_co' ");
+			$result11->bindParam(':userid', $res);
+			$result11->execute();
+			for($i=0; $row11 = $result11->fetch(); $i++){
+				$tt=$row11['transaction_id'];
+			}
+if ($tt > 1) {
+	$sql = "UPDATE loading_list
+	        SET qty_sold=qty_sold+?
+			WHERE transaction_id=?";
+	$q = $db->prepare($sql);
+	$q->execute(array($qty,$tt));
+}
+if($tt==1){
 
+$lorry_no="";
+	$result11 = $db->prepare("SELECT * FROM loading_list WHERE loading_id ='$loding_id' ");
+			$result11->bindParam(':userid', $res);
+			$result11->execute();
+			for($i=0; $row11 = $result11->fetch(); $i++){
+				$lorry_no=$row11['lorry_no'];
+				$date=$row11['date'];
+			}
+$b='8';
+$c=$row['chq_no'];
+$f="";
+$h='';
+$ii='2kg cylinder';
+$k='load';
+$j1=date('Y-m-d_h:i:sa');
+
+	$sql = "INSERT INTO loading_list (product_code,qty,price,lorry_no,profit,product_name,date,action,qty_sold,loading_time,loading_id,load_yard_before) VALUES (:b,:f,:g,:c,:h,:i,:j,:k,:l,:j1,:m,:lb)";
+	$q = $db->prepare($sql);
+	$q->execute(array(':b'=>$b,':c'=>$lorry_no,':f'=>$c,':g'=>"",':h'=>$h,':i'=>$ii,':j'=>$date,':k'=>$k,':l'=>$c,':j1'=>$j1,':m'=>$loding_id,':lb'=>"0"));
+}
+}
+//-------------*/ 2kg to 5kg promotion -------------//
 			}
 //-------------*/ Update payment action --------------//
 
