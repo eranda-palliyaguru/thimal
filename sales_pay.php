@@ -164,9 +164,7 @@ if($r =='admin'){
           </div>
       <!-- SELECT2 EXAMPLE -->
 
-		  <a  href="sales_edit.php?id=<?php echo $_GET['id']; ?>"><button  class=" btn btn-danger" style="width: 123px; height:35px; margin-:-8px;margin-left:8px;" >
-				Edit Bill
-                </button></a>
+		 
           <!-- /.box -->
         </div>
         <!-- /.col (right) -->
