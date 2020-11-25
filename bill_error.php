@@ -119,11 +119,12 @@ include_once("sidebar.php");
 
 
 
-        $cal=$price_o*$qty;
+        $cal=$price*$qty;
         $cal2=$pro_price*$qty;
 
-            if ($amount > $cal) {
-              if ($amount==$cal2) {
+            if ($amount == $cal) {}else {
+
+
 
 ?>
                   </td>
@@ -150,7 +151,7 @@ include_once("sidebar.php");
                 </tr>
 				<?php
 
-			}	}	} }?>
+				}	} }?>
                 </tbody>
                 <tfoot>
 
