@@ -13,7 +13,7 @@ if($type=="chq"){
 	$date= $_POST['chq_date'];
 	$bank = $_POST['bank'];
 	$action=2;
-} 
+}
 if($type=="cash"){
 	$amount_pay=$_POST['cash_amount'];
     $amount=$_POST['cash_amount'];
@@ -46,7 +46,7 @@ $b = $_POST['order_id'];
 
 
 
-$sql = "UPDATE payment 
+$sql = "UPDATE payment
         SET pay_amount=pay_amount+?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
@@ -66,9 +66,9 @@ $result = $db->prepare("SELECT * FROM payment  WHERE transaction_id='$a'   ");
 				}
 
 
-if($am <= $balance1){	
+if($am <= $balance1){
 $ex="1";
-$sql = "UPDATE payment 
+$sql = "UPDATE payment
         SET action=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
@@ -90,7 +90,7 @@ $q->execute(array(':a'=>$invo,':b'=>$amount_pay,':c'=>$amount,':d'=>$type,':e'=>
 
 $r = $_POST['r'];
 $cus = $_POST['cus'];
-header("location: sales_credit.php?r=$r&cus=$cus");	
+header("location: sales_credit.php?cus=$cus");	
 
 
 

@@ -164,7 +164,7 @@ if($r =='admin'){
           </div>
       <!-- SELECT2 EXAMPLE -->
 
-		 
+	
           <!-- /.box -->
         </div>
         <!-- /.col (right) -->
