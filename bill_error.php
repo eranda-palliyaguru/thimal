@@ -110,12 +110,21 @@ include_once("sidebar.php");
               $invoice_no=$row1['invoice_no'];
               $date=$row1['date'];
 
+              $result122 = $db->prepare("SELECT * FROM products WHERE product_id='$product_id'  ");
+                  $result122->bindParam(':userid', $res);
+                  $result122->execute();
+                  for($i=0; $row122 = $result122->fetch(); $i++){
+                  $pro_price =$row122['price'];
+                  }
 
 
 
         $cal=$price_o*$qty;
+        $cal2=$pro_price*$qty;
 
             if ($amount > $cal) {
+              if ($amount==$cal2) {
+
 ?>
                   </td>
 
@@ -141,7 +150,7 @@ include_once("sidebar.php");
                 </tr>
 				<?php
 
-			}	}	}?>
+			}	}	} }?>
                 </tbody>
                 <tfoot>
 
