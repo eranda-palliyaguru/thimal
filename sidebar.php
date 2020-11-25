@@ -1,4 +1,4 @@
-<div class="wrapper">	  
+<div class="wrapper">
   <header class="main-header">
     <!-- Logo -->
     <a href="index.php" class="logo">
@@ -20,16 +20,16 @@
 		include('connect.php');
  date_default_timezone_set("Asia/Colombo");
 
-                  $date =  date("Y-m-d");					
-	
+                  $date =  date("Y-m-d");
+
 				$count=0;
-				
-				
+
+
 			?>
-	  
-	  
-	  
-	  
+
+
+
+
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
@@ -44,77 +44,77 @@
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
 				<?php
-					
+
 				$result = $db->prepare("SELECT * FROM sales WHERE date= :userid  ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-				
-				
-				
-				
+
+
+
+
 			?>
-				
-				
-				
+
+
+
                   <li>
                     <a href="pay_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>">
                       <i class="fa fa-user text-green"></i> <?php echo $row['name']; ?>
-					  
+
 					  </a>
-                    
+
                   </li>
                   <!-- end message -->
-                    
+
 				<?php } ?>
-					
-					
-					
+
+
+
                 </ul>
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
-		  
-		  
+
+
 		  <?php
-		  
+
 		include('connect.php');
  date_default_timezone_set("Asia/Colombo");
 
                   $date =  date("Y-m-d");
 
-		
 
 
-				  
-			
-			
+
+
+
+
 				$rowcount123 = 0;
 
-				
-				
-				
+
+
+
 				$ttre = 0;
                 //$tre=$ttre-$rowcount123;
-				
-				
-				
-				
+
+
+
+
 				$rv=0;
-				
-				
-				
-				
+
+
+
+
 				$rate=0;
-				
-				
+
+
 			?>
-		  
-		  
-		  
-		  
+
+
+
+
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-credit-card"></i>
@@ -125,35 +125,35 @@
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  
+
   <?php
 		include('connect.php');
  date_default_timezone_set("Asia/Colombo");
 
-                					
-			
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
+
+
 				$rate=0;
-				
-				
+
+
 			?>
                   <li>
                     <a href="delay payment.php?id=day">
                       <i class="fa fa-user text-yellow"></i> <?php echo $row['cus_name']; ?>
                     </a>
                   </li>
-				    
-			
-                 
-				
-				  
-				  
+
+
+
+
+
+
                 </ul>
               </li>
               <li class="footer"><a href="delay payment.php?id=week">View all</a></li>
@@ -233,7 +233,7 @@
               </li>
             </ul>
           </li>
-			
+
 			<?php
 			$uname=$_SESSION['SESS_MEMBER_ID'];
 		$result1 = $db->prepare("SELECT * FROM user WHERE id='$uname' ");
@@ -242,9 +242,9 @@
 		for($i=0; $row1 = $result1->fetch(); $i++){
 		$upic1=$row1['upic'];
 		}
-			
+
 			?>
-			
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -322,18 +322,18 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-        
-		
+
+
   <!----------------------------- /.search form ---------------------------------------->
-		  
+
 		  <?php
-		  if($r =='su'){ 
+		  if($r =='su'){
 		  ?>
 		<li>
           <a  href="index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
-			
+
             </span>
           </a>
         </li>
@@ -346,8 +346,8 @@
           </a>
         </li>
 
-		
-		
+
+
         <li class="treeview">
           <a href="#">
             <i class="fa fa-line-chart"></i>
@@ -356,25 +356,25 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-  
+
           <ul class="treeview-menu">
-		  <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>"><i class="fa fa-circle-o text-aqua"></i> Sales Report</a></li>			
+		  <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>"><i class="fa fa-circle-o text-aqua"></i> Sales Report</a></li>
           </ul>
-        </li>		  
-		  
-		  
-		  
+        </li>
+
+
+
 		  <?php } if($r =='admin'){ ?>
 		<li>
           <a  href="index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
-			
+
             </span>
           </a>
         </li>
 
-		  
+
 		  <li class="treeview">
           <a href="#">
             <i class="fa fa-suitcase"></i>
@@ -383,20 +383,20 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">		  
+          <ul class="treeview-menu">
             <li><a href="expenses.php"><i class="fa fa-circle-o text-aqua "></i>Expenses</a></li>
-			<li><a href="petty.php"><i class="fa fa-circle-o text-red "></i>Cash BOX</a></li>			
+			<li><a href="petty.php"><i class="fa fa-circle-o text-red "></i>Cash BOX</a></li>
 			</a>
           </ul>
         </li>
 
-		  
-		  
-		  
-		  
-		  
-		  
-		
+
+
+
+
+
+
+
          <li class="treeview">
           <a href="#">
             <i class="fa fa-truck"></i>
@@ -405,8 +405,8 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  
-          <ul class="treeview-menu">		  
+
+          <ul class="treeview-menu">
             <li><a href="loading.php"><i class="fa fa-circle-o text-aqua "></i> New Loading</a></li>
 			<li><a rel="facebox" href="emty_loading.php"><i class="fa fa-circle-o text-aqua "></i> Emty cylinder Loading</a></li>
 			<li><a rel="facebox" href="unloading.php"><i class="fa fa-circle-o text-aqua "></i> Unloading</a></li>
@@ -425,18 +425,18 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  	  
+
           <ul class="treeview-menu">
-		  
+
             <li><a href="purchase.php"><i class="fa fa-circle-o text-aqua "></i> Add Purchases</a></li>
 			<li><a rel="facebox" href="distributor_lorry_pur.php"><i class="fa fa-circle-o text-aqua "></i> Distributor Lorry Purchases</a></li>
 			<li><a href="purchase_view.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> View Purchase</a></li>
 			</a>
           </ul>
         </li>
-		
-		
-		
+
+
+
 		<li class="treeview">
           <a href="#">
             <i class="fa fa-bank"></i>
@@ -445,7 +445,7 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">		  
+          <ul class="treeview-menu">
             <li><a href="deposit.php"><i class="fa fa-circle-o text-aqua "></i>Deposit</a></li>
 			<li><a href="withdraw.php"><i class="fa fa-circle-o text-red "></i>Withdraw </a></li>
 			<li><a href="chq_return.php"><i class="fa fa-circle-o text-red "></i>CHQ Return </a></li>
@@ -453,13 +453,13 @@
           </ul>
         </li>
 
-		
-		
-		
-		
 
 
-		
+
+
+
+
+
         <li class="treeview">
           <a href="#">
             <i class="fa fa-line-chart"></i>
@@ -468,28 +468,28 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  
-		  
-		  
+
+
+
           <ul class="treeview-menu">
-		  
+
             <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report</a></li>
-			
+
 			<li><a href="sales_credit.php"><i class="fa fa-circle-o text-aqua "></i> Credit Report</a></li>
 			<li><a href="sales_credit_pay.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Credit Payment Report</a></li>
-			  
+
 <li><a href="bank_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>"><i class="fa fa-circle-o text-aqua "></i> Bank Report</a></li>
-			  
-			<li><a href="pay_sum.php"><i class="fa fa-circle-o text-aqua "></i>Payment Summary </a></li>  
-			<li><a href="loding_list.php?id=<?php echo $date;?>&lorry=0"><i class="fa fa-circle-o text-aqua "></i> Loading Report</a></li>			
+
+			<li><a href="pay_sum.php"><i class="fa fa-circle-o text-aqua "></i>Payment Summary </a></li>
+			<li><a href="loding_list.php?id=<?php echo $date;?>&lorry=0"><i class="fa fa-circle-o text-aqua "></i> Loading Report</a></li>
 			<li><a href="expenses_sum.php?d1=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Expenses Report </a></li>
  <li><a href="stock_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>"><i class="fa fa-circle-o text-aqua "></i> Stock Report</a></li>
-			
+
 			  <li>
               <a href="#"><i class="fa fa-line-chart text-red"></i>Sub Report
               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
               </a>
-                <ul class="treeview-menu">				  
+                <ul class="treeview-menu">
                 <li><a href="sales_all_print.php?d1=2020-01-14&d2=2020-01-31"><i class="fa fa-circle-o text-aqua "></i> Sales Jan</a></li>
 				<li><a href="sales_rp_special.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i>Special Price Sales</a></li>
 				<li><a href="sales_all_rp.php?d1=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Day End Report </a></li>
@@ -498,7 +498,7 @@
 				<li><a href="purchase_view.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Report</a></li>
 <li><a href="purchase_pay_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Pay Report</a></li>
 <li><a href="sales_dll_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Delete Report</a></li>
-					
+
 <li><a href="sales_rp_month.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Sales Month Report</a></li>
                 </ul>
               </li>
@@ -506,11 +506,11 @@
 			</a></li>
           </ul>
         </li>
-		
-<li class="header">SUB NAVIGATION</li>		
-		
+
+<li class="header">SUB NAVIGATION</li>
+
 	<li class="treeview">
-		
+
           <a href="#">
             <i class="fa fa-exchange"></i>
             <span>SUB Menu</span>
@@ -518,30 +518,39 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  	  
+
           <ul class="treeview-menu">
 			  <li><a href="customer_category.php"><i class="fa fa-usd"></i> Customer Category</a></li>
-		  
+
 <li>
           <a  href="sales2#.php">
             <i class="fa fa-usd"></i> <span>Add Sales</span>
             <span class="pull-right-container">
-			
+
             </span>
           </a>
         </li>
-		
-		
+
+        <li>
+            <a  href="bill_error.php">
+              <i class="fa fa-usd"></i> <span>Bill Error</span>
+              <span class="pull-right-container">
+
+              </span>
+            </a>
+          </li>
+
+
 		  <li>
           <a  href="special_price.php">
             <i class="fa fa-usd"></i> <span>Special Price</span>
             <span class="pull-right-container">
-			
+
             </span>
           </a>
         </li>
-		
-			  
+
+
 		<li class="treeview">
           <a href="#">
             <i class="fa fa-retweet text-white"></i>
@@ -549,14 +558,14 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>		  
-          <ul class="treeview-menu">		  
-            <li><a href="trust.php"><i class="fa fa-circle-o text-aqua "></i> Add New Trust</a></li>	
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="trust.php"><i class="fa fa-circle-o text-aqua "></i> Add New Trust</a></li>
 			<li><a href="trust_view.php"><i class="fa fa-circle-o text-aqua "></i> View Trust</a></li>
 			</a>
           </ul>
-        </li>			
-          
+        </li>
+
 
 
  <li class="treeview">
@@ -567,11 +576,11 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  
-		  
-		  
+
+
+
           <ul class="treeview-menu">
-		  
+
             <li><a href="damage.php"><i class="fa fa-circle-o text-aqua "></i> Add New Damage</a></li>
 			<li><a rel="facebox" href="damage_company.php"><i class="fa fa-circle-o text-aqua "></i> Sent Damage to Company</a></li>
 			<li><a rel="facebox" href="damage_receive.php"><i class="fa fa-circle-o text-aqua "></i> Damage Receive</a></li>
@@ -580,7 +589,7 @@
 			</a>
           </ul>
         </li>
-		
+
 		<li class="treeview">
           <a href="#">
             <i class="fa fa-gift text-red"></i>
@@ -589,20 +598,20 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  
-		  
-		  
+
+
+
           <ul class="treeview-menu">
-		  
+
             <li><a href="gift.php"><i class="fa fa-circle-o text-aqua "></i> Add New Gift Voucher</a></li>
 			<li><a rel="facebox" href="gift_company.php"><i class="fa fa-circle-o text-aqua "></i> Sent Voucher to Company</a></li>
 			<li><a rel="facebox" href="gift_receive.php"><i class="fa fa-circle-o text-aqua "></i> Voucher Receive</a></li>
-			
+
 			<li><a href="gift_view.php"><i class="fa fa-circle-o text-aqua "></i> View Gift Voucher</a></li>
 			</a>
           </ul>
         </li>
-		
+
 
 
 
@@ -613,10 +622,10 @@
 
        </ul>
         </li>
-			
-		
-                
-               
+
+
+
+
 			<li class="treeview">
           <a href="#">
             <i class="fa fa-group"></i>
@@ -625,11 +634,11 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-		  
-		  
-		  
+
+
+
           <ul class="treeview-menu">
-		  
+
             <li><a href="customer.php"><i class="fa fa-circle-o text-aqua "></i> Customer</a></li>
 			<li><a href="product.php"><i class="fa fa-circle-o text-aqua "></i> Product</a></li>
 			<li><a href="rep.php"><i class="fa fa-circle-o text-aqua "></i> Rep</a></li>
@@ -637,10 +646,10 @@
 			<li><a href="root.php"><i class="fa fa-circle-o text-aqua "></i>Root</a></li>
 			</a>
           </ul>
-        </li>	
-	<?php } ?>			
+        </li>
+	<?php } ?>
 
-        
-            
+
+
       </ul>
     </section>
