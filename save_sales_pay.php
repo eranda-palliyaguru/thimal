@@ -166,7 +166,7 @@ $result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 			$balance = $row['balance'];
 		}
 
-if($balance>=1){header("location: other_pay.php?id=$a1");}else{
+if($balance>1){header("location: other_pay.php?id=$a1");}else{
 
 //------------- Update Action --------------//
 $action=1;
@@ -288,11 +288,9 @@ header("location: bill.php?id=$a1");}
 
 	if($balance2>1){header("location: other_pay.php?id=$a1");}else{	header("location: bill.php?id=$a1");}
 }
-$_SESSION['posttimer'] = time();
-header("location: other_pay.php?id=$a1");
 }
 $_SESSION['posttimer'] = time();
-header("location: other_pay.php?id=$a1");
+
 }
 
 ?>
