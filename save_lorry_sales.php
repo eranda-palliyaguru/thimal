@@ -43,10 +43,10 @@ $pro_id=$row['product_id'];
 $name=$row['gen_name'];
 $price=$row['price'];
 $o_price=$row['o_price'];
-$sp_id="";	
-			
-			
-$result35 = $db->prepare("SELECT * FROM special_price WHERE product_id='$pro_id' and customer_id='$cus_id' ");
+$sp_id="";
+
+
+$result35 = $db->prepare("SELECT * FROM special_price WHERE product_id='$pro_id' and customer_id='$cus_id' ORDER by id DESC ");
 		$result35->bindParam(':userid', $res);
 		$result35->execute();
 		for($i=0; $row35 = $result35->fetch(); $i++){
@@ -57,12 +57,12 @@ $sp_price=$row35['price'];
 if($sp_id>0){$price=$sp_price;}
 
 			$qty=0;
-			
+
 $result2 = $db->prepare("SELECT * FROM loading_list WHERE loading_id='$loading_id' and action='load' and  product_code='$pro_id'  ");
 		$result2->bindParam(':userid', $res);
 		$result2->execute();
-		for($i=0; $row2 = $result2->fetch(); $i++){			
-			
+		for($i=0; $row2 = $result2->fetch(); $i++){
+
 $qty=$_POST[$pro_id];
 		}
 $amount=$price*$qty;
@@ -72,7 +72,7 @@ $date=date("Y-m-d");
 
 if($qty>0){
 $action=3;
-			
+
 $sql = "INSERT INTO sales_list (product_id,name,qty,price,amount,profit,date,invoice_no,loading_id,action,cus_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:invo,:loid,:ac,:cus)";
 $ql = $db->prepare($sql);
 $ql->execute(array(':a'=>$pro_id,':b'=>$name,':c'=>$qty,':d'=>$price,':e'=>$amount,':f'=>$profit,':g'=>$date,':invo'=>$invo,':loid'=>$loading_id,':ac'=>$action,':cus'=>$cus_id));
