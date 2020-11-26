@@ -35,7 +35,13 @@ $sec = "1";
   <!-- Main content -->
   <section class="invoice">
 
-
+<?php   $invo=$_GET['id'];
+ $result = $db->prepare("SELECT * FROM sales WHERE   invoice_number='$invo'");
+ $result->bindParam(':userid', $date);
+				 $result->execute();
+				 for($i=0; $row = $result->fetch(); $i++){
+					$invo=$row['transaction_id'];
+				 } ?>
 
 
 	  <div class="row">
@@ -47,8 +53,8 @@ $sec = "1";
 	 33B/1 Katuwawala, boralasgamuwa <br>
 	 011-2 509 801
 <br>
-		  <b>Invoice no.<?php echo $_GET['id']; ?> </b><br>
-	<b>mm </b><br>
+		  <b>Invoice no.<?php echo $invo; ?> </b><br>
+	<br>
 		  Date:<?php date_default_timezone_set("Asia/Colombo");
     echo date("Y-m-d"); echo "  Time-";  echo date("h:ia")  ?>
 			</h5></a>
