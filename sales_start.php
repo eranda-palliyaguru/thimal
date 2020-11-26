@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue layout-top-nav">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -17,15 +17,16 @@ if($r =='admin'){
 
 //include_once("sidebar.php");
 }
+$_SESSION['page']="START";
 ?>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script>
-	
+
 $(document).ready(function(){
 	setInterval(function(){
 		$("#screen").load('lorry_gps_view.php')
-   
+
 	}, 5000);
 });
 </script>
@@ -37,23 +38,23 @@ $(document).ready(function(){
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
     <!-- /.sidebar -->
   </aside>
 
-	
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-   
-	
+
+
 	  <?php
 	 $tid="";
 	  $uid=$_SESSION['SESS_MEMBER_ID'];
@@ -61,7 +62,7 @@ $(document).ready(function(){
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
-		$emid=$row['EmployeeId'];		
+		$emid=$row['EmployeeId'];
 		}
 	    $result = $db->prepare("SELECT * FROM loading WHERE driver='$emid' and action='load'   ");
 		$result->bindParam(':userid', $res);
@@ -69,22 +70,22 @@ $(document).ready(function(){
 		for($i=0; $row = $result->fetch(); $i++){
 		 $tid=$row['transaction_id'];
 		}
-	
+
 	  if($tid>0){
 	  ?>
-	  
-	  
-	  
+
+
+
      <div class="row">
       <div id="screen"></div>
-		 
+
 <div class="col-md-6">
               <div class="form-group">
                 <label>Customer</label>
 				<form method="get" action="sales.php">
-				
+
                 <select class="form-control select2" name="id"  style="width: 100%;" autofocus >
-			
+
 			<?php
                 $result = $db->prepare("SELECT * FROM customer   ");
 		$result->bindParam(':userid', $res);
@@ -93,13 +94,13 @@ $(document).ready(function(){
 	?>
 		<option value="<?php echo $row['customer_id'];?>"><?php echo $row['customer_id']."__".$row['customer_name']; ?>    </option>
 	<?php	}	?>
-			
-			
-			
+
+
+
                 </select>
 				</div>
-				  
-		<input class="btn btn-info" type="submit" value="Submit" >		  
+
+		<input class="btn btn-info" type="submit" value="Submit" >
 				  </form>
               </div><br><br><br>
         <!-- /.col -->
@@ -107,118 +108,118 @@ $(document).ready(function(){
 	<button type="button" class="btn btn-block btn-success btn-sm">#CASH SUM</button></a><br>
 	<a href="set_lorry_expenses.php">
 	<button type="button" class="btn btn-block btn-info btn-sm">#Expenses</button></a> <br>
-		
+
 	<a href="lorry_credit_view.php">
-	<button type="button" class="btn btn-block btn-danger btn-sm">#Credit</button></a>	
+	<button type="button" class="btn btn-block btn-danger btn-sm">#Credit</button></a>
 		 </div><br>
-		 
+
 		 <section class="content">
 <div class="box box-info">
 		 <div class="box-body">
 		  <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-				
+
 				<th>Product </th>
 				<th>Qty</th>
-                 			
+
 				</tr>
                 </thead>
                 <tbody>
 				<?php
                 include("connect.php");
-				
-			
-				
-				
+
+
+
+
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
-	$result = $db->prepare("SELECT * FROM loading_list WHERE  loading_id='$tid' and  product_code<'5' ORDER by transaction_id ASC");			
+	$result = $db->prepare("SELECT * FROM loading_list WHERE  loading_id='$tid' and  product_code<'5' ORDER by transaction_id ASC");
 				$result->bindParam(':userid', $date);
                 $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	 
-			?>	
-              
-				<tr> 
-                <td><?php echo $row['product_name'];?></td>				 
+                for($i=0; $row = $result->fetch(); $i++){
+			?>
+
+				<tr>
+                <td><?php echo $row['product_name'];?></td>
 				 <td><span class="badge bg-green"><?php echo $row['qty']; ?></span>
-				<span class="badge bg-"><?php echo $row['qty_sold']; ?></span>	
+				<span class="badge bg-"><?php echo $row['qty_sold']; ?></span>
 					</td>
-				  
-				 
-				  
+
+
+
 				<?php
 				}
 				   ?></td>
-                </tr>               
+                </tr>
                 </tbody>
                 <tfoot>
-                </tfoot>				
+                </tfoot>
               </table>
-			 
+
 			 <h2>Invoice</h2>
 			 <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>				
+                <tr>
 				<th>Invoice no </th>
 				<th>Customer</th>
-                 <th>Pay type</th>                  
+                 <th>Pay type</th>
 				 <th>Amount </th>
-                <th>Chq no</th>				
+                <th>Chq no</th>
 				<th>Chq Date</th>
 				<th>Bank</th>
 				</tr>
-				
-				
-				
+
+
+
 
                 </thead>
                 <tbody>
 				<?php
-                
-				
+
+
 				//$id=$_GET['id'];
-			
-				
-				
+
+
+
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
-	$result = $db->prepare("SELECT * FROM payment WHERE  loading_id='$tid' and action>'0'  ORDER by transaction_id DESC");			
+	$result = $db->prepare("SELECT * FROM payment WHERE  loading_id='$tid' and action>'0'  ORDER by transaction_id DESC");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 				$invo=$row['invoice_no'];
-				
+
 $result1 = $db->prepare("SELECT * FROM sales WHERE  invoice_number=$invo and action='1' ");
 $result1->bindParam(':userid', $c);
 $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
-	
+
 $in=$row1['transaction_id'];
 $cus=$row1['name'];
 
 }
-				 
-				 
-			?>	
-              
-				<tr> 
-                <td><?php echo $in;?></td>				 
-				
+
+
+			?>
+
+				<tr>
+                <td><?php echo $in;?></td>
+
 				 <td><?php echo $cus;?></td>
 				  <td><?php echo $row['type'];?></td>
 				 <td><?php echo $row['amount'];?></td>
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-				  
+
 				<?php
 				}
 				   ?></td>
-                </tr>               
+                </tr>
                 </tbody>
                 <tfoot>
-                </tfoot>				
+                </tfoot>
               </table>
         <!-- /.col -->
 			 </div> </div></div></section>
@@ -229,13 +230,13 @@ $cus=$row1['name'];
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4><i class="icon fa fa-ban"></i> Alert!</h4>
                 Loading නොමැත කරුනා කර Load කර නැවත උත්සාහ කරන්න
-              </div></div>  
-	  
-	  
+              </div></div>
+
+
 	  <?php	}	?>
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
  // include("dounbr.php");
@@ -281,7 +282,7 @@ $cus=$row1['name'];
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2({ dropdownCssClass: "myFont" });
-	  
+
 
     //Datemask dd/mm/yyyy
     $("#datemask").inputmask("YYYY/MM/DD", {"placeholder": "YYYY/MM/DD"});

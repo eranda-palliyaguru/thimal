@@ -17,7 +17,11 @@ if($r =='admin'){
 
 //include_once("sidebar.php");
 }
-?>
+$sec=1;
+$page=$_SESSION['page'];
+if ($page=="END") { ?>
+<meta http-equiv="refresh" content="<?php echo $sec;?>;URL='sales_start.php'">
+<?php } ?>
 
 
 

@@ -4,7 +4,7 @@
 	<?php
 	session_start();
 		  include("connect.php");
-	
+
 	$invo = $_GET['id'];
 	$co = substr($invo,0,2) ;
 			?>
@@ -27,14 +27,15 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-	
+
 <body>
 <?php
 $sec = "1";
+$_SESSION['page']="END";
 $admin=$_SESSION['SESS_LAST_NAME'];
 if($admin=="admin"){
 ?>
-<meta http-equiv="refresh" content="<?php echo $sec;?>;URL='sales2.php?bill=1'">	
+<meta http-equiv="refresh" content="<?php echo $sec;?>;URL='sales2.php?bill=1'">
 <?php
 }else{
 ?>	<meta http-equiv="refresh" content="<?php echo $sec;?>;URL='sales_start.php'">
@@ -43,38 +44,38 @@ if($admin=="admin"){
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
-	  
-	  
-	  
-	  
+
+
+
+
 	  <div class="row">
         <!-- accepted payments column -->
-        <div class="col-xs-6"><a href="sales2.php" style="font-size: 2px"> 
+        <div class="col-xs-6"><a href="sales2.php" style="font-size: 2px">
             <img src="gas.jpg" width="250" alt=""><BR>
-        
+
 	  <h5>NO.135, Negombo. <br>
-	 
-	  	  
+
+
 		  <b>Invoice no.<?php echo $_GET['id']; ?> </b><br>
 	<b>mm </b><br>
-		  Date:<?php date_default_timezone_set("Asia/Colombo"); 
+		  Date:<?php date_default_timezone_set("Asia/Colombo");
     echo date("Y-m-d"); echo "  Time-";  echo date("h:ia")  ?>
-			</h5></a> 
-	  
+			</h5></a>
+
         </div>
         <!-- /.col -->
-		  
-		  
-		  
-		  
+
+
+
+
         <div class="col-xs-6">
           <small class="pull-right">
         </div> <h5>
 		  <?php
- 
 
-		 
-			   $invo=$_GET['id'];	
+
+
+			   $invo=$_GET['id'];
 				$result = $db->prepare("SELECT * FROM sales WHERE   invoice_number='$invo'");
 				$result->bindParam(':userid', $date);
                 $result->execute();
@@ -86,22 +87,22 @@ if($admin=="admin"){
 					echo "<br>";
 					echo "<b>loading id: </b>".$row['loading_id'];
 					echo "<br>";
-					
-					
+
+
 				}
-			
-			  
+
+
 		  ?>
 			</h5></small>
         <!-- /.col -->
 		  <div class="col-xs-4">
           <h3>Final Bill
-		  <?php 
+		  <?php
 			  $invo=$_GET['id'];
 					$tot_amount=0;		  ?>
 			  </h3>
       </div></div>
-  
+
 <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -127,9 +128,9 @@ if($admin=="admin"){
 					$num+=1;
 			?>
                 <tr>
-					<td><?php echo $num;?></td>				
+					<td><?php echo $num;?></td>
                   <td><?php echo $row['name'];?></td>
-				  <td><?php echo $row['qty'];?></td>               
+				  <td><?php echo $row['qty'];?></td>
                   <td>Rs.<?php echo $row['price'];?></td>
 				  <td>Rs.<?php echo $row['amount'];?></td>
 					<?php $tot_amount+= $row['amount'];?>
@@ -137,8 +138,8 @@ if($admin=="admin"){
                  </tr>
 					<tr>
 					<td></td><td></td><td></td><td>Total: </td>
-				
-						
+
+
 						<td>Rs.<?php echo $tot_amount;?></td>
 					</tr>
                 </tbody>
@@ -146,16 +147,16 @@ if($admin=="admin"){
                 </tfoot>
               </table>
 	<?php
-				$result1 = $db->prepare("SELECT * FROM sales WHERE   invoice_number='$invo'  ");		
+				$result1 = $db->prepare("SELECT * FROM sales WHERE   invoice_number='$invo'  ");
 					$result1->bindParam(':userid', $date);
                 $result1->execute();
                 for($i=0; $row1 = $result1->fetch(); $i++){
 				//$tot_amount=$row1['amount'];
 					$balance=$row1['balance'];
 				}
-			?>  
+			?>
 	<div class="col-xs-6">
-         
+
           <div class="table-responsive">
             <table class="table">
 				<tr>
@@ -165,17 +166,17 @@ if($admin=="admin"){
 				<th>Amount</th>
 				<th>Date</th>
               </tr>
-				
+
 <?php
-				$result1 = $db->prepare("SELECT * FROM payment WHERE invoice_no='$invo' and type='chq' ");		
+				$result1 = $db->prepare("SELECT * FROM payment WHERE invoice_no='$invo' and type='chq' ");
 				$result1->bindParam(':userid', $date);
                 $result1->execute();
                 for($i=0; $row1 = $result1->fetch(); $i++){
 				//$tot_amount=$row1['amount'];
-					
-			
-			?>				
-				
+
+
+			?>
+
 			<tr>
 				<th><?php echo $row1['type']; ?></th>
                 <th><?php echo $row1['chq_no']; ?></th>
@@ -187,10 +188,10 @@ if($admin=="admin"){
             </table>
           </div>
         </div>
-	
+
             </div><br><br><br><br>
 	 <small class="pull-right"><img src="cloud.png" width="80" alt=""></small>
-	
+
         </div>
 	  __________________ <br> DEALER SIGNATURE
   </section>

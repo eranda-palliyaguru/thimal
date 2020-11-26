@@ -20,7 +20,13 @@ $result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 			$sales_id = $row['transaction_id'];
 			$bill_amount = $row['amount'];
 			$loding_id = $row['loading_id'];
+			$action = $row['action'];
 		}
+
+if ($action==1) {
+header("location: bill.php?id=$a1");
+}else {
+
 
 		$result = $db->prepare("SELECT * FROM sales WHERE invoice_number = '$a1' ");
 				$result->bindParam(':userid', $res);
@@ -278,8 +284,7 @@ $j1=date('Y-m-d_h:i:sa');
 //-------------*/ 2kg to 5kg promotion -------------//
 			}
 //-------------*/ Update payment action --------------//
-
-
+$_SESSION['page']="END";
 
 header("location: bill.php?id=$a1");}
 
@@ -292,5 +297,5 @@ header("location: bill.php?id=$a1");}
 $_SESSION['posttimer'] = time();
 
 }
-
+}
 ?>
