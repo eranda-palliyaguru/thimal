@@ -24,7 +24,7 @@
 
 				$count=0;
 
-
+$user_lewal=$_SESSION['USER_LEWAL'];
 			?>
 
 
@@ -508,7 +508,16 @@
         </li>
 
 <li class="header">SUB NAVIGATION</li>
+<?php if ($user_lewal =='2') {?>
+<li>
+    <a  href="bulk_payment.php">
+      <i class="fa fa-usd"></i> <span>Credit Payment</span>
+      <span class="pull-right-container">
 
+      </span>
+    </a>
+  </li>
+<?php } ?>
 	<li class="treeview">
 
           <a href="#">
