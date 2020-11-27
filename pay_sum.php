@@ -8,7 +8,7 @@ include("connect.php");
 <?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
-
+$user_lewal=$_SESSION['USER_LEWAL'];
 if($r =='Cashier'){
 
 header("location:./../../../index.php");
@@ -171,7 +171,10 @@ if($type==$r){
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-<td><a rel="facebox" href="payment_edit.php?id=<?php echo $row['transaction_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a></td>
+<td><?php if ($user_lewal==2) { ?>
+  <a rel="facebox" href="payment_edit.php?id=<?php echo $row['transaction_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
+<?php } ?>
+</td>
 				<?php $tot+=$row['amount'];
 				} } }
 				   ?></td>
