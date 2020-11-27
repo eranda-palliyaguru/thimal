@@ -170,6 +170,23 @@ include_once("sidebar2.php");
 
 </div>
 
+<div class="row">
+<div class="col-md-6">
+  <div class="form-group">
+<div class="input-group">
+<div class="input-group-addon">
+    <b>Customer Type</b>
+      </div>
+      <select class="form-control select2" name="customer_type"  >
+          <option value="all">All Customer</option>
+          <option value="1">Channel</option>
+          <option value="2">commercial</option>
+          </select>
+      </div>
+      </div>
+</div>
+
+</div>
 <br>
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
@@ -241,9 +258,18 @@ include_once("sidebar2.php");
 				$customer_id=$_GET['cus'];
         $group=$_GET['group'];
         $lorry=$_GET['lorry'];
+        $customer_type=$_GET['customer_type'];
 
 if($customer_id=="all"){
-if($group=="all"){$customer = $db->prepare("SELECT * FROM customer  ");}else {
+if($group=="all"){
+
+if ($customer_type=="all") {
+$customer = $db->prepare("SELECT * FROM customer  ");
+}else {
+$customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ");
+}
+
+}else {
 $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
 }
   		}else{
