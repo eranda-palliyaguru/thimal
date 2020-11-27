@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -28,11 +28,11 @@ include_once("sidebar.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -48,7 +48,7 @@ include_once("sidebar.php");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Sales Report
+        Payment Report
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
@@ -57,92 +57,95 @@ include_once("sidebar.php");
         <li class="active">Advanced Elements</li>
       </ol>
     </section>
-   
+
    <br>
-   
 
-     <form action="pay_sum.php" method="get">   
+
+     <form action="pay_sum.php" method="get">
 	<center>
-	
-			  
-			  
-			
 
-From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" /> 
-To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/> 
+
+
+
+
+From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" />
+To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/>
 
 		Pay type :<select class="form-control select2" name="r" style="width: 350px;"  autofocus >
-                 
-                  
+
+
 		<option value="cash">Cash</option>
 		<option value="chq">Chq</option>
 		<option value="credit">Credit</option>
-	
+    <option value="coupon">Coupon</option>
+    <option value="2kg">2Kg to 5Kg</option>
+
                 </select>
 
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
- 
- 
-			  
-		<br>	  
-			  
-      
-			 
+
+
+
+		<br>
+
+
+
 			 </center>
-			 </form> 
-   
-   
+			 </form>
+
+
    <section class="content">
-   
+
      <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Sales Report  <a href="pay_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>"   title="Click to Print" >
+              <h3 class="box-title"> Payment List  <a href="pay_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
-			
+
             <div class="box-body">
 <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>				
+                <tr>
 				<th>Invoice no </th>
 				<th>Customer</th>
 				<th>Lorry no</th>
 				<th>Driver</th>
-                 <th>Pay type</th>                  
+                 <th>Pay type</th>
 				 <th>Amount </th>
-                <th>Chq no</th>				
+                <th>Chq no</th>
 				<th>Chq Date</th>
 				<th>Bank</th>
+        <th>#</th>
 				</tr>
                 </thead>
                 <tbody>
 				<?php
-               include("connect.php"); 
+               include("connect.php");
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 			    $r=$_GET['r'];
-$tot="";				
+$tot="";
 $result1 = $db->prepare("SELECT * FROM sales WHERE  date BETWEEN '$d1' and '$d2' ");
 $result1->bindParam(':userid', $c);
 $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
-	
+
 $in=$row1['transaction_id'];
 $cus=$row1['name'];
 $cashier=$row1['cashier'];
 
-	
 
-	$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$in' AND action >'0'  ORDER by transaction_id DESC");			
+
+	$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$in' AND action >'0'  ORDER by transaction_id DESC");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 				$type=$row['type'];
 
-					
+
 	$result12 = $db->prepare("SELECT * FROM employee WHERE  id = '$cashier' ");
 $result12->bindParam(':userid', $c);
 $result12->execute();
@@ -151,15 +154,15 @@ $dir=$row12['name'];
 
 }
 
-					
+
 if($type==$r){
-				 
-				 
-			?>	
-              
-				<tr> 
-                <td><?php echo $in;?></td>				 
-				
+
+
+			?>
+
+				<tr>
+                <td><?php echo $in;?></td>
+
 				 <td><?php echo $cus;?></td>
 				<td><?php echo $row1['lorry_no'];?></td>
 				<td><?php echo $dir;?></td>
@@ -168,23 +171,23 @@ if($type==$r){
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-				  
+<td><a rel="facebox" href="payment_edit.php?id=<?php echo $row['transaction_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a></td>
 				<?php $tot+=$row['amount'];
 				} } }
 				   ?></td>
-                </tr>               
+                </tr>
                 </tbody>
                 <tfoot>
 				<td colspan="5"></td>
 				<td>Rs.<?php echo $tot;?></td>
 				<td colspan="3"></td>
-                </tfoot>				
+                </tfoot>
               </table>
-				
-				
-				
-				
-				
+
+
+
+
+
 
             </div>
             <!-- /.box-body -->
@@ -192,13 +195,13 @@ if($type==$r){
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      
-   
-   
-   
+
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
@@ -244,20 +247,20 @@ if($type==$r){
       "info": true,
       "autoWidth": false
     });
-  
+
    $(".select2").select2();
-  
+
   });
-	
-	
+
+
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
-	
+
 </script>
 </body>
 </html>

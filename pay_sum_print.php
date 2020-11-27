@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>COLOR BIZNAZ | Unload</title>
+  <title>CLOUD ARM</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -13,7 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,8 +24,8 @@
 </head>
 <body onload="window.print() " style=" font-size: 13px; font-family: arial;">
 <?php
-$sec = "1"; 
-?><meta http-equiv="refresh" content="<?php echo $sec;?>;URL='pay_sum.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>'">	
+$sec = "1";
+?><meta http-equiv="refresh" content="<?php echo $sec;?>;URL='pay_sum.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -33,70 +33,63 @@ $sec = "1";
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i> HTJT Holdings.
-		  
+          <i class="fa fa-globe"></i> Thimal Enterprises(pvt)LTD.
+
           <small class="pull-right">Date:<?php
 			  $d1=$_GET['d1'];
 				$d2=$_GET['d2'];
-			  
-			  
-			  date_default_timezone_set("Asia/Colombo"); 
+
+
+			  date_default_timezone_set("Asia/Colombo");
 	                                                        echo $d1.date("__h:ia")  ?></small>
         </h2>
 		<h4>
-		Day Report
+		Payment Report
 		<h4>
       </div>
       <!-- /.col -->
     </div>
-    <!-- info row -->
-    
-    <!-- /.row -->
 
-    <!-- Table row -->
-   
-    <!-- /.row -->
 
-	
 
 <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>				
+                <tr>
 				<th>Invoice no </th>
 				<th>Customer</th>
 				<th>Lorry no</th>
 				<th>Driver</th>
-                 <th>Pay type</th>                  
+                 <th>Pay type</th>
 				 <th>Amount </th>
-                <th>Chq no</th>				
+                <th>Chq no</th>
 				<th>Chq Date</th>
 				<th>Bank</th>
 				</tr>
                 </thead>
                 <tbody>
 				<?php
-               include("connect.php"); 
+               include("connect.php");
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 			    $r=$_GET['r'];
-$tot="";				
+$tot="";
 $result1 = $db->prepare("SELECT * FROM sales WHERE  date BETWEEN '$d1' and '$d2' ");
 $result1->bindParam(':userid', $c);
 $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
-	
+
 $in=$row1['transaction_id'];
 $cus=$row1['name'];
 $cashier=$row1['cashier'];
-			
 
-	$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$in' and action >'0'  ORDER by transaction_id DESC");			
+
+	$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$in' and action >'0'  ORDER by transaction_id DESC");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 				$type=$row['type'];
 
-					
+
 	$result12 = $db->prepare("SELECT * FROM employee WHERE  id = '$cashier' ");
 $result12->bindParam(':userid', $c);
 $result12->execute();
@@ -105,15 +98,15 @@ $dir=$row12['name'];
 
 }
 
-					
+
 if($type==$r){
-				 
-				 
-			?>	
-              
-				<tr> 
-                <td><?php echo $in;?></td>				 
-				
+
+
+			?>
+
+				<tr>
+                <td><?php echo $in;?></td>
+
 				 <td><?php echo $cus;?></td>
 				<td><?php echo $row1['lorry_no'];?></td>
 				<td><?php echo $dir;?></td>
@@ -122,25 +115,25 @@ if($type==$r){
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-				  
+
 			<?php $tot+=$row['amount'];
 				} } }
 				   ?></td>
-                </tr>               
+                </tr>
                 </tbody>
                 <tfoot>
 				<td colspan="5"></td>
 				<td>Rs.<?php echo $tot;?></td>
 				<td colspan="3"></td>
-                </tfoot>					
+                </tfoot>
               </table>
-	  
-		 </div> 
+
+		 </div>
 
         </div>
-      
+
       <!-- /.col -->
-    
+
     <!-- /.row -->
   </section>
   <!-- /.content -->

@@ -182,7 +182,7 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
 <?php } ?>
 
   <form method="post" action="bulk_payment_bill_add.php">
-             <div class="col-md-2">
+             <div class="col-md-4">
              <div class="form-group">
               <label>Invoice NO</label>
               <select class="form-control select2" name="invo" style="width: 100%;" autofocus>
@@ -191,8 +191,16 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
   $result->bindParam(':userid', $ttr);
   $result->execute();
   for($i=0; $row = $result->fetch(); $i++){
+    $customer_id=$row['customer_id'];
+
+    $result11 = $db->prepare("SELECT * FROM customer WHERE customer_id ='$customer_id' ");
+        $result11->bindParam(':userid', $res);
+        $result11->execute();
+        for($i=0; $row11 = $result11->fetch(); $i++){
+          $name=$row11['customer_name'];
+        }
   ?>
-  <option value="<?php echo $row['transaction_id'];?>"><?php echo $row['sales_id']; ?> __Rs.<?php echo $row['amount']-$row['pay_amount']; ?> </option>
+  <option value="<?php echo $row['transaction_id'];?>"><?php echo $row['sales_id']; ?> __ <?php echo $name; ?> __Rs.<?php echo $row['amount']-$row['pay_amount']; ?>  </option>
   <?php
       }
     ?>
@@ -214,7 +222,7 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
                  </div>
 
 
-                 <div class="col-md-3">
+                 <div class="col-md-4">
                                   <div class="alert alert-danger alert-dismissible">
                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                                 <h4><i class="icon fa fa-warning"></i> Alert!</h4>
