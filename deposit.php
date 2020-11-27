@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 date_default_timezone_set("Asia/Colombo");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 if($r =='Cashier'){
@@ -21,11 +21,11 @@ include_once("sidebar.php");
         type="text/css" media="all" />
     <script src="datepicker.js" type="text/javascript"></script>
     <script src="datepicker.ui.min.js"
-        type="text/javascript"></script>	
-   <script src='js/jquery-1.12.3.js'></script> 
- <script src='js/jquery.dataTables.min.js'></script> 
- 
-   
+        type="text/javascript"></script>
+   <script src='js/jquery-1.12.3.js'></script>
+ <script src='js/jquery.dataTables.min.js'></script>
+
+
     <!-- /.sidebar -->
   </aside>
 
@@ -50,20 +50,20 @@ include_once("sidebar.php");
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-info">
         <div class="box-header with-border">
-        
- 
+
+
         <!-- /.box-header -->
-		
+
 		   <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#chq" data-toggle="tab">Cheque</a></li>
               <li><a href="#cash" data-toggle="tab">CASH</a></li>
-             
+
             </ul>
             <div class="tab-content" >
               <div class="active tab-pane" id="chq">
-                    <h3 class="box-title">Cheque</h3> 
+                    <h3 class="box-title">Cheque</h3>
 	<table class="table table-bordered table-striped" >
                 <thead>
                 <tr>
@@ -74,81 +74,101 @@ include_once("sidebar.php");
 				<th>Bank</th>
 				<th>Amount (Rs.)</th>
                   <th>#</th>
-				  
+
                 </tr>
                 </thead>
 <tbody>
-			
+
 <?php $date=date("Y-m-d");
-	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='chq' and action = '2'");				
+	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='chq' and action = '2'");
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
                $chq_date=$row['chq_date'];
 					if($chq_date==""){$dtt=0;}
-if($chq_date==""){$dtt=1;}else{					
+if($chq_date==""){$dtt=1;}else{
 $first  = new DateTime( $date );
 $second = new DateTime( $chq_date );
 $diff = $first->diff( $second );
 $dtt=$diff->format( '%r%a' );
 }
 					if($dtt<=0){
-	
+
 	?>			<tr class="record">
                <td><?php echo $row['transaction_id'];   ?> </td>
 	       <td><?php echo $row['date'];   ?> </td>
 				<td><?php echo $row['chq_date'];   ?> </td>
 	<td><?php echo $row['chq_no'];   ?></td>
 				<td><?php echo $row['bank'];   ?></td>
-              <td>Rs.<?php echo $row['amount'];   ?></td>                
+              <td>Rs.<?php echo $row['amount'];   ?></td>
 <td><a href="deposit_save.php?id=<?php echo $row['transaction_id']; ?>&t=1" class="delbutton" title="Click to Deposit" >
 				  <button class="btn btn-danger"><i class="icon-trash">Deposit</i></button></a>
-</td>                  
-                </tr>				
+</td>
+                </tr>
 				<?php }  } ?>
 				</tbody>
-		
-                
-              </table>		  
-				  
-				  
-				  
+
+
+              </table>
+
+
+
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="cash">
-               <h3 class="box-title">Cash</h3> 
+               <h3 class="box-title">Cash</h3>
               	<table class="table table-bordered table-striped" >
                 <thead>
                 <tr>
 					<th>ID</th>
-					<th>Loading Date</th>
-					<th>Lorry No.</th>
+					<th>Date</th>
+					<th>Lorry No. / Invoice No</th>
 				<th>Amount (Rs.)</th>
                   <th>#</th>
-				  
+
                 </tr>
                 </thead>
 <tbody>
-			
+
 <?php $date=date("Y-m-d");
-	$result = $db->prepare("SELECT * FROM loading WHERE  bank_action='0' AND cash_total > '0' AND action='unload'");				
+	$result = $db->prepare("SELECT * FROM loading WHERE  bank_action='0' AND cash_total > '0' AND action='unload'");
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 
-	
+
 	?>			<tr class="record">
                <td><?php echo $row['transaction_id'];   ?> </td>
 	       <td><?php echo $row['date'];   ?> </td>
 				<td><?php echo $row['lorry_no'];   ?> </td>
-              <td>Rs.<?php echo $row['cash_total'];   ?></td>                
+              <td>Rs.<?php echo $row['cash_total'];   ?></td>
 <td><a href="deposit_save.php?id=<?php echo $row['transaction_id']; ?>&t=2" class="delbutton" title="Click to Deposit" >
 				  <button class="btn btn-danger"><i class="icon-trash">Deposit</i></button></a>
-</td>                  
-                </tr>				
-				<?php } ?>
+</td>
+                </tr>
+				<?php }
+//---------------------------------- credit payment -----------------------------------//
+         $date=date("Y-m-d");
+        	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='cash' AND pay_credit='1'");
+        					$result->bindParam(':userid', $date);
+                        $result->execute();
+                        for($i=0; $row = $result->fetch(); $i++){
+
+
+        	?>			<tr class="record">
+                       <td><?php echo $row['transaction_id'];   ?> </td>
+        	       <td><?php echo $row['date'];   ?> </td>
+        				<td>invoice no- <?php echo $row['sales_id'];   ?> </td>
+
+                      <td>Rs.<?php echo $row['amount'];   ?></td>
+        <td><a href="deposit_save.php?id=<?php echo $row['transaction_id']; ?>&t=3" class="delbutton" title="Click to Deposit" >
+        				  <button class="btn btn-danger"><i class="icon-trash">Deposit</i></button></a>
+        </td>
+                        </tr>
+        				<?php } ?>
+
 				</tbody>
-              </table>  
+              </table>
               </div>
 
             </div>
@@ -157,18 +177,18 @@ $dtt=$diff->format( '%r%a' );
           <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
-      
-		  
-		  
+
+
+
 		  </div></div>
-			  
-		</section>	  
+
+		</section>
           <!-- /.box -->
 
 		 <section class="content">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Deposit List</h3> 
+              <h3 class="box-title">Deposit List</h3>
             </div>
             <div class="box-body">
 
@@ -186,58 +206,58 @@ $dtt=$diff->format( '%r%a' );
                 </tr>
                 </thead>
                 <tbody>
-			
+
 <?php $result = $db->prepare("SELECT * FROM bank WHERE date='$date' and action='0'");
-				
+
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-   
-					 
+
+
 				echo '<tr class="record">';
-				
-					   
-					   
+
+
+
 					   ?>
 
-			
+
                <td><?php echo $row['id'];   ?> </td>
 	       <td><?php echo $row['date'];   ?> </td>
 				<td><?php echo $row['type'];   ?> </td>
 	<td>Rs.<?php echo $row['amount'];   ?></td>
 				<td><?php echo $row['chq_no'];   ?></td>
-              <td><?php echo $row['balance'];   ?></td>                 
-<td> 
+              <td><?php echo $row['balance'];   ?></td>
+<td>
 
 <a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
-</td>                  
+</td>
                 </tr>
-				
-				
+
+
 				<?php }   ?>
 				</tbody>
-                
+
               </table>
-            </div>	
-			 
-			 
-			 
+            </div>
+
+
+
             </div>
             <!-- /.box-body -->
           </div>
 
-		  
+
 </div>
-		  
-		  
+
+
         </div>
         <!-- /.col (left) -->
-       
 
-        
+
+
             <!-- /.box-body -->
-            
+
             </div>
           </div>
 
@@ -245,7 +265,7 @@ $dtt=$diff->format( '%r%a' );
 
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
   include("dounbr.php");
@@ -364,17 +384,17 @@ $(function () {
     $('#datepicker').datepicker({
       autoclose: true
     });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({
       autoclose: true
     });
-	
-	
-	
-   
+
+
+
+
 
     //iCheck for checkbox and radio inputs
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
@@ -410,7 +430,7 @@ $(function () {
 
 
 
- 
+
 
 
 

@@ -32,7 +32,7 @@ $cashier=$_SESSION['SESS_MEMBER_ID'];
 //echo $customer_name;
 
 $type=1;
-$sql = "UPDATE payment 
+$sql = "UPDATE payment
         SET bank_action=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
@@ -49,22 +49,59 @@ $chq_no=$rowz['transaction_id'];
 $chq_date=$rowz['date'];
 $cus_id=$rowz['driver'];
 }
+
 $cashier=$_SESSION['SESS_MEMBER_ID'];
 //echo $customer_name;
 
 $type=1;
-$sql = "UPDATE loading 
+$sql = "UPDATE loading
         SET bank_action=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
 $q->execute(array($type,$id));
-	
-$sql = "UPDATE bank_balance 
+
+$sql = "UPDATE bank_balance
         SET amount=amount+?";
 $q = $db->prepare($sql);
 $q->execute(array($amount));
 $type=2;
-}	
+}
+
+if($t=="3"){
+  $resultz = $db->prepare("SELECT * FROM payment WHERE transaction_id='$id' ");
+  $resultz->bindParam(':userid', $inva);
+  $resultz->execute();
+  for($i=0; $rowz = $resultz->fetch(); $i++){
+  $amount=$rowz['amount'];
+  $bank=$rowz['bank'];
+  $chq_no=$rowz['sales_id'];
+  $chq_date=$rowz['chq_date'];
+  $cus_id=$rowz['customer_id'];
+  }
+
+  $resultz = $db->prepare("SELECT * FROM customer WHERE customer_id='$cus_id' ");
+  $resultz->bindParam(':userid', $inva);
+  $resultz->execute();
+  for($i=0; $rowz = $resultz->fetch(); $i++){
+  $bank=$rowz['customer_name'];
+  }
+
+$cashier=$_SESSION['SESS_MEMBER_ID'];
+//echo $customer_name;
+
+$type=1;
+$sql = "UPDATE payment
+        SET bank_action=?
+		WHERE transaction_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($type,$id));
+
+$sql = "UPDATE bank_balance
+        SET amount=amount+?";
+$q = $db->prepare($sql);
+$q->execute(array($amount));
+$type=2;
+}
 
 
 $sql = "INSERT INTO bank (date,type,amount,bank,balance,chq_no,chq_date,cus_id,cashier,payment_id) VALUES (:da,:ty,:am,:bn,:ba,:c_no,:c_da,:cid,:cshi,:pay_id)";
