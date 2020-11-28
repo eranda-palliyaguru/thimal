@@ -27,6 +27,7 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
 $sales_id=$rowz['sales_id'];
 $c_amount=$rowz['amount'];
 $cus_id=$rowz['customer_id'];
+$type=$rowz['type'];
 }
 
 if ($c_amount < $amount) {
@@ -43,11 +44,11 @@ $cus=$rowz['customer_name'];
 }
 
 $act=2;
-//echo $customer_name;
 
-$sql = "INSERT INTO credit_payment (tr_id,sales_id,pay_id,pay_amount,credit_amount,cus_id,date,action,cus) VALUES (:tr_id,:s_id,:p_id,:p_amo,:c_amo,:cus,:date,:act,:cus_n)";
+
+$sql = "INSERT INTO credit_payment (tr_id,sales_id,pay_id,pay_amount,credit_amount,cus_id,date,action,cus,type) VALUES (:tr_id,:s_id,:p_id,:p_amo,:c_amo,:cus,:date,:act,:cus_n,:type)";
 $q = $db->prepare($sql);
-$q->execute(array(':tr_id'=>$invo,':s_id'=>$sales_id,':p_id'=>$pay_id,':p_amo'=>$amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$date,':act'=>$act,':cus_n'=>$cus));
+$q->execute(array(':tr_id'=>$invo,':s_id'=>$sales_id,':p_id'=>$pay_id,':p_amo'=>$amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$date,':act'=>$act,':cus_n'=>$cus,':type'=>$type));
 
 
 header("location: bulk_payment.php?id=$pay_id");

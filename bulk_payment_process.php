@@ -68,6 +68,13 @@ if ($chq_amount == $pay_tot) {
           $q = $db->prepare($sql);
           $q->execute(array($c_act,$credit_id));
 
+          $ex="1";
+          $sql = "UPDATE payment
+                  SET credit_pay_id=?
+              WHERE transaction_id=?";
+          $q = $db->prepare($sql);
+          $q->execute(array($pay_id,$tr_id));
+
   }
 
   $ex="2";
@@ -77,7 +84,8 @@ if ($chq_amount == $pay_tot) {
   $q = $db->prepare($sql);
   $q->execute(array($ex,$pay_id));
 
-header("location: bulk_payment_print.php?id=$pay_id");	
+
+header("location: bulk_payment_print.php?id=$pay_id");
 }else{
 ?>
 

@@ -51,8 +51,7 @@ $sec = "1";
 
 	  <h5>Thimal Enterprises (Pvt.) Ltd <br>
 	 33B/1 Katuwawala, boralasgamuwa <br>
-	 011-2 509 801
-<br>
+	 011-2 509 801<br>
 		  <b>Invoice no.<?php echo $invo; ?> </b><br>
 	<br>
 		  Date:<?php date_default_timezone_set("Asia/Colombo");
@@ -152,36 +151,57 @@ $sec = "1";
 					$balance=$row1['balance'];
 				}
 			?>
-	<div class="col-xs-6">
+	<div class="col-xs-8">
 
           <div class="table-responsive">
             <table class="table">
 				<tr>
 				<th>Type</th>
-                <th>CHQ No.</th>
-                <th>Bank</th>
+        <th>CHQ No.</th>
+        <th>Bank</th>
 				<th>Amount</th>
 				<th>Date</th>
-              </tr>
+        </tr>
 
 <?php
 				$result1 = $db->prepare("SELECT * FROM payment WHERE invoice_no='$invo' and action > '0'  ");
 				$result1->bindParam(':userid', $date);
                 $result1->execute();
                 for($i=0; $row1 = $result1->fetch(); $i++){
-				//$tot_amount=$row1['amount'];
-
-
+				$credit_pay_id=$row1['credit_pay_id'];
+				$transaction_id=$row1['transaction_id'];
 			?>
 
-			<tr>
-				<th><?php echo $row1['type']; ?></th>
+		          	<tr>
+				        <th><?php echo $row1['type']; ?></th>
                 <th><?php echo $row1['chq_no']; ?></th>
                 <th><?php echo $row1['bank']; ?></th>
-				<th>Rs.<?php echo $row1['amount']; ?></th>
-				<th><?php echo $row1['date']; ?></th>
-              </tr>
-			 <?php } ?>
+				        <th>Rs.<?php echo $row1['amount']; ?></th>
+			       	  <th><?php echo $row1['date']; ?></th>
+                </tr>
+			 <?php
+
+			 $result2 = $db->prepare("SELECT * FROM credit_payment WHERE tr_id='$transaction_id'  ");
+			 $result2->bindParam(':userid', $date);
+			 $result2->execute();
+			 for($i=0; $row2 = $result2->fetch(); $i++){
+			 $sales_id=$row2['pay_id'];
+
+
+			 $result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$sales_id'  ");
+			 $result->bindParam(':userid', $date);
+							 $result->execute();
+							 for($i=0; $row = $result->fetch(); $i++){
+								  ?>
+									<tr>
+										<th><?php echo $row['type']; ?></th>
+										<th><?php echo $row['chq_no']; ?></th>
+										<th><?php echo $row['bank']; ?></th>
+										<th>Rs.<?php echo $row['amount']; ?></th>
+										<th><?php echo $row['date']; ?></th>
+							      </tr>
+<?php } } } ?>
+
             </table>
           </div>
         </div>

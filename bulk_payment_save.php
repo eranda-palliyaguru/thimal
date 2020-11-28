@@ -23,11 +23,11 @@ if ($olld == 0) {
 
 $mt=0;
 //echo $customer_name;
-$action='8';
+$action='0';
 
-$sql = "INSERT INTO payment (pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action) VALUES (:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act)";
+$sql = "INSERT INTO payment (pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,pay_credit) VALUES (:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:bact)";
 $q = $db->prepare($sql);
-$q->execute(array(':b'=>$mt,':c'=>$amount,':d'=>'chq',':e'=>$date,':h'=>$now,':f'=>$chq_no,':g'=>$bank,':cus'=>'0',':crp'=>"",':sid'=>'0',':act'=>$action));
+$q->execute(array(':b'=>$mt,':c'=>$amount,':d'=>'chq',':e'=>$date,':h'=>$now,':f'=>$chq_no,':g'=>$bank,':cus'=>'0',':crp'=>"",':sid'=>'0',':act'=>$action,':bact'=>'1'));
 
 $resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_no='$chq_no' AND date='$now'  ");
 $resultz->bindParam(':userid', $inva);

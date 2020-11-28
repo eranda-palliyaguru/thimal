@@ -141,8 +141,8 @@ $cashier=$row1['cashier'];
 
 	$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$in' AND action >'0'  ORDER by transaction_id DESC");
 				$result->bindParam(':userid', $date);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
+        $result->execute();
+        for($i=0; $row = $result->fetch(); $i++){
 				$type=$row['type'];
 
 
@@ -161,22 +161,60 @@ if($type==$r){
 			?>
 
 				<tr>
-                <td><?php echo $in;?></td>
-
-				 <td><?php echo $cus;?></td>
+        <td><?php echo $in;?></td>
+				<td><?php echo $cus;?></td>
 				<td><?php echo $row1['lorry_no'];?></td>
 				<td><?php echo $dir;?></td>
-				  <td><?php echo $row['type'];?></td>
-				 <td><?php echo $row['amount'];?></td>
-				 <td><?php echo $row['chq_no'];?></td>
+				<td><?php echo $row['type'];?></td>
+				<td><?php echo $row['amount'];?></td>
+				<td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
 <td><?php if ($user_lewal==2) { ?>
   <a rel="facebox" href="payment_edit.php?id=<?php echo $row['transaction_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
 <?php } ?>
 </td>
+</tr>
+<?php $tot+=$row['amount'];
+} } }
+
+$result = $db->prepare("SELECT * FROM payment WHERE date BETWEEN '$d1' and '$d2' AND action >'0' AND pay_credit='1' ORDER by transaction_id DESC");
+$result->bindParam(':userid', $date);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$type=$row['type'];
+
+
+$result12 = $db->prepare("SELECT * FROM employee WHERE  id = '$cashier' ");
+$result12->bindParam(':userid', $c);
+$result12->execute();
+for($i=0; $row12 = $result12->fetch(); $i++){
+$dir=$row12['name'];
+
+}
+
+
+if($type==$r){
+
+
+?>
+
+<tr style="background-color:#cccccc">
+<td><?php // echo $in;?></td>
+<td><?php // echo $cus;?></td>
+<td>Credit set-off</td>
+<td><?php // echo $dir;?></td>
+<td><?php echo $row['type'];?></td>
+<td><?php echo $row['amount'];?></td>
+<td><?php echo $row['chq_no'];?></td>
+<td><?php echo $row['chq_date'];?></td>
+<td><?php echo $row['bank'];?></td>
+<td><?php if ($user_lewal==2) { ?>
+<a rel="facebox" href="payment_edit.php?id=<?php echo $row['transaction_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
+<?php } ?>
+</td>
 				<?php $tot+=$row['amount'];
-				} } }
+				 } }
 				   ?></td>
                 </tr>
                 </tbody>
