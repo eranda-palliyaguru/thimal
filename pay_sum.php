@@ -185,14 +185,6 @@ for($i=0; $row = $result->fetch(); $i++){
 $type=$row['type'];
 
 
-$result12 = $db->prepare("SELECT * FROM employee WHERE  id = '$cashier' ");
-$result12->bindParam(':userid', $c);
-$result12->execute();
-for($i=0; $row12 = $result12->fetch(); $i++){
-$dir=$row12['name'];
-
-}
-
 
 if($type==$r){
 
