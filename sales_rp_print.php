@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>COLOR BIZNAZ | All Sales</title>
+  <title>CLOUD ARM | All Sales</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -48,7 +48,8 @@ $d1=$_GET['d1'];
 				$cus=$_GET['cus'];
         $lorry=$_GET['lorry'];
         $product=$_GET['product'];
-?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp.php?d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&cus=<?php echo $cus;?>&lorry=<?php echo $lorry;?>&product=<?php echo $product;?>'">
+        $cus_type =$_GET['customer_type'];
+?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp.php?d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&cus=<?php echo $cus;?>&lorry=<?php echo $lorry;?>&product=<?php echo $product;?>&customer_type=<?php echo $cus_type;?>'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -56,7 +57,7 @@ $d1=$_GET['d1'];
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i> HTJT Holdings (PVT)LTD.
+          <i class="fa fa-globe"></i> Thimal Enterprises (Pvt.) Ltd
 
           <small class="pull-right">Date:<?php date_default_timezone_set("Asia/Colombo");
 	                                                        echo date("Y-m-d____h:ia")  ?></small>
@@ -182,7 +183,7 @@ $result2->bindParam(':userid', $d2);
 $result2->execute();
 for($i=0; $row2 = $result2->fetch(); $i++){
 $invo=$row2['invoice_number'];
-
+  $customer_id=$row2['customer_id'];
 
 $emty_miter=0;
 $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id > '$pro1' AND product_id < '$pro2' and  action='0' ");
@@ -192,8 +193,18 @@ $result->bindParam(':userid', $d1);
       for($i=0; $row = $result->fetch(); $i++){
 $emty_miter = $row['qty'];
 }
-if($emty_miter > 0){
+$cus_t=0;
+if ($cus_type=="all") {$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$customer_id'  ");}else {
+  $result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$customer_id' AND type='$cus_type'  ");
+}
+              $result->bindParam(':userid', $d1);
+                    $result->execute();
+                    for($i=0; $row = $result->fetch(); $i++){
+         $cus_t = $row['customer_id'];
+            }
 
+if($emty_miter > 0){
+if($cus_t > 0){
 
 ?>
     <tr>
@@ -317,7 +328,7 @@ $chq_pay1= $row['amount'];
 $tot+=$row2['amount'];
 $tot_f+=$row2['profit'];
 
-} }
+} } }
 
 
 ?>

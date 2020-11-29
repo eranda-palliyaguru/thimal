@@ -92,7 +92,10 @@ th span
 
    <div class="col-md-6">
      <div class="form-group">
+       <div class="input-group">
+       <div class="input-group-addon">
        <label>customer</label>
+       </div>
        <select class="form-control select2" name="cus" style="width: 350px;" autofocus >
        <option value="all"> All Customer </option>
 
@@ -108,7 +111,7 @@ for($i=0; $row = $result->fetch(); $i++){
 ?>
        </select>
 </div>
-</div>
+</div></div>
 
 
  </div>
@@ -118,10 +121,13 @@ for($i=0; $row = $result->fetch(); $i++){
 
 
 
-<div class="col-md-6">
+<div class="col-md-3">
                      <div class="form-group">
+                       <div class="input-group">
+                       <div class="input-group-addon">
                        <label>Lorry</label>
-                       <select class="form-control select2" name="lorry" style="width: 350px;" autofocus >
+                       	</div>
+                       <select class="form-control select2" name="lorry"  autofocus >
                        <option value="all"> All Lorry </option>
 
        				  <?php
@@ -135,23 +141,40 @@ for($i=0; $row = $result->fetch(); $i++){
        				}
        			?>
                        </select>
-       				</div>	</div>
+       				</div>	</div>	</div>
 
-<div class="col-md-6">
+<div class="col-md-3">
               <div class="form-group">
+                <div class="input-group">
+                <div class="input-group-addon">
                 <label>products</label>
-                <select class="form-control select2" name="product" style="width: 350px;" autofocus >
+                </div>
+                <select class="form-control select2" name="product"  autofocus >
                 <option value="all"> All Customer </option>
                 <option value="1"> Gas </option>
                 <option value="2"> Cylinder </option>
                 <option value="3"> Accessory </option>
 
                 </select>
-        </div></div>
+        </div></div></div>
 
 
-</div>
+<div class="col-md-3">
+  <div class="form-group">
+<div class="input-group">
+<div class="input-group-addon">
+    <b>Customer Type</b>
+      </div>
+      <select class="form-control select2" name="customer_type"  >
+          <option value="all">All Customer</option>
+          <option value="1">Channel</option>
+          <option value="2">commercial</option>
+          </select>
+      </div>
+      </div></div>
 
+
+    </div>
 
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
@@ -173,7 +196,7 @@ for($i=0; $row = $result->fetch(); $i++){
      <div class="box">
             <div class="box-header">
               <h3 class="box-title">Sales Report
-				<a href="sales_rp_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&cus=<?php echo $_GET['cus'] ?>&lorry=<?php echo $_GET['lorry'] ?>&product=<?php echo $_GET['product'] ?>"   title="Click to Print" >
+				<a href="sales_rp_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&cus=<?php echo $_GET['cus'] ?>&lorry=<?php echo $_GET['lorry'] ?>&product=<?php echo $_GET['product'] ?>&customer_type=<?php echo $_GET['customer_type'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a>
 				</h3>
             </div>
@@ -261,6 +284,7 @@ $e12=''; $e5=''; $e32=''; $e2='';  $g12=''; $g5=''; $g32=''; $g2='';
 				$cus_id=$_GET['cus'];
         $lorry =$_GET['lorry'];
         $product =$_GET['product'];
+        $cus_type =$_GET['customer_type'];
 
 
 if($product=='all'){ $pro1='0'; $pro2='50'; }
@@ -292,6 +316,7 @@ if($cus_id=="all"){
         $result2->execute();
         for($i=0; $row2 = $result2->fetch(); $i++){
 				$invo=$row2['invoice_number'];
+        $customer_id=$row2['customer_id'];
 
 
 $emty_miter=0;
@@ -302,8 +327,18 @@ $emty_miter=0;
                   for($i=0; $row = $result->fetch(); $i++){
        $emty_miter = $row['qty'];
           }
-if($emty_miter > 0){
+$cus_t=0;
+if ($cus_type=="all") {$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$customer_id'  ");}else {
+  $result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$customer_id' AND type='$cus_type'  ");
+}
+              $result->bindParam(':userid', $d1);
+                    $result->execute();
+                    for($i=0; $row = $result->fetch(); $i++){
+         $cus_t = $row['customer_id'];
+            }
 
+if($emty_miter > 0){
+if($cus_t > 0){
 
 			?>
                 <tr>
@@ -429,7 +464,7 @@ if($emty_miter > 0){
 $tot+=$row2['amount'];
 $tot_f+=$row2['profit'];
 
-} }
+} } }
 
 
 			?>

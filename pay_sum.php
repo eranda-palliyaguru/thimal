@@ -113,9 +113,9 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Customer</th>
 				<th>Lorry no</th>
 				<th>Driver</th>
-                 <th>Pay type</th>
-				 <th>Amount </th>
-                <th>Chq no</th>
+        <th>Pay type</th>
+				<th>Amount </th>
+        <th>Chq no</th>
 				<th>Chq Date</th>
 				<th>Bank</th>
         <th>#</th>
