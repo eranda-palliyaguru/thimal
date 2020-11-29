@@ -38,8 +38,10 @@
 				$chq_no=$row['chq_no'];
 				$bank=$row['bank'];
 				$chq_date=$row['chq_date'];
-
+        $sales_id=$row['sales_id'];
 				}
+$f="disabled";
+if ($sales_id>0) { $f=""; }
 
 	?>
 
@@ -67,7 +69,7 @@
 				   <div class="input-group-addon">
                     <b >Rs.<?php echo $amount ?></b>
                   </div>
-                <input type="text" name="amount" class="form-control pull-right" autocomplete="off" disabled>
+                <input type="text" name="amount" class="form-control pull-right" autocomplete="off" <?php echo $f; ?>>
                   </div>
                   </div>
 				</div>
