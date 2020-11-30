@@ -10,8 +10,9 @@ $chq_no = $_POST['chq_no'];
 $bank = $_POST['bank'];
 $amount = $_POST['amount'];
 $date = $_POST['date'];
+$type = $_POST['type'];
 
-$resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_no='$chq_no'  ");
+$resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_no='$chq_no' AND action='2'  ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
@@ -27,9 +28,9 @@ $action='0';
 
 $sql = "INSERT INTO payment (pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,pay_credit) VALUES (:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:bact)";
 $q = $db->prepare($sql);
-$q->execute(array(':b'=>$mt,':c'=>$amount,':d'=>'chq',':e'=>$date,':h'=>$now,':f'=>$chq_no,':g'=>$bank,':cus'=>'0',':crp'=>"",':sid'=>'0',':act'=>$action,':bact'=>'1'));
+$q->execute(array(':b'=>$mt,':c'=>$amount,':d'=>$type,':e'=>$date,':h'=>$now,':f'=>$chq_no,':g'=>$bank,':cus'=>'0',':crp'=>"",':sid'=>'0',':act'=>$action,':bact'=>'1'));
 
-$resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_no='$chq_no' AND date='$now'  ");
+$resultz = $db->prepare("SELECT * FROM payment WHERE type='$type' AND chq_no='$chq_no' AND date='$now'  ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){

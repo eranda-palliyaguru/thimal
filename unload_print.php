@@ -277,7 +277,7 @@ $date25=$row['date'];
                 $result12->execute();
                 for($i=0; $row12 = $result12->fetch(); $i++){
           $cus_id_1=$row12['customer_id']; }
-          if($cus_id_1 >'0'){?><span style="font-size: 12px" class="label label-danger">special</span><?php } ?>
+          if($cus_id_1 >'0'){?><span style="font-size: 12px;" class="label label-danger">special</span><?php } ?>
 
 
           <?php echo $row2['transaction_id'];?></td>
@@ -513,8 +513,39 @@ CHQ- Rs.<?php echo $chq; ?><br>
 Credit- Rs.<?php echo $credit; ?><br>
 </h3>
 
+<div class="row">
+<div class="col-md-5">
+<h3>Remove bill</h3>
+<table id="example1" class="table table-bordered table-striped" style="width:350px">
+           <thead>
+           <tr>
+     <th>Invoice no</th>
+   <th>Type</th>
+   <th>Amount (Rs.)</th>
+
+           </tr>
+           </thead>
+<tbody>
+
+<?php $result = $db->prepare("SELECT * FROM payment WHERE loading_id='$id' and action='0'  ");
+     $result->bindParam(':userid', $date);
+           $result->execute();
+           for($i=0; $row = $result->fetch(); $i++){
+        ?>
+ <tr>
+          <td><?php echo $row['sales_id'];   ?> </td>
+   <td><?php echo $row['type'];   ?> </td>
+<td>Rs.<?php echo $row['amount'];   ?></td>
+
+           </tr>
+   <?php }   ?>
+
+   </tbody>
+         </table></div>
+
+<div class="col-md-5">
 	<h3>Expenses</h3>
-	  <table id="example1" class="table table-bordered table-striped">
+	  <table id="example1" class="table table-bordered table-striped" style="width:450px">
                 <thead>
                 <tr>
 					<th>ID</th>
@@ -566,8 +597,11 @@ Credit- Rs.<?php echo $credit; ?><br>
 				</tbody>
 
               </table>
+</div></div>
 
-	 <table id="example1" class="table table-bordered table-striped">
+
+
+	 <table id="example1" class="table table-bordered table-striped" style="width:350px">
                 <thead>
                 <tr>
 				<th><i class="fa fa-money"></i></th>
@@ -631,8 +665,8 @@ Credit- Rs.<?php echo $credit; ?><br>
 				 <td><?php echo $row['coins']; ?></td>
 				<td><?php $tto+=$row['coins']; echo $row['coins']; ?></td>
                 </tr>
-                </tbody>
-                <tfoot>
+
+
 					<tr>
                 <td>Total</td>
 				 <td><?php echo  $tto; ?></td>
@@ -642,7 +676,7 @@ Credit- Rs.<?php echo $credit; ?><br>
 				 <td><?php echo  $row['cash_total']; ?></td>
                 </tr>
 					<?php } ?>
-                </tfoot>
+              </tbody>
               </table>
 
 

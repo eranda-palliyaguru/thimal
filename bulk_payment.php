@@ -101,8 +101,19 @@ include_once("sidebar.php");
 
         <div class="box-body">
 
+          <select name="p_type" style="width: 190px;  " class="form-control" id="p_type" onchange="view_payment_date(this.value);">
+            <option >payment type</option>
+            <option value="cash">Cash</option>
+                  <option value="chq">Cheque</option>
+            <option value="bank">Bank Transfer</option>
+            <option value="coupon">Coupon</option>
+            <option value="2kg">2kg to 5kg promotion</option>
+                            </select>
 
 
+
+
+<div class="form-group" id='chq_pay' style="display:none;">
           <form method="post" action="bulk_payment_save.php">
           <div class="row">
             <div class="col-md-6">
@@ -144,9 +155,63 @@ include_once("sidebar.php");
 
         <div class="form-group">
         </div>
+        <input type="hidden" name="type" value="chq">
         <input class="btn btn-info" type="submit" value="Submit" >
         </form>
         </div>
+
+
+
+        <div class="form-group" id='bank_pay' style="display:none;">
+                  <form method="post" action="bulk_payment_save.php">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Reference NO</label>
+                        <input type="text" name="chq_no" class="form-control pull-right" value="">
+
+        				</div>
+                      </div>
+
+
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+
+
+        				   <label>	Amount</label>
+                        <input type="text" value='' name="amount" class="form-control pull-right" tabindex="2" >
+
+                          </div>
+        				</div></div>
+
+
+        			  <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">
+                       <label>Bank</label>
+                        <input type="text" value=''  name="bank" class="form-control pull-right" tabindex="3">
+                          </div>
+        				         </div>
+
+                       <div class="col-md-6">
+                      <div class="form-group">
+        				   <label>	Date of Transfer</label>
+                        <input type="text" value='<?php  echo date("Y-m-d"); ?> ' id="datepicker_2end" name="date" class="form-control pull-right" tabindex="4" >
+                          </div>
+        				          </div>
+        				</div>
+
+                <div class="form-group">
+                </div>
+                <input type="hidden" name="type" value="bank">
+                <input class="btn btn-info" type="submit" value="Submit" >
+                </form>
+                </div>
+
+
+
+       </div>
     <?php  }else {
  ?>
 
@@ -164,6 +229,8 @@ $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
   $chq_amount=$rowz['amount'];
+    $type=$rowz['type'];
+    if ($type=="chq") {
  ?>
 
   <div class="col-sm-2 col-md-5 pull-right">
@@ -179,7 +246,38 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
                   <center>  <h4> <hr>  <?php echo $rowz['chq_no']; ?>   -xxxxx': xxxxxxxx;'</h4></center>
                   </div>
              </div>
-<?php } ?>
+<?php } if ($type=="bank") { ?>
+<div class="col-sm-2 col-md-5 pull-right">
+  <div class="callout callout-">
+<h2>Bank Transfer</h2>
+                <table  class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+            <th>Reference No.</th>
+            <th><?php echo $rowz['chq_no']; ?></th>
+                  </tr>
+
+                  <tr>
+            <th>Bank</th>
+            <th><?php echo $rowz['bank']; ?></th>
+                  </tr>
+
+                  <tr>
+            <th>date</th>
+            <th><?php echo $rowz['chq_date']; ?></th>
+                  </tr>
+
+                  <tr>
+            <th>Amount</th>
+            <th><?php echo $rowz['amount']; ?></th>
+                  </tr>
+
+            </thead>
+            </table>
+
+                </div>
+           </div>
+<?php } } ?>
 
   <form method="post" action="bulk_payment_bill_add.php">
              <div class="col-md-4">
@@ -285,14 +383,7 @@ $result = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$id' AND acti
     $result->bindParam(':userid', $date);
           $result->execute();
           for($i=0; $row = $result->fetch(); $i++){
-
-
-
-
-
   echo '<tr class="record">';
-
-
 
        ?>
 
@@ -302,10 +393,6 @@ $result = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$id' AND acti
   <td><?php echo $row['cus'];   ?> </td>
 <td>Rs.<?php echo $row['credit_amount'];   ?></td>
   <td><?php echo $row['pay_amount'];   ?></td>
-
-
-
-
 
 <td>
 
@@ -327,9 +414,6 @@ $result = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$id' AND acti
 
 		</section>
           <!-- /.box -->
-
-
-
     <!-- /.content -->
   </div>
 
@@ -382,27 +466,17 @@ $result = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$id' AND acti
 <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- bootstrap color picker -->
 
-
-
-
-
  <script type="text/javascript">
 $(function() {
-
-
 $(".delbutton").click(function(){
-
 //Save the link in a variable called element
 var element = $(this);
-
 //Find the id of the link that was clicked
 var del_id = element.attr("id");
-
 //Built a url to send
 var info = 'id=' + del_id;
  if(confirm("Sure you want to delete this ? There is NO undo!"))
 		  {
-
  $.ajax({
    type: "GET",
    url: "bulk_payment_list_dll.php?pay_id=<?php echo $_GET['id']; ?>",
@@ -435,6 +509,7 @@ $(function () {
       "autoWidth": false
     });
   });
+
 
 
 </script>
@@ -490,8 +565,8 @@ $(function () {
 
 
 
-	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
-    $('#datepickerd').datepicker({
+	$('#datepicker_2end').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
+    $('#datepicker_2end').datepicker({
       autoclose: true
     });
 
@@ -525,18 +600,49 @@ $(function () {
       showInputs: false
     });
   });
+
+
+  function view_payment_date(type){
+ 	if(type=='bank'){
+    document.getElementById('chq_pay').style.display='none';
+   document.getElementById('bank_pay').style.display='block';
+   document.getElementById('cash_pay').style.display='none';
+   document.getElementById('coupon').style.display='none';
+   document.getElementById('2kg').style.display='none';
+ 		} else if(type=='chq'){
+ 		document.getElementById('chq_pay').style.display='block';
+ 		document.getElementById('bank_pay').style.display='none';
+ 		document.getElementById('cash_pay').style.display='none';
+ 		document.getElementById('coupon').style.display='none';
+    document.getElementById('2kg').style.display='none';
+ 			}else if(type=='cash'){
+ 		document.getElementById('chq_pay').style.display='none';
+ 		document.getElementById('bank_pay').style.display='none';
+ 		document.getElementById('cash_pay').style.display='block';
+ 		document.getElementById('coupon').style.display='none';
+    document.getElementById('2kg').style.display='none';
+ 			}else if(type=='coupon'){
+ 		document.getElementById('chq_pay').style.display='none';
+ 		document.getElementById('bank_pay').style.display='none';
+ 		document.getElementById('cash_pay').style.display='none';
+    document.getElementById('2kg').style.display='none';
+ 		document.getElementById('coupon').style.display='block';
+   }else if(type=='2kg'){
+ document.getElementById('chq_pay').style.display='none';
+ document.getElementById('coupon').style.display='none';
+ document.getElementById('bank_pay').style.display='none';
+ document.getElementById('cash_pay').style.display='none';
+ document.getElementById('2kg').style.display='block';
+ 			}else {
+ 		document.getElementById('chq_pay').style.display='none';
+ 		document.getElementById('bank_pay').style.display='none';
+ 		document.getElementById('cash_pay').style.display='none';
+ 		document.getElementById('coupon').style.display='none';
+    document.getElementById('2kg').style.display='none';
+ 			}
+ 	 }
+
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

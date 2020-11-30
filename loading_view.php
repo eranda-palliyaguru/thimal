@@ -544,6 +544,38 @@ $credit=$row['sum(amount)'];
 <h3>CHQ- Rs.<?php echo $chq; ?></h3>
 <h3 style="color: red">Credit- Rs.<?php echo $credit; ?></h3>
 
+
+<div class="col-md-5">
+<h3>Remove bill</h3>
+<table id="example1" class="table table-bordered table-striped">
+           <thead>
+           <tr>
+     <th>Invoice no</th>
+   <th>Type</th>
+   <th>Amount (Rs.)</th>
+
+           </tr>
+           </thead>
+<tbody>
+
+<?php $result = $db->prepare("SELECT * FROM payment WHERE loading_id='$id' and action='0'  ");
+     $result->bindParam(':userid', $date);
+           $result->execute();
+           for($i=0; $row = $result->fetch(); $i++){
+        ?>
+ <tr>
+          <td><?php echo $row['sales_id'];   ?> </td>
+   <td><?php echo $row['type'];   ?> </td>
+<td>Rs.<?php echo $row['amount'];   ?></td>
+
+           </tr>
+   <?php }   ?>
+
+   </tbody>
+         </table></div>
+
+
+
 		 <div class="col-md-5">
 	<h3>Expenses</h3>
 	  <table id="example1" class="table table-bordered table-striped">
@@ -584,6 +616,9 @@ $credit=$row['sum(amount)'];
 				<?php }   ?>
 				</tbody>
               </table></div>
+
+
+
 		<div class="col-md-5">
 		  <table id="example1" class="table table-bordered table-striped">
                 <thead>
