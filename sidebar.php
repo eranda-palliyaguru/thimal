@@ -490,7 +490,6 @@ $user_lewal=$_SESSION['USER_LEWAL'];
               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
               </a>
                 <ul class="treeview-menu">
-                <li><a href="sales_all_print.php?d1=2020-11-14&d2=2020-11-31"><i class="fa fa-circle-o text-aqua "></i> Sales Jan</a></li>
 				<li><a href="sales_rp_special.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i>Special Price Sales</a></li>
 				<li><a href="sales_all_rp.php?d1=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Day End Report </a></li>
 				<li><a href="damage_view.php"><i class="fa fa-circle-o text-aqua "></i> Damage Report</a></li>

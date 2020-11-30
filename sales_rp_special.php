@@ -60,7 +60,7 @@ $q->execute(array($hs,$id));
 	}
 	?>
 
- 
+
     <!-- /.sidebar -->
   </aside>
 
@@ -165,25 +165,20 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				$cus_id=$_GET['cus'];
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
-
+if($cus_id=="all"){
 $view = $db->prepare("SELECT * FROM customer WHERE  s_price='1' ORDER by customer_id ASC");
+	$cus=">0";
+}else{
+$view = $db->prepare("SELECT * FROM customer WHERE  s_price='1' AND customer_id='$cus_id' ORDER by customer_id ASC");
+	$cus="=".$cus_id;
+}
 				$view->bindParam(':userid', $d2);
                 $view->execute();
                 for($i=0; $row5 = $view->fetch(); $i++){
 	            $cccus=$row5['customer_id'];
 
 
-if($cus_id=="all"){
 	$result2 = $db->prepare("SELECT * FROM sales WHERE customer_id='$cccus' and  action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-
-	$cus=">0";
-}else{
-	$result2 = $db->prepare("SELECT * FROM sales WHERE  customer_id='$cus_id' and action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-	$cus="=".$cus_id;
-}
-
-
-
 				$result2->bindParam(':userid', $d2);
                 $result2->execute();
                 for($i=0; $row2 = $result2->fetch(); $i++){
