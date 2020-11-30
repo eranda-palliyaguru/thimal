@@ -32,6 +32,13 @@ if ($chq_amount == $pay_tot) {
   $pay_amount=$rowz['pay_amount'];
   $tr_id=$rowz['tr_id'];
   $credit_id=$rowz['id'];
+  $type=$rowz['type'];
+
+
+  if ($type=="qb") {
+    // code...
+  }else {
+
 
   $sql = "UPDATE payment
           SET pay_amount=pay_amount+?
@@ -61,19 +68,20 @@ if ($chq_amount == $pay_tot) {
           $q->execute(array($ex,$tr_id));
           }
 
-          $c_act='0';
-          $sql = "UPDATE credit_payment
-                  SET action=?
-              WHERE id=?";
-          $q = $db->prepare($sql);
-          $q->execute(array($c_act,$credit_id));
-
           $ex="1";
           $sql = "UPDATE payment
                   SET credit_pay_id=?
               WHERE transaction_id=?";
           $q = $db->prepare($sql);
           $q->execute(array($pay_id,$tr_id));
+
+}
+          $c_act='0';
+          $sql = "UPDATE credit_payment
+                  SET action=?
+              WHERE id=?";
+          $q = $db->prepare($sql);
+          $q->execute(array($c_act,$credit_id));
 
   }
 

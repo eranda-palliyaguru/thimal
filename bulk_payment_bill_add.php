@@ -10,9 +10,17 @@ $invo = $_POST['invo'];
 $amount = $_POST['amount'];
 $pay_id = $_POST['id'];
 
+if($invo=="qb"){
+  $sales_id="00";
+  $c_amount="00";
+  $cus_id="00";
+  $type="qb";
+  $invo="00";
+  $cus="old bill";
+ }else{
 
 
-$resultz = $db->prepare("SELECT * FROM credit_payment WHERE tr_id='$invo' AND action='2'  ");
+$resultz = $db->prepare("SELECT * FROM credit_payment WHERE tr_id='$invo' AND action='2' AND  pay_id='$pay_id' ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
@@ -30,12 +38,6 @@ $cus_id=$rowz['customer_id'];
 $type=$rowz['type'];
 }
 
-if ($c_amount < $amount) {
-$error_id=1;
-}
-
-if ($error_id=="m") {
-
 $resultz = $db->prepare("SELECT * FROM customer WHERE customer_id='$cus_id'  ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
@@ -43,6 +45,12 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
 $cus=$rowz['customer_name'];
 }
 
+if ($c_amount < $amount) {
+$error_id=1;
+}
+}
+
+if ($error_id=="m") {
 $act=2;
 
 

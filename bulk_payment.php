@@ -302,6 +302,7 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
   <?php
       }
     ?>
+      <option value="qb">Old Bill Payment (QB System) </option>
               </select>
                  </div>
                 </div>
