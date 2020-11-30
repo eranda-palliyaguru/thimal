@@ -7,7 +7,7 @@ date_default_timezone_set("Asia/Colombo");
 $cus_id=$_POST['cus_id'];
 $u_name=$_SESSION['SESS_FIRST_NAME'];
 $uid=$_SESSION['SESS_MEMBER_ID'];
-$invo=$uid.$cus_id.date("ymdhHis");
+
 
 
 $result = $db->prepare("SELECT * FROM user WHERE id='$uid' ");
@@ -24,8 +24,9 @@ $result = $db->prepare("SELECT * FROM loading WHERE driver='$mid' and action='lo
 $lorry=$row['lorry_no'];
 $loading_id=$row['transaction_id'];
 		}
-
-
+//##############################//
+$invo=$loading_id.date("dhHis");
+//############################//
 $result = $db->prepare("SELECT * FROM customer WHERE customer_id='$cus_id' ");
 		$result->bindParam(':userid', $res);
 		$result->execute();
