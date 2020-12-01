@@ -18,6 +18,26 @@ if($r =='admin'){
 
 include_once("sidebar.php");
 }
+
+
+$cus_res = $db->prepare("SELECT * FROM customer WHERE area = '2'  ");
+          $cus_res->bindParam(':userid', $d2);
+                $cus_res->execute();
+                for($i=0; $cus_row = $cus_res->fetch(); $i++){
+                  $cus_type=$cus_row['area'];
+                  $cus_id=$cus_row['customer_id'];
+
+                  $sql = "UPDATE sales_list
+                          SET area=?
+                  		WHERE cus_id=?";
+                  $q = $db->prepare($sql);
+                  $q->execute(array($cus_type,$cus_id));
+
+
+
+
+                }
+
 ?>
 
 
@@ -107,7 +127,9 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
           <th>Colombo value</th>
           <th> Total value</th>
 
-				  <th>Total Margin</th>
+				  <th>Kaluthara Margin</th>
+          <th>Colombo  Margin</th>
+          <th>Total Margin</th>
 
 
 
@@ -139,11 +161,12 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 	            $id=$row['product_id'];
 	            $qty1=$row['qty'];
 				$qty2=$row['qty2'];
-
+        $price1=$row['price2'];
 				$price=$row['price'];
 				$o_price=$row['o_price'];
 
 				$margin=$price-$o_price;
+        $margin2=$price1-$o_price;
 
 				$qty_total=$qty1+$qty2;
 $p_qty1=0;$amount1=0;$amount2=0;
@@ -157,82 +180,59 @@ $p_qty=0;
                   <td><?php echo $row['gen_name'];?></td>
 
 
-    <?php 	$cus_res = $db->prepare("SELECT * FROM customer  ");
-    					$cus_res->bindParam(':userid', $d2);
-                    $cus_res->execute();
-                    for($i=0; $cus_row = $cus_res->fetch(); $i++){
-                      $cus_type=$cus_row['area'];
-                      $cus_id=$cus_row['customer_id'];
-                      if ($cus_type=='2') {
-      $result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+    <?php
+      $result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE area='2' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
       $result1->bindParam(':userid', $d);
       $result1->execute();
       for($i=0; $row = $result1->fetch(); $i++){
       $p_qty1+=$row['sum(qty)'];}
 
-      $result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
-      $result1->bindParam(':userid', $d);
-              $result1->execute();
-              for($i=0; $row = $result1->fetch(); $i++){
-        $amount1+=$row['sum(amount)'];}
-
-      }else{
-          	$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+          	$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
           	$result1->bindParam(':userid', $d);
             $result1->execute();
             for($i=0; $row = $result1->fetch(); $i++){
         		$p_qty+=$row['sum(qty)'];
             }
 
-            $result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+            $result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE area='2' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
             $result1->bindParam(':userid', $d);
-            $result1->execute();
-            for($i=0; $row = $result1->fetch(); $i++){
-            $amount2+=$row['sum(amount)'];}
-                        } }
+                    $result1->execute();
+                    for($i=0; $row = $result1->fetch(); $i++){
+              $amount1+=$row['sum(amount)'];}
+
+              $result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE  product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+              $result1->bindParam(':userid', $d);
+                      $result1->execute();
+                      for($i=0; $row = $result1->fetch(); $i++){
+                $amount2+=$row['sum(amount)'];}
+
+
+
                        ?>
 
 <td><?php echo  $p_qty1; ?></td>
-<td><?php echo  $p_qty; ?></td>
-<td style="background-color:#c98585"><?php $result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
-$result1->bindParam(':userid', $d);
-$result1->execute();
-for($i=0; $row = $result1->fetch(); $i++){
-echo  $row['sum(qty)'];
-} ?></td>
+<td><?php echo  $p_qty2=$p_qty-$p_qty1; ?></td>
+<td style="background-color:#c98585"><?php echo $p_qty; ?></td>
 
 
 <td><?php echo "Rs.".number_format( $amount1,2 ); ?></td>
-<td><?php echo "Rs.".number_format( $amount2,2 ); ?></td>
+<td><?php echo "Rs.".number_format( $amount2-$amount1,2 ); ?></td>
 
 <td style="background-color:#c98585"><?php
 
-				$result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
-				$result1->bindParam(':userid', $d);
-                $result1->execute();
-                for($i=0; $row = $result1->fetch(); $i++){
-					$amount=$row['sum(amount)'];
+		echo "Rs.".number_format( $amount2,2 );
 
-					echo "Rs.".number_format( $row['sum(amount)'],2 );
-					}
-
-					$tot_margin=$margin*$p_qty
+					$tot_margin=$margin*$p_qty2;
+          	$tot_margin1=$margin2*$p_qty1;
 				  ?></td>
 
 				<td><?php echo "Rs.".number_format($tot_margin,2);?></td>
-
-
-
-
-
-
-
-
-
+        <td><?php echo "Rs.".number_format($tot_margin1,2);?></td>
+        <td style="background-color:#c98585"><?php echo "Rs.".number_format($tot_margin+$tot_margin1,2);?></td>
 				 <?php
-					$tot_amount+=$amount;
+					$tot_amount+=$amount1;
 
-					$tot_tot_margin+=$tot_margin;
+					$tot_tot_margin+=$tot_margin+$tot_margin1;
 
 				}
                  			?>
@@ -241,10 +241,11 @@ echo  $row['sum(qty)'];
                 </tbody>
 			<tfoot>
             <tr style="background-color: grey; color: white">
-			<td></td>
-
+			<td colspan="4"></td>
+<td></td>
 			<td></td>
 			<td>Rs.<?php echo number_format( $tot_amount,2);?></td>
+      <td colspan="2"></td>
 			<td>Rs.<?php echo number_format( $tot_tot_margin,2);?></td>
 
 			</tr>
