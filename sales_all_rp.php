@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -45,38 +45,38 @@ include_once("sidebar.php");
         <li class="active">All Sales Report</li>
       </ol>
     </section>
-	
+
 	<br>
-	
+
 <a href="sales_all_print.php?d1=<?php echo $_GET['d1'];?>&d2=<?php echo $_GET['d2'];?>"><button  class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" >
   Print
  </button></a>
       <!-- SELECT2 EXAMPLE -->
-	        <form action="sales_all_rp.php" method="get">   
+	        <form action="sales_all_rp.php" method="get">
 	<center>
-	
-			  
-			  
+
+
+
 			<strong>
-From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" /> 
+From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" />
 To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/>
 
 
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
- 
-</strong>  
-			  
-		<br>	  
-			  
-         
-			 
+
+</strong>
+
+		<br>
+
+
+
 			 </center>
 			 </form>
-     
-			 
-			
+
+
+
 
     <!-- Main content -->
     <section class="content">
@@ -85,47 +85,53 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
       <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title"></h3>
-		  
-		  
-		  
-		   
-		  
+
+
+
+
+
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-				
+
                 <tr>
 				  <th>Product Name</th>
 
-                 				   
-			      <th>Total Sales</th>
-				<th>Total Sales Amount</th>
+
+          <th>Kaluthara Sales</th>
+          <th>Colombo Sales</th>
+          <th> Total Sales</th>
+
+          <th>Kaluthara value</th>
+          <th>Colombo value</th>
+          <th> Total value</th>
+
 				  <th>Total Margin</th>
 
-					
-				   
-                  
+
+
+
                 </tr>
                 </thead>
                 <tbody>
 				<?php
    $tot_tot_margin=0;
    $tot_amount=0;
-  
-			
-				
-				
+
+
+
+
 				date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
-				
+
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
-				
+
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
 				$result = $db->prepare("SELECT * FROM products  ORDER by product_id ASC");
-				
+
 					$result->bindParam(':userid', $d2);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
@@ -133,86 +139,125 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 	            $id=$row['product_id'];
 	            $qty1=$row['qty'];
 				$qty2=$row['qty2'];
-				
+
 				$price=$row['price'];
 				$o_price=$row['o_price'];
-					
-				$margin=$price-$o_price;
-					
-				$qty_total=$qty1+$qty2;
 
-				
-				
+				$margin=$price-$o_price;
+
+				$qty_total=$qty1+$qty2;
+$p_qty1=0;$amount1=0;$amount2=0;
+$p_qty=0;
+
+
 			?>
                 <tr>
-				
-				
+
+
                   <td><?php echo $row['gen_name'];?></td>
 
-<td><?php
-					
-				$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");			
-				$result1->bindParam(':userid', $d);
-                $result1->execute();
-                for($i=0; $row = $result1->fetch(); $i++){
-					$p_qty=$row['sum(qty)'];
-					echo $row['sum(qty)'];
-					}
-				  ?></td>					
-					
-<td><?php
-					
-				$result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");			
+
+    <?php 	$cus_res = $db->prepare("SELECT * FROM customer  ");
+    					$cus_res->bindParam(':userid', $d2);
+                    $cus_res->execute();
+                    for($i=0; $cus_row = $cus_res->fetch(); $i++){
+                      $cus_type=$cus_row['area'];
+                      $cus_id=$cus_row['customer_id'];
+                      if ($cus_type=='2') {
+      $result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result1->bindParam(':userid', $d);
+      $result1->execute();
+      for($i=0; $row = $result1->fetch(); $i++){
+      $p_qty1+=$row['sum(qty)'];}
+
+      $result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result1->bindParam(':userid', $d);
+              $result1->execute();
+              for($i=0; $row = $result1->fetch(); $i++){
+        $amount1+=$row['sum(amount)'];}
+
+      }else{
+          	$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+          	$result1->bindParam(':userid', $d);
+            $result1->execute();
+            for($i=0; $row = $result1->fetch(); $i++){
+        		$p_qty+=$row['sum(qty)'];
+            }
+
+            $result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE cus_id='$cus_id' AND product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+            $result1->bindParam(':userid', $d);
+            $result1->execute();
+            for($i=0; $row = $result1->fetch(); $i++){
+            $amount2+=$row['sum(amount)'];}
+                        } }
+                       ?>
+
+<td><?php echo  $p_qty1; ?></td>
+<td><?php echo  $p_qty; ?></td>
+<td style="background-color:#c98585"><?php $result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
+$result1->bindParam(':userid', $d);
+$result1->execute();
+for($i=0; $row = $result1->fetch(); $i++){
+echo  $row['sum(qty)'];
+} ?></td>
+
+
+<td><?php echo "Rs.".number_format( $amount1,2 ); ?></td>
+<td><?php echo "Rs.".number_format( $amount2,2 ); ?></td>
+
+<td style="background-color:#c98585"><?php
+
+				$result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");
 				$result1->bindParam(':userid', $d);
                 $result1->execute();
                 for($i=0; $row = $result1->fetch(); $i++){
 					$amount=$row['sum(amount)'];
-					
+
 					echo "Rs.".number_format( $row['sum(amount)'],2 );
-					} 
-					
+					}
+
 					$tot_margin=$margin*$p_qty
-				  ?></td>				
-				 
+				  ?></td>
+
 				<td><?php echo "Rs.".number_format($tot_margin,2);?></td>
-					
-					
-							
-					
-					
-					
-					
-				 
-				 
+
+
+
+
+
+
+
+
+
 				 <?php
 					$tot_amount+=$amount;
-					
+
 					$tot_tot_margin+=$tot_margin;
-					
-				}	
+
+				}
                  			?>
 				</tr>
-                
+
                 </tbody>
-			<tfoot>	
+			<tfoot>
             <tr style="background-color: grey; color: white">
 			<td></td>
-			
+
 			<td></td>
-			<td>Rs.<?php echo number_format( $tot_amount,2);?></td>	
+			<td>Rs.<?php echo number_format( $tot_amount,2);?></td>
 			<td>Rs.<?php echo number_format( $tot_tot_margin,2);?></td>
-		
-			</tr>	
+
+			</tr>
                 </tfoot>
               </table>
             </div>
-			
+
 			<center>
-			
-			
-			
+
+
+
 			<td>
-				
+
 			</td>
 			</center>
             <!-- /.box-body -->
@@ -221,18 +266,18 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
         </div>
         <!-- /.col -->
       </div>
-   
-   
-   
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
   include("dounbr.php");
@@ -331,17 +376,17 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
     $('#datepicker').datepicker({
       autoclose: true
     });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({
       autoclose: true
     });
-	
-	
-	
-   
+
+
+
+
 
     //iCheck for checkbox and radio inputs
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
@@ -399,7 +444,7 @@ var info = 'id=' + del_id;
    url: "pay_dll.php",
    data: info,
    success: function(){
-   
+
    }
  });
          $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
