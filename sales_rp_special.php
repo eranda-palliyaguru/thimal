@@ -45,7 +45,7 @@ $q->execute(array($hs));
 
 
 
-$result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='3' AND price < '5945' ");
+$result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='3' AND price < '4866' ");
 	$result1->bindParam(':userid', $d2);
     $result1->execute();
     for($i=0; $row = $result1->fetch(); $i++){
