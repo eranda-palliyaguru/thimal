@@ -39,9 +39,11 @@
 				$bank=$row['bank'];
 				$chq_date=$row['chq_date'];
         $sales_id=$row['sales_id'];
+        $pay_credit=$row['pay_credit'];
 				}
 $f="disabled";
 if ($sales_id>0) { $f=""; }
+if ($pay_credit=="1") { $f="disabled"; }
 
 	?>
 

@@ -7,6 +7,7 @@ $date="";
 $f=0;
 $g="non";
 $a1 = $_POST['id'];
+$memo="";
 //$ar = $_POST['amount'];
 $type = $_POST['p_type'];
 //$c = $_POST['cus_name'];
@@ -108,6 +109,7 @@ if($type=="cash"){
 }
 //---- ****Credit****-----//
 if($type=="credit"){
+	$memo=$_POST['credit_memo'];
     $amount=$bill_amount-$pay_balance;
 	$amount_pay=0;
 $action=2;
@@ -154,9 +156,9 @@ if (isset($_POST) ) {
 				       // more than 2 seconds since last post
 
 
-$sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod)";
+$sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id,memo) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod,:memo)";
 $q = $db->prepare($sql);
-$q->execute(array(':a'=>$a1,':b'=>$amount_pay,':c'=>$amount,':d'=>$type,':e'=>$date,':h'=>$now,':f'=>$f,':g'=>$g,':cus'=>$cus_id,':crp'=>$credit_p,':sid'=>$sales_id,':act'=>$action,':lod'=>$loding_id));
+$q->execute(array(':a'=>$a1,':b'=>$amount_pay,':c'=>$amount,':d'=>$type,':e'=>$date,':h'=>$now,':f'=>$f,':g'=>$g,':cus'=>$cus_id,':crp'=>$credit_p,':sid'=>$sales_id,':act'=>$action,':lod'=>$loding_id,':memo'=>$memo ));
 
 
 $sql = "UPDATE sales

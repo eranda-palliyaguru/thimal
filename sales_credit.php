@@ -241,7 +241,7 @@ include_once("sidebar2.php");
 				<th>Type</th>
 				<th>Amount</th>
 				<th>Overdue</th>
-				<th>Phone no</th>
+				<th>Memo</th>
 				<th>#</th>
 				</tr>
 				</thead>
@@ -384,14 +384,7 @@ if ($lorry=='all') {
 			$b_tot+=$row['amount']-$row['pay_amount'];
 			if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>
 		<td><?php	echo $rs1;	?></td>
-			<td><?php $cus_id=$row2['customer_id'];
-			$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id' ");
-
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $rowv = $result->fetch(); $i++){
-		 echo $rowv['acc_no']." - ".$rowv['acc_name'];
-				}
+			<td><?php echo $row['memo'];
 			?></td>
 			<td><?php if($user_lewal =='2'){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row2['transaction_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>"   title="Click to pay" >
 				  <button class="btn btn-success">Set Payment</button></a><?php } ?>

@@ -23,6 +23,7 @@ $result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$id'  ");
     $amount_o=$row['amount'];
     $sales_id=$row['sales_id'];
     $invoice_no=$row['invoice_no'];
+      $customer_id=$row['customer_id'];
   }
 
 
@@ -62,18 +63,18 @@ $result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$id'  ");
 
     $over=$pay_total-$bill_amount;
 
-    $sql = "INSERT INTO payment (invoice_no,amount,type,date,action,sales_id) VALUES (?,?,?,?,?,?)";
+    $sql = "INSERT INTO payment (invoice_no,amount,type,date,action,sales_id,customer_id) VALUES (?,?,?,?,?,?,?)";
     $q = $db->prepare($sql);
-    $q->execute(array($invoice_no,$over,"over",$date,"2",$sales_id));
+    $q->execute(array($invoice_no,$over,"over",$date,"2",$sales_id,$customer_id));
   }
 //------------- credit -------------//
 if ($bill_amount > $pay_total) {
 
   $over=$bill_amount-$pay_total;
 
-  $sql = "INSERT INTO payment (invoice_no,amount,type,date,action,sales_id) VALUES (?,?,?,?,?,?)";
+  $sql = "INSERT INTO payment (invoice_no,amount,type,date,action,sales_id,customer_id) VALUES (?,?,?,?,?,?,?)";
   $q = $db->prepare($sql);
-  $q->execute(array($invoice_no,$over,"credit",$date,"2",$sales_id));
+  $q->execute(array($invoice_no,$over,"credit",$date,"2",$sales_id,$customer_id));
 
 }
 

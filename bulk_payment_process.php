@@ -14,6 +14,7 @@ $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
 $chq_amount=$rowz['amount'];
+$pay_action=$rowz['action'];
 }
 
 $resultz = $db->prepare("SELECT sum(pay_amount) FROM credit_payment WHERE  pay_id='$pay_id' AND action='2'  ");
@@ -21,6 +22,11 @@ $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
 $pay_tot=$rowz['sum(pay_amount)'];
+}
+
+if ($pay_action > 0) {
+header("location: bulk_payment.php");
+$pay_tot=0;
 }
 
 if ($chq_amount == $pay_tot) {
@@ -74,6 +80,12 @@ if ($chq_amount == $pay_tot) {
               WHERE transaction_id=?";
           $q = $db->prepare($sql);
           $q->execute(array($pay_id,$tr_id));
+
+          $sql = "UPDATE payment
+                  SET customer_id=?
+              WHERE transaction_id=?";
+          $q = $db->prepare($sql);
+          $q->execute(array($cus_id,$pay_id));
 
 }
           $c_act='0';

@@ -113,12 +113,18 @@ if ($page=="END") { ?>
             <option value="chq">Cheque</option>
                       </select>
 
-   <div class="form-group" id='credit_pay' style="display:none;">
+                      <div class="form-group" id='credit_pay' style="display:none;">
+                   <br>
+                   	<input class="btn btn-info" type="submit" name="com" value="print" >
+                        <br><br><br>
+                        <label for="exampleInputPassword1">Memo</label>
+                        <div class="input-group">
+                          <input type="text"  name="credit_memo" onkeypress="postSet()" onfocus="this.value='';" class="form-control pull-right" autocomplete="off" >
+                       </div>
 
+                         <br>
 
-      <br>
-	<input class="btn btn-info" type="submit" name="com" value="print" >
-		</div>
+                   		</div>
 
 
 		 <div class="form-group" id='cash_pay' style="display:block;">
