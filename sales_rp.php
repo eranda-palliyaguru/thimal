@@ -512,7 +512,6 @@ $tot_f+=$row2['profit'];
 					<?php } ?>
 <?php
 $result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id >'9' ");
-
     $result->bindParam(':userid', $d1);
           $result->execute();
           for($i=0; $row = $result->fetch(); $i++){
