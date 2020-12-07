@@ -393,7 +393,14 @@ if($cus_t > 0){
 			?></span></td>
 					<?php } ?>
 <?php
-				  $ter1=9;
+$result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id >'9' ");
+
+    $result->bindParam(':userid', $d1);
+          $result->execute();
+          for($i=0; $row = $result->fetch(); $i++){
+$ter1= $row['count(product_id)'];
+  }
+
 
 				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
 	            $pro_id=$pro_id2+10;
@@ -504,7 +511,13 @@ $tot_f+=$row2['profit'];
 
 					<?php } ?>
 <?php
-				  $ter1=9;
+$result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id >'9' ");
+
+    $result->bindParam(':userid', $d1);
+          $result->execute();
+          for($i=0; $row = $result->fetch(); $i++){
+$ter1= $row['count(product_id)'];
+  }
 
 				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
 	            $pro_id=$pro_id2+10;
