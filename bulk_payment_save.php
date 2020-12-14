@@ -12,7 +12,7 @@ $amount = $_POST['amount'];
 $date = $_POST['date'];
 $type = $_POST['type'];
 
-$resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_no='$chq_no' AND action='2'  ");
+$resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_no='$chq_no' AND action >'0'  ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
