@@ -78,6 +78,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 		<option value="chq">Chq</option>
 		<option value="credit">Credit</option>
     <option value="coupon">Coupon</option>
+    <option value="bank">Bank</option>
     <option value="over">Overpayment</option>
     <option value="2kg">2Kg to 5Kg</option>
 
