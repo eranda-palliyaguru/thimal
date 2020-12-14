@@ -181,7 +181,7 @@ $sec = "1";
                 </tr>
 			 <?php
 
-			 $result2 = $db->prepare("SELECT * FROM credit_payment WHERE tr_id='$transaction_id'  ");
+			 $result2 = $db->prepare("SELECT * FROM credit_payment WHERE tr_id='$transaction_id' AND action='0'  ");
 			 $result2->bindParam(':userid', $date);
 			 $result2->execute();
 			 for($i=0; $row2 = $result2->fetch(); $i++){
