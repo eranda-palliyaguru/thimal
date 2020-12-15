@@ -181,6 +181,7 @@ include_once("sidebar2.php");
           <option value="all">All Customer</option>
           <option value="1">Channel</option>
           <option value="2">commercial</option>
+          <option value="3">Apartment</option>
           </select>
       </div>
       </div>
