@@ -41,6 +41,7 @@ $sec = "1";
 				 $result->execute();
 				 for($i=0; $row = $result->fetch(); $i++){
 					$invo=$row['transaction_id'];
+					$date=$row['date'];
 				 } ?>
 
 
@@ -50,12 +51,12 @@ $sec = "1";
             <img src="gas.jpg" width="250" alt=""><BR>
 
 	  <h5>Thimal Enterprises (Pvt.) Ltd <br>
-	 33B/1 Katuwawala, boralasgamuwa <br>
+	 33B/1 Katuwawala, Boralasgamuwa <br>
 	 011-2 509 801<br>
 		  <b>Invoice no.<?php echo $invo; ?> </b><br>
 	<br>
 		  Date:<?php date_default_timezone_set("Asia/Colombo");
-    echo date("Y-m-d"); echo "  Time-";  echo date("h:ia")  ?>
+    echo $date; echo "  Time-";  echo date("h:ia")  ?>
 			</h5></a>
 
         </div>
