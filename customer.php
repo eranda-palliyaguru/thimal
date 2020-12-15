@@ -111,7 +111,7 @@ include_once("sidebar.php");
 					  ?></td>
 				 <td><?php $type=$row['type']; if($type=='1'){?><span style="font-size: 12px" class="label label-warning">Channel</span><?php } ?>
 					<?php if($type=='2'){?><span style="font-size: 12px" class="label label-info">Commercial</span><?php } ?>
-          <?php if($type=='3'){?><span style="font-size: 12px" class="label label-">Apartment</span><?php } ?>
+          <?php if($type=='3'){?><span style="font-size: 12px" class="label label-danger">Apartment</span><?php } ?>
 					<?php
 					$cus_cus=$row['customer_id'];
 					$result12 = $db->prepare("SELECT * FROM special_price WHERE customer_id='$cus_cus'  ");
