@@ -135,7 +135,7 @@ if($r =='admin'){
 					$tot+=$row['amount']-$row['pay_amount'];?></td>
 
         <td>
-          <select class="form-control select2" name="cus" autofocus >
+          <select class="form-control select2" name="cus" style="width: 150px;"  autofocus >
 
        		<option value="cash">Cash</option>
           <option value="chq">CHQ</option>
