@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue layout-top-nav">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -28,11 +28,11 @@ if($r =='admin'){
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -44,14 +44,14 @@ if($r =='admin'){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        #SUM 
+        #SUM
         <small>Preview</small>
       </h1>
     </section>
 	<form >
 	 <select class="form-control select2" name="cus" style="width: 350px;"  autofocus >
-                  
-                  
+
+
 				  <?php
                 $result = $db->prepare("SELECT * FROM customer ");
 		$result->bindParam(':userid', $res);
@@ -69,89 +69,99 @@ if($r =='admin'){
   </form>
      <div class="row">
       <div id="screen"></div>
-		 
+
 <div class="col-md-6">
               <div class="form-group"><br>
-				  
+
                 <label>#SUM</label>
-				<form method="get" action="save_lorry_sum.php">
+
 				</div>
-				  
+
 
 	<table id="example1" class="table table-bordered table-striped">
-			  
+
                 <thead>
                 <tr>
-				  
+
                   <th>Name</th>
 				  <th>Invoice no</th>
                   <th>Date</th>
                   <th>Amount</th>
-				 
+             <th>Pay</th>
                 </tr>
-				
+
                 </thead>
-				
+
                 <tbody>
 				<?php
    $cus=$_GET['cus'];
 	$tot=0;
 	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-		
-		
-	
+
+
+
 				$result2z->bindParam(':userid', $d2);
                 $result2z->execute();
                 for($i=0; $row = $result2z->fetch(); $i++){
-				$sales_id=$row['sales_id'];	
-				
-		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");		
+				$sales_id=$row['sales_id'];
+
+		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
 			    $result2->bindParam(':userid', $d2);
                 $result2->execute();
                 for($i=0; $row2 = $result2->fetch(); $i++){
 				$invo=$row2['invoice_number'];
-	
+
 		 $pay_type=$row['type'];
 		$action=$row['action'];
-				
-		
+
+
 		    $date1=$row2['date'];
 			$date =  date("Y-m-d");
 				  $sday= strtotime( $date1);
                   $nday= strtotime($date);
                   $tdf= abs($nday-$sday);
                   $nbday1= $tdf/86400;
-                  $rs1= intval($nbday1);			
-		
-							
-					
+                  $rs1= intval($nbday1);
+
+
+
 			?>
                <tr class="record" >
-				
+
 				<td><?php echo $row2['name'];?></td>
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?></td>
 				<td><?php echo $row['amount']-$row['pay_amount'];
-					$tot+=$row['amount']-$row['pay_amount'];?></td>	
-				 
-				  
-				   <?php 
+					$tot+=$row['amount']-$row['pay_amount'];?></td>
+
+        <td>
+          <select class="form-control select2" name="cus" autofocus >
+
+       		<option value="cash">Cash</option>
+          <option value="chq">CHQ</option>
+
+                       </select>
+
+        </td>
+
+
+				   <?php
 				}
 				}
 				?>
                 </tr>
-  
+
                 </tbody>
                 <tfoot>
                 </tfoot>
               </table>
-				  
 
-				  
-			<h2 style="color: red">Credit - Rs.<?php echo $tot; ?></h2>	  
-				  
-		<input class="btn btn-info" type="submit" value="Submit" >		  
-				  </form>
+
+
+			<h2 style="color: red">Credit - Rs.<?php echo $tot; ?></h2>
+
+
+
               </div><br><br><br>
         <!-- /.col -->
 	<div class="col-md-2"><a href="sales_start.php">
@@ -160,11 +170,11 @@ if($r =='admin'){
       </div>
     <!-- Main content -->
 
-	
-	
+
+
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
  // include("dounbr.php");
@@ -273,37 +283,7 @@ if($r =='admin'){
       showInputs: false
     });
   });
-	
-	
 
-function sum() {
-
-            var r5000 = document.getElementById('r5000').value*5000;
-            var r2000 = document.getElementById('r2000').value*2000;
-	        var r1000 = document.getElementById('r1000').value*1000;
-            var r500 = document.getElementById('r500').value*500;
-	var r100 = document.getElementById('r100').value*100;
-	var r50 = document.getElementById('r50').value*50;
-	var r20 = document.getElementById('r20').value*20;
-	var r10 = document.getElementById('r10').value*10;
-	var coin = document.getElementById('coin').value*1;
-	
-	
- var result = parseInt(r5000) + parseInt(r2000) + parseInt(r1000) + parseInt(r500) + parseInt(r100) + parseInt(r50) + parseInt(r20) + parseInt(r10) + parseInt(coin)   ;
-            if (!isNaN(result)) {
-                document.getElementById('total').value = result;
-				document.getElementById('total1').value = result;
-				document.getElementById('r5000r').value = r5000;
-				document.getElementById('r2000r').value = r2000;
-				document.getElementById('r1000r').value = r1000;
-				document.getElementById('r500r').value = r500;
-				document.getElementById('r100r').value = r100;
-				document.getElementById('r50r').value = r50;
-				document.getElementById('r20r').value = r20;
-				document.getElementById('r10r').value = r10;
-				document.getElementById('coinr').value = coin;
-            }
-        }
 </script>
 </body>
 </html>
