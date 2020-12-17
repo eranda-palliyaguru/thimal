@@ -207,7 +207,7 @@ include_once("sidebar2.php");
 
      <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">Debtor Report  <a href="sales_credit_print.php?type=<?php echo $_GET['type'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>&lorry=<?php echo $_GET['lorry'] ?>"   title="Click to Print" >
+              <h3 class="box-title">Debtor Report  <a href="sales_credit_print.php?type=<?php echo $_GET['type'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>&lorry=<?php echo $_GET['lorry'] ?>&customer_type=<?php echo $_GET['customer_type'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
@@ -275,6 +275,7 @@ $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
 }
   		}else{
 	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
+
 			    $customer->bindParam(':userid', $d2);
                 $customer->execute();
                 for($i=0; $row_cus = $customer->fetch(); $i++){

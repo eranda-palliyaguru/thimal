@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>COLOR BIZNAZ | All Sales</title>
+  <title>Cloud ARM</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -95,14 +95,24 @@ $pay_type="";
  $customer_id=$_GET['cus'];
   $group=$_GET['group'];
   $lorry=$_GET['lorry'];
+  $customer_type=$_GET['customer_type'];
 
-if($customer_id=="all"){
-if($group=="all"){$customer = $db->prepare("SELECT * FROM customer  ");}else {
-$customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
-}
-}else{
-$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
-   $customer->bindParam(':userid', $d2);
+  if($customer_id=="all"){
+  if($group=="all"){
+
+  if ($customer_type=="all") {
+  $customer = $db->prepare("SELECT * FROM customer  ");
+  }else {
+  $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ");
+  }
+
+  }else {
+  $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
+  }
+    		}else{
+  	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
+
+$customer->bindParam(':userid', $d2);
           $customer->execute();
           for($i=0; $row_cus = $customer->fetch(); $i++){
  $cus=$row_cus['customer_id'];
