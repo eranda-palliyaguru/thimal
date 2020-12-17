@@ -135,12 +135,8 @@ if($r =='admin'){
 					$tot+=$row['amount']-$row['pay_amount'];?></td>
 
         <td>
-          <select class="form-control select2" name="cus" style="width: 150px;"  autofocus >
-
-       		<option value="cash">Cash</option>
-          <option value="chq">CHQ</option>
-
-                       </select>
+          <a href="lorry_credit_pay.php?id=<?php echo $row2['transaction_id'];?>">
+          <button type="button" class="btn btn-block btn-info btn-sm">Set Payment</button></a>
 
         </td>
 

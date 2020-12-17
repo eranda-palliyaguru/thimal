@@ -47,117 +47,75 @@ if($r =='admin'){
         #SUM
         <small>Preview</small>
       </h1>
+
+          <h3>Invoice No- <?php echo $id=$_GET['id']; ?></h3>
     </section>
-	<form >
-	 <select class="form-control select2" name="cus" style="width: 350px;"  autofocus >
 
-
-				  <?php
-                $result = $db->prepare("SELECT * FROM customer ");
-		$result->bindParam(':userid', $res);
-		$result->execute();
-		for($i=0; $row = $result->fetch(); $i++){
-	?>
-		<option value="<?php echo $row['customer_id'];?>"><?php echo $row['customer_name']; ?>    </option>
-	<?php
-				}
-			?>
-                </select>
-		 <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
- <i class="icon icon-search icon-large"></i> Search
- </button>
-  </form>
      <div class="row">
       <div id="screen"></div>
 
-<div class="col-md-6">
-              <div class="form-group"><br>
+      <section class="content-header">
+<center>
 
-                <label>#SUM</label>
-
-				</div>
-
-
-	<table id="example1" class="table table-bordered table-striped">
-
-                <thead>
-                <tr>
-
-                  <th>Name</th>
-				  <th>Invoice no</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-
-                </tr>
-
-                </thead>
-
-                <tbody>
-				<?php
-   $cus=$_GET['cus'];
-	$tot=0;
-	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-  $result2z->bindParam(':userid', $d2);
-  $result2z->execute();
-  for($i=0; $row = $result2z->fetch(); $i++){
-				$sales_id=$row['sales_id'];
-
-		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
-			    $result2->bindParam(':userid', $d2);
-                $result2->execute();
-                for($i=0; $row2 = $result2->fetch(); $i++){
-				$invo=$row2['invoice_number'];
-
-		 $pay_type=$row['type'];
-		$action=$row['action'];
+        <div class="col-md-10">
+<form name="myForm" onsubmit="return validateForm()" action="lorry_credit_pay_save.php" method="post">
 
 
-		    $date1=$row2['date'];
-			$date =  date("Y-m-d");
-				  $sday= strtotime( $date1);
-                  $nday= strtotime($date);
-                  $tdf= abs($nday-$sday);
-                  $nbday1= $tdf/86400;
-                  $rs1= intval($nbday1);
+  <select name="p_type" style="width: 190px;  " class="form-control" id="p_type" onchange="view_payment_date(this.value);">
+    <option value="cash">Cash</option>
+          <option value="chq">Cheque</option>
+                    </select>
 
 
+   <div class="form-group" id='cash_pay' style="display:block;">
+       <label for="exampleInputPassword1">Cash Amount</label>
+     <p id="cash_amount1" style="color: red"></p>
+       <div class="input-group">
+         <input type="text" id="cash_amount" name="cash_amount"   onkeypress="postSet()" onfocus="this.value='';" class="form-control pull-right" autocomplete="off" >
 
-			?>
-               <tr class="record" >
-
-				<td><?php echo $row2['name'];?></td>
-				<td><?php echo $row2['transaction_id'];?></td>
-				<td><?php echo $row2['date'];?></td>
-				<td><?php echo $row['amount']-$row['pay_amount'];
-					$tot+=$row['amount']-$row['pay_amount'];?></td>
-
-
-				   <?php
-				}
-				}
-				?>
-                </tr>
-
-                </tbody>
-                <tfoot>
-                </tfoot>
-              </table>
+     </div>
+   <br>
+     <input class="btn btn-info" type="submit" name="com" value="pay" >
+  </div>
 
 
+   <div class="form-group" id='chq_pay' style="display:none;">
+       <label for="exampleInputPassword1">Cheque No</label>
+       <div class="input-group">
+         <input type="text" name="chq_no" class="form-control pull-right" id="chq_no" autocomplete="off" >
+     <p id="chq_no1" style="color: red"></p>
+     </div>
+     <label for="exampleInputPassword1">Bank</label>
+       <div class="input-group">
+         <input type="text" name="bank" id="bank" class="form-control pull-right"> <p id="bank1" style="color: red"></p>
+     </div>
+     <label for="exampleInputPassword1">Amount</label>
+       <div class="input-group">
+         <input type="text" name="chq_amount" class="form-control pull-right" id="chq_amount" autocomplete="off" > <p id="chq_amount1" style="color: red"></p>
+     </div>
+      <label for="exampleInputPassword1">Date</label>
+       <div class="input-group">
+         <input type="text" name="chq_date" class="form-control pull-right" id="chq_date"  autocomplete="off" data-inputmask='"mask": "9999-99-99"' data-mask><p id="chq_date1" style="color: red"></p>
+     </div>
+    <br>
+<input type="hidden" name="invo" value="<?php echo $_GET['id']; ?>">
+<input class="btn btn-info" name="com" type="submit" value="Pay and Print" >
+</form>
+  </div>
 
-			<h2 style="color: red">Credit - Rs.<?php echo $tot; ?></h2>
+  <div id="form_continue"></div>
+            <!-- /btn-group -->
+</center>
+  </div>
+      </section>
 
-
-
-              </div><br><br><br>
+<br><br><br>
         <!-- /.col -->
 	<div class="col-md-2"><a href="sales_start.php">
 	<button type="button" class="btn btn-block btn-success btn-sm">Home</button></a>  </div><br>
         <!-- /.col -->
       </div>
     <!-- Main content -->
-
-
 
     <!-- /.content -->
   </div>
@@ -270,6 +228,22 @@ if($r =='admin'){
       showInputs: false
     });
   });
+
+
+  function view_payment_date(type){
+   if(type=='chq'){
+ 		document.getElementById('chq_pay').style.display='block';
+ 		document.getElementById('cash_pay').style.display='none';
+ 			}else if(type=='cash'){
+ 		document.getElementById('chq_pay').style.display='none';
+ 		document.getElementById('cash_pay').style.display='block';
+ 			}else {
+ 		document.getElementById('chq_pay').style.display='none';
+ 		document.getElementById('cash_pay').style.display='none';
+ 			}
+ 	 }
+
+
 
 </script>
 </body>
