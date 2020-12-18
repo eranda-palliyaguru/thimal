@@ -137,19 +137,22 @@ $tot="";
 				$result->bindParam(':userid', $date);
         $result->execute();
         for($i=0; $row = $result->fetch(); $i++){
-				$type=$row['type'];
+				$user=$row['user_id'];
 
-
-
-
+        $result1 = $db->prepare("SELECT * FROM user WHERE id ='$user' ");
+      				$result1->bindParam(':userid', $date);
+              $result1->execute();
+              for($i=0; $row1 = $result1->fetch(); $i++){
+                $dir=$row1['username'];
+              }
 
 			?>
 
 				<tr>
-        <td><?php echo $row['invoice'];?></td>
-				<td><?php echo $row['Customer'];?></td>
-				<td><?php // echo $row1['lorry_no'];?></td>
-				<td><?php // echo $dir;?></td>
+        <td><?php echo $row['invoice_no'];?></td>
+				<td><?php echo $row['customer'];?></td>
+				<td><?php echo $row1['loading_id'];?></td>
+				<td><?php echo $dir;?></td>
 				<td><?php echo $row['pay_type'];?></td>
 				<td><?php echo $row['amount'];?></td>
 				<td><?php echo $row['chq_no'];?></td>
