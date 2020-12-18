@@ -126,10 +126,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 <tbody>
 				<?php
                include("connect.php");
-				$d1=$_GET['d1'];
-				$d2=$_GET['d2'];
-			    $r=$_GET['r'];
-$tot="";
+     $tot="";
 
 
 
@@ -159,8 +156,8 @@ $tot="";
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
 <td><?php if ($user_lewal==2) { ?>
-  <a rel="facebox" href="payment_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
-  <a href="payment_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-danger  btn-xs"><i class="fa fa-connectdevelop fa-info"></i> Process</a>
+  <a rel="facebox" href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
+  <a href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-connectdevelop fa-info"></i>Process</a>
 <?php } ?>
 </td>
 </tr>
