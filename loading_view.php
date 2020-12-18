@@ -460,11 +460,9 @@ $ter1= $row['count(product_id)'];
 
 				<th>Invoice no </th>
 				<th>Customer</th>
-                 <th>Pay type</th>
-
-				 <th>Amount </th>
-                <th>Chq no</th>
-
+        <th>Pay type</th>
+				<th>Amount </th>
+        <th>Chq no</th>
 				<th>Chq Date</th>
 				<th>Bank</th>
 				</tr>
@@ -511,11 +509,26 @@ $cus=$row1['name'];
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-
+        </tr>
 				<?php
 				}
-				   ?></td>
-                </tr>
+        //------------ Credit payment--------//
+
+                  $result1 = $db->prepare("SELECT * FROM collection WHERE  loading_id=$tid and action='0' ");
+                  $result1->bindParam(':userid', $c);
+                  $result1->execute();
+                  for($i=0; $row = $result1->fetch(); $i++){
+                       ?>
+                         <tr style="background-color:red">
+                          <td><?php echo $row['invoice_no'];?></td>
+                          <td><?php echo $row['customer'];?></td>
+                          <td><?php echo $row['pay_type'];?></td>
+                          <td><?php echo $row['amount'];?></td>
+                          <td><?php echo $row['chq_no'];?></td>
+                         <td><?php echo $row['chq_date'];?></td>
+                         <td><?php echo $row['bank'];?></td>
+                          </tr>
+                     <?php   }    ?>
                 </tbody>
                 <tfoot>
                 </tfoot>
@@ -526,18 +539,14 @@ $cus=$row1['name'];
 $result->bindParam(':userid', $c);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
-
 $cash=$row['sum(amount)'];
-
 }
 
 $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  loading_id='$id' AND type='chq' and action >'0'  ORDER by transaction_id DESC");
 $result->bindParam(':userid', $c);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
-
 $chq=$row['sum(amount)'];
-
 }
 
 
@@ -545,9 +554,7 @@ $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  loading_id='$id' 
 $result->bindParam(':userid', $c);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
-
 $credit=$row['sum(amount)'];
-
 }
 	?>
 
