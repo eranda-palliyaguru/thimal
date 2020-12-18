@@ -34,6 +34,13 @@ $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
 $sum_amount=$row['sum(amount)'];
 	}
+	$result = $db->prepare("SELECT sum(amount) FROM collection WHERE  loading_id='$lo_id' AND pay_type='cash' and action ='0'  ");
+	$result->bindParam(':userid', $c);
+	$result->execute();
+	for($i=0; $row = $result->fetch(); $i++){
+	$c_cash=$row['sum(amount)'];
+	}
+$sum_amount=$sum_amount+$c_cash;
 
 $result = $db->prepare("SELECT sum(amount) FROM expenses_records WHERE loading_id ='$lo_id' and m_type='3' ");
 $result->bindParam(':userid', $c);
@@ -63,13 +70,13 @@ $p_name=$row['product_name'];
 $id=$row['transaction_id'];
 $date=$row['date'];
 
-$sql = "UPDATE products 
+$sql = "UPDATE products
         SET qty=qty+?
 		WHERE product_id=?";
 $q = $db->prepare($sql);
 $q->execute(array($qty_u,$row['product_code']));
-	
-$sql = "UPDATE loading_list 
+
+$sql = "UPDATE loading_list
         SET unload_qty=unload_qty+?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
@@ -84,29 +91,29 @@ $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
 $qty=$row1['qty'];
 
-	
-$sql = "UPDATE loading_list 
+
+$sql = "UPDATE loading_list
         SET yard_before=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
 $q->execute(array($qty,$id));
 
 
-$sql = "UPDATE loading 
+$sql = "UPDATE loading
         SET unloading_time=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
-$q->execute(array($j,$id));	
+$q->execute(array($j,$id));
 
 }
 
-	
-$time=date("h:i.a");	
+
+$time=date("h:i.a");
 $action=1;
 $type=2;
 $sql = "INSERT INTO stock_log (product_id,qty,product_name,date,time,action,source_id,yard_qty,type,user_id) VALUES (:b,:f,:i,:j,:ti,:k,:m,:lb,:ty,:us)";
 $q = $db->prepare($sql);
-$q->execute(array(':b'=>$pro_cod,':f'=>$qty_u,':i'=>$p_name,':j'=>$date,':k'=>$action,':m'=>$lo_id,':lb'=>$qty,':ti'=>$time,':ty'=>$type,':us'=>$user_id));	
+$q->execute(array(':b'=>$pro_cod,':f'=>$qty_u,':i'=>$p_name,':j'=>$date,':k'=>$action,':m'=>$lo_id,':lb'=>$qty,':ti'=>$time,':ty'=>$type,':us'=>$user_id));
 
 
 }
@@ -114,10 +121,10 @@ $result = $db->prepare("SELECT * FROM loading_list WHERE loading_id=$lo_id ");
 $result->bindParam(':userid', $c);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
-	
+
 $idr=$row['transaction_id'];
-$un="unload";	
-$sql = "UPDATE loading_list 
+$un="unload";
+$sql = "UPDATE loading_list
         SET action=?
 		WHERE transaction_id=?";
 $q = $db->prepare($sql);
@@ -137,8 +144,8 @@ $to_sum=$row['sum(loading_id)'];
 if(!$to_sum){
 $sql = "UPDATE loading SET action='unload' WHERE transaction_id ='$lo_id'";
 $q = $db->prepare($sql);
-$q->execute(array($qty,$c));	
-	
+$q->execute(array($qty,$c));
+
 $sql = "UPDATE lorry SET action='unload' WHERE loading_id ='$lo_id'";
 $q = $db->prepare($sql);
 $q->execute(array($qty,$c));
@@ -148,7 +155,7 @@ header("location: unload_print.php?id=$lo_id");
 ?>
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
@@ -166,8 +173,8 @@ include("connect.php");
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
- 
-	
+
+
 
 	<div class="box-body">
               <div class="alert alert-danger alert-dismissible">
@@ -179,11 +186,11 @@ include("connect.php");
 	<a href="unloding_stock.php?id=<?php echo $lo_id;?>">
 	<button type="button" class="btn btn-block btn-success btn-sm">Back</button></a>
 	   </div>
-	  
+
 	  <?php	}	?>
     <!-- /.content -->
 
-  
+
   <!-- /.content-wrapper -->
     <?php
  // include("dounbr.php");
@@ -295,5 +302,3 @@ include("connect.php");
 </script>
 </body>
 </html>
-
-

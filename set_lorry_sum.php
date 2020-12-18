@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue layout-top-na">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -28,11 +28,11 @@ if($r =='admin'){
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -44,18 +44,18 @@ if($r =='admin'){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        #SUM 
+        #SUM
         <small>Preview</small>
       </h1>
     </section>
-	
+
 	  <?php
 	$uid=$_SESSION['SESS_MEMBER_ID'];
         $result = $db->prepare("SELECT * FROM user WHERE id='$uid'   ");
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
-		$emid=$row['EmployeeId'];		
+		$emid=$row['EmployeeId'];
 		}
 	    $result = $db->prepare("SELECT * FROM loading WHERE driver='$emid' and action='load'   ");
 		$result->bindParam(':userid', $res);
@@ -64,96 +64,103 @@ if($r =='admin'){
 		 $tid=$row['transaction_id'];
 		}
 
-	$result = $db->prepare("SELECT sum(amount) FROM payment WHERE  loading_id='$tid' AND type='cash' and action >'0'  ORDER by transaction_id DESC");			
+	$result = $db->prepare("SELECT sum(amount) FROM payment WHERE  loading_id='$tid' AND type='cash' and action >'0'  ORDER by transaction_id DESC");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 				$cash_tot=$row['sum(amount)'];
 				}
+
+        $result = $db->prepare("SELECT sum(amount) FROM collection WHERE  loading_id='$tid' AND pay_type='cash' and action ='0'  ");
+      	$result->bindParam(':userid', $c);
+      	$result->execute();
+      	for($i=0; $row = $result->fetch(); $i++){
+      	$c_cash=$row['sum(amount)'];
+      	}
 	  ?>
-  
+
      <div class="row">
       <div id="screen"></div>
-		 
+
 <div class="col-md-6">
               <div class="form-group"><br>
-				  
+
                 <label>#SUM</label>
 				<form method="get" action="save_lorry_sum.php">
-				
-              
+
+
 				</div>
-				  
-				  
+
+
 				   <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>				
+                <tr>
 				<th><i class="fa fa-money"></i></th>
 				<th>QTY</th>
 				<th>Amount</th>
-                 
+
 				</tr>
                 </thead>
-                <tbody>              
-				<tr> 
-                <td>5000</td>				 				
+                <tbody>
+				<tr>
+                <td>5000</td>
 				 <td><input type="number" name="r5000" onkeyup="sum();" id="r5000" ></td>
 				<td><input id="r5000r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>2000</td>				 				
+				<tr>
+                <td>2000</td>
 				 <td><input type="number" name="r2000" onkeyup="sum();" id="r2000"></td>
 				<td><input id="r2000r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>1000</td>				 				
+				<tr>
+                <td>1000</td>
 				 <td><input type="number" name="r1000" id="r1000" onkeyup="sum();" ></td>
 				<td><input id="r1000r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>500</td>				 				
+				<tr>
+                <td>500</td>
 				 <td><input type="number" name="r500" id="r500" onkeyup="sum();"></td>
 				   <td><input id="r500r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>100</td>				 				
+				<tr>
+                <td>100</td>
 				 <td><input type="number" name="r100" id="r100" onkeyup="sum();"></td>
 					<td><input id="r100r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>50</td>				 				
+				<tr>
+                <td>50</td>
 				 <td><input type="number" name="r50" id="r50" onkeyup="sum();"></td>
 					<td><input id="r50r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>20</td>				 				
+				<tr>
+                <td>20</td>
 				 <td><input type="number" name="r20" id="r20" onkeyup="sum();"></td>
 					<td><input id="r20r"  disabled></td>
                 </tr>
-				<tr> 
-                <td>10</td>				 				
+				<tr>
+                <td>10</td>
 				 <td><input type="number" name="r10" id="r10" onkeyup="sum();"></td>
 					<td><input id="r10r"  disabled></td>
                 </tr>
-				<tr> 
-                <td><i class="fa fa-database"></i> Coine (කාසි)</td>				 				
+				<tr>
+                <td><i class="fa fa-database"></i> Coine (කාසි)</td>
 				 <td><input type="number" name="coin" id="coin" onkeyup="sum();"></td>
 					<td><input id="coinr"  disabled></td>
                 </tr>
                 </tbody>
                 <tfoot>
-					<tr> 
-                <td>Total</td>				 				
+					<tr>
+                <td>Total</td>
 				 <td><input type="text" name="total" id="total" onkeyup="sum();" disabled>
 					<input type="hidden" name="total" id="total1" onkeyup="sum();" >
 						<input type="hidden" name="id" value="<?php echo $tid;?>"  ></td>
                 </tr>
-                </tfoot>				
+                </tfoot>
               </table>
-				  
-			<h2 style="color: red">Cash - Rs.<?php echo $cash_tot; ?></h2>	  
-				  
-		<input class="btn btn-info" type="submit" value="Submit" >		  
+
+			<h2 style="color: red">Cash - Rs.<?php echo $cash_tot+$c_cash; ?></h2>
+
+		<input class="btn btn-info" type="submit" value="Submit" >
 				  </form>
               </div><br><br><br>
         <!-- /.col -->
@@ -163,11 +170,11 @@ if($r =='admin'){
       </div>
     <!-- Main content -->
 
-	
-	
+
+
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
  // include("dounbr.php");
@@ -276,8 +283,8 @@ if($r =='admin'){
       showInputs: false
     });
   });
-	
-	
+
+
 
 function sum() {
 
@@ -290,8 +297,8 @@ function sum() {
 	var r20 = document.getElementById('r20').value*20;
 	var r10 = document.getElementById('r10').value*10;
 	var coin = document.getElementById('coin').value*1;
-	
-	
+
+
  var result = parseInt(r5000) + parseInt(r2000) + parseInt(r1000) + parseInt(r500) + parseInt(r100) + parseInt(r50) + parseInt(r20) + parseInt(r10) + parseInt(coin)   ;
             if (!isNaN(result)) {
                 document.getElementById('total').value = result;
