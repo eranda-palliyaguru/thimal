@@ -517,6 +517,14 @@ $user_lewal=$_SESSION['USER_LEWAL'];
     </a>
   </li>
 <?php } ?>
+<li>
+    <a  href="credit_collection.php">
+      <i class="fa fa-usd"></i> <span>Credit Collection</span>
+      <span class="pull-right-container">
+
+      </span>
+    </a>
+  </li>
 	<li class="treeview">
 
           <a href="#">
