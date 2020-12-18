@@ -533,11 +533,25 @@ for($i=0; $row = $result->fetch(); $i++){
 $credit=$row['sum(amount)'];
 
 }
+
+$result = $db->prepare("SELECT sum(amount) FROM collection WHERE  loading_id='$id' AND pay_type='cash' and action ='0'  ");
+$result->bindParam(':userid', $c);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$c_cash=$row['sum(amount)'];
+}
+
+$result = $db->prepare("SELECT sum(amount) FROM collection WHERE  loading_id='$id' AND pay_type='chq' and action ='0'  ");
+$result->bindParam(':userid', $c);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$c_chq=$row['sum(amount)'];
+}
 	?>
 
 <h3>
-Cash- Rs.<?php echo $cash; ?><br>
-CHQ- Rs.<?php echo $chq; ?><br>
+Cash- Rs.<?php echo $cash+$c_cash; ?><br>
+CHQ- Rs.<?php echo $chq+$c_chq; ?><br>
 Credit- Rs.<?php echo $credit; ?><br>
 </h3>
 

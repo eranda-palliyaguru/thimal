@@ -374,10 +374,6 @@ $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and p
 			?></span></td>
 
 					<?php } ?>
-
-
-
-
 				<?php
 
 				}
@@ -512,7 +508,7 @@ $cus=$row1['name'];
         </tr>
 				<?php
 				}
-        
+
         //------------ Credit payment--------//
                   $result1 = $db->prepare("SELECT * FROM collection WHERE  loading_id=$id and action='0' ");
                   $result1->bindParam(':userid', $c);
@@ -556,10 +552,26 @@ $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
 $credit=$row['sum(amount)'];
 }
+
+
+
+$result = $db->prepare("SELECT sum(amount) FROM collection WHERE  loading_id='$id' AND pay_type='cash' and action ='0'  ");
+$result->bindParam(':userid', $c);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$c_cash=$row['sum(amount)'];
+}
+
+$result = $db->prepare("SELECT sum(amount) FROM collection WHERE  loading_id='$id' AND pay_type='chq' and action ='0'  ");
+$result->bindParam(':userid', $c);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$c_chq=$row['sum(amount)'];
+}
 	?>
 
-<h3 style="color: green">Cash- Rs.<?php echo $cash; ?></h3>
-<h3>CHQ- Rs.<?php echo $chq; ?></h3>
+<h3 style="color: green">Cash- Rs.<?php echo $cash+$c_cash; ?></h3>
+<h3>CHQ- Rs.<?php echo $chq+$c_chq; ?></h3>
 <h3 style="color: red">Credit- Rs.<?php echo $credit; ?></h3>
 
 
