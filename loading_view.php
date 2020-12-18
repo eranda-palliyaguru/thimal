@@ -512,8 +512,8 @@ $cus=$row1['name'];
         </tr>
 				<?php
 				}
+        
         //------------ Credit payment--------//
-
                   $result1 = $db->prepare("SELECT * FROM collection WHERE  loading_id=$id and action='0' ");
                   $result1->bindParam(':userid', $c);
                   $result1->execute();
