@@ -225,7 +225,7 @@ $cus=$row1['name'];
 
 					 			?>
 
-					 				<tr style="background-color:#02222222">
+					 				<tr style="background-color:red">
 					         <td><?php echo $row['invoice_no'];?></td>
 					 				 <td><?php echo $row['customer'];?></td>
 					 				 <td><?php echo $row['pay_type'];?></td>
