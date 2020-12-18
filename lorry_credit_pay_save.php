@@ -48,12 +48,29 @@ $result = $db->prepare("SELECT * FROM sales  WHERE transaction_id='$invo'   ");
                 $cus_id=$row['customer_id'];
 				}
 
+				$uid=$_SESSION['SESS_MEMBER_ID'];
+						$result = $db->prepare("SELECT * FROM user WHERE id='$uid'   ");
+				$result->bindParam(':userid', $res);
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+				$emid=$row['EmployeeId'];
+				}
+					$result = $db->prepare("SELECT * FROM loading WHERE driver='$emid' and action='load'   ");
+				$result->bindParam(':userid', $res);
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+				 $tid=$row['transaction_id'];
+				}
+
+
+
+
 $user_id=$_SESSION['SESS_MEMBER_ID'];
 $now=date('Y-m-d');
 
-$sql = "INSERT INTO collection (invoice_no,amount,pay_type,chq_no,chq_date,date,user_id,customer_id,customer) VALUES (?,?,?,?,?,?,?,?,?)";
+$sql = "INSERT INTO collection (invoice_no,amount,pay_type,chq_no,chq_date,date,user_id,customer_id,customer,bank,loading_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 $q = $db->prepare($sql);
-$q->execute(array($invo,$amount,$type,$chq_no,$date,$now,$user_id,$cus_id,$customer));
+$q->execute(array($invo,$amount,$type,$chq_no,$date,$now,$user_id,$cus_id,$customer,$bank,$tid));
 
 
 header("location: lorry_credit_view.php");
