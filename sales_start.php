@@ -212,11 +212,32 @@ $cus=$row1['name'];
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-
-				<?php
-				}
-				   ?></td>
                 </tr>
+								<?php
+								}
+
+//------------ Credit payment--------//
+
+					 $result1 = $db->prepare("SELECT * FROM collection WHERE  loading_id=$tid and action='0' ");
+					 $result1->bindParam(':userid', $c);
+					 $result1->execute();
+					 for($i=0; $row = $result1->fetch(); $i++){
+
+					 			?>
+
+					 				<tr style="background-color:#02222222">
+					         <td><?php echo $row['invoice_no'];?></td>
+					 				 <td><?php echo $row['customer'];?></td>
+					 				 <td><?php echo $row['pay_type'];?></td>
+					 				 <td><?php echo $row['amount'];?></td>
+					 				 <td><?php echo $row['chq_no'];?></td>
+					 				<td><?php echo $row['chq_date'];?></td>
+					 				<td><?php echo $row['bank'];?></td>
+					                 </tr>
+					 								<?php
+					 								}
+					 									 ?>
+
                 </tbody>
                 <tfoot>
                 </tfoot>
