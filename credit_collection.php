@@ -48,7 +48,7 @@ include_once("sidebar.php");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Payment Report
+      Credit  Payment Report
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
@@ -61,48 +61,14 @@ include_once("sidebar.php");
    <br>
 
 
-     <form action="pay_sum.php" method="get">
-	<center>
 
-
-
-
-
-From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" />
-To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/>
-
-		Pay type :<select class="form-control select2" name="r" style="width: 350px;"  autofocus >
-
-
-		<option value="cash">Cash</option>
-		<option value="chq">Chq</option>
-		<option value="credit">Credit</option>
-    <option value="coupon">Coupon</option>
-    <option value="bank">Bank</option>
-    <option value="over">Overpayment</option>
-    <option value="2kg">2Kg to 5Kg</option>
-
-                </select>
-
- <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
- <i class="icon icon-search icon-large"></i> Search
- </button>
-
-
-
-		<br>
-
-
-
-			 </center>
-			 </form>
 
 
    <section class="content">
 
      <div class="box">
             <div class="box-header">
-              <h3 class="box-title"> Payment List  <a href="pay_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>"   title="Click to Print" >
+              <h3 class="box-title"> Credit Payment List  <a href="credit_pay_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
@@ -130,7 +96,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
 
 
-	$result = $db->prepare("SELECT * FROM collection WHERE   type ='0'  ORDER by id DESC");
+	$result = $db->prepare("SELECT * FROM collection WHERE   type ='0' AND action='0'  ORDER by id DESC");
 				$result->bindParam(':userid', $date);
         $result->execute();
         for($i=0; $row = $result->fetch(); $i++){
@@ -157,7 +123,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<td><?php echo $row['bank'];?></td>
 <td><?php if ($user_lewal==2) { ?>
   <a rel="facebox" href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
-  <a href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-connectdevelop fa-info"></i>Process</a>
+  <a href="credit_collection_save.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-connectdevelop fa-info"></i>Process</a>
 <?php } ?>
 </td>
 </tr>
