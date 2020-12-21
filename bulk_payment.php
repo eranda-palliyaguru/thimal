@@ -277,6 +277,35 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
 
                 </div>
            </div>
+
+
+
+         <?php } if ($type=="cash") { ?>
+         <div class="col-sm-2 col-md-5 pull-right">
+           <div class="callout callout-">
+
+
+    <img src="money.png" alt="" style="width:150px">
+                         <table  class="table table-bordered table-striped">
+                           <thead>
+
+
+
+                           <tr>
+                     <th>Type</th>
+                     <th>Cash</th>
+                           </tr>
+
+                           <tr>
+                     <th>Amount</th>
+                     <th><?php echo $rowz['amount']; ?></th>
+                           </tr>
+
+                     </thead>
+                     </table>
+
+                         </div>
+                    </div>
 <?php } } ?>
 
   <form method="post" action="bulk_payment_bill_add.php">

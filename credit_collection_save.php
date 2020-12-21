@@ -3,10 +3,12 @@ session_start();
 include('connect.php');
 date_default_timezone_set("Asia/Colombo");
 $olld=0;
-$now=date("Y-m-d");
+$date=date("Y-m-d");
+$error_id="";
+$id = $_GET['id'];
 
 
-$id = $_POST['id'];
+
 
 
 $resultz = $db->prepare("SELECT * FROM collection WHERE  id='$id'  ");
@@ -20,38 +22,58 @@ $chq_no=$rowz['chq_no'];
 $chq_date=$rowz['chq_date'];
 $bank=$rowz['bank'];
 $type=$rowz['pay_type'];
+$pay_id=$rowz['pay_id'];
+}
+
+
+if($pay_id == 0){
+
+
+if ($type=="chq") {
+ $action="2";
+ $pay_amount=0;
+ if ($chq_no=="" || $chq_date=="" || $bank=="") {
+ $error_id=5;
+ }
+}
+if ($type=="cash") {
+  $action="1";
+  $pay_amount=$amount;
 }
 
 
 
 
 
-  $resultz = $db->prepare("SELECT * FROM credit_payment WHERE  pay_id='$pay_id' AND action='2' ");
-  $resultz->bindParam(':userid', $inva);
-  $resultz->execute();
-  for($i=0; $rowz = $resultz->fetch(); $i++){
-  $pay_amount=$rowz['pay_amount'];
-  $tr_id=$rowz['tr_id'];
-  $credit_id=$rowz['id'];
-  $type=$rowz['type'];
+  $sql = "INSERT INTO payment (collection_id,pay_amount,amount,type,date,chq_no,chq_date,bank,sales_id,customer_id,pay_credit,action) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+  $q = $db->prepare($sql);
+  $q->execute(array($id,$pay_amount,$amount,$type,$date,$chq_no,$chq_date,$bank,$invoice_no,$customer_id,"1","0"));
+
+  $result = $db->prepare("SELECT * FROM payment WHERE collection_id='$id' ");
+  $result->bindParam(':userid', $ttr);
+  $result->execute();
+  for($i=0; $row = $result->fetch(); $i++){
+    $pay_id=$row['transaction_id'];
+
+  }
+
+  $sql = "UPDATE collection
+          SET pay_id=?
+      WHERE id=?";
+  $q = $db->prepare($sql);
+  $q->execute(array($pay_id,$id));
+
+  $sql = "UPDATE credit_payment
+          SET pay_id=?
+      WHERE collection_id=?";
+  $q = $db->prepare($sql);
+  $q->execute(array($pay_id,$id));
+
 }
 
 
 
-  $ex="2";
-  $sql = "UPDATE payment
-          SET action=?
-      WHERE transaction_id=?";
-  $q = $db->prepare($sql);
-  $q->execute(array($ex,$pay_id));
 
 
-
-  $sql = "INSERT INTO purchases (invoice_no,pay_amount,amount,type,data,chq_no,chq_date,bank,sales_id,customer_id,pay_credit,action) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-  $q = $db->prepare($sql);
-  $q->execute(array($invoice_no,$pay_amount,$amount,$type,$date,$chq_no,$chq_date,$bank,$invoice_no,$customer_id,"1",$action));
-
-
-
-header("location: bulk_payment_print.php?id=$pay_id");
+header("location: bulk_payment.php?id=$pay_id");
 ?>

@@ -135,7 +135,7 @@ if($r =='admin'){
 					$tot+=$row['amount']-$row['pay_amount'];?></td>
 
         <td>
-          <a href="lorry_credit_pay.php?id=<?php echo $row2['transaction_id'];?>">
+          <a href="lorry_credit_pay.php?id=<?php echo $row2['transaction_id'];?>&tr_id=<?php echo $row['transaction_id'];?>">
           <button type="button" class="btn btn-block btn-info btn-sm">Set Payment</button></a>
 
         </td>

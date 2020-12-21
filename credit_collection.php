@@ -68,7 +68,7 @@ include_once("sidebar.php");
 
      <div class="box">
             <div class="box-header">
-              <h3 class="box-title"> Credit Payment List  <a href="credit_pay_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>"   title="Click to Print" >
+              <h3 class="box-title"> Credit Payment List  <a href="credit_pay_sum_print.php"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->

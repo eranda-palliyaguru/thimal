@@ -99,6 +99,7 @@ if($r =='admin'){
      </div>
     <br>
 <input type="hidden" name="invo" value="<?php echo $_GET['id']; ?>">
+<input type="hidden" name="tr_id" value="<?php echo $_GET['tr_id']; ?>">
 <input class="btn btn-info" name="com" type="submit" value="Pay and Print" >
 </form>
   </div>
