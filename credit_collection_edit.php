@@ -16,7 +16,7 @@
         <!-- /.box-header -->
 		<div class="form-group">
 
-		<form method="post" action="payment_edit_save.php">
+		<form method="post" action="credit_collection_edit_save.php">
 
         <div class="box-body">
 
