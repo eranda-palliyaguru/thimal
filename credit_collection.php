@@ -116,13 +116,14 @@ include_once("sidebar.php");
 				<td><?php echo $row['customer'];?></td>
 				<td><?php echo $row1['loading_id'];?></td>
 				<td><?php echo $dir;?></td>
-				<td><?php echo $row['pay_type'];?></td>
+				<td><?php echo $pay_type=$row['pay_type'];?></td>
 				<td><?php echo $row['amount'];?></td>
 				<td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-<td><?php if ($user_lewal==2) { ?>
-  <a rel="facebox" href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
+<td><?php if ($user_lewal==2) { if ($pay_type=="chq") {
+?>
+  <a rel="facebox" href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a> <?php } ?>
   <a href="credit_collection_save.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-connectdevelop fa-info"></i>Process</a>
 <?php } ?>
 </td>
