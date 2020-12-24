@@ -511,12 +511,18 @@ $cus=$row1['name'];
 				}
 
         //------------ Credit payment--------//
-                  $result1 = $db->prepare("SELECT * FROM collection WHERE  loading_id=$id and action='0' ");
+                  $result1 = $db->prepare("SELECT * FROM collection WHERE  loading_id=$id ");
                   $result1->bindParam(':userid', $c);
                   $result1->execute();
                   for($i=0; $row = $result1->fetch(); $i++){
+                    $action=$row['action'];
+                    if ($action==0) {
+                      $color_code='#7FB3D5';
+                    }else {
+                    $color_code='#E84141';
+                    }
                        ?>
-                         <tr style="background-color:#7FB3D5">
+                         <tr style="background-color:<?php echo $color_code; ?>">
                           <td><?php echo $row['invoice_no'];?></td>
                           <td><?php echo $row['customer'];?></td>
                           <td><?php echo $row['pay_type'];?></td>
