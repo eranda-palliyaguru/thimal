@@ -8,7 +8,7 @@ include("connect.php");
 <?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
-
+$user_lewal=$_SESSION['USER_LEWAL'];
 if($r =='Cashier'){
 
 include_once("sidebar2.php");
@@ -522,8 +522,11 @@ $cus=$row1['name'];
                           <td><?php echo $row['amount'];?></td>
                           <td><?php echo $row['chq_no'];?></td>
                          <td><?php echo $row['chq_date'];?></td>
-                         <td><?php echo $row['bank'];?><a href="collection_dll.php?id=<?php echo $row['id']; ?>"> <span style="font-size: 12px" class="label label-danger">Remove</span> </a></td>
-                          </tr>
+                         <td><?php echo $row['bank'];
+                       if ($user_lewal =='2') { if ($unload=='load') {
+                         ?>
+                           <a href="credit_collection_dll.php?id=<?php echo $row['id']; ?>&lid=<?php echo $_GET['id']; ?>"> <span style="font-size: 12px" class="label label-danger">Remove</span> </a></td>
+                <?php }} ?></tr>
                      <?php   }    ?>
                 </tbody>
                 <tfoot>
