@@ -502,6 +502,16 @@ $user_lewal=$_SESSION['USER_LEWAL'];
                 </ul>
               </li>
 
+              <li>
+              <a href="#"><i class="fa fa-line-chart text-red"></i>Back Date Report
+              <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+              </a>
+                <ul class="treeview-menu">
+                <li><a href="sales_credit_back_date.php"><i class="fa fa-circle-o text-aqua "></i> Credit Report</a></li>
+
+                </ul>
+              </li>    
+
 			</a></li>
           </ul>
         </li>
