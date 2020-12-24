@@ -504,7 +504,7 @@ $cus=$row1['name'];
 				 <td><?php echo $row['amount'];?></td>
 				 <td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
-				<td><?php echo $row['bank'];?></td>
+				<td><?php echo $row['bank'];?> </td>
         </tr>
 				<?php
 				}
@@ -522,7 +522,7 @@ $cus=$row1['name'];
                           <td><?php echo $row['amount'];?></td>
                           <td><?php echo $row['chq_no'];?></td>
                          <td><?php echo $row['chq_date'];?></td>
-                         <td><?php echo $row['bank'];?></td>
+                         <td><?php echo $row['bank'];?><a href="collection_dll.php?id=<?php echo $row['id']; ?>"> <span style="font-size: 12px" class="label label-danger">Remove</span> </a></td>
                           </tr>
                      <?php   }    ?>
                 </tbody>
