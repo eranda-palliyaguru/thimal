@@ -129,6 +129,7 @@ $lorry_no=$row['lorry_no'];
 $he1=$row['helper1'];
 $he2=$row['helper2'];
 $date25=$row['date'];
+$unload=$row['action'];
 }
 
 
@@ -525,7 +526,7 @@ $cus=$row1['name'];
                          <td><?php echo $row['bank'];
                        if ($user_lewal =='2') { if ($unload=='load') {
                          ?>
-                           <a href="credit_collection_dll.php?id=<?php echo $row['id']; ?>&lid=<?php echo $_GET['id']; ?>"> <span style="font-size: 12px" class="label label-danger">Remove</span> </a></td>
+            <a href="credit_collection_dll.php?id=<?php echo $row['id']; ?>&lid=<?php echo $_GET['id']; ?>"> <span style="font-size: 12px" class="label label-danger">Remove</span> </a></td>
                 <?php }} ?></tr>
                      <?php   }    ?>
                 </tbody>
