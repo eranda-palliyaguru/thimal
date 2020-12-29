@@ -149,7 +149,7 @@ $dtt=$diff->format( '%r%a' );
 				<?php }
 //---------------------------------- credit payment -----------------------------------//
          $date=date("Y-m-d");
-        	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='cash' AND pay_credit='1'");
+        	$result = $db->prepare("SELECT * FROM payment WHERE  bank_action='0' and type='cash' AND pay_credit='1' AND loading_id > '1'");
         					$result->bindParam(':userid', $date);
                         $result->execute();
                         for($i=0; $row = $result->fetch(); $i++){
