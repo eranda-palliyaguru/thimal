@@ -46,8 +46,7 @@ $result = $db->prepare("SELECT * FROM sales  WHERE transaction_id='$invo'   ");
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 	            $customer=$row['name'];
-                $cus_id=$row['customer_id'];
-				}
+              $cus_id=$row['customer_id'];	}
 
 				$uid=$_SESSION['SESS_MEMBER_ID'];
 						$result = $db->prepare("SELECT * FROM user WHERE id='$uid'   ");
@@ -62,8 +61,6 @@ $result = $db->prepare("SELECT * FROM sales  WHERE transaction_id='$invo'   ");
 				for($i=0; $row = $result->fetch(); $i++){
 				 $tid=$row['transaction_id'];
 				}
-
-
 
 
 $user_id=$_SESSION['SESS_MEMBER_ID'];
@@ -89,21 +86,26 @@ $c_amount=$rowz['amount'];
 $cus_id=$rowz['customer_id'];
 $type=$rowz['type'];
 }
-
 $act=2;
+
+$balence=$amount-$c_amount;
+if ($balence < 0) {
+	$pay_amount=$amount ;
+}else{
+	$pay_amount=$c_amount;
+}
+
 
 $sql = "INSERT INTO credit_payment (tr_id,sales_id,collection_id,pay_amount,credit_amount,cus_id,date,action,cus,type) VALUES (:tr_id,:s_id,:p_id,:p_amo,:c_amo,:cus,:date,:act,:cus_n,:type)";
 $q = $db->prepare($sql);
-$q->execute(array(':tr_id'=>$tr_id,':s_id'=>$invo,':p_id'=>$collection_id,':p_amo'=>$c_amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$now,':act'=>$act,':cus_n'=>$customer,':type'=>$type));
+$q->execute(array(':tr_id'=>$tr_id,':s_id'=>$invo,':p_id'=>$collection_id,':p_amo'=>$pay_amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$now,':act'=>$act,':cus_n'=>$customer,':type'=>$type));
 
 
+if ($balence > 0) {
 
+}else {
 header("location: lorry_credit_view.php");
-
-
-
-// query
-
+}
 
 
 ?>

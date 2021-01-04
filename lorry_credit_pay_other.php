@@ -55,16 +55,32 @@ if($r =='admin'){
 <center>
 
         <div class="col-md-10">
-<form name="myForm" onsubmit="return validateForm()" action="lorry_credit_pay_save.php" method="post">
+<form onsubmit="return validateForm()" action="lorry_credit_pay_save.php" method="post">
 
 
-  <select name="p_type" style="width: 190px;" class="form-control" id="p_type" onchange="view_payment_date(this.value);">
-    <option value="cash">Cash</option>
-          <option value="chq">Cheque</option>
-                    </select>
+  <label>Invoice NO</label>
+  <select class="form-control select2" name="invo" style="width: 100%;" autofocus>
+<?php
+$result = $db->prepare("SELECT * FROM payment WHERE type='credit' AND action='2' ");
+$result->bindParam(':userid', $ttr);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$customer_id=$row['customer_id'];
+
+$result11 = $db->prepare("SELECT * FROM customer WHERE customer_id ='$customer_id' ");
+$result11->bindParam(':userid', $res);
+$result11->execute();
+for($i=0; $row11 = $result11->fetch(); $i++){
+$name=$row11['customer_name'];
+}
+?>
+<option value="<?php echo $row['transaction_id'];?>"><?php echo $row['sales_id']; ?> __ <?php echo $name; ?> __Rs.<?php echo $row['amount']-$row['pay_amount']; ?>  </option>
+<?php
+}
+?>
 
 
-   <div class="form-group" id='cash_pay' style="display:block;">
+
        <label for="exampleInputPassword1">Cash Amount</label>
      <p id="cash_amount1" style="color: red"></p>
        <div class="input-group">
@@ -73,33 +89,9 @@ if($r =='admin'){
      </div>
    <br>
      <input class="btn btn-info" type="submit" name="com" value="pay" >
-  </div>
-
-
-   <div class="form-group" id='chq_pay' style="display:none;">
-       <label for="exampleInputPassword1">Cheque No</label>
-       <div class="input-group">
-         <input type="text" name="chq_no" class="form-control pull-right" id="chq_no" autocomplete="off" >
-     <p id="chq_no1" style="color: red"></p>
-     </div>
-     <label for="exampleInputPassword1">Bank</label>
-       <div class="input-group">
-         <input type="text" name="bank" id="bank" class="form-control pull-right"> <p id="bank1" style="color: red"></p>
-     </div>
-     <label for="exampleInputPassword1">Amount</label>
-       <div class="input-group">
-         <input type="text" name="chq_amount" class="form-control pull-right" id="chq_amount" autocomplete="off" > <p id="chq_amount1" style="color: red"></p>
-     </div>
-      <label for="exampleInputPassword1">Date</label>
-       <div class="input-group">
-         <input type="text" name="chq_date" class="form-control pull-right" id="chq_date"  autocomplete="off" data-inputmask='"mask": "9999-99-99"' data-mask><p id="chq_date1" style="color: red"></p>
-     </div>
-    <br>
-<input type="hidden" name="invo" value="<?php echo $_GET['id']; ?>">
-<input type="hidden" name="tr_id" value="<?php echo $_GET['tr_id']; ?>">
-<input class="btn btn-info" name="com" type="submit" value="Pay and Print" >
 </form>
-  </div>
+
+
 
   <div id="form_continue"></div>
             <!-- /btn-group -->
