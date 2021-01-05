@@ -2,10 +2,15 @@
 session_start();
 date_default_timezone_set("Asia/Colombo");
 include('connect.php');
+
+$input_type=$_POST['in_type'];
+$tr_id = $_POST['tr_id'];
+if ($input_type==1) {
+
 $chq_no = 0;
 $type = $_POST['p_type'];
 $invo = $_POST['invo'];
-$tr_id = $_POST['tr_id'];
+
 $bank="non";
 if($type=="chq"){
 	$amount_pay=0;
@@ -76,6 +81,19 @@ $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
 $collection_id=$row['id'];
 }
+$payment_amount=$amount;
+//-----------------input type 1 end ----------------//
+}else {
+$amount=$_POST['amount'];
+$collection_id=$_POST['id'];
+	$result = $db->prepare("SELECT * FROM collection WHERE id='$collection_id' ");
+	$result->bindParam(':userid', $res);
+	$result->execute();
+	for($i=0; $row = $result->fetch(); $i++){
+//	$invo=$row['invoice_no'];
+	$payment_amount=$row['amount'];
+	}
+}
 
 $resultz = $db->prepare("SELECT * FROM payment WHERE transaction_id='$tr_id'  ");
 $resultz->bindParam(':userid', $tr_id);
@@ -83,29 +101,43 @@ $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
 $sales_id=$rowz['sales_id'];
 $c_amount=$rowz['amount'];
-$cus_id=$rowz['customer_id'];
+//$cus_id=$rowz['customer_id'];
 $type=$rowz['type'];
 }
+
+$result = $db->prepare("SELECT * FROM sales  WHERE transaction_id='$sales_id'   ");
+				$result->bindParam(':userid', $a);
+								$result->execute();
+								for($i=0; $row = $result->fetch(); $i++){
+							$customer=$row['name'];
+							$cus_id=$row['customer_id'];	}
+
+$resultz = $db->prepare("SELECT sum(pay_amount) FROM credit_payment WHERE collection_id='$collection_id'  ");
+$resultz->bindParam(':userid', $tr_id);
+$resultz->execute();
+for($i=0; $rowz = $resultz->fetch(); $i++){
+$coll_tot=$rowz['sum(pay_amount)'];
+}
+//$coll_tot=$coll_tot+$
 $act=2;
 
-$balence=$amount-$c_amount;
-if ($balence < 0) {
-	$pay_amount=$amount ;
-}else{
-	$pay_amount=$c_amount;
-}
+$balence=$payment_amount-$coll_tot;
 
+	if ($balence < 0) {
+		$pay_amount=$amount ;
+	}else{
+		$pay_amount=$c_amount;
+	}
+
+
+$now=date('Y-m-d');
 
 $sql = "INSERT INTO credit_payment (tr_id,sales_id,collection_id,pay_amount,credit_amount,cus_id,date,action,cus,type) VALUES (:tr_id,:s_id,:p_id,:p_amo,:c_amo,:cus,:date,:act,:cus_n,:type)";
 $q = $db->prepare($sql);
-$q->execute(array(':tr_id'=>$tr_id,':s_id'=>$invo,':p_id'=>$collection_id,':p_amo'=>$pay_amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$now,':act'=>$act,':cus_n'=>$customer,':type'=>$type));
+$q->execute(array(':tr_id'=>$tr_id,':s_id'=>$sales_id,':p_id'=>$collection_id,':p_amo'=>$pay_amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$now,':act'=>$act,':cus_n'=>$customer,':type'=>$type));
 
-
-if ($balence > 0) {
-
-}else {
-header("location: lorry_credit_view.php");
-}
-
-
+$balence=$balence-$pay_amount;
+if ($balence >= 0) {
+header("location: lorry_credit_pay_other.php?id=$collection_id");
+}else { header("location: lorry_credit_view.php"); }
 ?>

@@ -45,11 +45,37 @@ if($r =='admin'){
         <small>Preview</small>
       </h1>
 
-          <h3>Invoice No- <?php echo $id=$_GET['id']; ?></h3>
+      <div class="col-md-6">
+<?php  $id=$_GET['id'];
+
+$result = $db->prepare("SELECT * FROM collection WHERE id='$id' ");
+$result->bindParam(':userid', $res);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+//	$invo=$row['invoice_no'];
+$chq_amount=$row['amount'];
+}
+
+
+ $result = $db->prepare("SELECT sum(pay_amount) FROM credit_payment WHERE collection_id='$id' AND action='2' ");
+$result->bindParam(':userid', $ttr);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+$pay_tot=$row['sum(pay_amount)']; }
+$balance=$chq_amount-$pay_tot;
+
+if ($balance<0) {
+echo "<h1 style='color:red'>";
+}else {
+echo "<h1 style='color:green'>";
+}
+?>
+
+        Balance <?php echo $balance; ?></h1>
+      </div>
     </section>
 
      <div class="row">
-      <div id="screen"></div>
 
       <section class="content-header">
 <center>
@@ -59,7 +85,7 @@ if($r =='admin'){
 
 
   <label>Invoice NO</label>
-  <select class="form-control select2" name="invo" style="width: 100%;" autofocus>
+  <select class="form-control select2" name="tr_id" style="width: 100%;" autofocus>
 <?php
 $result = $db->prepare("SELECT * FROM payment WHERE type='credit' AND action='2' ");
 $result->bindParam(':userid', $ttr);
@@ -79,15 +105,17 @@ $name=$row11['customer_name'];
 }
 ?>
 
+<br><br> <br>
 
 
-       <label for="exampleInputPassword1">Cash Amount</label>
-     <p id="cash_amount1" style="color: red"></p>
+
        <div class="input-group">
-         <input type="text" id="cash_amount" name="cash_amount"   onkeypress="postSet()" onfocus="this.value='';" class="form-control pull-right" autocomplete="off" >
+         <input type="text" name="amount"  class="form-control" autocomplete="off" >
 
      </div>
-   <br>
+
+<input type="hidden" name="in_type" value="2">
+<input type="hidden" name="id" value="<?php echo  $_GET['id']; ?>">
      <input class="btn btn-info" type="submit" name="com" value="pay" >
 </form>
 
@@ -96,14 +124,156 @@ $name=$row11['customer_name'];
   <div id="form_continue"></div>
             <!-- /btn-group -->
 </center>
+<br><br>
   </div>
       </section>
+      <table  class="table table-bordered table-striped">
+        <thead>
+        <tr>
+  <th>ID</th>
+  <th>Invoice no</th>
+<th>Customer</th>
+<th>Credit Amount (Rs.)</th>
+<th>Pay Amount (Rs.)</th>
 
+
+
+
+          <th>#</th>
+
+        </tr>
+        </thead>
+<tbody>
+
+<?php $id=$_GET['id'];
+$result = $db->prepare("SELECT * FROM credit_payment WHERE collection_id='$id' AND action='2' ");
+
+  $result->bindParam(':userid', $date);
+        $result->execute();
+        for($i=0; $row = $result->fetch(); $i++){
+echo '<tr class="record">';
+
+     ?>
+
+
+       <td><?php echo $row['id'];   ?> </td>
+ <td><?php echo $row['sales_id'];   ?> </td>
+<td><?php echo $row['cus'];   ?> </td>
+<td>Rs.<?php echo $row['credit_amount'];   ?></td>
+<td><?php echo $row['pay_amount'];   ?></td>
+
+<td>
+
+<a href="bulk_payment_list_dll.php?id=<?php echo $row['id'];   ?>&pay_id=<?php echo $_GET['id'];   ?>"   title="Click to Delete" >
+  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
+
+
+</td>
+        </tr>
+
+
+<?php }   ?>
+</tbody>
+
+      </table>
 <br><br><br>
+
+<?php
+$id=$_GET['id'];
+$resultz = $db->prepare("SELECT * FROM collection WHERE  id='$id' ");
+$resultz->bindParam(':userid', $inva);
+$resultz->execute();
+for($i=0; $rowz = $resultz->fetch(); $i++){
+  $chq_amount=$rowz['amount'];
+    $type=$rowz['pay_type'];
+    if ($type=="chq") {
+ ?>
+
+  <div class="col-sm-2 col-md-5 ">
+    <div class="callout callout-warning">
+                   <h4 class="pull-left"><?php echo $rowz['bank']; ?></h4>
+                    <h4 class="pull-right"><?php echo $rowz['chq_date']; ?></h4>
+<br><br>
+<h4>Thimal Enterprises (Pvt.) Ltd </h4>
+<hr>
+<button type="button" class="btn btn-default btn-lg pull-right">Rs. <?php echo $rowz['amount']; ?></button>
+                    <br><br>
+
+                  <center>  <h4> <hr>  <?php echo $rowz['chq_no']; ?>   -xxxxx': xxxxxxxx;'</h4></center>
+                  </div>
+             </div>
+<?php } if ($type=="bank") { ?>
+<div class="col-sm-2 col-md-5 ">
+  <div class="callout callout-">
+<h2>Bank Transfer</h2>
+                <table  class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+            <th>Reference No.</th>
+            <th><?php echo $rowz['chq_no']; ?></th>
+                  </tr>
+
+                  <tr>
+            <th>Bank</th>
+            <th><?php echo $rowz['bank']; ?></th>
+                  </tr>
+
+                  <tr>
+            <th>date</th>
+            <th><?php echo $rowz['chq_date']; ?></th>
+                  </tr>
+
+                  <tr>
+            <th>Amount</th>
+            <th><?php echo $rowz['amount']; ?></th>
+                  </tr>
+
+            </thead>
+            </table>
+
+                </div>
+           </div>
+
+
+
+         <?php } if ($type=="cash") { ?>
+         <div class="col-sm-2 col-md-5">
+           <div class="callout callout-">
+
+
+    <img src="money.png" alt="" style="width:150px">
+                         <table  class="table table-bordered table-striped">
+                           <thead>
+
+
+
+                           <tr>
+                     <th>Type</th>
+                     <th>Cash</th>
+                           </tr>
+
+                           <tr>
+                     <th>Amount</th>
+                     <th><?php echo $rowz['amount']; ?></th>
+                           </tr>
+
+                     </thead>
+                     </table>
+
+                         </div>
+                    </div>
+<?php } } ?>
+
         <!-- /.col -->
 	<div class="col-md-2"><a href="sales_start.php">
 	<button type="button" class="btn btn-block btn-success btn-sm">Home</button></a>  </div><br>
         <!-- /.col -->
+
+
+
+
+
+
       </div>
     <!-- Main content -->
 
@@ -187,7 +357,7 @@ $name=$row11['customer_name'];
     );
 
     //Date picker
-	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy/mm/dd '});
+	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({
       autoclose: true
     });

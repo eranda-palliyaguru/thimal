@@ -41,11 +41,19 @@ if($r =='admin'){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        #SUM
+        #Collection
         <small>Preview</small>
       </h1>
 
-          <h3>Invoice No- <?php echo $id=$_GET['id']; ?></h3>
+          <h3>Invoice No- <?php echo $id=$_GET['id'];
+          $result = $db->prepare("SELECT * FROM sales  WHERE transaction_id='$id'   ");
+          				$result->bindParam(':userid', $a);
+                          $result->execute();
+                          for($i=0; $row = $result->fetch(); $i++){
+          	       echo "<br> Customer- ".$customer=$row['name'];
+                        	}
+
+           ?></h3>
     </section>
 
      <div class="row">
@@ -56,7 +64,7 @@ if($r =='admin'){
 
         <div class="col-md-10">
 <form name="myForm" onsubmit="return validateForm()" action="lorry_credit_pay_save.php" method="post">
-
+<input type="hidden" name="in_type" value="1">
 
   <select name="p_type" style="width: 190px;" class="form-control" id="p_type" onchange="view_payment_date(this.value);">
     <option value="cash">Cash</option>
