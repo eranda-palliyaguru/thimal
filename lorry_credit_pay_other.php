@@ -164,7 +164,7 @@ echo '<tr class="record">';
 
 <td>
 
-<a href="bulk_payment_list_dll.php?id=<?php echo $row['id'];   ?>&pay_id=<?php echo $_GET['id'];   ?>"   title="Click to Delete" >
+<a href="lorry_credit_pay_dll.php?id=<?php echo $row['id'];   ?>&pay_id=<?php echo $_GET['id'];   ?>"   title="Click to Delete" >
   <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
 
 
