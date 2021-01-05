@@ -208,7 +208,9 @@ include_once("sidebar2.php");
      <div class="box box-info">
             <div class="box-header">
               <h3 class="box-title">Debtor Report  <a href="sales_credit_print.php?type=<?php echo $_GET['type'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>&lorry=<?php echo $_GET['lorry'] ?>&customer_type=<?php echo $_GET['customer_type'] ?>"   title="Click to Print" >
-		<button class="btn btn-danger">Print</button></a></h3>
+		<button class="btn btn-danger">Print</button></a>
+    <a href="sales_credit_age_print.php?type=<?php echo $_GET['type'] ?>&cus=<?php echo $_GET['cus'] ?>&group=<?php echo $_GET['group'] ?>&lorry=<?php echo $_GET['lorry'] ?>&customer_type=<?php echo $_GET['customer_type'] ?>"   title="Click to Print" >
+  <button class="btn btn-danger">Print (Age)</button></a></h3>
             </div>
             <!-- /.box-header -->
 
