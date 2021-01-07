@@ -181,6 +181,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 				$cus_id=$_GET['cus'];
+        $qty5=0;$qty12=0;$qty37=0;
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
 if($cus_id=="all"){
@@ -244,6 +245,7 @@ $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and pr
                 for($i=0; $row = $result->fetch(); $i++){
 		 echo $row['qty'];
 			$qqty=$row['qty'];
+      $qty37+=$row['qty'];
 			$price=$row['price'];
 			$amount=$row['amount'];
 				}
@@ -258,6 +260,7 @@ $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and pr
               for($i=0; $row = $result->fetch(); $i++){
    echo $row['qty'];
     $qqty=$row['qty'];
+    $qty12+=$row['qty'];
     $price=$row['price'];
     $amount=$row['amount'];
       }
@@ -273,6 +276,7 @@ $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and pr
             for($i=0; $row = $result->fetch(); $i++){
  echo $row['qty'];
   $qqty=$row['qty'];
+  $qty5+=$row['qty'];
   $price=$row['price'];
   $amount=$row['amount'];
     }
@@ -308,11 +312,13 @@ $tot+=$fre-$amount;
 
 				<td  colspan="4" >Total</td>
 
+        <td><span class="pull-right badge bg-muted"><?php 	echo $qty37;	?></span></td>
+        <td><span class="pull-right badge bg-muted"><?php 	echo $qty12;	?></span></td>
+        <td><span class="pull-right badge bg-muted"><?php 	echo $qty5;	?></span></td>
+				  <td></td>
+          <td></td>
+          <td></td>
 
-
-			<td><span class="pull-right badge bg-muted"><?php 	echo $tot_d;	?></span></td>
-				  <td></td><td></td>
-		<td></td>
 
 	<td><span class="pull-right badge bg-muted"><?php echo $tot;	?></span></td>
 	<td></td>
