@@ -43,9 +43,11 @@ $q = $db->prepare($sql);
 $q->execute(array($hs));
 
 
+$fix_12='1443';
+$fix_37="4866";
+$fix_5="575";
 
-
-$result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='3' AND price < '4866' ");
+$result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='3' AND price < '$fix_37' ");
 	$result1->bindParam(':userid', $d2);
     $result1->execute();
     for($i=0; $row = $result1->fetch(); $i++){
@@ -58,6 +60,20 @@ $q = $db->prepare($sql);
 $q->execute(array($hs,$id));
 
 	}
+
+  $result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='1' AND price < '$fix_12' ");
+  	$result1->bindParam(':userid', $d2);
+      $result1->execute();
+      for($i=0; $row = $result1->fetch(); $i++){
+  	$id=$row['customer_id'];
+  $hs=1;
+  $sql = "UPDATE customer
+          SET s_price=?
+  		WHERE customer_id=?";
+  $q = $db->prepare($sql);
+  $q->execute(array($hs,$id));
+
+  	}
 	?>
 
 
@@ -147,6 +163,8 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Date</th>
 				<th>Customer</th>
 				   <th  >37.5 gas</th>
+           <th  >12.5 gas</th>
+           <th  >5 gas</th>
 				    <th>SP Price</th>
 				<th>Fix Price</th>
 				<th>Different</th>
@@ -185,12 +203,28 @@ $view = $db->prepare("SELECT * FROM customer WHERE  s_price='1' AND customer_id=
 				$invo=$row2['invoice_number'];
 
 $sid=0;
-$view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='3' and price < '5945' ");
+$view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='3' and price < '$fix_37' ");
 				$view1->bindParam(':userid', $d2);
                 $view1->execute();
                 for($i=0; $row51 = $view1->fetch(); $i++){
 	            $sid=$row51['id'];
+              $fix=$fix_37;
 				}
+
+        $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='1' and price < '$fix_12' ");
+        				$view1->bindParam(':userid', $d2);
+                        $view1->execute();
+                        for($i=0; $row51 = $view1->fetch(); $i++){
+        	            $sid=$row51['id'];
+                      $fix=$fix_12;
+        				}
+      $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='2' and price < '$fix_5' ");
+                				$view1->bindParam(':userid', $d2);
+                                $view1->execute();
+                                for($i=0; $row51 = $view1->fetch(); $i++){
+                	            $sid=$row51['id'];
+                              $fix=$fix_5;
+                				}
 			if($sid > 1){
 			?>
                 <tr>
@@ -203,7 +237,7 @@ $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and pr
 
 				<td><span class="pull-right badge bg-muted"><?php
 
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='3' ");
+			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='3' AND  price < '$fix_37' ");
 
 					$result->bindParam(':userid', $d1);
                 $result->execute();
@@ -213,16 +247,46 @@ $view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and pr
 			$price=$row['price'];
 			$amount=$row['amount'];
 				}
+
 			?></span></td>
+      <td><span class="pull-right badge bg-muted"><?php
+
+    $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='1' AND price < '$fix_12'  ");
+
+        $result->bindParam(':userid', $d1);
+              $result->execute();
+              for($i=0; $row = $result->fetch(); $i++){
+   echo $row['qty'];
+    $qqty=$row['qty'];
+    $price=$row['price'];
+    $amount=$row['amount'];
+      }
+
+    ?></span></td>
+
+    <td><span class="pull-right badge bg-muted"><?php
+
+  $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='2' AND price < '$fix_5'  ");
+
+      $result->bindParam(':userid', $d1);
+            $result->execute();
+            for($i=0; $row = $result->fetch(); $i++){
+ echo $row['qty'];
+  $qqty=$row['qty'];
+  $price=$row['price'];
+  $amount=$row['amount'];
+    }
+
+  ?></span></td>
 
 			<td><?php echo $price; ?></td>
-      <td>5945.00</td>
-<td><?php echo 5945-$price; ?></td>
+      <td><?php echo $fix; ?></td>
+<td><?php echo $fix-$price; ?></td>
 
 
 
 		<td><?php
-			$fre=$qqty*5945;
+			$fre=$qqty*$fix;
 			echo $fre-$amount; ?></td>
 		<td><a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
 				  <button class="btn btn-primary">View</button></a></td>
