@@ -164,13 +164,13 @@ $b_tot+=$row['amount']-$row['pay_amount'];
 ?>
 
 
-<td><?php if ($due < 30) {  echo $row['amount']-$row['pay_amount'];
+<td><?php if ($due <= 30) {  echo $row['amount']-$row['pay_amount'];
   $due30+=$row['amount']-$row['pay_amount']; } ?></td>
 
-<td><?php if ($due > 30 && $due < 60) {  echo $row['amount']-$row['pay_amount'];
+<td><?php if ($due > 30 && $due <= 60) {  echo $row['amount']-$row['pay_amount'];
   $due60+=$row['amount']-$row['pay_amount']; } ?></td>
 
-<td><?php if ($due > 60 && $due < 90) {  echo $row['amount']-$row['pay_amount'];
+<td><?php if ($due > 60 && $due <= 90) {  echo $row['amount']-$row['pay_amount'];
 $due90+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 90) {  echo $row['amount']-$row['pay_amount'];
@@ -185,7 +185,7 @@ if($b_tot > 1){
       <tr   class=" bg-gray"   >
         <td><?php echo $cus;?></td>
 
- <td >Total</td>
+ <td >Total (Rs.<?php echo $b_tot; ?>/-)</td>
 <td></td>
 <td></td>
 <td></td>
