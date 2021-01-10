@@ -364,7 +364,7 @@ $tot_f+=$row2['profit'];
 
   ?></span></td>
 
-<?php } } ?>
+<?php }  ?>
   <?php
   $ter1=7;
 
@@ -395,7 +395,7 @@ $tot_f+=$row2['profit'];
 
 </tr>
 
-<?php } ?>
+<?php } } ?>
     </tbody>
 
   <tfoot   class=" bg-aqua"   >
