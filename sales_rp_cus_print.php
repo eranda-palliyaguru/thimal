@@ -160,12 +160,12 @@ if($product=='2'){$pro1='4'; $pro2='9'; }
 if($product=='3'){$pro1='9'; $pro2='50'; }
 
 
-if ($cus_id=="all") {$result = $db->prepare("SELECT * FROM customer  ");}else {
-  $result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id'  ");}
-              $result->bindParam(':userid', $d1);
-                    $result->execute();
-                    for($i=0; $row = $result->fetch(); $i++){
-         $customer_id_t = $row['customer_id'];
+if ($cus_id=="all") {$result_customer = $db->prepare("SELECT * FROM customer  ");}else {
+  $result_customer = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id'  ");}
+              $result_customer->bindParam(':userid', $d1);
+                    $result_customer->execute();
+                    for($i=0; $row_customer = $result_customer->fetch(); $i++){
+         $customer_id_t = $row_customer['customer_id'];
 
 
 
