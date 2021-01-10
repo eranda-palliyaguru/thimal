@@ -145,7 +145,7 @@ $hh=date("Y/m/d");
 $tot=0;	$tot_f=0; $cash_pay=0; $chq_pay=0; $credit_pay=0; $cash_pay1=0; $chq_pay1=0; $credit_pay1=0;
 
 $e12=''; $e5=''; $e32=''; $e2='';  $g12=''; $g5=''; $g32=''; $g2='';
-$e12cus=''; $e5cus=''; $e32cus=''; $e2cus='';  $g12cus=''; $g5cus=''; $g32cus=''; $g2cus='';
+
 
 
 $d1=$_GET['d1'];
@@ -168,7 +168,7 @@ if ($cus_id=="all") {$result_customer = $db->prepare("SELECT * FROM customer  ")
                     for($i=0; $row_customer = $result_customer->fetch(); $i++){
          $customer_id_t = $row_customer['customer_id'];
 $cus_t=0;
-
+$e12cus=''; $e5cus=''; $e32cus=''; $e2cus='';  $g12cus=''; $g5cus=''; $g32cus=''; $g2cus='';
 
 
 if($lorry=="all"){ $result2 = $db->prepare("SELECT * FROM sales WHERE  customer_id='$customer_id_t' and action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
