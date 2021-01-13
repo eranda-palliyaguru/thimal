@@ -57,23 +57,7 @@ th span
     <!-- /.sidebar -->
   </aside>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  	<script> window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-  	<script src="js/main.js"></script>
-  <!-- Content Wrapper. Contains page content -->
-     <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
 
-    </section>
-
-    <div id="loader-wrapper">
-      <div id="loader"></div>
-
-      <div class="loader-section section-left"></div>
-            <div class="loader-section section-right"></div>
-
-    </div>
 
 
  <section class="content">
