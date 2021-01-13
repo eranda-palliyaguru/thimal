@@ -4,7 +4,7 @@
 include("head.php");
 include("connect.php");
 ?>
-<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse demo">
 <?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
@@ -18,6 +18,7 @@ if($r =='admin'){
 include_once("sidebar.php");
 }
 ?>
+
 
 
 <link rel="stylesheet" href="datepicker.css"
@@ -62,6 +63,15 @@ th span
     <section class="content-header">
 
     </section>
+
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+
+    </div>
+
 
  <section class="content">
     <div class="box box-info">
@@ -581,7 +591,9 @@ $ter1= $row['count(product_id)'];
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script> window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+	<script src="js/main.js"></script>
 
 <!-- ./wrapper -->
 <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -628,5 +640,7 @@ $ter1= $row['count(product_id)'];
     $('#datepickerd').datepicker({ autoclose: true  });
 
 </script>
+
+
 </body>
 </html>
