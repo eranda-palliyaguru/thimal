@@ -4,7 +4,7 @@
 include("head.php");
 include("connect.php");
 ?>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini  demo">
 <?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
@@ -41,6 +41,17 @@ include_once("sidebar2.php");
     });
 
     </script>
+
+
+
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+
+    </div>
+
 
     <!-- /.sidebar -->
   </aside>
