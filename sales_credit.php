@@ -241,7 +241,7 @@ include_once("sidebar2.php");
 					<th >E</th>
 				    <th >R</th>
 
-				<th>Type</th>
+				<th>Limit</th>
 				<th>Amount</th>
 				<th>Overdue</th>
 				<th>Memo</th>
@@ -383,7 +383,7 @@ if ($lorry=='all') {
 
 
 
-		<td><?php	echo $row['type'];	?></td>
+		<td><?php	echo $row_cus['credit_period'];	?></td>
 		<td><?php echo $row['amount']-$row['pay_amount'];
 			$b_tot+=$row['amount']-$row['pay_amount'];
 			if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>

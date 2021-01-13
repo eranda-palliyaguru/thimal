@@ -398,6 +398,9 @@ $tot_f+=$row2['profit'];
 <?php } } ?>
     </tbody>
 
+
+
+
   <tfoot   class=" bg-aqua"   >
 
 <td  colspan="3" >Total</td>
