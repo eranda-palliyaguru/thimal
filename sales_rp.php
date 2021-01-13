@@ -57,6 +57,9 @@ th span
     <!-- /.sidebar -->
   </aside>
 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  	<script> window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+  	<script src="js/main.js"></script>
   <!-- Content Wrapper. Contains page content -->
      <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -591,9 +594,7 @@ $ter1= $row['count(product_id)'];
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script> window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-	<script src="js/main.js"></script>
+
 
 <!-- ./wrapper -->
 <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
