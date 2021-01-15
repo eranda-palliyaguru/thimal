@@ -197,7 +197,7 @@ if($b_tot > 1){
           </tr>
 
 
-<?php } $b_tot=0; } ?>
+<?php $b_tot=0;}  } ?>
 
 
 
