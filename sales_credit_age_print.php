@@ -197,7 +197,7 @@ if($b_tot > 1){
           </tr>
 
 
-<?php $b_tot=0;}  } ?>
+<?php $b_tot=0; $due30=0;$due60=0;$due90=0;$due100=0;}  } ?>
 
 
 
