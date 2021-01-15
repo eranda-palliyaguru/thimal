@@ -185,7 +185,7 @@ if($b_tot > 1){
       <tr   class=" bg-gray"   >
         <td><?php echo $cus;?></td>
 
- <td >Total (Rs.<?php echo $b_tot; ?>/-)</td>
+ <td >Total (Rs.<?php echo $due30+$due60+$due90+$due100; ?>/-)</td>
 <td></td>
 <td></td>
 <td></td>
