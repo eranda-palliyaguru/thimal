@@ -75,7 +75,7 @@ $sec = "1";
 date_default_timezone_set("Asia/Colombo");
 $hh=date("Y/m/d");
 $pay_type="";
-$due30=0;$due60=0;$due90=0;$due100=0;
+$due30=0;$due60=0;$due90=0;$due100=0; $b_tot=0;
  //$d3=$_SESSION['SESS_FIRST_NAME'];
  $type=$_GET['type'];
  $customer_id=$_GET['cus'];
