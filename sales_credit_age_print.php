@@ -203,14 +203,17 @@ if($b_tot > 1){
 
           </tbody>
 
-          <tfoot   class=" bg-aqua"   >
+
+<tr class=" bg-aqua" >
+
 
  <td  colspan="3" >Total</td>
 <td></td><td></td>
 <td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
 
 <td></td><td></td><td></td>
-          </tfoot>
+</tr>
+      </tbody>
         </table>
 
 
