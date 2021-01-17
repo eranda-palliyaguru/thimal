@@ -75,7 +75,7 @@ $sec = "1";
 date_default_timezone_set("Asia/Colombo");
 $hh=date("Y/m/d");
 $pay_type="";
-$due30=0;$due60=0;$due90=0;$due100=0; $b_tot=0;
+$due30tot=0;$due60tot=0;$due90tot=0;$due100tot=0; $b_tot=0;
  //$d3=$_SESSION['SESS_FIRST_NAME'];
  $type=$_GET['type'];
  $customer_id=$_GET['cus'];
@@ -165,16 +165,20 @@ $b_tot+=$row2['amount']-$row['pay_amount'];
 
 
 <td><?php if ($due <= 30) {  echo $row['amount']-$row['pay_amount'];
-  $due30+=$row['amount']-$row['pay_amount']; } ?></td>
+  $due30+=$row['amount']-$row['pay_amount'];
+$due30tot+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 30 && $due <= 60) {  echo $row['amount']-$row['pay_amount'];
-  $due60+=$row['amount']-$row['pay_amount']; } ?></td>
+  $due60+=$row['amount']-$row['pay_amount'];
+$due60tot+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 60 && $due <= 90) {  echo $row['amount']-$row['pay_amount'];
-$due90+=$row['amount']-$row['pay_amount']; } ?></td>
+$due90+=$row['amount']-$row['pay_amount'];
+$due90tot+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 90) {  echo $row['amount']-$row['pay_amount'];
-$due100+=$row['amount']-$row['pay_amount']; } ?></td>
+$due100+=$row['amount']-$row['pay_amount'];
+$due100tot+=$row['amount']-$row['pay_amount']; } ?></td>
    </tr>
  <?php
 } }
@@ -207,11 +211,13 @@ if($b_tot > 1){
 <tr class=" bg-aqua" >
 
 
- <td  colspan="3" >Total</td>
-<td></td><td></td>
-<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
-
-<td></td><td></td><td></td>
+ <td  colspan="3" >Total- <?php echo $tot; ?></td>
+<td></td>
+<td></td>
+<td><?php echo $due30tot; ?></td>
+<td><?php echo $due60tot; ?></td>
+<td><?php echo $due90tot; ?></td>
+<td><?php echo $due100tot; ?></td>
 </tr>
       </tbody>
         </table>
