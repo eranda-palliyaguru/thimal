@@ -72,7 +72,7 @@ $sec = "1";
           <tbody>
  <?php
    $tot=0;
-date_default_timezone_set("Asia/Colombo");
+date_default_timezone_set("Asia/Colombo");2
 $hh=date("Y/m/d");
 $pay_type="";
 $due30tot=0;$due60tot=0;$due90tot=0;$due100tot=0; $b_tot=0;
@@ -165,20 +165,20 @@ $b_tot+=$row2['amount']-$row['pay_amount'];
 
 
 <td><?php if ($due <= 30) {  echo $row['amount']-$row['pay_amount'];
-  $due30+=$row['amount']-$row['pay_amount'];
-$due30tot+=$row['amount']-$row['pay_amount']; } ?></td>
+  $due30+=$row2['amount']-$row['pay_amount'];
+$due30tot+=$row2['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 30 && $due <= 60) {  echo $row['amount']-$row['pay_amount'];
-  $due60+=$row['amount']-$row['pay_amount'];
-$due60tot+=$row['amount']-$row['pay_amount']; } ?></td>
+  $due60+=$row2['amount']-$row['pay_amount'];
+$due60tot+=$row2['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 60 && $due <= 90) {  echo $row['amount']-$row['pay_amount'];
-$due90+=$row['amount']-$row['pay_amount'];
-$due90tot+=$row['amount']-$row['pay_amount']; } ?></td>
+$due90+=$row2['amount']-$row['pay_amount'];
+$due90tot+=$row2['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 90) {  echo $row['amount']-$row['pay_amount'];
-$due100+=$row['amount']-$row['pay_amount'];
-$due100tot+=$row['amount']-$row['pay_amount']; } ?></td>
+$due100+=$row2['amount']-$row['pay_amount'];
+$due100tot+=$row2['amount']-$row['pay_amount']; } ?></td>
    </tr>
  <?php
 } }
