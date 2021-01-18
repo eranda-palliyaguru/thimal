@@ -30,15 +30,7 @@ include_once("sidebar.php");
     <script src="datepicker.js" type="text/javascript"></script>
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
- <script type="text/javascript">
 
-		 $(function(){
-        $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
-        $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-
-    });
-
-    </script>
 
 
 	<style>
@@ -62,7 +54,7 @@ th span
   </aside>
 
 
-
+     <div class="content-wrapper">
 
  <section class="content">
     <div class="box box-info">
