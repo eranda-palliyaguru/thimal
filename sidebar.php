@@ -20,10 +20,8 @@
 		include('connect.php');
  date_default_timezone_set("Asia/Colombo");
 
-                  $date =  date("Y-m-d");
-
-				$count=0;
-
+    $date =  date("Y-m-d");
+		$count=0;
 $user_lewal=$_SESSION['USER_LEWAL'];
 			?>
 
@@ -327,7 +325,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
   <!----------------------------- /.search form ---------------------------------------->
 
 		  <?php
-		  if($r =='su'){
+		  if($r =='com'){
 		  ?>
 		<li>
           <a  href="index.php">
@@ -338,13 +336,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
           </a>
         </li>
 
-	<li>
-          <a href="loading.php">
-            <i class="fa fa-truck"></i> <span>New Loading</span>
-            <span class="pull-right-container">
-            </span>
-          </a>
-        </li>
+
 
 
 
