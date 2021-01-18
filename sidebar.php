@@ -351,6 +351,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
 
           <ul class="treeview-menu">
 		  <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>"><i class="fa fa-circle-o text-aqua"></i> Sales Report</a></li>
+      <li><a href="sales_credit.php"><i class="fa fa-circle-o text-aqua "></i> Credit Report</a></li>
           </ul>
         </li>
 
