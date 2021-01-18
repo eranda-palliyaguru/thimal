@@ -17,6 +17,10 @@ if($r =='admin'){
 
 include_once("sidebar.php");
 }
+if($r =='com'){
+
+include_once("sidebar.php");
+}
 ?>
 
 
