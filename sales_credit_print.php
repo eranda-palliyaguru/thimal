@@ -1,3 +1,4 @@
+<?php header("content-type: text/html; charset=UTF-8");  ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body onload="window.print() " style=" font-size: 13px; font-family: arial;">
+<body onLoad="self.print()">
 <?php
 include("connect.php");
 $sec = "1";
@@ -33,7 +34,7 @@ $sec = "1";
     <!-- title row -->
     <div class="row">
       <div class="col-xs-12">
-        <h2 class="page-header">
+        <h2 class="page-header" style="color:red">
           <i class="fa fa-globe"></i> Thimal Enterprises (Pvt.) Ltd
 
           <small class="pull-right">Date:<?php date_default_timezone_set("Asia/Colombo");
@@ -57,7 +58,8 @@ $sec = "1";
     <th colspan="2" >5kg</th>
      <th colspan="2" >37.5kg</th>
    <th colspan="2" >2kg</th>
-     <th colspan="5" >#</th>
+     <th colspan="2" >Credit</th>
+     <th colspan="3" >#</th>
           </tr>
 
  <tr>
@@ -66,19 +68,20 @@ $sec = "1";
  <th>Invoice</th>
  <th>Date</th>
 
-    <th >E</th>
-     <th >R</th>
    <th >E</th>
-     <th >R</th>
+   <th >R</th>
    <th >E</th>
-     <th >R</th>
+   <th >R</th>
    <th >E</th>
-     <th >R</th>
+   <th >R</th>
+   <th >E</th>
+   <th >R</th>
 
- <th>Type</th>
- <th>Amount</th>
+
+ <th>Balance</th>
+ <th>payment</th>
+ <th>Limit</th>
  <th>Overdue</th>
- <th>Phone no</th>
  <th>Lorry No</th>
  </tr>
  </thead>
@@ -113,8 +116,9 @@ $pay_type="";
   	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
 
 $customer->bindParam(':userid', $d2);
-          $customer->execute();
-          for($i=0; $row_cus = $customer->fetch(); $i++){
+$customer->execute();
+for($i=0; $row_cus = $customer->fetch(); $i++){
+
  $cus=$row_cus['customer_id'];
   $limit=$row_cus['credit_period'];
 
@@ -184,29 +188,26 @@ if($rs1>=60){$color="#701144"; $color1="white";}
  <td><span class="pull-right badge bg-muted"><?php
 
 $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
-
-   $result->bindParam(':userid', $d1);
-          $result->execute();
-          for($i=0; $row1 = $result->fetch(); $i++){
+$result->bindParam(':userid', $d1);
+$result->execute();
+for($i=0; $row1 = $result->fetch(); $i++){
 echo $row1['qty'];
  }
 ?></span></td>
 <td><span class="pull-right badge bg-yellow"><?php
 
 $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-
-   $result->bindParam(':userid', $d1);
-          $result->execute();
-          for($i=0; $row1 = $result->fetch(); $i++){
+$result->bindParam(':userid', $d1);
+$result->execute();
+for($i=0; $row1 = $result->fetch(); $i++){
 echo $row1['qty'];
  }
+
 ?></span></td>
    <?php } ?>
 <?php
    $ter1=7;
 $tot+=$row2['amount']-$row['pay_amount'];
-
-
 ?>
 
 
@@ -216,20 +217,12 @@ $tot+=$row2['amount']-$row['pay_amount'];
 
 
 
-<td><?php	echo $row['type'];	?></td>
-<td><?php echo $row['amount']-$row['pay_amount'];
-$b_tot+=$row['amount']-$row['pay_amount'];
-if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>
-<td><?php	echo $rs1;	?></td>
-<td><?php $cus_id=$row2['customer_id'];
-$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$cus_id' ");
 
-   $result->bindParam(':userid', $d1);
-          $result->execute();
-          for($i=0; $rowv = $result->fetch(); $i++){
-echo $rowv['acc_no']." - ".$rowv['acc_name'];
- }
-?></td>
+<td><?php echo $row['amount']-$row['pay_amount'];
+$b_tot+=$row['amount']-$row['pay_amount']; ?></td>
+<td><?php if($row['pay_amount']>'0'){	echo $row['pay_amount']; } ?></td>
+<td><?php echo $row_cus['credit_period'];?></td>
+<td><?php	echo $rs1;	?></td>
 <td><?php echo $row2['lorry_no'];?></td>
    </tr>
  <?php
