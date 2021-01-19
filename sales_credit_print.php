@@ -303,8 +303,9 @@ if($b_tot > 1){
 
    <?php } ?>
 
-<td></td><td></td>
+<td></td>
 <td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
+<td></td>
 
 <td></td><td></td><td></td>
           </tfoot>
