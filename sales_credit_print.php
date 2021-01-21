@@ -64,11 +64,11 @@ $sec = "1";
 
 
 
- <th>Credit</th>
- <th>payment</th>
+ <th style="width:10%;">Credit</th>
+ <th style="width:10%;">payment</th>
  <th>Limit</th>
  <th>Overdue</th>
- <th>Lorry No</th>
+
  </tr>
  </thead>
 
@@ -180,7 +180,7 @@ $b_tot+=$row['amount']-$row['pay_amount']; ?></td>
 <td><?php if($row['pay_amount']>'0'){	echo number_format($row['pay_amount'],1); $pay_tot+=$row['pay_amount']; } ?></td>
 <td><?php echo $row_cus['credit_period'];?></td>
 <td><?php	echo $rs1;	?></td>
-<td><?php echo $row2['lorry_no'];?></td>
+
    </tr>
  <?php
 } }
@@ -197,11 +197,11 @@ if($b_tot > 1){
 <td><hr> <h4><?php echo number_format($b_tot,1); ?></h4> <hr></td>
 <td><hr><h4><?php echo number_format($pay_tot,1); ?></h4><hr></td>
 
-<td><hr>.<hr></td> <td><hr>.<hr></td> <td><hr>.<hr></td>
+<td><hr>.<hr></td> <td><hr>.<hr></td>
           </tr>
 
           <tr >
-            <td></td>   <td ></td>  <td></td>  <td></td><td></td><td></td><td></td><td></td><td></td>
+            <td></td>   <td ></td>  <td></td>  <td></td><td></td><td></td><td></td><td></td>
               </tr>
 <?php } } ?>
 
