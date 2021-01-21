@@ -191,17 +191,17 @@ if($b_tot > 1){
       <tr   class=" bg-gray"   >
 
 
- <td  colspan="4" ><hr> <?php echo  $cus_name; ?>  ___ Total<hr></td>
+ <td  colspan="4" ><hr><h4> <?php echo  $cus_name; ?>  ___ Total</h4></td>
 
 
-<td><hr> <h4><?php echo number_format($b_tot,1); ?></h4> <hr></td>
-<td><hr><h4><?php echo number_format($pay_tot,1); ?></h4><hr></td>
+<td><hr> <h4><?php echo number_format($b_tot,1); ?></h4> </td>
+<td><hr><h4><?php echo number_format($pay_tot,1); ?></h4></td>
 
-<td><hr>.<hr></td> <td><hr>.<hr></td>
+<td colspan="2"><hr><h4>.</h4></td>
           </tr>
 
           <tr >
-            <td></td>   <td ></td>  <td></td>  <td></td><td></td><td></td><td></td><td></td>
+            <td colspan="8">.<hr></td>
               </tr>
 <?php } } ?>
 
