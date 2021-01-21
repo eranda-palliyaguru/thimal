@@ -9,11 +9,11 @@ $o_price = $_POST['o_price'];
 
 
 
-$sql = "UPDATE products 
-        SET gen_name=?, price=?, o_price=?
+$sql = "UPDATE products
+        SET gen_name=?, price=?, price2=?, o_price=?
 		WHERE product_id=?";
 $q = $db->prepare($sql);
-$q->execute(array($name,$price,$o_price,$id));
+$q->execute(array($name,$price,$price,$o_price,$id));
 
 
 
