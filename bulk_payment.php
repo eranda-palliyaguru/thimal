@@ -9,6 +9,7 @@ date_default_timezone_set("Asia/Colombo");
 <?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
+$user_lewal=$_SESSION['USER_LEWAL'];
 
 if($r =='Cashier'){
 

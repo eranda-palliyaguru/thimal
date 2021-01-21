@@ -41,7 +41,7 @@ include_once("sidebar2.php");
     });
 
     </script>
-  
+
 
 
     <!-- /.sidebar -->
@@ -392,7 +392,7 @@ if ($lorry=='all') {
 		<td><?php	echo $rs1;	?></td>
 			<td><?php echo $row['memo'];
 			?></td>
-			<td><?php if($user_lewal =='2'){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row2['transaction_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>"   title="Click to pay" >
+			<td><?php if($user_lewal < 4){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row2['transaction_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>"   title="Click to pay" >
 				  <button class="btn btn-success">Set Payment</button></a><?php } ?>
 					<a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
 				  <button class="btn btn-primary">View</button></a>
