@@ -112,7 +112,7 @@ include_once("sidebar.php");
 
                   <td>
 				  <?php
-				  if($user_lewal<2 ){
+				  if($user_lewal < 3 ){
 					  ?>
 				  <a href="#" id="<?php echo $row['product_id']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
