@@ -16,6 +16,7 @@
   <!-- Theme style -->
 
 
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -50,35 +51,20 @@ $sec = "1";
 
     <!-- /.row -->
 <div class="box-body">
-  <table id="example2" class="table table-bordered table-striped">
+  <table >
           <thead>
-          <tr>
-            <th colspan="4" ></th>
-    <th colspan="2" >12.5kg</th>
-    <th colspan="2" >5kg</th>
-     <th colspan="2" >37.5kg</th>
-   <th colspan="2" >2kg</th>
-     <th colspan="2" >Credit</th>
-     <th colspan="3" >#</th>
-          </tr>
+
 
  <tr>
- <th>Cus_id</th>
- <th>Customer</th>
+ <th>id</th>
+ <th style="width:30%;">Customer</th>
  <th>Invoice</th>
  <th>Date</th>
 
-   <th >E</th>
-   <th >R</th>
-   <th >E</th>
-   <th >R</th>
-   <th >E</th>
-   <th >R</th>
-   <th >E</th>
-   <th >R</th>
 
 
- <th>Balance</th>
+
+ <th>Credit</th>
  <th>payment</th>
  <th>Limit</th>
  <th>Overdue</th>
@@ -124,6 +110,7 @@ for($i=0; $row_cus = $customer->fetch(); $i++){
 
 
 $b_tot=0;
+$pay_tot=0;
 
 $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
 
@@ -170,41 +157,11 @@ if($rs1>=60){$color="#701144"; $color1="white";}
    ?>
   <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
  <td ><?php echo $row['customer_id'];?></td>
- <td><?php echo $row2['name'];?></td>
+ <td><?php echo $cus_name=$row2['name'];?></td>
  <td><?php echo $row2['transaction_id'];?></td>
  <td><?php echo $row2['date'];?></td>
 
 
-<?php
-   $ter=4;
-
- for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-       $pro_id=$pro_id1+1;
- $pro_id_e=$pro_id1+5;
-?>
-
-
-
- <td><span class="pull-right badge bg-muted"><?php
-
-$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
-$result->bindParam(':userid', $d1);
-$result->execute();
-for($i=0; $row1 = $result->fetch(); $i++){
-echo $row1['qty'];
- }
-?></span></td>
-<td><span class="pull-right badge bg-yellow"><?php
-
-$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-$result->bindParam(':userid', $d1);
-$result->execute();
-for($i=0; $row1 = $result->fetch(); $i++){
-echo $row1['qty'];
- }
-
-?></span></td>
-   <?php } ?>
 <?php
    $ter1=7;
 $tot+=$row2['amount']-$row['pay_amount'];
@@ -218,9 +175,9 @@ $tot+=$row2['amount']-$row['pay_amount'];
 
 
 
-<td><?php echo $row['amount']-$row['pay_amount'];
+<td><?php echo number_format($row['amount']-$row['pay_amount'],1);
 $b_tot+=$row['amount']-$row['pay_amount']; ?></td>
-<td><?php if($row['pay_amount']>'0'){	echo $row['pay_amount']; } ?></td>
+<td><?php if($row['pay_amount']>'0'){	echo number_format($row['pay_amount'],1); $pay_tot+=$row['pay_amount']; } ?></td>
 <td><?php echo $row_cus['credit_period'];?></td>
 <td><?php	echo $rs1;	?></td>
 <td><?php echo $row2['lorry_no'];?></td>
@@ -232,83 +189,38 @@ $b_tot+=$row['amount']-$row['pay_amount']; ?></td>
 if($b_tot > 1){
 ?>
       <tr   class=" bg-gray"   >
-        <td><?php echo $cus;?></td>
-
- <td >Total</td>
-<td></td>
-
-<?php $invo="2520011210105934";
-   $ter=4;
- for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-       $pro_id=$pro_id1+1;
- $pro_id_e=$pro_id1+5;
-?>
- <td></td>
-<td></td>
-
-   <?php } ?>
-<?php
-   $ter1=7;
-
- for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-       $pro_id=$pro_id2+9;
-
-?>
 
 
+ <td  colspan="4" ><hr> <?php echo  $cus_name; ?>  ___ Total<hr></td>
 
 
+<td><hr> <h4><?php echo number_format($b_tot,1); ?></h4> <hr></td>
+<td><hr><h4><?php echo number_format($pay_tot,1); ?></h4><hr></td>
 
-
-   <?php } ?>
-
-<td></td><td></td>
-<td><span class="pull-right badge bg-red"><?php echo $b_tot; ?></span></td>
-
-<td></td><td></td><td></td>
+<td><hr>.<hr></td> <td><hr>.<hr></td> <td><hr>.<hr></td>
           </tr>
+
+          <tr >
+            <td></td>   <td ></td>  <td></td>  <td></td><td></td><td></td><td></td><td></td><td></td>
+              </tr>
 <?php } } ?>
 
 
+<tr>
+  <td  colspan="3" >Total</td>
 
+
+
+
+ <td></td>
+ <td> <h3><?php echo number_format($tot,1); ?></h3> </td>
+ <td></td>
+
+ <td></td><td></td><td></td>
+</tr>
           </tbody>
 
-          <tfoot   class=" bg-aqua"   >
 
- <td  colspan="3" >Total</td>
-
-
-<?php $invo="2520011210105934";
-   $ter=4;
- for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-       $pro_id=$pro_id1+1;
- $pro_id_e=$pro_id1+5;
-?>
- <td></td>
-<td></td>
-
-   <?php } ?>
-<?php
-   $ter1=7;
-
- for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-       $pro_id=$pro_id2+9;
-
-?>
-
-
-
-
-
-
-   <?php } ?>
-
-<td></td>
-<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
-<td></td>
-
-<td></td><td></td><td></td>
-          </tfoot>
         </table>
 
 

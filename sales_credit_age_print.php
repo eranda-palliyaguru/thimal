@@ -165,19 +165,19 @@ $b_tot+=$row2['amount']-$row['pay_amount'];
 ?>
 
 
-<td><?php if ($due <= 30) {  echo $row2['amount']-$row['pay_amount'];
+<td><?php if ($due <= 30) {  echo number_format($row2['amount']-$row['pay_amount'],1);
   $due30+=$row2['amount']-$row['pay_amount'];
 $due30tot+=$row2['amount']-$row['pay_amount']; } ?></td>
 
-<td><?php if ($due > 30 && $due <= 60) {  echo $row2['amount']-$row['pay_amount'];
+<td><?php if ($due > 30 && $due <= 60) {  echo number_format($row2['amount']-$row['pay_amount'],1);
   $due60+=$row2['amount']-$row['pay_amount'];
 $due60tot+=$row2['amount']-$row['pay_amount']; } ?></td>
 
-<td><?php if ($due > 60 && $due <= 90) {  echo $row2['amount']-$row['pay_amount'];
+<td><?php if ($due > 60 && $due <= 90) {  echo number_format($row2['amount']-$row['pay_amount'],1);
 $due90+=$row2['amount']-$row['pay_amount'];
 $due90tot+=$row2['amount']-$row['pay_amount']; } ?></td>
 
-<td><?php if ($due > 90) {  echo $row2['amount']-$row['pay_amount'];
+<td><?php if ($due > 90) {  echo number_format($row2['amount']-$row['pay_amount'],1);
 $due100+=$row2['amount']-$row['pay_amount'];
 $due100tot+=$row2['amount']-$row['pay_amount']; } ?></td>
    </tr>
@@ -190,15 +190,15 @@ if($b_tot > 1){
       <tr   class=" bg-gray"   >
         <td><?php echo $cus;?></td>
 
- <td >Total (Rs.<?php echo $due30+$due60+$due90+$due100; ?>/-)</td>
+ <td >Total (Rs.<?php echo number_format($due30+$due60+$due90+$due100,1); ?>/-)</td>
 <td></td>
 <td></td>
 <td></td>
 
-<td><?php echo $due30; ?></td>
-<td><?php echo $due60; ?></td>
-<td><?php echo $due90; ?></td>
-<td><?php echo $due100; ?></td>
+<td><?php echo number_format($due30,1); ?></td>
+<td><?php echo number_format($due60,1); ?></td>
+<td><?php echo number_format($due90,1); ?></td>
+<td><?php echo number_format($due100,1); ?></td>
           </tr>
 
 
@@ -212,13 +212,13 @@ if($b_tot > 1){
 <tr class=" bg-aqua" >
 
 
- <td  colspan="3" >Total- <?php echo $tot; ?></td>
+ <td  colspan="3" >Total- <?php echo number_format($tot,2); ?></td>
 <td></td>
 <td></td>
-<td><?php echo $due30tot; ?></td>
-<td><?php echo $due60tot; ?></td>
-<td><?php echo $due90tot; ?></td>
-<td><?php echo $due100tot; ?></td>
+<td><?php echo number_format($due30tot,1) ; ?></td>
+<td><?php echo number_format($due60tot,1); ?></td>
+<td><?php echo number_format($due90tot,1); ?></td>
+<td><?php echo number_format($due100tot,1); ?></td>
 </tr>
       </tbody>
         </table>
