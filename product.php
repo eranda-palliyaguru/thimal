@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 $uname=$_SESSION['SESS_FIRST_NAME'];
+$user_lewal=$_SESSION['USER_LEWAL'];
 
 if($r =='Cashier'){
 
@@ -29,11 +30,11 @@ include_once("sidebar.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -58,15 +59,15 @@ include_once("sidebar.php");
         <li class="active">PRODUCT</li>
       </ol>
     </section>
-   
-   
-   
-   
-   
-   
-   
+
+
+
+
+
+
+
    <section class="content">
-   
+
      <div class="box box-success">
             <div class="box-header">
               <h3 class="box-title">PRODUCT Data</h3>
@@ -74,68 +75,68 @@ include_once("sidebar.php");
 				  <button class="btn btn-info"><i class="icon-trash">Add PRODUCT</i></button></a>
             </div>
             <!-- /.box-header -->
-			
+
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-			  
+
                 <thead>
                 <tr>
 				<th>Product_id</th>
-                  <th>Name</th>                 
+                  <th>Name</th>
                   <th>Price</th>
 				<th>Cost Price</th>
 				  <th>Damage</th>
 				  <th>Trust</th>
 				  <th>#</th>
                 </tr>
-				
+
                 </thead>
-				
+
                 <tbody>
 				<?php
-   
+
    $result = $db->prepare("SELECT * FROM products ORDER by product_id ASC  ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	
+                for($i=0; $row = $result->fetch(); $i++){
 			?>
                 <tr class="record" >
 				<td><?php echo $id=$row['product_id'];?></td>
                   <td><?php echo $row['gen_name'];?>
                   </td>
-                  
+
 				  <td><?php echo $row['price'];?></td>
 				 <td><?php echo $row['o_price'];?></td>
 				  <td><?php echo $row['damage'];?></td>
 				  <td><?php echo $row['trust'];?></td>
-                  
+
                   <td>
 				  <?php
-				  if($uname=="SANJAYA" ){
+				  if($user_lewal>3 ){
 					  ?>
 				  <a href="#" id="<?php echo $row['product_id']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
-					
+
 					<a rel="facebox" href="product_edit.php?id=<?php echo $row['product_id']; ?>" >
 				  <button class="btn btn-info"><i class="icon-trash">Edit</i></button></a>
 					</td>
-				  
-				   <?php 
+
+				   <?php
 				}
 				}
 				?>
                 </tr>
-               
-                
+
+
                 </tbody>
                 <tfoot>
-                
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
                 </tfoot>
               </table>
             </div>
@@ -144,13 +145,13 @@ include_once("sidebar.php");
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      
-   
-   
-   
+
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
@@ -218,7 +219,7 @@ var info = 'id=' + del_id;
    url: "product_dll.php",
    data: info,
    success: function(){
-   
+
    }
  });
          $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
