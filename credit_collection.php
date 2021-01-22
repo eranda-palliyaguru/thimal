@@ -111,7 +111,7 @@ include_once("sidebar.php");
               }
 
 
-              $result1 = $db->prepare("SELECT * FROM loading WHERE id ='$user' ");
+              $result1 = $db->prepare("SELECT * FROM loading WHERE id ='$loading' ");
             				$result1->bindParam(':userid', $loading);
                     $result1->execute();
                     for($i=0; $row1 = $result1->fetch(); $i++){
