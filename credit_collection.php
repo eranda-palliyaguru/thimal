@@ -134,7 +134,7 @@ echo "<tr>";
 				<td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-<td><?php if ($user_lewal < 4) { if ($pay_type=="chq") { if ($action=="unload") {
+<td><?php if ($user_lewal < 4) {  if($action=="unload") {  if ($pay_type=="chq") {
 ?>
   <a rel="facebox" href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a> <?php } ?>
   <a href="credit_collection_save.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-connectdevelop fa-info"></i>Process</a>
