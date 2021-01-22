@@ -101,6 +101,7 @@ include_once("sidebar.php");
         $result->execute();
         for($i=0; $row = $result->fetch(); $i++){
 				$user=$row['user_id'];
+        	$loading=$row['loading_id'];
 
         $result1 = $db->prepare("SELECT * FROM user WHERE id ='$user' ");
       				$result1->bindParam(':userid', $date);
@@ -109,9 +110,21 @@ include_once("sidebar.php");
                 $dir=$row1['username'];
               }
 
+
+              $result1 = $db->prepare("SELECT * FROM loading WHERE id ='$user' ");
+            				$result1->bindParam(':userid', $loading);
+                    $result1->execute();
+                    for($i=0; $row1 = $result1->fetch(); $i++){
+                      $action=$row1['action'];
+                    }
+if ($action=="load") {
+echo '<tr style="background-color:#f0f296">';
+}else {
+echo "<tr>";
+}
 			?>
 
-				<tr>
+
         <td><?php echo $row['invoice_no'];?></td>
 				<td><?php echo $row['customer'];?></td>
 				<td><?php echo $row1['loading_id'];?></td>
@@ -121,11 +134,11 @@ include_once("sidebar.php");
 				<td><?php echo $row['chq_no'];?></td>
 				<td><?php echo $row['chq_date'];?></td>
 				<td><?php echo $row['bank'];?></td>
-<td><?php if ($user_lewal < 4) { if ($pay_type=="chq") {
+<td><?php if ($user_lewal < 4) { if ($pay_type=="chq") { if ($action=="unload") {
 ?>
   <a rel="facebox" href="credit_collection_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a> <?php } ?>
   <a href="credit_collection_save.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-connectdevelop fa-info"></i>Process</a>
-<?php } ?>
+<?php } } ?>
 </td>
 </tr>
 <?php $tot+=$row['amount'];
