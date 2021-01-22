@@ -209,7 +209,6 @@ $def= $diff->format( '%r%a' );
                 <thead>
                 <tr>
 				<th>ID</th>
-				<th>Name</th>
 				<th>Date</th>
 				<th>Type</th>
 				<th>Amount (Rs.)</th>
@@ -227,25 +226,9 @@ $def= $diff->format( '%r%a' );
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-$sales_id=$row['sales_id'];
-
-									$result1 = $db->prepare("SELECT * FROM sales WHERE transaction_id ='$sales_id' ");
-		            				$result1->bindParam(':userid', $loading);
-		                    $result1->execute();
-		                    for($i=0; $row1 = $result1->fetch(); $i++){
-		                      $name= $row1['name'];
-		                    }
-
-
 				echo '<tr class="record">';
-
-
-
 					   ?>
-
-
                <td><?php echo $row['id'];   ?> </td>
-							 <td><?php echo $name;   ?> </td>
 	       <td><?php echo $row['date'];   ?> </td>
 				<td><?php echo $row['type'];   ?> </td>
 	<td>Rs.<?php echo $row['amount'];   ?></td>
@@ -254,9 +237,6 @@ $sales_id=$row['sales_id'];
 				<td><?php echo $row['chq_date'];   ?></td>
               <td><?php echo $row['balance'];   ?></td>
 <td>
-
-<a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete" >
-				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
 </td>
                 </tr>
 
