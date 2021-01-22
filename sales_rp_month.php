@@ -206,10 +206,10 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 for($i=0; $row1 = $result->fetch(); $i++){
 		 echo $row1['sum(qty)'];
 
-     if ($pro_id_e=='5') { $e12+=$row['sum(qty)']; }
-     if ($pro_id_e=='6') { $e5+=$row['sum(qty)']; }
-     if ($pro_id_e=='7') { $e32+=$row['sum(qty)']; }
-     if ($pro_id_e=='8') { $e2+=$row['sum(qty)']; }
+     if ($pro_id_e=='5') { $e12+=$row1['sum(qty)']; }
+     if ($pro_id_e=='6') { $e5+=$row1['sum(qty)']; }
+     if ($pro_id_e=='7') { $e32+=$row1['sum(qty)']; }
+     if ($pro_id_e=='8') { $e2+=$row1['sum(qty)']; }
 				}
 			?></span></td>
 	<td><span class="pull-right badge bg-yellow"><?php
@@ -221,10 +221,10 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 for($i=0; $row1 = $result->fetch(); $i++){
 		 echo $row1['sum(qty)'];
 
-     if ($pro_id=='1') { $g12+=$row['sum(qty)']; }
-     if ($pro_id=='2') { $g5+=$row['sum(qty)']; }
-     if ($pro_id=='3') { $g32+=$row['sum(qty)']; }
-     if ($pro_id=='4') { $g2+=$row['sum(qty)']; }
+     if ($pro_id=='1') { $g12+=$row1['sum(qty)']; }
+     if ($pro_id=='2') { $g5+=$row1['sum(qty)']; }
+     if ($pro_id=='3') { $g32+=$row1['sum(qty)']; }
+     if ($pro_id=='4') { $g2+=$row1['sum(qty)']; }
 				}
 			?></span></td>
 					<?php } ?>
