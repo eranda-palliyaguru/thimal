@@ -90,16 +90,16 @@ $pay_type="";
   if($group=="all"){
 
   if ($customer_type=="all") {
-  $customer = $db->prepare("SELECT * FROM customer  ");
+  $customer = $db->prepare("SELECT * FROM customer  ORDER BY category");
   }else {
-  $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ");
+  $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category");
   }
 
   }else {
-  $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
+  $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category");
   }
     		}else{
-  	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
+  	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category "); }
 
 $customer->bindParam(':userid', $d2);
 $customer->execute();
@@ -166,13 +166,6 @@ if($rs1>=60){$color="#701144"; $color1="white";}
    $ter1=7;
 $tot+=$row2['amount']-$row['pay_amount'];
 ?>
-
-
-
-
-
-
-
 
 
 <td><?php echo number_format($row['amount']-$row['pay_amount'],1);
