@@ -90,16 +90,16 @@ $pay_type="";
   if($group=="all"){
 
   if ($customer_type=="all") {
-  $customer = $db->prepare("SELECT * FROM customer  ORDER BY category");
+  $customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
   }else {
-  $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category");
+  $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
   }
 
   }else {
-  $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category");
+  $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category DESC");
   }
     		}else{
-  	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category "); }
+  	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC "); }
 
 $customer->bindParam(':userid', $d2);
 $customer->execute();
