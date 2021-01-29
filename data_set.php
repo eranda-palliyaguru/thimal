@@ -11,19 +11,19 @@ $sales_id=$rowz['sales_id'];
 $tr_id=$rowz['transaction_id'];
 $set_off='';
 
-$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$sales_id' and pay_credit='1'  ");
-    $result->bindParam(':userid', $d1);
-          $result->execute();
-          for($i=0; $row1 = $result->fetch(); $i++){
-$set_off=$row1['date'];
-  }
+//$result = $db->prepare("SELECT * FROM payment WHERE  sales_id='$sales_id' and pay_credit='1'  ");
+//    $result->bindParam(':userid', $d1);
+//          $result->execute();
+//          for($i=0; $row1 = $result->fetch(); $i++){
+//$set_off=$row1['date'];
+//  }
 
 
-//  $result = $db->prepare("SELECT * FROM credit_payment WHERE  sales_id='$sales_id' and action='0'  ");
-//      $result->bindParam(':userid', $d1);
-//            for($i=0; $row1 = $result->fetch(); $i++){
-//  $set_off=$row1['date'];
-//    }
+  $result = $db->prepare("SELECT * FROM credit_payment WHERE  sales_id='$sales_id' and action='0'  ");
+      $result->bindParam(':userid', $d1);
+            for($i=0; $row1 = $result->fetch(); $i++){
+  $set_off=$row1['date'];
+    }
 
 
 
