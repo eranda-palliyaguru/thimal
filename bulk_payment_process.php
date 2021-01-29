@@ -72,6 +72,14 @@ if ($chq_amount == $pay_tot) {
           		WHERE transaction_id=?";
           $q = $db->prepare($sql);
           $q->execute(array($ex,$tr_id));
+
+
+          $set_off=date('Y-m-d');
+          $sql = "UPDATE payment
+                  SET set_off_date=?
+              WHERE transaction_id=?";
+          $q = $db->prepare($sql);
+          $q->execute(array($set_off,$tr_id));
           }
 
           $ex="1";

@@ -221,10 +221,6 @@ include_once("sidebar2.php");
                 <thead>
                 <tr>
                   <th colspan="4" ></th>
-				   <th colspan="2" >12.5kg</th>
-				   <th colspan="2" >5kg</th>
-				    <th colspan="2" >37.5kg</th>
-					<th colspan="2" >2kg</th>
 				    <th colspan="5" >#</th>
                 </tr>
 
@@ -234,14 +230,6 @@ include_once("sidebar2.php");
 				<th>Invoice</th>
 				<th>Date</th>
 
-				   <th >E</th>
-				    <th >R</th>
-					<th >E</th>
-				    <th >R</th>
-					<th >E</th>
-				    <th >R</th>
-					<th >E</th>
-				    <th >R</th>
 
 				<th>Limit</th>
 				<th>Amount</th>
@@ -269,16 +257,16 @@ if($customer_id=="all"){
 if($group=="all"){
 
 if ($customer_type=="all") {
-$customer = $db->prepare("SELECT * FROM customer  ");
+$customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
 }else {
-$customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ");
+$customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
 }
 
 }else {
 $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
 }
   		}else{
-	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' "); }
+	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC"); }
 
 			    $customer->bindParam(':userid', $d2);
                 $customer->execute();
@@ -329,6 +317,9 @@ if ($lorry=='all') {
 		$color="";$color1="";
 		if($rs1>=30){$color="#f0f296"; $color1="black";}
 		if($rs1>=60){$color="#701144"; $color1="white";}
+$bank=$row['bank_id'];
+//if ($bank==1) {
+  // code...
 
 
 					?>
@@ -340,40 +331,9 @@ if ($lorry=='all') {
 				<td><?php echo $row2['date'];?></td>
 
 
- <?php
-				  $ter=4;
-
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-
-
-
-				<td><span class="pull-right badge bg-muted"><?php
-
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
-
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['qty'];
-				}
-			?></span></td>
-	<td><span class="pull-right badge bg-yellow"><?php
-
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['qty'];
-				}
-			?></span></td>
-					<?php } ?>
 <?php
 				  $ter1=7;
-			$tot+=$row2['amount']-$row['pay_amount'];
+			$tot+=$row['amount']-$row['pay_amount'];
 
 
 			?>
@@ -399,6 +359,7 @@ if ($lorry=='all') {
 					</td>
 					</tr>
 				<?php
+  //    }
 		} }
 				}
 
@@ -410,30 +371,6 @@ if ($lorry=='all') {
 				<td >Total</td>
   <td></td>
 
- <?php $invo="2520011210105934";
-				  $ter=4;
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-				<td></td>
-	<td></td>
-
-					<?php } ?>
-<?php
-				  $ter1=7;
-
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+9;
-
-			?>
-
-
-
-
-
-
-					<?php } ?>
 
 			<td></td><td></td>
 		<td><span class="pull-right badge bg-red"><?php echo $b_tot; ?></span></td>
@@ -451,33 +388,8 @@ if ($lorry=='all') {
 				<td  colspan="3" >Total</td>
 
 
- <?php $invo="2520011210105934";
-				  $ter=4;
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-				<td></td>
-	<td></td>
-
-					<?php } ?>
-<?php
-				  $ter1=7;
-
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+9;
-
-			?>
-
-
-
-
-
-
-					<?php } ?>
-
 			<td></td><td></td>
-		<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
+		<td><span class="pull-right badge bg-muted"><?php echo number_format($tot,1); ?></span></td>
 
 	<td></td><td></td><td></td>
                 </tfoot>
