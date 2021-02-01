@@ -27,6 +27,7 @@ $set_off='';
 
 
 
+
 //$set_off=date('Y-m-d');
 $sql = "UPDATE payment
         SET set_off_date=?
