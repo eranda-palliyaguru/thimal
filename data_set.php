@@ -26,7 +26,7 @@ $set_off='';
     }
 
 
-
+echo $sales_id."__".$set_off."<br>";
 
 //$set_off=date('Y-m-d');
 $sql = "UPDATE payment
