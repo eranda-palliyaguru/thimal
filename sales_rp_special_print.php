@@ -31,7 +31,7 @@ $d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 				$cus=$_GET['cus'];
         $fix_12='1443';
-        $fix_37="4866";
+        $fix_37="5845";
         $fix_5="575";
 
 ?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp_special.php?d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&cus=<?php echo $cus;?>'">
