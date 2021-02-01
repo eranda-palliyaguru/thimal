@@ -44,7 +44,7 @@ $q->execute(array($hs));
 
 
 $fix_12='1443';
-$fix_37="4866";
+$fix_37="5950";
 $fix_5="575";
 
 $result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='3' AND price < '$fix_37' ");
