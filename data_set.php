@@ -19,9 +19,10 @@ $set_off='';
 //  }
 
 
-  $result = $db->prepare("SELECT * FROM credit_payment WHERE  sales_id='872' AND action='0'  ");
+  $result = $db->prepare("SELECT * FROM credit_payment WHERE  sales_id='$sales_id' AND action='0'  ");
       $result->bindParam(':userid', $d1);
-            for($i=0; $row1 = $result->fetch(); $i++){
+      $resultz->execute();
+      for($i=0; $row1 = $result->fetch(); $i++){
   $set_off=$row1['date'];
     }
 
