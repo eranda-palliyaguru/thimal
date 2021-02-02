@@ -69,7 +69,10 @@ include_once("sidebar2.php");
      <form  method="post">
 	<center>
 
+<?php
+$qty=0;
 
+ ?>
 
 
 
@@ -182,8 +185,9 @@ $diff = $first->diff( $second );
 $rs1= $diff->format( '%r%a' );
 //$rs1=0;
 	if($rs1 <= 0){
-
-    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE collection_id='0' AND sales_id='$sales_id' and pay_credit='1' AND date BETWEEN '$s_date' and '$back_date' ");
+$credit_pay=0; $credit_pay1=0;
+$pay_tr_id=$row['transaction_id'];
+    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE transaction_id > '$pay_tr_id' AND collection_id='0' AND sales_id='$sales_id' and pay_credit='1' AND date BETWEEN '$s_date' and '$back_date' ");
         $result->bindParam(':userid', $d1);
               $result->execute();
               for($i=0; $row1 = $result->fetch(); $i++){
@@ -197,16 +201,10 @@ $rs1= $diff->format( '%r%a' );
                 for($i=0; $row1 = $result->fetch(); $i++){
       $credit_pay=$row1['sum(pay_amount)'];
         }
-$credit_pay=$credit_pay+$credit_pay1;
-
-$t_id=$row['transaction_id'];
-$qty=1;
-$sql = "UPDATE payment
-        SET bank_id=?
-		WHERE transaction_id=?";
-$q = $db->prepare($sql);
-$q->execute(array($qty,$t_id));
-
+  if ($credit_pay == 0) {
+  $credit_pay=$credit_pay1;
+  }
+//$credit_pay=$credit_pay+$credit_pay1;
 					?>
                 <tr>
 				<td><?php echo $row['customer_id'];?></td>
