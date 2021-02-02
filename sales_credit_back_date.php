@@ -187,14 +187,14 @@ $rs1= $diff->format( '%r%a' );
 	if($rs1 <= 0){
 $credit_pay=0; $credit_pay1=0;
 $pay_tr_id=$row['transaction_id'];
-    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE transaction_id > '$pay_tr_id' AND collection_id='0' AND sales_id='$sales_id' and pay_credit='1' AND date BETWEEN '$s_date' and '$back_date' ");
+    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE transaction_id > '$pay_tr_id' AND action > '0' AND collection_id='0' AND sales_id='$sales_id' and pay_credit='1' AND date BETWEEN '$s_date' and '$back_date' ");
         $result->bindParam(':userid', $d1);
               $result->execute();
               for($i=0; $row1 = $result->fetch(); $i++){
    $credit_pay1=$row1['sum(amount)'];
       }
 
-      $result = $db->prepare("SELECT sum(pay_amount) FROM credit_payment WHERE  sales_id='$sales_id' and action='0' AND date BETWEEN '$s_date' and '$back_date' ");
+      $result = $db->prepare("SELECT sum(pay_amount) FROM credit_payment WHERE tr_id='$pay_tr_id' AND  sales_id='$sales_id' and action='0' AND date BETWEEN '$s_date' and '$back_date' ");
 
           $result->bindParam(':userid', $d1);
                 $result->execute();
@@ -229,7 +229,7 @@ $pay_tr_id=$row['transaction_id'];
 		<td><?php	echo $row['type'];	?></td>
 		<td><?php echo number_format($row['amount']-$credit_pay,1);
 			if($credit_pay>'0'){?><span class="pull-right badge bg-black"><?php	echo $credit_pay;?></span><?php } ?></td>
-		<td><?php	echo $rs1;	?></td>
+		<td><?php	echo $row['pay_amount']-$credit_pay;	?></td>
 			<td><?php echo $row['set_off_date']; ?></td>
 			<td><a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
 				  <button class="btn btn-primary">View</button></a>
