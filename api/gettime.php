@@ -1,7 +1,7 @@
 <?php
 include 'DBConnection.php';
 $no=1;
-
+header("Content-Type:application/json");
 $key = $_GET['key'];
 $did = $_GET['did'];
 $con = $_GET['con'];
