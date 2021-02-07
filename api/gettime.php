@@ -13,16 +13,9 @@ $h=date("H");
 $i=date("i");
 $s=date("s");
 
-function response($y,$m,$d,$h,$i,$s){
-	$response['Y'] = $Y;
-	$response['M'] = $m;
-	$response['D'] = $d;
-	$response['h'] = $h;
-	$response['m'] = $i;
-	$response['s'] = $s;
-
-
+$response = array("Y"=>$y, "M"=>$m, "D"=>$d, "h"=>$h, "m"=>$i, "s"=>$s);
+//	$response['Y'] = "2021";
 	$json_response = json_encode($response);
 	echo $json_response;
-}
+
 ?>
