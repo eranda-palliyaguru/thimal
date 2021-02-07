@@ -13,10 +13,13 @@ $h=date("H");
 $i=date("i");
 $s=date("s");
 
-function response(){
-	$response['id'] = $id;
-	$response['invoice_number'] = $invoice_number;
-	$response['customer_name'] = $customer_name;
+function response($y,$m,$d,$h,$i,$s){
+	$response['Y'] = $Y;
+	$response['M'] = $m;
+	$response['D'] = $d;
+	$response['h'] = $h;
+	$response['m'] = $i;
+	$response['s'] = $s;
 
 
 	$json_response = json_encode($response);

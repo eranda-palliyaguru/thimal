@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'DBConnection.php';
 
 $districtId = $_GET['invoice_no'];
