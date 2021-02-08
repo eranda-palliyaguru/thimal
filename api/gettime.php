@@ -1,6 +1,7 @@
 <?php
 include 'DBConnection.php';
 $no=1;
+ date_default_timezone_set("Asia/Colombo");
 header("Content-Type:application/json");
 $key = $_GET['key'];
 $did = $_GET['did'];
