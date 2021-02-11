@@ -203,7 +203,7 @@ if($type==$r){
 <td><?php echo $row['chq_no'];?></td>
 <td><?php echo $row['chq_date'];?></td>
 <td><?php echo $row['bank'];?></td>
-<td><?php if ($user_lewal==2) { ?>
+<td><?php if ($user_lewal<4) { ?>
 <a rel="facebox" href="payment_edit.php?id=<?php echo $row['transaction_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
 <?php } ?>
 </td>
