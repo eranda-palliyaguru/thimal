@@ -509,7 +509,7 @@ $result111212 = $db->prepare("SELECT * FROM products WHERE product_id >'9' ");
           for($i=0; $row111212 = $result111212->fetch(); $i++){
 $pro_id= $row111212['product_id'];
 
- 
+
 			?>
 
 
@@ -570,7 +570,6 @@ $pro_id= $row111212['product_id'];
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-
 
 <!-- ./wrapper -->
 <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
