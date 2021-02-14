@@ -44,6 +44,7 @@ $pro_id=$row['product_id'];
 $name=$row['gen_name'];
 $price=$row['price'];
 $o_price=$row['o_price'];
+$price_id=$row['price_id'];
 $sp_id="";
 
 
@@ -74,9 +75,9 @@ $date=date("Y-m-d");
 if($qty>0){
 $action=3;
 
-$sql = "INSERT INTO sales_list (product_id,name,qty,price,amount,profit,date,invoice_no,loading_id,action,cus_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:invo,:loid,:ac,:cus)";
+$sql = "INSERT INTO sales_list (product_id,name,qty,price,amount,profit,date,invoice_no,loading_id,action,cus_id,price_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:invo,:loid,:ac,:cus,:pid)";
 $ql = $db->prepare($sql);
-$ql->execute(array(':a'=>$pro_id,':b'=>$name,':c'=>$qty,':d'=>$price,':e'=>$amount,':f'=>$profit,':g'=>$date,':invo'=>$invo,':loid'=>$loading_id,':ac'=>$action,':cus'=>$cus_id));
+$ql->execute(array(':a'=>$pro_id,':b'=>$name,':c'=>$qty,':d'=>$price,':e'=>$amount,':f'=>$profit,':g'=>$date,':invo'=>$invo,':loid'=>$loading_id,':ac'=>$action,':cus'=>$cus_id,':pid'=>$price_id));
 }
 		}
 
