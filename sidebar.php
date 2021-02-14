@@ -31,206 +31,16 @@ $user_lewal=$_SESSION['USER_LEWAL'];
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-check-square-o"></i>
-              <span class="label label-success"><?php echo $count; ?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $count; ?> Payment</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-				<?php
 
-				$result = $db->prepare("SELECT * FROM sales WHERE date= :userid  ");
-				$result->bindParam(':userid', $date);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-
-
-
-
-			?>
-
-
-
-                  <li>
-                    <a href="pay_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>">
-                      <i class="fa fa-user text-green"></i> <?php echo $row['name']; ?>
-
-					  </a>
-
-                  </li>
-                  <!-- end message -->
-
-				<?php } ?>
-
-
-
-                </ul>
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
           <!-- Notifications: style can be found in dropdown.less -->
 
 
-		  <?php
-
-		include('connect.php');
- date_default_timezone_set("Asia/Colombo");
-
-                  $date =  date("Y-m-d");
 
 
 
 
 
-
-
-				$rowcount123 = 0;
-
-
-
-
-				$ttre = 0;
-                //$tre=$ttre-$rowcount123;
-
-
-
-
-				$rv=0;
-
-
-
-
-				$rate=0;
-
-
-			?>
-
-
-
-
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-credit-card"></i>
-              <span class="label label-warning"><?php echo $rv; ?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $rv; ?> notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-
-  <?php
-		include('connect.php');
- date_default_timezone_set("Asia/Colombo");
-
-
-
-
-
-
-
-
-
-
-				$rate=0;
-
-
-			?>
-                  <li>
-                    <a href="delay payment.php?id=day">
-                      <i class="fa fa-user text-yellow"></i> <?php echo $row['cus_name']; ?>
-                    </a>
-                  </li>
-
-
-
-
-
-
-                </ul>
-              </li>
-              <li class="footer"><a href="delay payment.php?id=week">View all</a></li>
-            </ul>
-          </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
 
 			<?php
 			$uname=$_SESSION['SESS_MEMBER_ID'];
@@ -520,6 +330,9 @@ $user_lewal=$_SESSION['USER_LEWAL'];
     </a>
   </li>
 <?php } ?>
+
+
+
 <li>
     <a  href="credit_collection.php">
       <i class="fa fa-usd"></i> <span>Credit Collection</span>
@@ -541,23 +354,18 @@ $user_lewal=$_SESSION['USER_LEWAL'];
           <ul class="treeview-menu">
 			  <li><a href="customer_category.php"><i class="fa fa-usd"></i> Customer Category</a></li>
 
-<li>
-          <a  href="sales2#.php">
-            <i class="fa fa-usd"></i> <span>Add Sales</span>
-            <span class="pull-right-container">
 
-            </span>
-          </a>
-        </li>
 
+        <?php if ($user_lewal < 5) {?>
         <li>
-            <a  href="bill_error.php">
-              <i class="fa fa-usd"></i> <span>Bill Error</span>
+            <a  href="bill_remove.php">
+              <i class="fa fa-usd"></i> <span>Invoice Removal</span>
               <span class="pull-right-container">
 
               </span>
             </a>
           </li>
+        <?php } ?>
 
 
 		  <li>
