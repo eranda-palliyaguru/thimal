@@ -333,7 +333,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
 
 <?php if ($user_lewal == 1) {?>
 <li>
-    <a  href="bulk_payment.php">
+    <a  href="bill_remove_app.php">
       <i class="fa fa-ban"></i> <span>Bill Removal</span>
       <span class="pull-right-container">
       </span>

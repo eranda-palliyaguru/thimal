@@ -18,6 +18,7 @@ if($r =='admin'){
 
 include_once("sidebar.php");
 }
+$user_lewal=$_SESSION['USER_LEWAL'];
 ?>
 
 
@@ -133,10 +134,10 @@ $result = $db->prepare("SELECT * FROM sales WHERE remove = '1'  ");
 
 
 <td>
-
+<?php if ($user_lewal == 1) {?>
 <a href="bill_remove_view.php?id=<?php echo $row['invoice_number']; ?>"  title="Click to view" >
 				  <button class="btn btn-danger"><i class="icon-trash">Open</i></button></a>
-
+<?php } ?>
 
 </td>
                 </tr>

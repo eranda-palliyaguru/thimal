@@ -6,6 +6,8 @@
 include("head.php");
 	$invo = $_GET['id'];
 	$co = substr($invo,0,2) ;
+
+  $user_lewal=$_SESSION['USER_LEWAL'];
 			?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -230,7 +232,7 @@ $sec = "1";
         $upic=$row1['upic'];
         }
 
-    
+
         $result1 = $db->prepare("SELECT * FROM employee WHERE id='$cashi' ");
        $result1->bindParam(':userid', $res);
        $result1->execute();
@@ -294,11 +296,11 @@ $sec = "1";
           <!-- /.comment-text -->
         </div>  </div>  </div>
 
-        <div class="col-sm-4 border-left">
+        <div class="col-sm-4 border-left"><?php if ($user_lewal == 1) {?>
           <form method="post" action="bill_remove_app_save.php">
 <input type="hidden" name="id" value="<?php echo $sales_id; ?>">
  <input class="btn btn-success" type="submit" value="Approve" >
-</form>
+</form><?php } ?>
 </div>
   </section>
 </div>
