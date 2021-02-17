@@ -139,7 +139,14 @@ include_once("sidebar.php");
             $user=$row1['name'];
             $upic=$row1['upic'];
             } ?>
-        <td ><img class="img-circle img-sm" src="<?php echo $upic; ?>" alt="User Image">  <b style="font-size:20px;"><?php echo $user;  ?></b> </td>
+        <td >
+
+
+          <img class="direct-chat-img" src="<?php echo $upic; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
+                           <div class="direct-chat-text">
+                        <b> <?php echo $user; ?></b>
+                           </div>
+        </td>
 
 
         <td><?php echo $row['date']; ?> </td>

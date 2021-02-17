@@ -225,6 +225,7 @@ include_once("sidebar.php");
 				<th>QTY</th>
         <th>Type</th>
         <th>Reason</th>
+        <th>User</th>
         <th>Date</th>
 
 
@@ -242,6 +243,7 @@ include_once("sidebar.php");
           $result->execute();
           for($i=0; $row = $result->fetch(); $i++){
             $type=$row['type'];
+            $user_id=$row['user_id'];
 				echo '<tr class="record">';
 					   ?>
          <td><?php echo $row['id'];   ?> </td>
@@ -250,6 +252,22 @@ include_once("sidebar.php");
 				<td><?php if ($type==1) {  echo '<span class="badge bg-green" >CREDIT</spa>';  }
         if ($type==2) {  echo '<span class=" badge bg-red" >DEBIT</spa>';  } ?></td>
         <td><?php echo $row['reason']; ?> </td>
+        <?php     $result1 = $db->prepare("SELECT * FROM user WHERE id='$user_id' ");
+            $result1->bindParam(':userid', $res);
+            $result1->execute();
+            for($i=0; $row1 = $result1->fetch(); $i++){
+            $user=$row1['name'];
+            $upic=$row1['upic'];
+            } ?>
+        <td >
+
+
+          <img class="direct-chat-img" src="<?php echo $upic; ?>" alt="Message User Image"><!-- /.direct-chat-img -->
+                           <div class="direct-chat-text">
+                        <b> <?php echo $user; ?></b>
+                           </div>
+        </td>
+
         <td><?php echo $row['date']; ?> </td>
 
                 </tr>

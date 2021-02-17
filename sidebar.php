@@ -30,18 +30,6 @@ $user_lewal=$_SESSION['USER_LEWAL'];
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-
-          <!-- Notifications: style can be found in dropdown.less -->
-
-
-
-
-
-
-
-          <!-- Tasks: style can be found in dropdown.less -->
-
 			<?php
 			$uname=$_SESSION['SESS_MEMBER_ID'];
 		$result1 = $db->prepare("SELECT * FROM user WHERE id='$uname' ");
