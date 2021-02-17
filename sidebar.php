@@ -167,7 +167,11 @@ $user_lewal=$_SESSION['USER_LEWAL'];
 
 
 
-		  <?php } if($r =='admin'){ ?>
+		  <?php } if($r =='admin'){
+
+if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
+
+
 		<li>
           <a  href="index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -320,7 +324,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
         </li>
 
 <li class="header">SUB NAVIGATION</li>
-<?php if ($user_lewal < 4) {?>
+<?php if ($user_lewal == 3) {?>
 <li>
     <a  href="bulk_payment.php">
       <i class="fa fa-usd"></i> <span>Credit Payment</span>
@@ -331,24 +335,36 @@ $user_lewal=$_SESSION['USER_LEWAL'];
   </li>
 <?php } ?>
 
-<?php if ($user_lewal == 1) {?>
-<li>
-    <a  href="bill_remove_app.php">
-      <i class="fa fa-ban"></i> <span>Bill Removal</span>
-      <span class="pull-right-container">
-      </span>
-    </a>
-  </li>
-<?php } ?>
 
-<li>
-    <a  href="credit_collection.php">
-      <i class="fa fa-usd"></i> <span>Credit Collection</span>
-      <span class="pull-right-container">
+        <?php if ($user_lewal < 5) {?>
+          <li>
+              <a  href="credit_collection.php">
+                <i class="fa fa-usd"></i> <span>Credit Collection</span>
+                <span class="pull-right-container">
 
-      </span>
-    </a>
-  </li>
+                </span>
+              </a>
+            </li>
+
+        <li>
+            <a  href="bill_remove.php">
+              <i class="fa fa-usd"></i> <span>Invoice Removal</span>
+              <span class="pull-right-container">
+
+              </span>
+            </a>
+          </li>
+        <?php } ?>
+<?php if ($user_lewal == 4) {?>
+        <li>
+        <a  href="stock_adjust.php">
+          <i class="fa fa-cubes"></i> <span>STOCK Adjustment</span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+        </li>
+  <?php } ?>
+
 	<li class="treeview">
 
           <a href="#">
@@ -359,21 +375,15 @@ $user_lewal=$_SESSION['USER_LEWAL'];
             </span>
           </a>
 
+
+
+
           <ul class="treeview-menu">
 			  <li><a href="customer_category.php"><i class="fa fa-usd"></i> Customer Category</a></li>
 
 
 
-        <?php if ($user_lewal < 5) {?>
-        <li>
-            <a  href="bill_remove.php">
-              <i class="fa fa-usd"></i> <span>Invoice Removal</span>
-              <span class="pull-right-container">
 
-              </span>
-            </a>
-          </li>
-        <?php } ?>
 
 
 		  <li>
@@ -482,7 +492,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
 			</a>
           </ul>
         </li>
-	<?php } ?>
+	<?php }  } ?>
 
 
 
