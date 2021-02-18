@@ -214,7 +214,7 @@ $pay_tr_id=$row['transaction_id'];
 
 <?php
 				  $ter1=7;
-			$tot+=$row['amount']-$credit_pay;
+			$tot+=$row2['amount']-$credit_pay;
 
 
 			?>
