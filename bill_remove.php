@@ -116,7 +116,7 @@ include_once("sidebar.php");
 				  <?php
 				  $date= date("Y-m-d");
 				  $ttr="incomplete";
-                $result = $db->prepare("SELECT * FROM sales WHERE action='1' ORDER BY transaction_id DESC  limit 0,2000");
+                $result = $db->prepare("SELECT * FROM sales WHERE action='1' ORDER BY transaction_id DESC  limit 0,20000");
 		$result->bindParam(':userid', $ttr);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){

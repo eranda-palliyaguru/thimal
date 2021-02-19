@@ -334,8 +334,6 @@ $bank=$row['bank_id'];
 <?php
 				  $ter1=7;
 			$tot+=$row['amount']-$row['pay_amount'];
-
-
 			?>
 
 
