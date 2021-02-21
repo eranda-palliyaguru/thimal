@@ -159,27 +159,27 @@ if($rs1>=60){$color="#701144"; $color1="white";}
 <td><?php echo $row_cus['credit_period'];?></td>
 <?php
    $ter1=7;
-$tot+=$row2['amount']-$row['pay_amount'];
+$tot+=$row['amount']-$row['pay_amount'];
 
-$b_tot+=$row2['amount']-$row['pay_amount'];
+$b_tot+=$row['amount']-$row['pay_amount'];
 ?>
 
 
 <td><?php if ($due <= 30) {  echo number_format($row2['amount']-$row['pay_amount'],1);
-  $due30+=$row2['amount']-$row['pay_amount'];
-$due30tot+=$row2['amount']-$row['pay_amount']; } ?></td>
+  $due30+=$row['amount']-$row['pay_amount'];
+$due30tot+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 30 && $due <= 60) {  echo number_format($row2['amount']-$row['pay_amount'],1);
-  $due60+=$row2['amount']-$row['pay_amount'];
-$due60tot+=$row2['amount']-$row['pay_amount']; } ?></td>
+  $due60+=$row['amount']-$row['pay_amount'];
+$due60tot+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 60 && $due <= 90) {  echo number_format($row2['amount']-$row['pay_amount'],1);
-$due90+=$row2['amount']-$row['pay_amount'];
-$due90tot+=$row2['amount']-$row['pay_amount']; } ?></td>
+$due90+=$row['amount']-$row['pay_amount'];
+$due90tot+=$row['amount']-$row['pay_amount']; } ?></td>
 
 <td><?php if ($due > 90) {  echo number_format($row2['amount']-$row['pay_amount'],1);
-$due100+=$row2['amount']-$row['pay_amount'];
-$due100tot+=$row2['amount']-$row['pay_amount']; } ?></td>
+$due100+=$row['amount']-$row['pay_amount'];
+$due100tot+=$row['amount']-$row['pay_amount']; } ?></td>
    </tr>
  <?php
 } }

@@ -164,7 +164,7 @@ if($rs1>=60){$color="#701144"; $color1="white";}
 
 <?php
    $ter1=7;
-$tot+=$row2['amount']-$row['pay_amount'];
+$tot+=$row['amount']-$row['pay_amount'];
 ?>
 
 
