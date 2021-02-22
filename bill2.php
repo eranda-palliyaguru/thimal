@@ -179,7 +179,9 @@ $sec = "1";
                 <th><?php echo $row1['chq_no']; ?></th>
                 <th><?php echo $row1['bank']; ?></th>
 				        <th>Rs.<?php echo $row1['amount']; ?></th>
+								<th><?php echo $row['chq_date']; ?></th>
 			       	  <th><?php echo $row1['date']; ?></th>
+
                 </tr>
 			 <?php
 
