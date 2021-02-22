@@ -161,6 +161,7 @@ $sec = "1";
         <th>CHQ No.</th>
         <th>Bank</th>
 				<th>Amount</th>
+				<th>CHQ Date</th>
 				<th>Date</th>
         </tr>
 
@@ -199,6 +200,8 @@ $sec = "1";
 										<th><?php echo $row['chq_no']; ?></th>
 										<th><?php echo $row['bank']; ?></th>
 										<th>Rs.<?php echo $row['amount']; ?></th>
+
+										<th><?php echo $row['chq_date']; ?></th>
 										<th><?php echo $row['date']; ?></th>
 							      </tr>
 <?php } } } ?>
