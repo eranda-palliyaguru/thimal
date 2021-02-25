@@ -11,7 +11,6 @@ $r=$_SESSION['SESS_LAST_NAME'];
 $user_lewal=$_SESSION['USER_LEWAL'];
 
 if($r =='Cashier'){
-
 header("location:./../../../index.php");
 }
 if($r =='admin'){
@@ -333,7 +332,7 @@ $bank=$row['bank_id'];
 
 <?php
 				  $ter1=7;
-			$tot+=$row2['amount']-$row['pay_amount'];
+			$tot+=$row['amount']-$row['pay_amount'];
 			?>
 
 
