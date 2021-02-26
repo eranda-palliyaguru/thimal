@@ -252,42 +252,41 @@ include_once("sidebar2.php");
         $lorry=$_GET['lorry'];
         $customer_type=$_GET['customer_type'];
 
-if($customer_id=="all"){
-if($group=="all"){
+        if($customer_id=="all"){
+        if($group=="all"){
 
-if ($customer_type=="all") {
-$customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
-}else {
-$customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
-}
+        if ($customer_type=="all") {
+        $customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
+        }else {
+        $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
+        }
 
-}else {
-$customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ");
-}
-  		}else{
-	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC"); }
+        }else {
+        $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category DESC");
+        }
+          		}else{
+        $customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC "); }
 
-			    $customer->bindParam(':userid', $d2);
-                $customer->execute();
-                for($i=0; $row_cus = $customer->fetch(); $i++){
-				$cus=$row_cus['customer_id'];
-        $limit=$row_cus['credit_period'];
+    $customer->bindParam(':userid', $d2);
+    $customer->execute();
+    for($i=0; $row_cus = $customer->fetch(); $i++){
+     $cus=$row_cus['customer_id'];
+      $limit=$row_cus['credit_period'];
 
+  $b_tot=0;
+  $pay_tot=0;
 
-	$b_tot=0;
+  $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
+   $result2z->bindParam(':userid', $d2);
+   $result2z->execute();
+   for($i=0; $row = $result2z->fetch(); $i++){
+   $sales_id=$row['sales_id'];
 
-	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-
-				$result2z->bindParam(':userid', $d2);
-                $result2z->execute();
-                for($i=0; $row = $result2z->fetch(); $i++){
-				$sales_id=$row['sales_id'];
-
-if ($lorry=='all') {
-	$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
-}else {
-	$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
-}
+        if ($lorry=='all') {
+        $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+        }else {
+        $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
+        }
 
 			    $result2->bindParam(':userid', $d2);
                 $result2->execute();
@@ -334,12 +333,6 @@ $bank=$row['bank_id'];
 				  $ter1=7;
 			$tot+=$row['amount']-$row['pay_amount'];
 			?>
-
-
-
-
-
-
 
 
 		<td><?php	echo $row_cus['credit_period'];	?></td>

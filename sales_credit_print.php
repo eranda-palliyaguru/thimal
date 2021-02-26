@@ -14,7 +14,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  
+
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -104,7 +104,6 @@ $pay_type="";
 $customer->bindParam(':userid', $d2);
 $customer->execute();
 for($i=0; $row_cus = $customer->fetch(); $i++){
-
  $cus=$row_cus['customer_id'];
   $limit=$row_cus['credit_period'];
 
@@ -113,10 +112,9 @@ $b_tot=0;
 $pay_tot=0;
 
 $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-
  $result2z->bindParam(':userid', $d2);
-          $result2z->execute();
-          for($i=0; $row = $result2z->fetch(); $i++){
+ $result2z->execute();
+ for($i=0; $row = $result2z->fetch(); $i++){
  $sales_id=$row['sales_id'];
 
 if ($lorry=='all') {
