@@ -293,21 +293,21 @@ include_once("sidebar2.php");
                 for($i=0; $row2 = $result2->fetch(); $i++){
 				$invo=$row2['invoice_number'];
 
-		 $pay_type=$row['type'];
-		$action=$row['action'];
+        $pay_type=$row['type'];
+        $action=$row['action'];
 
 
-		    $date1=$row2['date'];
-			$date =  date("Y-m-d");
-				  $sday= strtotime( $date1);
-                  $nday= strtotime($date);
-                  $tdf= abs($nday-$sday);
-                  $nbday1= $tdf/86400;
-                  $rs1= intval($nbday1);
+         $date1=$row2['date'];
+        $date =  date("Y-m-d");
+           $sday= strtotime( $date1);
+                    $nday= strtotime($date);
+                    $tdf= abs($nday-$sday);
+                    $nbday1= $tdf/86400;
+                    $rs1= intval($nbday1);
 
-		if($type=='due'){ $leval=$rs1-$limit;	}else { $leval=$rs1; }
-    $coo=$limit;
-      $rs1=$rs1-$limit;
+        if($type=='due'){ $leval=$rs1-$limit;	}else { $leval=$rs1; }
+        $coo=$limit;
+        $rs1=$rs1-$limit;
 
 
 
