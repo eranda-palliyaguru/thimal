@@ -311,16 +311,12 @@ include_once("sidebar2.php");
 
 
 
-		if($leval >= 0){
-		$color="";$color1="";
-		if($rs1>=30){$color="#f0f296"; $color1="black";}
-		if($rs1>=60){$color="#701144"; $color1="white";}
-$bank=$row['bank_id'];
-//if ($bank==1) {
-  // code...
+   if($leval >= 1){
+   $color="";$color1="";
+   if($rs1>=30){$color="#f0f296"; $color1="black";}
+   if($rs1>=60){$color="#701144"; $color1="white";}
+      ?>
 
-
-					?>
         <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
 				<td ><?php echo $row['customer_id'];?></td>
 				<td><?php echo $row2['name'];?></td>
