@@ -245,69 +245,69 @@ include_once("sidebar2.php");
 		$hh=date("Y/m/d");
 		$pay_type="";
 
-				//$d3=$_SESSION['SESS_FIRST_NAME'];
-				$type=$_GET['type'];
-				$customer_id=$_GET['cus'];
-        $group=$_GET['group'];
-        $lorry=$_GET['lorry'];
-        $customer_type=$_GET['customer_type'];
+    $type=$_GET['type'];
+    $customer_id=$_GET['cus'];
+     $group=$_GET['group'];
+     $lorry=$_GET['lorry'];
+     $customer_type=$_GET['customer_type'];
 
-        if($customer_id=="all"){
-        if($group=="all"){
+     if($customer_id=="all"){
+     if($group=="all"){
 
-        if ($customer_type=="all") {
-        $customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
-        }else {
-        $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
-        }
+     if ($customer_type=="all") {
+     $customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
+     }else {
+     $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
+     }
 
-        }else {
-        $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category DESC");
-        }
-          		}else{
-        $customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC "); }
+     }else {
+     $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category DESC");
+     }
+       		}else{
+     	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC "); }
 
-    $customer->bindParam(':userid', $d2);
-    $customer->execute();
-    for($i=0; $row_cus = $customer->fetch(); $i++){
-     $cus=$row_cus['customer_id'];
-      $limit=$row_cus['credit_period'];
-
-  $b_tot=0;
-  $pay_tot=0;
-
-  $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
-   $result2z->bindParam(':userid', $d2);
-   $result2z->execute();
-   for($i=0; $row = $result2z->fetch(); $i++){
-   $sales_id=$row['sales_id'];
-
-        if ($lorry=='all') {
-        $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
-        }else {
-        $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
-        }
-
-			    $result2->bindParam(':userid', $d2);
-                $result2->execute();
-                for($i=0; $row2 = $result2->fetch(); $i++){
-				$invo=$row2['invoice_number'];
-
-        $pay_type=$row['type'];
-        $action=$row['action'];
+   $customer->bindParam(':userid', $d2);
+   $customer->execute();
+   for($i=0; $row_cus = $customer->fetch(); $i++){
+    $cus=$row_cus['customer_id'];
+     $limit=$row_cus['credit_period'];
 
 
-         $date1=$row2['date'];
-        $date =  date("Y-m-d");
-           $sday= strtotime( $date1);
-                    $nday= strtotime($date);
-                    $tdf= abs($nday-$sday);
-                    $nbday1= $tdf/86400;
-                    $rs1= intval($nbday1);
+   $b_tot=0;
+   $pay_tot=0;
 
-        if($type=='due'){ $leval=$rs1-$limit;	}else { $leval=$rs1; }
-        $coo=$limit;
-        $rs1=$rs1-$limit;
+   $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
+    $result2z->bindParam(':userid', $d2);
+    $result2z->execute();
+    for($i=0; $row = $result2z->fetch(); $i++){
+    $sales_id=$row['sales_id'];
+
+   if ($lorry=='all') {
+   $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+   }else {
+   $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
+   }
+
+      $result2->bindParam(':userid', $d2);
+             $result2->execute();
+             for($i=0; $row2 = $result2->fetch(); $i++){
+    $invo=$row2['invoice_number'];
+
+   $pay_type=$row['type'];
+   $action=$row['action'];
+
+
+    $date1=$row2['date'];
+   $date =  date("Y-m-d");
+      $sday= strtotime( $date1);
+               $nday= strtotime($date);
+               $tdf= abs($nday-$sday);
+               $nbday1= $tdf/86400;
+               $rs1= intval($nbday1);
+
+   if($type=='due'){ $leval=$rs1-$limit;	}else { $leval=$rs1; }
+   $coo=$limit;
+   $rs1=$rs1-$limit;
 
 
 
