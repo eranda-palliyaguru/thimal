@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 if($r =='Cashier'){
@@ -25,11 +25,11 @@ include_once("sidebar.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -54,58 +54,59 @@ include_once("sidebar.php");
         <li class="active">Advanced Elements</li>
       </ol>
     </section>
-   
-   
-   
-    
-    
-   
-   
-   
+
+
+
+
+
+
+
+
    <section class="content">
-   
+
      <div class="box">
             <div class="box-header">
-              <h3 class="box-title">SPECIAL Price List</h3>			
+              <h3 class="box-title">SPECIAL Price List</h3>
             </div>
 <a rel="facebox" href="special_price_add.php"><button class="btn btn-info">Add New Price</button></a>
+<a rel="facebox" href="special_price_update.php"><button class="btn btn-danger">Price Update</button></a>
             <!-- /.box-header -->
-			
+
             <div class="box-body">
             		   <table id="example1" class="table table-bordered table-striped">
                 <thead>
-				
+
                 <tr>
 				  <th >Customer</th>
                   <th >Product</th>
-				   
+
 				  <th  >Price</th>
 				  <th>#</th>
                 </tr>
 				</thead>
-				
-                
+
+
                 <tbody>
 				<?php
 	    date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
-			
+
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
 				$result2 = $db->prepare("SELECT * FROM special_price ");
-				
+
 					$result2->bindParam(':userid', $d2);
                 $result2->execute();
                 for($i=0; $row2 = $result2->fetch(); $i++){
-				
-	
-	
 
-				
-				
+
+
+
+
+
 			?>
                 <tr class="record">
-				
+
 				<td><?php echo $row2['customer'];?></td>
                 <td><?php echo $row2['product_name'];?></td>
 				<td><?php echo $row2['price'];?></td>
@@ -114,9 +115,9 @@ include_once("sidebar.php");
 				</tr>
                 <?php	}	?>
                 </tbody>
-				
 
-              </table>  
+
+              </table>
 
             </div>
             <!-- /.box-body -->
@@ -124,13 +125,13 @@ include_once("sidebar.php");
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      
-   
-   
-   
+
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
@@ -180,7 +181,7 @@ var info = 'id=' + del_id;
    url: "special_price_dll.php",
    data: info,
    success: function(){
-   
+
    }
  });
          $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
@@ -193,9 +194,9 @@ return false;
 });
 
 });
-	
-	
-	
+
+
+
   $(function () {
     $("#example1").DataTable();
     $('#example2').DataTable({
@@ -207,16 +208,16 @@ return false;
       "autoWidth": false
     });
   });
-	
-	
+
+
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
-	
+
 </script>
 </body>
 </html>
