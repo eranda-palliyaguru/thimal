@@ -84,9 +84,10 @@ include_once("sidebar.php");
 				<th>Product_id</th>
                   <th>Name</th>
                   <th>Price</th>
+                  <th>Price (Kaluthara)</th>
 				<th>Cost Price</th>
-				  <th>Damage</th>
-				  <th>Trust</th>
+				  <th>SELL Price</th>
+
 				  <th>#</th>
                 </tr>
 
@@ -106,9 +107,10 @@ include_once("sidebar.php");
                   </td>
 
 				  <td><?php echo $row['price'];?></td>
+          <td><?php echo $row['price2'];?></td>
 				 <td><?php echo $row['o_price'];?></td>
-				  <td><?php echo $row['damage'];?></td>
-				  <td><?php echo $row['trust'];?></td>
+				  <td><?php echo $row['sell_price'];?></td>
+
 
                   <td>
 				  <?php
