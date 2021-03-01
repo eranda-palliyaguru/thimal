@@ -64,7 +64,7 @@ include_once("sidebar.php");
             <div class="tab-content" >
               <div class="active tab-pane" id="chq">
                     <h3 class="box-title">Cheque</h3>
-	<table class="table table-bordered table-striped" >
+	<table id="example1" class="table table-bordered table-striped" >
                 <thead>
                 <tr>
 					<th>ID</th>
@@ -117,7 +117,7 @@ $dtt=$diff->format( '%r%a' );
               <!-- /.tab-pane -->
               <div class="tab-pane" id="cash">
                <h3 class="box-title">Cash</h3>
-              	<table class="table table-bordered table-striped" >
+              	<table id="example4" class="table table-bordered table-striped" >
                 <thead>
                 <tr>
 					<th>ID</th>
@@ -193,7 +193,7 @@ $dtt=$diff->format( '%r%a' );
             <div class="box-body">
 
 			 <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example3" class="table table-bordered table-striped">
                 <thead>
                 <tr>
 				<th>ID</th>
@@ -323,6 +323,8 @@ $dtt=$diff->format( '%r%a' );
 
 $(function () {
     $("#example1").DataTable();
+    $("#example3").DataTable();
+      $("#example4").DataTable();
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -331,6 +333,7 @@ $(function () {
       "info": true,
       "autoWidth": false
     });
+
   });
 
 
