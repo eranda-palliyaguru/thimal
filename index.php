@@ -488,7 +488,7 @@ else{
 		<a href="loading_view.php?id=<?php echo $lo_id; ?>" style="color: black">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-black" style="background: url('user_pic/images.jfif') center center;">
-              <h1 class="widget-user-username" style="color: black" ><?php echo $no; ?></h1>
+              <h2 class="widget-user-username" style="color: black" ><?php echo $no; ?></h2>
               <h3 class="widget-user-desc" style="color: darkred" ><?php echo $driver; ?></h3>
             </div></a>
             <div class="widget-user-image">
