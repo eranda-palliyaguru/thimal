@@ -255,16 +255,16 @@ include_once("sidebar2.php");
      if($group=="all"){
 
      if ($customer_type=="all") {
-     $customer = $db->prepare("SELECT * FROM customer  ORDER BY category DESC");
+     $customer = $db->prepare("SELECT customer_id,credit_period FROM customer  ORDER BY category DESC");
      }else {
-     $customer = $db->prepare("SELECT * FROM customer WHERE type='$customer_type' ORDER BY category DESC");
+     $customer = $db->prepare("SELECT customer_id,credit_period FROM customer WHERE type='$customer_type' ORDER BY category DESC");
      }
 
      }else {
-     $customer = $db->prepare("SELECT * FROM customer WHERE category='$group' ORDER BY category DESC");
+     $customer = $db->prepare("SELECT customer_id,credit_period FROM customer WHERE category='$group' ORDER BY category DESC");
      }
        		}else{
-     	$customer = $db->prepare("SELECT * FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC "); }
+     	$customer = $db->prepare("SELECT customer_id,credit_period FROM customer WHERE customer_id='$customer_id' ORDER BY category DESC "); }
 
    $customer->bindParam(':userid', $d2);
    $customer->execute();
@@ -276,22 +276,21 @@ include_once("sidebar2.php");
    $b_tot=0;
    $pay_tot=0;
 
-   $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
+   $result2z = $db->prepare("SELECT memo,sales_id,type,action,customer_id,pay_amount,amount,transaction_id FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
     $result2z->bindParam(':userid', $d2);
     $result2z->execute();
     for($i=0; $row = $result2z->fetch(); $i++){
     $sales_id=$row['sales_id'];
 
    if ($lorry=='all') {
-   $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+   $result2 = $db->prepare("SELECT date,name,lorry_no,invoice_number FROM sales WHERE action='1' AND transaction_id='$sales_id'");
    }else {
-   $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
+   $result2 = $db->prepare("SELECT date,name,lorry_no,invoice_number FROM sales WHERE action='1' AND transaction_id='$sales_id' AND lorry_no='$lorry' ");
    }
-
       $result2->bindParam(':userid', $d2);
-             $result2->execute();
-             for($i=0; $row2 = $result2->fetch(); $i++){
-    $invo=$row2['invoice_number'];
+      $result2->execute();
+      for($i=0; $row2 = $result2->fetch(); $i++){
+    //  $invo=$row2['invoice_number'];
 
    $pay_type=$row['type'];
    $action=$row['action'];
@@ -320,7 +319,7 @@ include_once("sidebar2.php");
         <tr style="background-color: <?php echo $color; ?>; color: <?php echo $color1; ?>">
 				<td ><?php echo $row['customer_id'];?></td>
 				<td><?php echo $row2['name'];?></td>
-				<td><?php echo $row2['transaction_id'];?>
+				<td><?php echo $row['sales_id'];?>
         <span class="pull-right badge bg-green"><?php echo $row2['lorry_no'];?> </span></td>
 				<td><?php echo $row2['date'];?></td>
 
@@ -338,7 +337,7 @@ include_once("sidebar2.php");
 		<td><?php	echo $rs1;	?></td>
 			<td><?php echo $row['memo'];
 			?></td>
-			<td><?php if($user_lewal < 4){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row2['transaction_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>"   title="Click to pay" >
+			<td><?php if($user_lewal < 4){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row['sales_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>"   title="Click to pay" >
 				  <button class="btn btn-success">Set Payment</button></a><?php } ?>
 					<a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
 				  <button class="btn btn-primary">View</button></a>
