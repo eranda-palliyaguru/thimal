@@ -219,13 +219,6 @@ $pay_tr_id=$row['transaction_id'];
 
 			?>
 
-
-
-
-
-
-
-
 		<td><?php	echo $row['type'];	?></td>
 		<td><?php echo number_format($row['amount']-$credit_pay,1);
 			if($credit_pay>'0'){?><span class="pull-right badge bg-black"><?php	echo $credit_pay;?></span><?php } ?></td>

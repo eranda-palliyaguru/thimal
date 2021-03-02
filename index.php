@@ -14,7 +14,7 @@ if($r =='lorry'){
 
 header("location:sales_start.php");
 }
-	
+
 include_once("sidebar.php");
 
 
@@ -489,7 +489,7 @@ else{
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-black" style="background: url('user_pic/images.jfif') center center;">
               <h1 class="widget-user-username" style="color: black" ><?php echo $no; ?></h1>
-              <h5 class="widget-user-desc" style="color: darkred" ><?php echo $driver; ?></h5>
+              <h3 class="widget-user-desc" style="color: darkred" ><?php echo $driver; ?></h3>
             </div></a>
             <div class="widget-user-image">
               <img class="img-circle" src="<?php echo $pic; ?>" alt="User Avatar">
