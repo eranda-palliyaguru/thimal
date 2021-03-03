@@ -6,7 +6,7 @@
 include("head.php");
 	$invo = $_GET['id'];
 	$co = substr($invo,0,2) ;
-
+session_start();
   $user_lewal=$_SESSION['USER_LEWAL'];
 			?>
   <meta charset="utf-8">
