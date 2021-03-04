@@ -35,46 +35,6 @@ include_once("sidebar.php");
 
     </script>
 
-<?php
-$hs=0;
-$sql = "UPDATE customer
-        SET s_price=?";
-$q = $db->prepare($sql);
-$q->execute(array($hs));
-
-
-$fix_12='1443';
-$fix_37="5845";
-$fix_5="575";
-
-$result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='3' AND price < '$fix_37' ");
-	$result1->bindParam(':userid', $d2);
-    $result1->execute();
-    for($i=0; $row = $result1->fetch(); $i++){
-	$id=$row['customer_id'];
-$hs=1;
-$sql = "UPDATE customer
-        SET s_price=?
-		WHERE customer_id=?";
-$q = $db->prepare($sql);
-$q->execute(array($hs,$id));
-
-	}
-
-  $result1 = $db->prepare("SELECT * FROM special_price WHERE product_id='1' AND price < '$fix_12' ");
-  	$result1->bindParam(':userid', $d2);
-      $result1->execute();
-      for($i=0; $row = $result1->fetch(); $i++){
-  	$id=$row['customer_id'];
-  $hs=1;
-  $sql = "UPDATE customer
-          SET s_price=?
-  		WHERE customer_id=?";
-  $q = $db->prepare($sql);
-  $q->execute(array($hs,$id));
-
-  	}
-	?>
 
 
     <!-- /.sidebar -->
@@ -197,7 +157,7 @@ $view = $db->prepare("SELECT customer_name,customer_id FROM customer WHERE   cus
 	            $cus_id=$row5['customer_id'];
 
 
-        $view1 = $db->prepare("SELECT qty,price,price_id,product_id,amount,sales_id,date,invoice_no FROM sales_list WHERE  cus_id='$cus_id' AND product_id < '5' ");
+        $view1 = $db->prepare("SELECT qty,price,price_id,product_id,amount,sales_id,date,invoice_no FROM sales_list WHERE  cus_id='$cus_id' AND product_id < '5'  AND date BETWEEN '$d1' AND '$d2'");
         $view1->bindParam(':userid', $d2);
         $view1->execute();
         for($i=0; $list = $view1->fetch(); $i++){
