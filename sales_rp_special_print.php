@@ -41,15 +41,26 @@ $d1=$_GET['d1'];
     <!-- title row -->
     <div class="row">
       <div class="col-xs-12">
-        <h2 class="page-header">
-          <i class="fa fa-globe"></i> HTJT Holdings (PVT)LTD.
+        <h2 >
+          <i class="fa fa-globe"></i> <?php $result = $db->prepare("SELECT * FROM info");
+           $result->bindParam(':userid', $date);
+          				 $result->execute();
+          				 for($i=0; $row = $result->fetch(); $i++){
+          					 echo $row['name'];
+          					} ?>
+
 
           <small class="pull-right">Date:<?php date_default_timezone_set("Asia/Colombo");
 	                                                        echo date("Y-m-d____h:ia")  ?></small>
+
+
+
         </h2>
 		<h4>
 		<?php echo "FROM- ".$_GET['d1']." TO- ".$_GET['d2']; ?>
-		<h4>
+    <img class="pull-right" style="width:90px" src="cloud.png" alt="">
+  </h4><br>
+
       </div>
       <!-- /.col -->
     </div>
@@ -58,20 +69,21 @@ $d1=$_GET['d1'];
     <!-- /.row -->
 <div class="box-body">
 
-<table id="example1" class="table table-bordered table-striped">
+  <table id="example1" class="table table-bordered table-striped">
 <thead>
 <tr>
 <th>Customer id</th>
 <th>Invoice</th>
 <th>Date</th>
 <th>Customer</th>
-<th>37.5</th>
-<th>12.5</th>
-<th>5</th>
+<th  >37.5 gas</th>
+<th  >12.5 gas</th>
+<th  >5 gas</th>
 <th>SP Price</th>
 <th>Fix Price</th>
 <th>Different</th>
 <th>Reim Amount</th>
+
 </tr>
 
 </thead>
@@ -83,123 +95,67 @@ $tot=0;	$tot_d=0;
 $d1=$_GET['d1'];
 $d2=$_GET['d2'];
 $cus_id=$_GET['cus'];
-
 $qty5=0;$qty12=0;$qty37=0;
 //$d3=$_SESSION['SESS_FIRST_NAME'];
 //$d3=$_GET['d3'];
 if($cus_id=="all"){
-$view = $db->prepare("SELECT * FROM customer WHERE  s_price='1' ORDER by customer_id ASC");
+$view = $db->prepare("SELECT customer_name,customer_id FROM customer  ORDER by customer_id ASC");
 $cus=">0";
 }else{
-$view = $db->prepare("SELECT * FROM customer WHERE  s_price='1' AND customer_id='$cus_id' ORDER by customer_id ASC");
+$view = $db->prepare("SELECT customer_name,customer_id FROM customer WHERE   customer_id='$cus_id' ORDER by customer_id ASC");
 $cus="=".$cus_id;
 }
 $view->bindParam(':userid', $d2);
 $view->execute();
 for($i=0; $row5 = $view->fetch(); $i++){
-$cccus=$row5['customer_id'];
+$cus_id=$row5['customer_id'];
 
 
-$result2 = $db->prepare("SELECT * FROM sales WHERE customer_id='$cccus' and  action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-$result2->bindParam(':userid', $d2);
-$result2->execute();
-for($i=0; $row2 = $result2->fetch(); $i++){
-$invo=$row2['invoice_number'];
-
-$sid=0;
-$view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='3' and price < '$fix_37' ");
+$view1 = $db->prepare("SELECT qty,price,price_id,product_id,amount,sales_id,date,invoice_no FROM sales_list WHERE  cus_id='$cus_id' AND product_id < '5' ");
 $view1->bindParam(':userid', $d2);
 $view1->execute();
-for($i=0; $row51 = $view1->fetch(); $i++){
-$sid=$row51['id'];
-$fix=$fix_37;
+for($i=0; $list = $view1->fetch(); $i++){
+$qty=$list['qty'];
+$price=$list['price'];
+$price_id=$list['price_id'];
+$product_id=$list['product_id'];
+$amount=$list['amount'];
+$fix_price=0;
+
+
+$view12 = $db->prepare("SELECT d_price FROM price_update WHERE  id='$price_id'  ");
+$view12->bindParam(':userid', $d2);
+$view12->execute();
+for($i=0; $up = $view12->fetch(); $i++){
+$fix_price=$up['d_price'];
 }
 
-$view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='1' and price < '$fix_12' ");
-$view1->bindParam(':userid', $d2);
-       $view1->execute();
-       for($i=0; $row51 = $view1->fetch(); $i++){
-     $sid=$row51['id'];
-     $fix=$fix_12;
-}
-$view1 = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='2' and price < '$fix_5' ");
-       $view1->bindParam(':userid', $d2);
-               $view1->execute();
-               for($i=0; $row51 = $view1->fetch(); $i++){
-             $sid=$row51['id'];
-             $fix=$fix_5;
-       }
-if($sid > 1){
+if($price < $fix_price){
 ?>
 <tr>
-<td><?php echo $row2['customer_id'];?></td>
-<td><?php echo $row2['transaction_id'];?></td>
-<td><?php echo $row2['date'];?></td>
- <td><?php echo $row2['name'];?></td>
+<td><?php echo $cus_id;?></td>
+<td><?php echo $list['sales_id'];?></td>
+<td><?php echo $list['date'];?></td>
+ <td><?php echo $row5['customer_name'];?></td>
 
-
-
-<td><span class="pull-right badge bg-muted"><?php
-
-$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='3' AND  price < '$fix_37' ");
-
-$result->bindParam(':userid', $d1);
-$result->execute();
-for($i=0; $row = $result->fetch(); $i++){
-echo $row['qty'];
-$qqty=$row['qty'];
-$qty37+=$row['qty'];
-$price=$row['price'];
-$amount=$row['amount'];
-}
-
-?></span></td>
-<td><span class="pull-right badge bg-muted"><?php
-
-$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='1' AND price < '$fix_12'  ");
-
-$result->bindParam(':userid', $d1);
-$result->execute();
-for($i=0; $row = $result->fetch(); $i++){
-echo $row['qty'];
-$qqty=$row['qty'];
-$qty12+=$row['qty'];
-$price=$row['price'];
-$amount=$row['amount'];
-}
-
-?></span></td>
-
-<td><span class="pull-right badge bg-muted"><?php
-
-$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='2' AND price < '$fix_5'  ");
-
-$result->bindParam(':userid', $d1);
-$result->execute();
-for($i=0; $row = $result->fetch(); $i++){
-echo $row['qty'];
-$qqty=$row['qty'];
-$qty5+=$row['qty'];
-$price=$row['price'];
-$amount=$row['amount'];
-}
-
-?></span></td>
+<td><span class="pull-right badge bg-muted"><?php	if ($product_id==3) { echo $qty; $qty37+=$qty;  }	?></span></td>
+<td><span class="pull-right badge bg-muted"><?php	if ($product_id==1) { echo $qty; $qty12+=$qty; }	?></span></td>
+<td><span class="pull-right badge bg-muted"><?php	if ($product_id==2) { echo $qty; $qty5+=$qty; }	?></span></td>
 
 <td><?php echo $price; ?></td>
-<td><?php echo $fix; ?></td>
-<td><?php echo $fix-$price; ?></td>
+<td><?php echo $fix_price; ?></td>
+<td><?php echo $fix_price-$price; ?></td>
 
 
 
 <td><?php
-$fre=$qqty*$fix;
+$fre=$qty*$fix_price;
 echo $fre-$amount; ?></td>
 
 
 
 <?php
-//$tot_12+=$qty12;
+$tot_d+=$qty;
 $tot+=$fre-$amount;
 
 }
@@ -214,15 +170,16 @@ $tot+=$fre-$amount;
 
 <td  colspan="4" >Total</td>
 
-
 <td><span class="pull-right badge bg-muted"><?php 	echo $qty37;	?></span></td>
 <td><span class="pull-right badge bg-muted"><?php 	echo $qty12;	?></span></td>
 <td><span class="pull-right badge bg-muted"><?php 	echo $qty5;	?></span></td>
 <td></td>
 <td></td>
+<td></td>
+
 
 <td><span class="pull-right badge bg-muted"><?php echo $tot;	?></span></td>
-<td></td>
+
 </tfoot>
 </table>
 
