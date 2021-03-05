@@ -157,7 +157,7 @@ $view = $db->prepare("SELECT customer_name,customer_id FROM customer WHERE   cus
 	            $cus_id=$row5['customer_id'];
 
 
-        $view1 = $db->prepare("SELECT qty,price,price_id,product_id,amount,sales_id,date,invoice_no FROM sales_list WHERE  cus_id='$cus_id' AND product_id < '5'  AND date BETWEEN '$d1' AND '$d2'");
+        $view1 = $db->prepare("SELECT qty,price,price_id,product_id,amount,sales_id,date,invoice_no FROM sales_list WHERE action='0' AND  cus_id='$cus_id' AND product_id < '5'  AND date BETWEEN '$d1' AND '$d2'");
         $view1->bindParam(':userid', $d2);
         $view1->execute();
         for($i=0; $list = $view1->fetch(); $i++){
