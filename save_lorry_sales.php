@@ -33,6 +33,10 @@ $result = $db->prepare("SELECT * FROM customer WHERE customer_id='$cus_id' ");
 		for($i=0; $row = $result->fetch(); $i++){
 $cus=$row['customer_name'];
 $add=$row['address'];
+$price12=$row['price_12'];
+$price37=$row['price_37'];
+$price5=$row['price_5'];
+$price2=$row['price_2'];
 		}
 
 
@@ -45,7 +49,15 @@ $name=$row['gen_name'];
 $price=$row['price'];
 $o_price=$row['o_price'];
 $price_id=$row['price_id'];
+$sell_price=$row['sell_price'];
 $sp_id="";
+
+if ($pro_id==3) {
+if ($price37==1) {
+$price=$sell_price;
+}
+}
+
 
 
 $result35 = $db->prepare("SELECT * FROM special_price WHERE product_id='$pro_id' and customer_id='$cus_id' ORDER by id DESC ");
