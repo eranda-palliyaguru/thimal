@@ -310,7 +310,7 @@ include_once("sidebar2.php");
 
 
 
-   if($leval >= 1){
+   if($leval >= 0){
    $color="";$color1="";
    if($rs1>=30){$color="#f0f296"; $color1="black";}
    if($rs1>=60){$color="#701144"; $color1="white";}
@@ -330,11 +330,11 @@ include_once("sidebar2.php");
 			?>
 
 
-		<td><?php	echo $row_cus['credit_period'];	?></td>
+		<td><?php	echo $row_cus['credit_period'];	?> Day</td>
 		<td><?php echo $row['amount']-$row['pay_amount'];
 			$b_tot+=$row['amount']-$row['pay_amount'];
 			if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>
-		<td><?php	echo $rs1;	?></td>
+		<td><?php	echo $rs1;	?> Day</td>
 			<td><?php echo $row['memo'];
 			?></td>
 			<td><?php if($user_lewal < 4){?><a rel="facebox" href="payment_view_view.php?id=<?php echo $row['sales_id'];?>&pay_amount=<?php echo $row['pay_amount'];?>&pay_id=<?php echo $row['transaction_id'];?>&cus=<?php echo $_GET['cus'];?>"   title="Click to pay" >
@@ -358,7 +358,7 @@ include_once("sidebar2.php");
 
 
 			<td></td><td></td>
-		<td><span class="pull-right badge bg-red"><?php echo $b_tot; ?></span></td>
+		<td><span class="pull-right badge bg-red"><?php echo number_format($b_tot,1); ?></span></td>
 
 	<td></td><td></td><td></td>
                 </tr>

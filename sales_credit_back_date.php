@@ -152,13 +152,15 @@ $credit_pay=0;
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
 				//$d3=$_GET['d3'];
 				$cus=$_POST['cus'];
-	if($cus=="all"){$result2z = $db->prepare("SELECT * FROM payment WHERE amount>'0' AND type='credit' and date BETWEEN '$s_date' and '$back_date' ORDER BY customer_id ASC");
-  }else{$result2z = $db->prepare("SELECT * FROM payment WHERE amount>'0' AND type='credit' and customer_id='$cus' and date BETWEEN '$s_date' and '$back_date'");}
+	if($cus=="all"){$result2z = $db->prepare("SELECT memo,sales_id,type,action,customer_id,pay_amount,amount,transaction_id,set_off_date FROM payment WHERE action > '0' AND type='credit' and date BETWEEN '$s_date' and '$back_date' ORDER BY customer_id ASC");
+  }else{$result2z = $db->prepare("SELECT memo,sales_id,type,action,customer_id,pay_amount,amount,transaction_id,set_off_date FROM payment WHERE action > '0' AND type='credit' and customer_id='$cus' and date BETWEEN '$s_date' and '$back_date'");}
 
 				$result2z->bindParam(':userid', $d2);
                 $result2z->execute();
                 for($i=0; $row = $result2z->fetch(); $i++){
 				$sales_id=$row['sales_id'];
+
+
 
 		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
 			    $result2->bindParam(':userid', $d2);
@@ -201,9 +203,9 @@ $pay_tr_id=$row['transaction_id'];
                 for($i=0; $row1 = $result->fetch(); $i++){
       $credit_pay=$row1['sum(pay_amount)'];
         }
-  if ($credit_pay == 0) {
-  $credit_pay=$credit_pay1;
-  }
+
+  $credit_pay=$credit_pay1+$credit_pay;
+
 //$credit_pay=$credit_pay+$credit_pay1;
 					?>
                 <tr>
@@ -215,8 +217,6 @@ $pay_tr_id=$row['transaction_id'];
 <?php
 				  $ter1=7;
 			$tot+=$row['amount']-$credit_pay;
-
-
 			?>
 
 		<td><?php	echo $row['type'];	?></td>
