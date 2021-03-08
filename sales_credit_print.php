@@ -1,4 +1,4 @@
-<?php header("content-type: text/html; charset=UTF-8");  ?>
+.<?php header("content-type: text/html; charset=UTF-8");  ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,7 +146,7 @@ $rs1=$rs1-$limit;
 
 
 
-if($leval >= 1){
+if($leval >= 0){
 $color="";$color1="";
 if($rs1>=30){$color="#f0f296"; $color1="black";}
 if($rs1>=60){$color="#701144"; $color1="white";}
