@@ -266,7 +266,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
 
        <td style="background-color:rgba(191,161,6,0.42)">
          <?php
-         $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price = '$price2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+         $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
          $result->bindParam(':userid', $invo);
          $result->execute();
          for($i=0; $row = $result->fetch(); $i++){ $dealer_qty_s=$row['sum(qty)'];}
@@ -276,7 +276,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
        ?></td>
        <td style="background-color:rgba(191,161,6,0.73)">
          <?php
-         $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price = '$price2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+         $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
          $result->bindParam(':userid', $invo);
          $result->execute();
          for($i=0; $row = $result->fetch(); $i++){  $dealer_s  = $row['sum(amount)'];  }
