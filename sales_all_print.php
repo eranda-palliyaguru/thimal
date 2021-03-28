@@ -13,7 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,9 +24,9 @@
 </head>
 <body onload="window.print() " style=" font-size: 13px; font-family: arial;">
 <?php
-
+include("connect.php");
 $sec = "1";
-?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_all_rp.php?d1=<?php echo $d1;?>'">	
+?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_all_rp.php?d1=<?php echo $d1;?>'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -34,159 +34,342 @@ $sec = "1";
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i> HTJT Holdings (PVT)LTD.
-		  
-          <small class="pull-right">Date:<?php date_default_timezone_set("Asia/Colombo"); 
+          <i class="fa fa-globe"></i><?php $result = $db->prepare("SELECT * FROM info");
+           $result->bindParam(':userid', $date);
+          				 $result->execute();
+          				 for($i=0; $row = $result->fetch(); $i++){
+          					 echo $row['name'];
+          					} ?>
+
+          <small class="pull-right">Date:<?php date_default_timezone_set("Asia/Colombo");
 	                                                        echo date("Y-m-d____h:ia")  ?></small>
         </h2>
 		<h4>
 		<?php echo "FROM- ".$_GET['d1']." TO- ".$_GET['d2']; ?>
+        <img class="pull-right" style="width:90px" src="cloud.png" alt="">
 		<h4>
       </div>
       <!-- /.col -->
     </div>
     <!-- info row -->
-    
+
     <!-- /.row -->
 <div class="box-body">
-      <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				
-                <tr>
-				  <th>Product Name</th>
+  <table id="example2" class="table table-bordered table-hover">
+      <tr >
+        <th style="background-color:#aba272"></th>
+        <th colspan="3" style="background-color:#aba272"><center>Dealer Kaluthara</center></th>
+        <th colspan="3"style="background-color:#aba272" ><center>Dealer Colombo</center></th>
+        <th colspan="3"style="background-color:#aba272"><center>Selling</center></th>
+        <th colspan="3"style="background-color:#aba272"><center>Discount</center></th>
+        <th colspan="3"style="background-color:#aba272"><center>Total</center> </th>
+             </tr>
 
-                 				   
-			      <th>Total Sales</th>
-				<th>Total Sales Amount</th>
-				  <th>Total Margin</th>
+              <tr>
+                <th style="background-color:#aba272">Product Name</th>
+                <th style="background-color:rgba(191,161,6,0.42)">QTY</th>
+                <th style="background-color:rgba(191,161,6,0.73)">Value</th>
+                <th style="background-color:#bfa106">Margin</th>
 
-					
-				   
-                  
-                </tr>
-                </thead>
-                <tbody>
-				<?php
-   $tot_tot_margin=0;
-   $tot_amount=0;
-  
-			
-				include("connect.php");
-				
-				date_default_timezone_set("Asia/Colombo");
-		$hh=date("Y/m/d");
-				
-				$d1=$_GET['d1'];
-				$d2=$_GET['d2'];
-				
-				//$d3=$_SESSION['SESS_FIRST_NAME'];
-				//$d3=$_GET['d3'];
-				$result = $db->prepare("SELECT * FROM products  ORDER by product_id ASC");
-				
-					$result->bindParam(':userid', $d2);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-				$tebal_id=$row['product_id'];
-	            $id=$row['product_id'];
-	            $qty1=$row['qty'];
-				$qty2=$row['qty2'];
-				
-				$price=$row['price'];
-				$o_price=$row['o_price'];
-					
-				$margin=$price-$o_price;
-					
-				$qty_total=$qty1+$qty2;
+                <th style="background-color:rgba(191,161,6,0.42)">QTY</th>
+                <th style="background-color:rgba(191,161,6,0.73)">Value</th>
+                <th style="background-color:#bfa106">Margin</th>
 
-				
-				
-			?>
-                <tr>
-				
-				
-                  <td><?php echo $row['gen_name'];?></td>
+                <th style="background-color:rgba(191,161,6,0.42)">QTY</th>
+                <th style="background-color:rgba(191,161,6,0.73)">Value</th>
+                <th style="background-color:#bfa106">Margin</th>
 
-<td><?php
-					
-				$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");			
-				$result1->bindParam(':userid', $d);
-                $result1->execute();
-                for($i=0; $row = $result1->fetch(); $i++){
-					$p_qty=$row['sum(qty)'];
-					echo $row['sum(qty)'];
-					}
-				  ?></td>					
-					
-<td><?php
-					
-				$result1 = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND action='0' AND date BETWEEN '$d1' and '$d2' ");			
-				$result1->bindParam(':userid', $d);
-                $result1->execute();
-                for($i=0; $row = $result1->fetch(); $i++){
-					$amount=$row['sum(amount)'];
-					
-					echo "Rs.".number_format( $row['sum(amount)'],2 );
-					} 
-					
-					$tot_margin=$margin*$p_qty
-				  ?></td>				
-				 
-				<td><?php echo "Rs.".number_format($tot_margin,2);?></td>
-					
-					
-							
-					
-					
-					
-					
-				 
-				 
-				 <?php
-					$tot_amount+=$amount;
-					
-					$tot_tot_margin+=$tot_margin;
-					
-				}	
-                 			?>
-				</tr>
-                
-                </tbody>
-			<tfoot>	
-            <tr style="background-color: grey; color: white">
-			<td></td>
-			
-			<td></td>
-			<td>Rs.<?php echo number_format( $tot_amount,2);?></td>	
-			<td>Rs.<?php echo number_format( $tot_tot_margin,2);?></td>
-		
-			</tr>	
-                </tfoot>
-              </table>
-	  
-		 </div> 
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+                <th style="background-color:rgba(191,161,6,0.42)">QTY</th>
+                <th style="background-color:rgba(191,161,6,0.73)">Value</th>
+                <th style="background-color:#bfa106">Margin</th>
+
+                <th style="background-color:rgba(191,161,6,0.42)">QTY</th>
+                <th style="background-color:rgba(191,161,6,0.73)">Value</th>
+                <th style="background-color:#bfa106">Margin</th>
+
+                      </tr>
+    <?php
+    $d1=$_GET['d1'];
+    $d2=$_GET['d2'];
+    $total=0;
+    //$invo=$_GET['id'];
+$or_d1=$d1;
+$margin_total=0;
+    $result1 = $db->prepare("SELECT * FROM products  ORDER by product_id ASC");
+    $result1->bindParam(':userid', $d2);
+    $result1->execute();
+    for($i=0; $row1 = $result1->fetch(); $i++){
+    $tebal_id=$row1['product_id'];
+    $price=$row1['price'];
+    $price2=$row1['price2'];
+    $price_o=$row1['o_price'];
+  //  $area=$row1['area'];
+
+$dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  $dis="";$dis_val=""; $sell_m="";$dis_m="";$dis_m1=""; $dealer_m="";  $dealer_m1=""; $sell_v1="";
+
+    $result1122 = $db->prepare("SELECT * FROM price_update WHERE product_id='$tebal_id'  ORDER BY id ASC ");
+    $result1122->bindParam(':userid', $invo);
+    $result1122->execute();
+    for($i=0; $row1122 = $result1122->fetch(); $i++){
+//$dealer_v=0;$dealer1_v=0; $dealer_qty_v=0;$dealer_qty1_v=0; $sell_v=0;$sell_val_v=0;  $dis_v=0;$dis_val_v=0;
+
+      $pid=$row1122['id'];
+      $up_date=$row1122['date'];
+      $up_price2=$row1122['d_price2'];
+      $up_price=$row1122['d_price'];
+      $o_price=$row1122['o_price'];
+
+//---------------------------------------------------------- OLD price 2nd table--------------------------------------------------------------------------//
+
+
+      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $dealer_qty+=$row['sum(qty)'];$dealer_qty_v=$row['sum(qty)']; }
+
+
+
+      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $dealer+=$row['sum(amount)']; $dealer_v=$row['sum(amount)'];}
+
+      $ma=$o_price*$dealer_qty_v;
+      $dealer_m+=$dealer_v-$ma;
+
+
+
+      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $dealer_qty1+=$row['sum(qty)']; $dealer_qty1_v=$row['sum(qty)'];}
+
+
+      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $dealer1+=$row['sum(amount)']; $dealer1_v=$row['sum(amount)']; }
+
+
+      $ma1=$o_price*$dealer_qty1_v;
+      $dealer_m1+=$dealer1_v-$ma1;
+
+
+      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price > '$up_price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $sell+=$row['sum(qty)'];$sell_v=$row['sum(qty)']; }
+
+
+
+      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price > '$up_price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $sell_val+=$row['sum(amount)']; $sell_val_v=$row['sum(amount)']; }
+
+
+
+      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price2' AND price > '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $sell+=$row['sum(qty)']; $sell_v1=$row['sum(qty)']; }
+
+
+
+      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price2' AND price > '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $sell_val+=$row['sum(amount)'];  $sell_val_v1=$row['sum(amount)']; }
+
+      $sell_v=$sell_v1+$sell_v;
+      $sell_val_v=$sell_val_v1+$sell_val_v;
+
+      $ma3=$o_price*$sell_v;
+      $sell_m+=$sell_val_v-$ma3;
+
+      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $dis+=$row['sum(qty)']; $dis_v=$row['sum(qty)']; }
+
+
+
+      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result->bindParam(':userid', $invo);
+      $result->execute();
+      for($i=0; $row = $result->fetch(); $i++){ $dis_val+=$row['sum(amount)']; $dis_val_v=$row['sum(amount)']; }
+
+
+      $dis_m1+=($up_price*$dis_v)-($o_price*$dis_v);
+      $dis_m+=$dis_val_v-($up_price*$dis_v);
+
+
+
+        }
+
+?>
+<tr>
+ <td style="background-color:#aba272"><?php echo $row1['gen_name']; ?></td>
+
+ <td style="background-color:rgba(191,161,6,0.42)">
+   <?php
+   $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $dealer_qty_s=$row['sum(qty)'];}
+
+      echo $dealer_qty+$dealer_qty_s;
+
+ ?></td>
+ <td style="background-color:rgba(191,161,6,0.73)">
+   <?php
+   $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){  $dealer_s  = $row['sum(amount)'];  }
+   echo number_format($dealer+$dealer_s,2);
+
+     $dma=$dealer_s-($price_o*$dealer_qty_s);
+ ?></td>
+
+ <td style="background-color:#bfa106"> <?php     echo number_format($dealer_m=$dma+$dealer_m,2);   ?></td>
+
+
+ <td style="background-color:rgba(191,161,6,0.42)">
+   <?php
+   $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND  price = '$price' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $dealer_qty1_s=$row['sum(qty)'];}
+  echo  $dealer_qty1+$dealer_qty1_s;
+
+
+
+ ?></td>
+ <td style="background-color:rgba(191,161,6,0.73)">
+   <?php
+   $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id'   AND  price = '$price' AND price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){  $dealer1_s= $row['sum(amount)']; }
+  echo $dealer1+$dealer1_s;
+
+
+  $dma1=$dealer1_s-($price_o*$dealer_qty1_s);
+ ?></td>
+
+ <td style="background-color:#bfa106"> <?php  echo number_format($dealer_m1=$dma1+$dealer_m1,2);  ?></td>
+
+
+<?php
+
+
+?>
+
+ <td style="background-color:rgba(191,161,6,0.42)">
+   <?php
+   $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='0'  AND price > '$price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $sell_s=$row['sum(qty)'];}
+      echo $sell+$sell_s;
+ ?></td>
+ <td style="background-color:rgba(191,161,6,0.73)">
+   <?php
+   $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='0'  AND price > '$price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $sell_val_s=$row['sum(amount)']; }
+      echo number_format($sell_val+$sell_val_s,2);
+
+      $sell_ma=$sell_val_s-($price_o*$sell_s)
+ ?></td>
+
+ <td style="background-color:#bfa106"> <?php  echo number_format($sell_m=$sell_m+$sell_ma,2);   ?></td>
+
+
+
+
+ <td style="background-color:rgba(191,161,6,0.42)">
+   <?php
+   $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='0' AND price < '$price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $dis_s=$row['sum(qty)'];}
+      echo $dis=$dis+$dis_s;
+ ?></td>
+ <td style="background-color:rgba(191,161,6,0.73)">
+   <?php
+   $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='0' AND price < '$price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $dis_val_s=$row['sum(amount)'];}
+      echo number_format($dis_val+$dis_val_s,2);
+
+      $dis_ma=($price-$price_o)*$dis_s;
+      $ma11=$dis_val_s-($price*$dis_s);
+ ?></td>
+
+ <td style="background-color:#bfa106"> <?php    echo number_format($dis_ma=$dis_ma+$dis_m1,2);   ?>(<?php   echo $ma11+$dis_m;   ?>)</td>
+
+
+
+ <td style="background-color:rgba(191,161,6,0.42)">
+   <?php 				$d1=$_GET['d1'];
+          $d2=$_GET['d2'];
+   $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND    action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $dis1=$row['sum(qty)'];
+      echo $row['sum(qty)']; }
+ ?></td>
+ <td style="background-color:rgba(191,161,6,0.73)">
+   <?php
+   $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id'  AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+   $result->bindParam(':userid', $invo);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){ $to=$row['sum(amount)'];
+      echo number_format($row['sum(amount)'],2); }
+ ?></td>
+
+ <td style="background-color:#bfa106"> <?php $margin_total+=$dealer_m+$dealer_m1+$sell_m+$dis_ma;   echo number_format($dealer_m+$dealer_m1+$sell_m+$dis_ma,2); // Margin total  ?></td>
+
+
+
+         </tr>
+
+         <?php
+       }?>
+       <tr>
+
+         <td colspan="15"style="background-color:#aba272"><center>Total</center> </td>
+         <td style="background-color:#aba272"> Rs.<?php   echo number_format($margin_total,2); // Margin total  ?></td>
+       </tr>
+       </table>
+		 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
-      
+
       <!-- /.col -->
-    
+
     <!-- /.row -->
   </section>
   <!-- /.content -->

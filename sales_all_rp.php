@@ -147,7 +147,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
       		$total=0;
       		//$invo=$_GET['id'];
 $or_d1=$d1;
-
+$margin_total=0;
           $result1 = $db->prepare("SELECT * FROM products  ORDER by product_id ASC");
   				$result1->bindParam(':userid', $d2);
           $result1->execute();
@@ -280,12 +280,12 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
          $result->bindParam(':userid', $invo);
          $result->execute();
          for($i=0; $row = $result->fetch(); $i++){  $dealer_s  = $row['sum(amount)'];  }
-         echo $dealer+$dealer_s;
+         echo number_format($dealer+$dealer_s,2);
 
            $dma=$dealer_s-($price_o*$dealer_qty_s);
        ?></td>
 
-       <td style="background-color:#bfa106"> <?php     echo $dealer_m=$dma+$dealer_m;   ?></td>
+       <td style="background-color:#bfa106"> <?php     echo number_format($dealer_m=$dma+$dealer_m,2);   ?></td>
 
 
        <td style="background-color:rgba(191,161,6,0.42)">
@@ -311,7 +311,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
         $dma1=$dealer1_s-($price_o*$dealer_qty1_s);
        ?></td>
 
-       <td style="background-color:#bfa106"> <?php  echo $dealer_m1=$dma1+$dealer_m1;  ?></td>
+       <td style="background-color:#bfa106"> <?php  echo number_format($dealer_m1=$dma1+$dealer_m1,2);  ?></td>
 
 
 <?php
@@ -333,12 +333,12 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
          $result->bindParam(':userid', $invo);
          $result->execute();
          for($i=0; $row = $result->fetch(); $i++){ $sell_val_s=$row['sum(amount)']; }
-            echo $sell_val+$sell_val_s;
+            echo number_format($sell_val+$sell_val_s,2);
 
             $sell_ma=$sell_val_s-($price_o*$sell_s)
        ?></td>
 
-       <td style="background-color:#bfa106"> <?php  echo $sell_m=$sell_m+$sell_ma;   ?></td>
+       <td style="background-color:#bfa106"> <?php  echo number_format($sell_m=$sell_m+$sell_ma,2);   ?></td>
 
 
 
@@ -357,13 +357,13 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
          $result->bindParam(':userid', $invo);
          $result->execute();
          for($i=0; $row = $result->fetch(); $i++){ $dis_val_s=$row['sum(amount)'];}
-            echo $dis_val+$dis_val_s;
+            echo number_format($dis_val+$dis_val_s,2);
 
             $dis_ma=($price-$price_o)*$dis_s;
             $ma11=$dis_val_s-($price*$dis_s);
        ?></td>
 
-       <td style="background-color:#bfa106"> <?php    echo $dis_ma=$dis_ma+$dis_m1;   ?>(<?php   echo $ma11+$dis_m;   ?>)</td>
+       <td style="background-color:#bfa106"> <?php    echo number_format($dis_ma=$dis_ma+$dis_m1,2);   ?>(<?php   echo $ma11+$dis_m;   ?>)</td>
 
 
 
@@ -382,16 +382,22 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
          $result->bindParam(':userid', $invo);
          $result->execute();
          for($i=0; $row = $result->fetch(); $i++){ $to=$row['sum(amount)'];
-            echo $row['sum(amount)']; }
+            echo number_format($row['sum(amount)'],2); }
        ?></td>
 
-       <td style="background-color:#bfa106"> <?php   echo $dealer_m+$dealer_m1+$sell_m+$dis_ma; // Margin total  ?></td>
+       <td style="background-color:#bfa106"> <?php $margin_total+=$dealer_m+$dealer_m1+$sell_m+$dis_ma;   echo number_format($dealer_m+$dealer_m1+$sell_m+$dis_ma,2); // Margin total  ?></td>
 
 
 
       				 </tr>
+
       				 <?php
       			 }?>
+             <tr>
+
+               <td colspan="15"style="background-color:#aba272"><center>Total</center> </td>
+               <td style="background-color:#aba272"> Rs.<?php   echo number_format($margin_total,2); // Margin total  ?></td>
+             </tr>
       			 </table>
             <!-- /.box-body -->
           </div>
