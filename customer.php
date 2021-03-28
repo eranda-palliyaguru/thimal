@@ -103,15 +103,16 @@ include_once("sidebar.php");
                 <tr class="record" >
 				 <td><?php echo $row['customer_id'];?></td>
                   <td><?php echo $row['customer_name'];?>
+                    <?php $type=$row['type']; if($type=='1'){?><span style="font-size: 12px" class="label label-warning">Channel</span><?php } ?>
+           					<?php if($type=='2'){?><span style="font-size: 12px" class="label label-info">Commercial</span><?php } ?>
+                     <?php if($type=='3'){?><span style="font-size: 12px" class="label label-primary">Apartment</span><?php } ?>
                   </td>
                   <td><?php echo $row['address'];?></td>
                   <td><?php echo $row['contact'];?></td>
 				  <td><?php $pd=$row['credit_period'];
 					  if($pd > 0){	echo '<span style="font-size: 15px" class="label label-primary">'.$pd.' Day</span>';}
 					  ?></td>
-				 <td><?php $type=$row['type']; if($type=='1'){?><span style="font-size: 12px" class="label label-warning">Channel</span><?php } ?>
-					<?php if($type=='2'){?><span style="font-size: 12px" class="label label-info">Commercial</span><?php } ?>
-          <?php if($type=='3'){?><span style="font-size: 12px" class="label label-primary">Apartment</span><?php } ?>
+				 <td>
 					<?php
 					$cus_cus=$row['customer_id'];
 					$result12 = $db->prepare("SELECT * FROM special_price WHERE customer_id='$cus_cus'  ");
