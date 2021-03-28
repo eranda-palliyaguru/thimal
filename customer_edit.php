@@ -41,6 +41,9 @@
 				$credit=$row['credit_period'];
 				$cat_id=$row['category'];
 				$type=$row['type'];
+        $g12=$row['price_12'];
+        $g5=$row['price_5'];
+        $g37=$row['price_37'];
 				}
 
 	?>
@@ -184,6 +187,68 @@
 
 
 	 </div>
+
+   <div class="row">
+<div class="col-md-6">
+       <div class="form-group">
+
+          <div class="input-group">
+    <div class="input-group-addon">
+             <b >12.5kg price</b>
+           </div>
+        <select class="form-control select2" name="g12"   class="form-control pull-right" >
+    <option value="<?php echo $g12; ?>"><?php if ($g12=="1") {echo "Sell";} if ($g12=="0") {echo "dealer price";}?></option>
+           <option value="1"> Sell </option>
+   <option value="0"> Dealer </option>
+
+         </select>
+
+           </div>
+           </div>
+ </div>
+
+ <div class="col-md-6">
+       <div class="form-group">
+
+          <div class="input-group">
+    <div class="input-group-addon">
+             <b >5kg price</b>
+           </div>
+<select class="form-control select2" name="g5"   class="form-control pull-right" >
+  <option value="<?php echo $g5; ?>"><?php if ($g5=="1") {echo "Sell";} if ($g5=="0") {echo "dealer price";}?></option>
+         <option value="1"> Sell </option>
+ <option value="0">Dealer  </option>
+
+
+
+         </select>
+
+           </div>
+           </div>
+ </div>
+
+
+        <div class="col-md-6">
+       <div class="form-group">
+
+          <div class="input-group">
+    <div class="input-group-addon">
+             <b >37.5kg price</b>
+           </div>
+<select class="form-control select2" name="g37"   class="form-control pull-right" >
+         <option value="<?php echo $g37; ?>"><?php if ($g37=="1") {echo "Sell";} if ($g37=="0") {echo "dealer price";}?></option>
+                <option value="1"> Sell </option>
+        <option value="0">Dealer  </option>
+</select>
+
+           </div>
+           </div>
+ </div>
+
+
+</div>
+
+
               </div>
 			  <input class="btn btn-info" type="submit" value="Submit" >
 
