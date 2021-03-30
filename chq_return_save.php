@@ -58,8 +58,6 @@ $invoice_no=$row['invoice_no'];
 $loading_id=$row['loading_id'];
 }
 
-
-
 $sql = "UPDATE bank_balance
         SET amount=amount-?";
 $q = $db->prepare($sql);
@@ -83,9 +81,45 @@ $q->execute(array($bank_action,$pay_id));
 
 $amount_tot=$amount+$charges;
 
-$sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod)";
-$q = $db->prepare($sql);
-$q->execute(array(':a'=>$invoice_no,':b'=>'0',':c'=>$amount_tot,':d'=>'credit',':e'=>$chq_date,':h'=>$date,':f'=>$chq_no,':g'=>$bank,':cus'=>$cus_id,':crp'=>'',':sid'=>$sales_id,':act'=>'2',':lod'=>$loading_id));
+// checking bulck payment or nomal payment
+if ($invoice_no=="") {
+
+  $resultz = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$pay_id' ");
+  $resultz->bindParam(':userid', $inva);
+  $resultz->execute();
+  for($i=0; $row = $resultz->fetch(); $i++){
+  $credit_tr_id=$row['tr_id'];
+
+  $sales_result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$credit_tr_id' ");
+  $sales_result->bindParam(':userid', $inva);
+  $sales_result->execute();
+  for($i=0; $row2 = $sales_result->fetch(); $i++){
+
+    $invo_no=$row2['invoice_no'];
+    $loading=$row2['loading_id'];
+    $rep_amount=$row2['amount'];
+    $rep_type=$row2['type'];
+    $rep_date=$row2['date'];
+    $rep_cus=$row2['customer_id'];
+    $rep_credit=$row2['credit_period'];
+    $rep_sales=$row2['sales_id'];
+
+
+    $sql = "INSERT INTO payment (invoice_no,amount,type,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (?,?,?,?,?,?,?,?,?)";
+    $q = $db->prepare($sql);
+    $q->execute(array($invo_no,$rep_amount,$rep_type,$rep_date,$rep_cus,$rep_credit,$rep_sales,"1",$loading));
+
+
+}
+}
+
+}else {
+
+  $sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod)";
+  $q = $db->prepare($sql);
+  $q->execute(array(':a'=>$invoice_no,':b'=>'0',':c'=>$amount_tot,':d'=>'credit',':e'=>$chq_date,':h'=>$date,':f'=>$chq_no,':g'=>$bank,':cus'=>$cus_id,':crp'=>'',':sid'=>$sales_id,':act'=>'2',':lod'=>$loading_id));
+
+}
 }
 
 
