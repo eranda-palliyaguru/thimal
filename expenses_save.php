@@ -5,8 +5,8 @@ date_default_timezone_set("Asia/Colombo");
 
 $date1=date("Y-m-d");
 
-
-$type = $_POST['type'];
+$account=$_POST['account'];
+$ex = $_POST['type'];
 $comment = $_POST['comment'];
 $amount = $_POST['amount'];
 $date = $_POST['date'];
@@ -24,26 +24,34 @@ if($fat > 3 ){ $er=1; }
 if($fat < 0 ){ $er=1; }
 
 if($er=="5"){
-	
-$sql = "UPDATE peti 
-        SET amount=amount-?";
+
+$sql = "UPDATE peti
+        SET amount=amount-?
+				WHERE id=?";
 $q = $db->prepare($sql);
-$q->execute(array($amount));
+$q->execute(array($amount,$account));
 
 
-$resultz = $db->prepare("SELECT * FROM peti  ");
+$resultz = $db->prepare("SELECT * FROM peti where id='$account' ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
 $ba=$rowz['amount'];
 }
 
+$resultz = $db->prepare("SELECT * FROM expenses_types where sn='$ex' ");
+$resultz->bindParam(':userid', $inva);
+$resultz->execute();
+for($i=0; $rowz = $resultz->fetch(); $i++){
+$type=$rowz['type_name'];
+}
+
 $mt=2;
 //echo $customer_name;
 
-$sql = "INSERT INTO expenses_records (date,type,comment,amount,balance,m_type) VALUES (:date,:a,:b,:amount,:ba,:m)";
+$sql = "INSERT INTO expenses_records (date,type,comment,amount,balance,m_type,account,expenses_id) VALUES (:date,:a,:b,:amount,:ba,:m,:acc,:ex)";
 $q = $db->prepare($sql);
-$q->execute(array(':a'=>$type,':b'=>$comment,':date'=>$date,':amount'=>$amount,':ba'=>$ba,':m'=>$mt));
+$q->execute(array(':a'=>$type,':b'=>$comment,':date'=>$date,':amount'=>$amount,':ba'=>$ba,':m'=>$mt,':acc'=>$account,':ex'=>$ex));
 
 
 header("location: expenses.php");
@@ -51,7 +59,7 @@ header("location: expenses.php");
 ?>
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
@@ -69,8 +77,8 @@ include("connect.php");
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
- 
-	
+
+
 
 	<div class="box-body">
               <div class="alert alert-danger alert-dismissible">
@@ -82,11 +90,11 @@ include("connect.php");
 	<a href="expenses.php">
 	<button type="button" class="btn btn-block btn-success btn-sm">Back</button></a>
 	   </div>
-	  
+
 	  <?php	}	?>
     <!-- /.content -->
 
-  
+
   <!-- /.content-wrapper -->
     <?php
  // include("dounbr.php");
