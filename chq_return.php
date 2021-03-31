@@ -140,7 +140,9 @@ $def= $diff->format( '%r%a' );
 			<div class="input-group-addon">
           <label>Charges</label></div>
 <input type="number" value='' name="charges1" class="form-control" tabindex="2" >
- </div></div></div></div>
+ </div></div></div>
+<input class="btn btn-info" type="submit" value="Submit" >
+</div>
 
 
 
@@ -190,9 +192,12 @@ $def= $diff->format( '%r%a' );
 			<div class="input-group-addon">
           <label>Charges</label></div>
 <input type="number" value='' name="charges" class="form-control" tabindex="2" >
- </div></div></div></div>
+ </div></div></div>
+<input class="btn btn-info" type="submit" value="Submit" >
+</div>
+
           </div>
-		 <input class="btn btn-info" type="submit" value="Submit" >
+
 			</form>
           <!-- /.box -->
         </div>

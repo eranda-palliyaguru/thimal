@@ -56,6 +56,7 @@ for($i=0; $row = $resultz->fetch(); $i++){
 $sales_id=$row['sales_id'];
 $invoice_no=$row['invoice_no'];
 $loading_id=$row['loading_id'];
+$collection_id=$row['collection_id'];
 }
 
 $sql = "UPDATE bank_balance
@@ -82,9 +83,12 @@ $q->execute(array($bank_action,$pay_id));
 $amount_tot=$amount+$charges;
 
 // checking bulck payment or nomal payment
-if ($invoice_no=="") {
-
+if ($sales_id== 0) {
+if($collection_id=='0'){
   $resultz = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$pay_id' ");
+}else{
+  $resultz = $db->prepare("SELECT * FROM credit_payment WHERE collection_id='$collection_id' ");}
+  
   $resultz->bindParam(':userid', $inva);
   $resultz->execute();
   for($i=0; $row = $resultz->fetch(); $i++){
@@ -105,9 +109,9 @@ if ($invoice_no=="") {
     $rep_sales=$row2['sales_id'];
 
 
-    $sql = "INSERT INTO payment (invoice_no,amount,type,date,customer_id,credit_period,sales_id,action,loading_id) VALUES (?,?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO payment (invoice_no,amount,type,date,customer_id,credit_period,sales_id,action,loading_id,memo) VALUES (?,?,?,?,?,?,?,?,?,?)";
     $q = $db->prepare($sql);
-    $q->execute(array($invo_no,$rep_amount,$rep_type,$rep_date,$rep_cus,$rep_credit,$rep_sales,"1",$loading));
+    $q->execute(array($invo_no,$rep_amount,$rep_type,$rep_date,$rep_cus,$rep_credit,$rep_sales,"2",$loading,"CHQ RETURN"));
 
 
 }
