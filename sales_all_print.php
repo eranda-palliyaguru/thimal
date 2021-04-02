@@ -122,14 +122,14 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
 //---------------------------------------------------------- OLD price 2nd table--------------------------------------------------------------------------//
 
 
-      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
       $result->bindParam(':userid', $invo);
       $result->execute();
       for($i=0; $row = $result->fetch(); $i++){ $dealer_qty+=$row['sum(qty)'];$dealer_qty_v=$row['sum(qty)']; }
 
 
 
-      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
+      $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
       $result->bindParam(':userid', $invo);
       $result->execute();
       for($i=0; $row = $result->fetch(); $i++){ $dealer+=$row['sum(amount)']; $dealer_v=$row['sum(amount)'];}
