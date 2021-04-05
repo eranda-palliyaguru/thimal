@@ -62,26 +62,67 @@ include_once("sidebar.php");
    </script>
 
 
-
-
     <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section class="content-header"><div class="row">
+
+        <div class="col-lg-3 col-xs-6">
       <h1>
        <img src="logo.png" alt="" width="400px">
-        <small>Preview</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">Payment</li>
-      </ol>
-    </section>
+      </h1></div>
 
+
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+          <div class="inner">
+            <h3>Rs.<?php     $resultz = $db->prepare("SELECT * FROM peti WHERE id='1' ");
+                $resultz->bindParam(':userid', $inva);
+                $resultz->execute();
+                for($i=0; $rowz = $resultz->fetch(); $i++){
+                echo  $rowz['amount'];
+                } ?></h3>
+
+            <p>MAIN CASH </p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-group"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+              <div class="inner">
+                <h3>Rs.<?php     $resultz = $db->prepare("SELECT * FROM peti WHERE id='2' ");
+                    $resultz->bindParam(':userid', $inva);
+                    $resultz->execute();
+                    for($i=0; $rowz = $resultz->fetch(); $i++){
+                    echo  $rowz['amount'];
+                    } ?></h3>
+
+                <p>PETTY CASH</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-group"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+
+
+
+
+        </div>    </section>
     <!-- Main content -->
     <section class="content">
 
