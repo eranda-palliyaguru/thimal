@@ -344,7 +344,7 @@ include_once("sidebar.php");
                 </thead>
 <tbody>
 
-<?php $result = $db->prepare("SELECT * FROM expenses_records WHERE action='0' and m_type='1'");
+<?php $result = $db->prepare("SELECT * FROM expenses_records WHERE action='0' and m_type='1' ORDER by sn DESC limit 0,100");
 
 					$result->bindParam(':userid', $date);
                 $result->execute();
