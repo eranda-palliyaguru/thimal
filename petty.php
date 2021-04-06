@@ -351,13 +351,19 @@ include_once("sidebar.php");
                 for($i=0; $row = $result->fetch(); $i++){
 
 
-
+                  $result1 = $db->prepare("SELECT * FROM expenses_records WHERE action='0' and m_type='1' ORDER by sn DESC limit 0,100");
+                  $result1->bindParam(':userid', $date);
+                  $result1->execute();
+                  for($i=0; $row1 = $result1->fetch(); $i++){
+                    $cash_bank=$row1['bank_action'];
+                     }
 
 
 				echo '<tr class="record">';
 
 					$so=$row['sn'];
           $type=$row['type'];
+          $loding=$row['loading_id'];
 
 					   ?>
 
@@ -377,11 +383,13 @@ include_once("sidebar.php");
 <?php if ($type=='Transfer to' || $type=='Transfer from') {
   // code...
 }else {
+
+  if ($cash_bank=='0') {
  ?>
 <a href="#" id="<?php echo $row['sn']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
 
-<?php } ?>
+<?php } } ?>
 </td>
                 </tr>
 
