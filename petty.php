@@ -156,7 +156,7 @@ include_once("sidebar.php");
                         <div class="col-md-6">
                               <div class="form-group" >
                                 <label>Date</label>
-                <input type="text" class="form-control pull-right" value='<?php  echo date("Y-m-d"); ?>' id="datepicker" name="date"  >
+                <input type="text" class="form-control pull-right" value='<?php  echo date("Y-m-d"); ?>' id="datepickerd" name="date"  >
                         </div>
                               </div>
 
@@ -357,6 +357,7 @@ include_once("sidebar.php");
 				echo '<tr class="record">';
 
 					$so=$row['sn'];
+          $type=$row['type'];
 
 					   ?>
 
@@ -373,11 +374,14 @@ include_once("sidebar.php");
 
 
 <td>
-
+<?php if ($type=='Transfer to' || $type=='Transfer from') {
+  // code...
+}else {
+ ?>
 <a href="#" id="<?php echo $row['sn']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
 
-
+<?php } ?>
 </td>
                 </tr>
 
