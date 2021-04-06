@@ -44,10 +44,4 @@ $q->execute(array($c,$id));
 
 
 
-
-
-
-
-
-
 ?>

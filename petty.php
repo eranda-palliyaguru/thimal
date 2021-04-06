@@ -277,7 +277,7 @@ include_once("sidebar.php");
         				<div class="col-md-6">
                       <div class="form-group" >
                         <label>Date</label>
-  <input type="text" class="form-control pull-right" value='<?php  echo date("Y-m-d"); ?>' id="datepicker" name="date"  >
+  <input type="text" class="form-control pull-right" value='<?php  echo date("Y-m-d"); ?>' id="date_pic" name="date"  >
         				</div>
                       </div>
         				</div>
@@ -537,8 +537,8 @@ $(function () {
     $(".select2").select2();
 
     //Date picker
-	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
-    $('#datepicker').datepicker({
+	$('#date_pic').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
+    $('#date_pic').datepicker({
       autoclose: true
     });
 
