@@ -23,7 +23,7 @@ $fat=$diff->format( '%r%a' );
 if($fat > 3 ){ $er=1; }
 if($fat < 0 ){ $er=1; }
 
-if($er=="5"){
+if($er=="10"){
 
 $sql = "UPDATE peti
         SET amount=amount-?
