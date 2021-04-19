@@ -135,7 +135,8 @@ include_once("sidebar.php");
 
 
 
-
+          <a rel="facebox" href="expenses_type.php"   title="Click to add" >
+              <button class="btn btn-success">ADD New Type</button></a>
 
 
 
