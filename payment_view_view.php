@@ -12,9 +12,17 @@ $pay_id=$_REQUEST['pay_id'];
 					$invo=$row['invoice_number'];
 					//$balance= $row['pay_amount'];
 					$cus_id= $row['customer_id'];
-					$amount= $row['amount'];
+
 					$lorry= $row['lorry_no'];
 				}
+
+        $result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$pay_id'   ");
+     				$result->bindParam(':userid', $date);
+                     $result->execute();
+                     for($i=0; $row = $result->fetch(); $i++){
+     				$pay_amount=$row['pay_amount'];
+              	$amount= $row['amount'];
+     				}
 
 ?></h2>
         <!-- /.box-header -->
