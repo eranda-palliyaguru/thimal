@@ -131,12 +131,14 @@ include_once("sidebar.php");
         <div class="box-header with-border">
           <h3 class="box-title">Expenses</h3>
 
-
-
-
-
           <a rel="facebox" href="expenses_type.php"   title="Click to add" >
               <button class="btn btn-success">ADD New Type</button></a>
+
+              <a rel="facebox" href="expenses_sub_type.php"   title="Click to add" >
+                  <button class="btn btn-danger">ADD New SUB Type</button></a>
+
+
+
 
 
 
@@ -157,14 +159,26 @@ include_once("sidebar.php");
                         <option value="2">Petty Cash</option>
 
                       </select>
-      					</div></div></div>
+      					</div></div>
+
+                <div class="col-md-6">
+                <div class="form-group">
+                 <label>Comment</label>
+                  <input type="text" value=''  name="comment" class="form-control pull-right" tabindex="3">
+
+
+
+
+                    </div>
+          </div>
+              </div>
 
 
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Type</label>
-                <select class="form-control select2" name="type" style="width: 100%;" autofocus tabindex="2" >
+                <select class="form-control select2" name="type" style="width: 100%;" onchange="showRSS(this.value)" autofocus tabindex="2" >
                   <option value="">.</option>
 
 				  <?php
@@ -207,9 +221,9 @@ include_once("sidebar.php");
 			  <div class="row">
               <div class="col-md-6">
               <div class="form-group">
-               <label>Comment</label>
-                <input type="text" value=''  name="comment" class="form-control pull-right" tabindex="3">
+               <label>SUB Type</label>
 
+<div id="Output"><input type="text"  class="form-control" disabled></div>
 
 
 
@@ -484,6 +498,30 @@ $(function () {
 
 <!-- Page script -->
 <script>
+
+function showRSS(str) {
+
+  if (str.length==0) {
+    document.getElementById("Output").innerHTML="";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("Output").innerHTML=this.responseText;
+    }
+  }
+
+  xmlhttp.open("GET","expenses_subtype_view.php?q="+str,true);
+  xmlhttp.send();
+}
+
+
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();

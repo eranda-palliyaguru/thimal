@@ -12,7 +12,7 @@
 
 
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-info">
+      <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title">New Expenses Type</h3>
 
@@ -60,7 +60,7 @@
 
 
 
-			  <input class="btn btn-info" type="submit" value="Add" >
+			  <input class="btn btn-success" type="submit" value="Add" >
 
 			  </form>
           <!-- /.box -->
