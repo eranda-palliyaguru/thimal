@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -28,11 +28,11 @@ include_once("sidebar.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -57,44 +57,44 @@ include_once("sidebar.php");
         <li class="active">Advanced Elements</li>
       </ol>
     </section>
-   
+
    <br>
-   
 
-     <form action="expenses_sum.php" method="get">   
+
+     <form action="expenses_sum.php" method="get">
 	<center>
-	
-			  
-			  
-			
 
-From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" /> 
-To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/> 
+
+
+
+
+From :<input type="text" style="width:223px; padding:4px;" name="d1" id="datepicker" value="" autocomplete="off" />
+To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepickerd"  value="" autocomplete="off"/>
 
 
  <button class="btn btn-info" style="width: 123px; height:35px; margin-top:-8px;margin-left:8px;" type="submit">
  <i class="icon icon-search icon-large"></i> Search
  </button>
- 
- 
-			  
-		<br>	  
-			  
-      
-			 
+
+
+
+		<br>
+
+
+
 			 </center>
-			 </form> 
-   
-   
+			 </form>
+
+
    <section class="content">
-   
+
      <div class="box">
             <div class="box-header">
               <h3 class="box-title">Expenses Report  <a href="expenses_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
-			
+
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -114,30 +114,36 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 </tr>
                 </thead>
 <tbody>
-			
-<?php 
+
+<?php
 	$d1=$_GET["d1"];
 	$d2=$_GET["d2"];
 	$result = $db->prepare("SELECT * FROM expenses_records WHERE  action='0' and date BETWEEN '$d1' and '$d2' ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-					$m_type=$row['m_type']; 
+					$m_type=$row['m_type'];
+          $account=$row['account'];
+
 					if($m_type>"3"){$m_type="2";}
-										
+
 					if($m_type=="1"){echo '<tr style="background-color: lightgray;" >';
 					}else{echo '<tr>';}
 					   ?>
 
-			
+
                <td ><?php echo $row['sn'];   ?> </td>
-	       <td ><?php if($m_type=="1"){  ?><span class="pull-right badge bg-green" >CREDIT</spa> <?php } ?>
-	          <?php if($m_type=="2"){  ?><span class="pull-right badge bg-red" >DEBIT</spa> <?php } ?>
+	       <td >
+<?php if($account=="1"){  ?><span class="pull-left badge bg-yellow" >Main</span> <?php } ?><?php if($account=="2"){  ?><span class="pull-left badge bg-aqua" >Patty</span> <?php } ?>
+
+           <?php if($m_type=="1"){  ?><span class="pull-right badge bg-green" >CREDIT</span> <?php } ?>
+	          <?php if($m_type=="2"){  ?><span class="pull-right badge bg-red" >DEBIT</span> <?php } ?>
 			   <?php if($m_type=="3"){  ?><span class="pull-left badge bg-blue" >Lorry</span><span class="pull-right badge bg-red" >DEBIT</span> <?php } ?>
 	</td>
-	
+
 	       <td><?php echo $row['date'];   ?> </td>
-				<td><?php echo $row['type'];   ?> </td>
+				<td><?php echo $row['type'];   ?><span class="pull-right badge bg-aqua" >
+        <?php echo  $row['sub_type'];  ?>  </span> </td>
 	<td><?php if($m_type=="1"){ echo "Rs.".$row['amount']; } ?></td>
 	<td><?php if($m_type=="2"){ echo "Rs.".$row['amount']; } if($m_type=="3"){ echo "Rs.".$row['amount']; } ?></td>
 				<td><?php echo $row['comment']; if($m_type=="1"){  ?>Loading ID <a href="loading_view.php?id=<?php echo $row['loading_id'];?>"><?php echo $row['loading_id']; }?></a></td>
@@ -145,19 +151,19 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 	<td><?php $row['amount']; ?></td>
 	<td><?php echo $row['lorry_no'];   ?> </td>
    <td><?php if($m_type=="3"){  ?><span class="pull-left badge bg-blue" >Lorry</spa> <?php }else{ echo $row['balance']; }  ?></td>
-                  
+
                 </tr>
-				
-				
+
+
 				<?php } ?>
 				</tbody>
-                
+
               </table>
-				
-				
-				
-				
-				
+
+
+
+
+
 
             </div>
             <!-- /.box-body -->
@@ -165,13 +171,13 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      
-   
-   
-   
+
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
@@ -217,20 +223,20 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
       "info": true,
       "autoWidth": false
     });
-  
+
    $(".select2").select2();
-  
+
   });
-	
-	
+
+
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
-	
+
 </script>
 </body>
 </html>

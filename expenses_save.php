@@ -10,7 +10,7 @@ $ex = $_POST['type'];
 $comment = $_POST['comment'];
 $amount = $_POST['amount'];
 $date = $_POST['date'];
-$sub_type = $_POST['sub_type'];
+$sub_type_id = $_POST['sub_type'];
 
 $fat=10;
 $er=5;
@@ -47,12 +47,19 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
 $type=$rowz['type_name'];
 }
 
+$resultz = $db->prepare("SELECT * FROM expenses_sub_type where id='$sub_type_id' ");
+$resultz->bindParam(':userid', $inva);
+$resultz->execute();
+for($i=0; $rowz = $resultz->fetch(); $i++){
+$sub_type=$rowz['name'];
+}
+
 $mt=2;
 //echo $customer_name;
 
-$sql = "INSERT INTO expenses_records (date,type,comment,amount,balance,m_type,account,expenses_id,expenses_sub_id) VALUES (:date,:a,:b,:amount,:ba,:m,:acc,:ex,:sub)";
+$sql = "INSERT INTO expenses_records (date,type,comment,amount,balance,m_type,account,expenses_id,expenses_sub_id,sub_type) VALUES (:date,:a,:b,:amount,:ba,:m,:acc,:ex,:sub_id,:sub)";
 $q = $db->prepare($sql);
-$q->execute(array(':a'=>$type,':b'=>$comment,':date'=>$date,':amount'=>$amount,':ba'=>$ba,':m'=>$mt,':acc'=>$account,':ex'=>$ex,':sub'=>$sub_type));
+$q->execute(array(':a'=>$type,':b'=>$comment,':date'=>$date,':amount'=>$amount,':ba'=>$ba,':m'=>$mt,':acc'=>$account,':ex'=>$ex,':sub_id'=>$sub_type_id,':sub'=>$sub_type));
 
 
 header("location: expenses.php");
