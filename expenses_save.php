@@ -10,6 +10,7 @@ $ex = $_POST['type'];
 $comment = $_POST['comment'];
 $amount = $_POST['amount'];
 $date = $_POST['date'];
+$sub_type = $_POST['sub_type'];
 
 $fat=10;
 $er=5;
@@ -49,9 +50,9 @@ $type=$rowz['type_name'];
 $mt=2;
 //echo $customer_name;
 
-$sql = "INSERT INTO expenses_records (date,type,comment,amount,balance,m_type,account,expenses_id) VALUES (:date,:a,:b,:amount,:ba,:m,:acc,:ex)";
+$sql = "INSERT INTO expenses_records (date,type,comment,amount,balance,m_type,account,expenses_id,expenses_sub_id) VALUES (:date,:a,:b,:amount,:ba,:m,:acc,:ex,:sub)";
 $q = $db->prepare($sql);
-$q->execute(array(':a'=>$type,':b'=>$comment,':date'=>$date,':amount'=>$amount,':ba'=>$ba,':m'=>$mt,':acc'=>$account,':ex'=>$ex));
+$q->execute(array(':a'=>$type,':b'=>$comment,':date'=>$date,':amount'=>$amount,':ba'=>$ba,':m'=>$mt,':acc'=>$account,':ex'=>$ex,':sub'=>$sub_type));
 
 
 header("location: expenses.php");
