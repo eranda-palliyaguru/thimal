@@ -18,4 +18,5 @@ $q=$_REQUEST["q"];
 	<?php
 				}
 			?>
+      	<option value="1">Other</option>
                 </select>
