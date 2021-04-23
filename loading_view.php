@@ -27,15 +27,7 @@ include_once("sidebar.php");
     <script src="datepicker.js" type="text/javascript"></script>
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
- <script type="text/javascript">
 
-		 $(function(){
-        $("#datepickergv").datepicker({ dateFormat: 'yy/mm/dd' });
-        $("#datepickerg").datepicker({ dateFormat: 'yy/mm/dd' });
-
-    });
-
-    </script>
 
 
 
@@ -356,8 +348,13 @@ $result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id 
 $ter1= $row['count(product_id)'];
   }
 
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+10;
+
+
+              $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+              $result1->bindParam(':userid', $d2);
+                      $result1->execute();
+                      for($i=0; $row = $result1->fetch(); $i++){
+                    $pro_id=$row['product_id'];
 
 			?>
 
@@ -426,8 +423,12 @@ $result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id 
 $ter1= $row['count(product_id)'];
   }
 
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+10;
+  $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+  $result1->bindParam(':userid', $d2);
+          $result1->execute();
+          for($i=0; $row = $result1->fetch(); $i++){
+        $pro_id=$row['product_id'];
+
 
 			?>
 
