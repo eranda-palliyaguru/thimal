@@ -205,7 +205,7 @@ $date25=$row['date'];
 				   <?php
 				  $qty=0;
 
-				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
 				$result1->bindParam(':userid', $d2);
                 $result1->execute();
                 for($i=0; $row = $result1->fetch(); $i++){
@@ -323,8 +323,11 @@ $result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id 
 $ter1= $row['count(product_id)'];
   }
 
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+10;
+  $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
+  $result1->bindParam(':userid', $d2);
+          $result1->execute();
+          for($i=0; $row = $result1->fetch(); $i++){
+        $pro_id=$row['product_id'];
 
 			?>
 
@@ -396,9 +399,12 @@ $result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id 
           for($i=0; $row = $result->fetch(); $i++){
 $ter1= $row['count(product_id)'];
   }
+  $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
+  $result1->bindParam(':userid', $d2);
+          $result1->execute();
+          for($i=0; $row = $result1->fetch(); $i++){
+        $pro_id=$row['product_id'];
 
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+10;
 
 			?>
 
