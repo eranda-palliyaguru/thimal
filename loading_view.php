@@ -258,7 +258,7 @@ $unload=$row['action'];
 				  $qty=0;
 
 
-				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
 				$result1->bindParam(':userid', $d2);
                 $result1->execute();
                 for($i=0; $row = $result1->fetch(); $i++){
@@ -350,7 +350,7 @@ $ter1= $row['count(product_id)'];
 
 
 
-              $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+              $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
               $result1->bindParam(':userid', $d2);
                       $result1->execute();
                       for($i=0; $row = $result1->fetch(); $i++){
@@ -423,7 +423,7 @@ $result = $db->prepare("SELECT count(product_id) FROM products WHERE product_id 
 $ter1= $row['count(product_id)'];
   }
 
-  $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+  $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
   $result1->bindParam(':userid', $d2);
           $result1->execute();
           for($i=0; $row = $result1->fetch(); $i++){
