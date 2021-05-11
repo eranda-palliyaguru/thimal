@@ -232,7 +232,7 @@ $date25=$row['date'];
 				  $qty=0;
 
 
-				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id DESC");
 				$result1->bindParam(':userid', $d2);
                 $result1->execute();
                 for($i=0; $row = $result1->fetch(); $i++){
