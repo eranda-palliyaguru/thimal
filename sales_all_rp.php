@@ -157,100 +157,14 @@ $margin_total=0;
           $price2=$row1['price2'];
           $price_o=$row1['o_price'];
         //  $area=$row1['area'];
+        $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  $dis="";$dis_val=""; $sell_m="";$dis_m="";$dis_m1=""; $dealer_m="";  $dealer_m1=""; $sell_v1="";
 
-$dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  $dis="";$dis_val=""; $sell_m="";$dis_m="";$dis_m1=""; $dealer_m="";  $dealer_m1=""; $sell_v1="";
+                  $result1122 = $db->prepare("SELECT * FROM price_update WHERE product_id='$tebal_id'  ORDER BY id ASC ");
+                  $result1122->bindParam(':userid', $invo);
+                  $result1122->execute();
+                  for($i=0; $row1122 = $result1122->fetch(); $i++){
 
-          $result1122 = $db->prepare("SELECT * FROM price_update WHERE product_id='$tebal_id'  ORDER BY id ASC ");
-          $result1122->bindParam(':userid', $invo);
-          $result1122->execute();
-          for($i=0; $row1122 = $result1122->fetch(); $i++){
-//$dealer_v=0;$dealer1_v=0; $dealer_qty_v=0;$dealer_qty1_v=0; $sell_v=0;$sell_val_v=0;  $dis_v=0;$dis_val_v=0;
-
-            $pid=$row1122['id'];
-            $up_date=$row1122['date'];
-            $up_price2=$row1122['d_price2'];
-            $up_price=$row1122['d_price'];
-            $o_price=$row1122['o_price'];
-
-//---------------------------------------------------------- OLD price 2nd table--------------------------------------------------------------------------//
-
-//--- Kaluthara ----//
-            $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $dealer_qty+=$row['sum(qty)'];$dealer_qty_v=$row['sum(qty)']; }
-
-
-
-            $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price2' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $dealer+=$row['sum(amount)']; $dealer_v=$row['sum(amount)'];}
-
-            $ma=$o_price*$dealer_qty_v;
-            $dealer_m+=$dealer_v-$ma;
-
-
-//-----Colombo
-            $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $dealer_qty1+=$row['sum(qty)']; $dealer_qty1_v=$row['sum(qty)'];}
-
-
-            $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price='$up_price' AND  price_id='$pid' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $dealer1+=$row['sum(amount)']; $dealer1_v=$row['sum(amount)']; }
-
-
-            $ma1=$o_price*$dealer_qty1_v;
-            $dealer_m1+=$dealer1_v-$ma1;
-
-//-----Selling
-            $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price > '$up_price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $sell+=$row['sum(qty)'];$sell_v=$row['sum(qty)']; }
-
-            $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price > '$up_price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $sell_val+=$row['sum(amount)']; $sell_val_v=$row['sum(amount)']; }
-
-
-//---- Discount
-            $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price2' AND price > '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $sell+=$row['sum(qty)']; $sell_v1=$row['sum(qty)']; }
-
-            $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price2' AND price > '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $sell_val+=$row['sum(amount)'];  $sell_val_v1=$row['sum(amount)']; }
-
-            $sell_v=$sell_v1+$sell_v;
-            $sell_val_v=$sell_val_v1+$sell_val_v;
-
-            $ma3=$o_price*$sell_v;
-            $sell_m+=$sell_val_v-$ma3;
-
-            $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $dis+=$row['sum(qty)']; $dis_v=$row['sum(qty)']; }
-
-            $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND price_id='$pid' AND  price < '$up_price' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
-            $result->bindParam(':userid', $invo);
-            $result->execute();
-            for($i=0; $row = $result->fetch(); $i++){ $dis_val+=$row['sum(amount)']; $dis_val_v=$row['sum(amount)']; }
-
-
-            $dis_m1+=($up_price*$dis_v)-($o_price*$dis_v);
-            $dis_m+=$dis_val_v-($up_price*$dis_v);
-
-
+include("sales_all_rp_price_update.php");
 
               }
 
@@ -258,7 +172,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
 <tr>
        <td style="background-color:#aba272"><?php echo $row1['gen_name']; ?></td>
 
-  <!---------- Kaluthara -->
+  <!------------------------------------------------------------------------------ Kaluthara ---------------------------------------------------------------------->
        <td style="background-color:rgba(191,161,6,0.42)">
          <?php
          $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
@@ -282,7 +196,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
 
        <td style="background-color:#bfa106"> <?php     echo number_format($dealer_m=$dma+$dealer_m,2);   ?></td>
 
-  <!---------- Colombo -->
+  <!------------------------------------------------------------------------------ Colombo ---------------------------------------------------------------------->
        <td style="background-color:rgba(191,161,6,0.42)">
          <?php
          $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND  price = '$price' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
@@ -310,7 +224,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
 
 
 
-  <!---------- Selling -->
+  <!------------------------------------------------------------------------------ Selling ---------------------------------------------------------------------->
        <td style="background-color:rgba(191,161,6,0.42)">
          <?php
          $result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE product_id='$tebal_id' AND price_id='0'  AND price > '$price2' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
@@ -333,7 +247,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
        <td style="background-color:#bfa106"> <?php  echo number_format($sell_m=$sell_m+$sell_ma,2);   ?></td>
 
 
-  <!---------- Discount ----------->
+  <!------------------------------------------------------------------------------------ Discount ------------------------------------------------------------------------------------->
 
        <td style="background-color:rgba(191,161,6,0.42)">
          <?php
@@ -357,7 +271,7 @@ $dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  
 
        <td style="background-color:#bfa106"> <?php    echo number_format($dis_ma=$dis_ma+$dis_m1,2);   ?>(<?php   echo $ma11+$dis_m;   ?>)</td>
 
-  <!---------- Total -->
+  <!-------------------------------------------------------------------------------------------- Total ------------------------------------------------------------------------------------>
 
        <td style="background-color:rgba(191,161,6,0.42)">
          <?php 				$d1=$_GET['d1'];
