@@ -138,7 +138,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 					<th  >E</th>
 				    <th  >R</th>
 
-				<th>Type</th>
+				<th>18L</th>
 				<th>Amount</th>
 				<th>Due</th>
 				<th>Phone no</th>
@@ -159,25 +159,13 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				$fil=$_GET['fil'];
 
 
-	if($fil=="all"){$result2z = $db->prepare("SELECT * FROM customer ");}else{
-	$result2z = $db->prepare("SELECT * FROM customer WHERE type='$fil'");}
-
-
-
-
-
+	if($fil=="all"){$result2z = $db->prepare("SELECT customer_id,customer_name FROM customer ");}else{
+	$result2z = $db->prepare("SELECT customer_id,customer_name FROM customer WHERE type='$fil'");}
 
 				$result2z->bindParam(':userid', $d2);
                 $result2z->execute();
                 for($i=0; $row = $result2z->fetch(); $i++){
 				$customer_id=$row['customer_id'];
-
-
-
-
-
-
-
 
 					?>
                 <tr>
@@ -187,7 +175,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<td></td>
 
 
- <?php
+ <?php $e12=0; $e5=0; $e2=0; $e32=0;   $g12=0; $g5=0; $g2=0; $g32=0;
 				  $ter=4;
 
 				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
@@ -236,11 +224,12 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 			?>
 
 
+		<td><span class="pull-right badge bg-yellow"><?php 		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='24' and action='0' and cus_id='$customer_id' ");
 
-
-
-
-		<td></td>
+  					$result->bindParam(':userid', $d1);
+                  $result->execute();
+                  for($i=0; $row1 = $result->fetch(); $i++){
+  		 echo $row1['sum(qty)']; }?></span></td>
 		<td></td>
 		<td></td>
 		<td></td>
