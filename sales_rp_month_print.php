@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>COLOR BIZNAZ | All Sales</title>
+  <title>COUD arm | All Sales</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -164,7 +164,7 @@ $d1=$_GET['d1'];
               $result->bindParam(':userid', $d1);
                     $result->execute();
                     for($i=0; $row1 = $result->fetch(); $i++){
-         echo $row1['sum(qty)']; }?></span></td>		
+         echo $row1['sum(qty)']; }?></span></td>
 		<td></td>
 		<td></td>
 		<td></td>
