@@ -38,7 +38,13 @@ $d1=$_GET['d1'];
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i> HTJT Holdings (PVT)LTD.
+          <i class="fa fa-globe"></i> <?php 	$result2z = $db->prepare("SELECT * FROM info ");
+
+          				$result2z->bindParam(':userid', $d2);
+                          $result2z->execute();
+                          for($i=0; $row = $result2z->fetch(); $i++){
+          				echo $row['name'];
+} ?>
 
           <small class="pull-right">Date:<?php date_default_timezone_set("Asia/Colombo");
 	                                                        echo date("Y-m-d____h:ia")  ?></small>
