@@ -292,7 +292,7 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 				<li><a href="purchase_view.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Report</a></li>
 <li><a href="purchase_pay_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Pay Report</a></li>
 <li><a href="sales_dll_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Delete Report</a></li>
-
+<li><a href="new/go/bill_return_rp.php"><i class="fa fa-circle-o text-aqua "></i> Products Return Report</a></li>
 <li><a href="sales_rp_month.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Sales Month Report</a></li>
                 </ul>
               </li>
@@ -342,6 +342,9 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
               </span>
             </a>
           </li>
+
+
+
         <?php } ?>
 <?php if ($user_lewal == 4) {?>
         <li>
@@ -372,7 +375,14 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 
 
 
+        <li>
+            <a  href="new/go/bill_return.php">
+              <i class="fa fa-level-down"></i> <span>Product Return</span>
+              <span class="pull-right-container">
 
+              </span>
+            </a>
+          </li>
 
 		  <li>
           <a  href="special_price.php">
