@@ -106,7 +106,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
      <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Credit Report  <a href="sales_rp_month_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>"   title="Click to Print" >
+              <h3 class="box-title">Credit Report  <a href="sales_rp_month_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&fil=<?php echo $_GET['fil'] ?>"   title="Click to Print" >
 		<button class="btn btn-danger">Print</button></a></h3>
             </div>
             <!-- /.box-header -->
