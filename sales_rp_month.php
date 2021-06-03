@@ -147,7 +147,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				</thead>
 
                 <tbody>
-				<?php
+				<?php  $e12=0; $e5=0; $e2=0; $e32=0;   $g12=0; $g5=0; $g2=0; $g32=0;
 					$tot=0;
 	    date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
@@ -175,7 +175,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<td></td>
 
 
- <?php $e12=0; $e5=0; $e2=0; $e32=0;   $g12=0; $g5=0; $g2=0; $g32=0;
+ <?php
 				  $ter=4;
 
 				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
