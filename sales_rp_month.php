@@ -147,7 +147,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				</thead>
 
                 <tbody>
-				<?php  $e12=0; $e5=0; $e2=0; $e32=0;   $g12=0; $g5=0; $g2=0; $g32=0;
+				<?php  $e12tot=''; $e5tot=''; $e2tot=''; $e32tot='';   $g12tot=''; $g5tot=''; $g2tot=''; $g32tot=''; $l18='';
 					$tot=0;
 	    date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
@@ -166,7 +166,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 $result2z->execute();
                 for($i=0; $row = $result2z->fetch(); $i++){
 				$customer_id=$row['customer_id'];
-
+$e12=''; $e5=''; $e2=''; $e32='';   $g12=''; $g5=''; $g2=''; $g32='';
 					?>
                 <tr>
 				<td><?php echo $row['customer_id'];?></td>
@@ -176,6 +176,27 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
 
  <?php
+
+ 			$result = $db->prepare("SELECT qty,product_id FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and action='0' and cus_id='$customer_id' ");
+
+ 					$result->bindParam(':userid', $d1);
+                 $result->execute();
+                 for($i=0; $row1 = $result->fetch(); $i++){
+
+                   $pro_id=$row1['product_id'];
+
+                   if ($pro_id=='5') { $e12+=$row1['qty']; }
+                   if ($pro_id=='6') { $e5+=$row1['qty']; }
+                   if ($pro_id=='7') { $e32+=$row1['qty']; }
+                   if ($pro_id=='8') { $e2+=$row1['qty']; }
+
+                   if ($pro_id=='1') { $g12+=$row1['qty']; }
+                   if ($pro_id=='2') { $g5+=$row1['qty']; }
+                   if ($pro_id=='3') { $g32+=$row1['qty']; }
+                   if ($pro_id=='4') { $g2+=$row1['qty']; }
+
+}
+
 				  $ter=4;
 
 				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
@@ -187,34 +208,22 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
 				<td><span class="pull-right badge bg-muted"><?php
 
-			$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id_e' and action='0' and cus_id='$customer_id' ");
+     if ($pro_id_e=='5') { echo  $e12; $e12tot+=$e12; }
+     if ($pro_id_e=='6') { echo  $e5; $e5tot+=$e5; }
+     if ($pro_id_e=='7') { echo  $e32; $e32tot+=$e32; }
+     if ($pro_id_e=='8') { echo  $e2; $e2tot+=$e2; }
 
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['sum(qty)'];
-
-     if ($pro_id_e=='5') { $e12+=$row1['sum(qty)']; }
-     if ($pro_id_e=='6') { $e5+=$row1['sum(qty)']; }
-     if ($pro_id_e=='7') { $e32+=$row1['sum(qty)']; }
-     if ($pro_id_e=='8') { $e2+=$row1['sum(qty)']; }
-				}
 			?></span></td>
 	<td><span class="pull-right badge bg-yellow"><?php
 
-			$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' and cus_id='$customer_id' ");
+     if ($pro_id=='1') { echo  $g12; $g12tot+=$g12; }
+     if ($pro_id=='2') { echo  $g5; $g5tot+=$g5; }
+     if ($pro_id=='3') { echo  $g32; $g32tot+=$g32; }
+     if ($pro_id=='4') { echo  $g2; $g2tot+=$g2; }
 
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['sum(qty)'];
-
-     if ($pro_id=='1') { $g12+=$row1['sum(qty)']; }
-     if ($pro_id=='2') { $g5+=$row1['sum(qty)']; }
-     if ($pro_id=='3') { $g32+=$row1['sum(qty)']; }
-     if ($pro_id=='4') { $g2+=$row1['sum(qty)']; }
-				}
 			?></span></td>
+
+
 					<?php } ?>
 <?php
 				  $ter1=7;
@@ -229,7 +238,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
   					$result->bindParam(':userid', $d1);
                   $result->execute();
                   for($i=0; $row1 = $result->fetch(); $i++){
-  		 echo $row1['sum(qty)']; }?></span></td>
+  		 echo $row1['sum(qty)']; $l18+=$row1['sum(qty)']; }?></span></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -257,18 +266,18 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 			?>
       <td><span class="pull-right badge bg-muted"><?php
 
-      if ($pro_id_e=='5') { echo $e12; }
-      if ($pro_id_e=='6') { echo $e5; }
-      if ($pro_id_e=='7') { echo $e32; }
-      if ($pro_id_e=='8') { echo $e2; }
+      if ($pro_id_e=='5') { echo $e12tot; }
+      if ($pro_id_e=='6') { echo $e5tot; }
+      if ($pro_id_e=='7') { echo $e32tot; }
+      if ($pro_id_e=='8') { echo $e2tot; }
 
     ?></span></td>
     <td><span class="pull-right badge bg-green"><?php
 
-    if ($pro_id=='1') { echo $g12; }
-    if ($pro_id=='2') { echo $g5; }
-    if ($pro_id=='3') { echo $g32; }
-    if ($pro_id=='4') { echo $g2; }
+    if ($pro_id=='1') { echo $g12tot; }
+    if ($pro_id=='2') { echo $g5tot; }
+    if ($pro_id=='3') { echo $g32tot; }
+    if ($pro_id=='4') { echo $g2tot; }
 
 
   			?></span></td>
@@ -289,8 +298,8 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
 					<?php } ?>
 
-			<td></td><td></td>
-		<td><span class="pull-right badge bg-muted"><?php echo $tot; ?></span></td>
+			<td><span class="pull-right badge bg-muted"><?php echo $l18; ?></span></td><td></td>
+		<td><?php echo $tot; ?></td>
 
 	<td></td><td></td>
                 </tfoot>
