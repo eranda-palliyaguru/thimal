@@ -30,7 +30,7 @@ $sec = "1";
 $d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 				$cus=$_GET['fil'];
-?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp.php?d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&fil=<?php echo $cus;?>'">
+?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp_month.php?d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&fil=<?php echo $cus;?>'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
