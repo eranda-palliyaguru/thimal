@@ -234,12 +234,32 @@ $def= $diff->format( '%r%a' );
                 for($i=0; $row = $result->fetch(); $i++){
 $sales_id=$row['sales_id'];
 
-									$result1 = $db->prepare("SELECT * FROM sales WHERE transaction_id ='$sales_id' ");
-		            				$result1->bindParam(':userid', $loading);
-		                    $result1->execute();
-		                    for($i=0; $row1 = $result1->fetch(); $i++){
-		                      $name= $row1['name'];
-		                    }
+if ($sales_id==0) {
+	$bank_id=$row['bank_id'];
+	$result1 = $db->prepare("SELECT * FROM bank WHERE id ='$bank_id' ");
+				$result1->bindParam(':userid', $loading);
+				$result1->execute();
+				for($i=0; $row1 = $result1->fetch(); $i++){
+					$cus_id= $row1['cus_id'];
+				}
+
+				$result1 = $db->prepare("SELECT * FROM customer WHERE customer_id ='$cus_id' ");
+							$result1->bindParam(':userid', $loading);
+							$result1->execute();
+							for($i=0; $row1 = $result1->fetch(); $i++){
+								$name= $row1['customer_name'];
+							}
+}else {
+	$result1 = $db->prepare("SELECT * FROM sales WHERE transaction_id ='$sales_id' ");
+				$result1->bindParam(':userid', $loading);
+				$result1->execute();
+				for($i=0; $row1 = $result1->fetch(); $i++){
+					$name= $row1['name'];
+				}
+}
+
+
+
 
 
 				echo '<tr class="record">';
