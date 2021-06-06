@@ -3,9 +3,6 @@
 <head>
 	<?php
 		  include("connect.php");
-
-	$invo = $_GET['id'];
-	$co = substr($invo,0,2) ;
 			?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,14 +32,28 @@ $sec = "1";
   <!-- Main content -->
   <section class="invoice">
 
-<?php   $invo=$_GET['id'];
+<?php
+if (!isset($_GET['id'])) {
+	$inv=$_GET['invo'];
+	$result = $db->prepare("SELECT * FROM sales WHERE   transaction_id='$inv'");
+  $result->bindParam(':userid', $date);
+ 				 $result->execute();
+ 				 for($i=0; $row = $result->fetch(); $i++){
+ 					$invo=$row['invoice_number'];
+ 					$date=$row['date'];
+ 				 }
+}else {
+
+ $invo=$_GET['id'];
  $result = $db->prepare("SELECT * FROM sales WHERE   invoice_number='$invo'");
  $result->bindParam(':userid', $date);
 				 $result->execute();
 				 for($i=0; $row = $result->fetch(); $i++){
-					$invo=$row['transaction_id'];
 					$date=$row['date'];
-				 } ?>
+				 }
+
+
+			 } ?>
 
 
 	  <div class="row">
@@ -70,9 +81,6 @@ $sec = "1";
         </div> <h5>
 		  <?php
 
-
-
-			   $invo=$_GET['id'];
 				$result = $db->prepare("SELECT * FROM sales WHERE   invoice_number='$invo'");
 				$result->bindParam(':userid', $date);
                 $result->execute();
@@ -95,7 +103,7 @@ $sec = "1";
 		  <div class="col-xs-4">
           <h3>Final Bill
 		  <?php
-			  $invo=$_GET['id'];
+
 					$tot_amount=0;		  ?>
 			  </h3>
       </div></div>
@@ -115,7 +123,7 @@ $sec = "1";
 				<?php
 			date_default_timezone_set("Asia/Colombo");
 		$hh=date("Y/m/d");
-		$invo=$_GET['id'];
+
 					$tot_amount=0;
 					$num=0;
 				$result = $db->prepare("SELECT * FROM sales_list WHERE   invoice_no='$invo'");
