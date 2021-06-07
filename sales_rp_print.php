@@ -45,11 +45,11 @@ $sec = "1";
 
 $d1=$_GET['d1'];
 				$d2=$_GET['d2'];
-			//	$cus=$_GET['cus'];
+				$cus=$_GET['cus'];
         $lorry=$_GET['lorry'];
-      //  $product=$_GET['product'];
-      //  $cus_type =$_GET['customer_type'];
-?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp.php?filter=<?php echo $$_GET['filter'];?>&d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&cus=<?php echo $_GET['cus'];?>&lorry=<?php echo $lorry;?>&product=<?php echo $_GET['product'];?>&customer_type=<?php echo $_GET['customer_type'];?>'">
+        $product=$_GET['product'];
+        $cus_type =$_GET['customer_type'];
+?><meta http-equiv="refresh" content="<?php echo $sec;$d1=$_GET['d1'];?>;URL='sales_rp.php?filter=<?php echo $_GET['filter'];?>&d1=<?php echo $d1;?>&d2=<?php echo $d2;?>&cus=<?php echo $_GET['cus'];?>&lorry=<?php echo $lorry;?>&product=<?php echo $_GET['product'];?>&customer_type=<?php echo $_GET['customer_type'];?>'">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
