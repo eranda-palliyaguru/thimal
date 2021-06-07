@@ -520,10 +520,10 @@ $tot_f+=$row2['profit'];
 
 
 		<td><span class="pull-right badge bg-muted"><?php
-	if($cus_id=="all"){
-		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' ");
+	if($filter=="cus"){
+		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' and cus_id='$cus_id'");
 	}else{
-		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' and cus_id='$cus_id' ");
+		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0'  ");
 	}
 			$result->bindParam(':userid', $d1);
       $result->execute();
