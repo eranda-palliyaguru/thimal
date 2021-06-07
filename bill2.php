@@ -50,6 +50,7 @@ if (!isset($_GET['id'])) {
 				 $result->execute();
 				 for($i=0; $row = $result->fetch(); $i++){
 					$date=$row['date'];
+					$inv=$row['transaction_id'];
 				 }
 
 
@@ -64,7 +65,7 @@ if (!isset($_GET['id'])) {
 	  <h5>Thimal Enterprises (Pvt.) Ltd <br>
 	 33B/1 Katuwawala, Boralasgamuwa <br>
 	 011-2 509 801<br>
-		  <b>Invoice no.<?php echo $invo; ?> </b><br>
+		  <b>Invoice no.<?php echo $inv; ?> </b><br>
 	<br>
 		  Date:<?php date_default_timezone_set("Asia/Colombo");
     echo $date; echo "  Time-";  echo date("h:ia")  ?>
