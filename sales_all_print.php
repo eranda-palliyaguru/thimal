@@ -239,7 +239,7 @@ include("sales_all_rp_price_update.php");
    $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id'  AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
    $result->bindParam(':userid', $invo);
    $result->execute();
-   for($i=0; $row = $result->fetch(); $i++){ $to=$row['sum(amount)'];
+   for($i=0; $row = $result->fetch(); $i++){ $total+=$row['sum(amount)'];
       echo number_format($row['sum(amount)'],2); }
  ?></td>
 
@@ -254,6 +254,7 @@ include("sales_all_rp_price_update.php");
        <tr>
 
          <td colspan="15"style="background-color:#aba272"><center>Total</center> </td>
+         <td style="background-color:#aba272"> Rs.<?php   echo number_format($total,2); // Margin total  ?></td>
          <td style="background-color:#aba272"> Rs.<?php   echo number_format($margin_total,2); // Margin total  ?></td>
        </tr>
        </table>
