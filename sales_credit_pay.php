@@ -118,10 +118,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 <thead>
                 <tr>
                   <th colspan="4" ></th>
-				   <th colspan="2" >12.5kg</th>
-				   <th colspan="2" >5kg</th>
-				    <th colspan="2" >37.5kg</th>
-					<th colspan="2" >2kg</th>
+
 				    <th colspan="5" >#</th>
                 </tr>
 
@@ -131,14 +128,6 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Invoice</th>
 				<th>Date</th>
 
-				   <th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
 
 				<th>Type</th>
 				<th>CHQ No.</th>
@@ -205,38 +194,6 @@ $bulk="0";
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?></td>
 
-
- <?php
-				  $ter=4;
-
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-
-
-
-				<td><span class="pull-right badge bg-muted"><?php
-
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
-
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['qty'];
-				}
-			?></span></td>
-	<td><span class="pull-right badge bg-yellow"><?php
-
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row1 = $result->fetch(); $i++){
-		 echo $row1['qty'];
-				}
-			?></span></td>
-					<?php } ?>
 <?php
 				  $ter1=7;
 			$tot+=$row['amount'];
