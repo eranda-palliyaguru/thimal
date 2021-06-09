@@ -33,10 +33,8 @@ include_once("sidebar.php");
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-       Deposit
-        <small>Preview</small>
-      </h1>
+      <center>
+      <h1 class="text-red">BANK</h1> </center>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Forms</a></li>
@@ -49,8 +47,12 @@ include_once("sidebar.php");
 
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-info">
-        <div class="box-header with-border">
 
+        <div class="box-header with-border">
+          <h2>
+           Deposit
+            <small>Preview</small>
+          </h2>
 
         <!-- /.box-header -->
 
