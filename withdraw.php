@@ -3,13 +3,13 @@
 	 <!-- fullCalendar 2.2.5-->
   <link rel="stylesheet" href="../../plugins/fullcalendar/fullcalendar.min.css">
   <link rel="stylesheet" href="../../plugins/fullcalendar/fullcalendar.print.css" media="print">
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 date_default_timezone_set("Asia/Colombo");
 ?>
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 if($r =='Cashier'){
@@ -24,11 +24,11 @@ include_once("sidebar.php");
         type="text/css" media="all" />
     <script src="datepicker.js" type="text/javascript"></script>
     <script src="datepicker.ui.min.js"
-        type="text/javascript"></script>	
-   <script src='js/jquery-1.12.3.js'></script> 
- <script src='js/jquery.dataTables.min.js'></script> 
- 
-   
+        type="text/javascript"></script>
+   <script src='js/jquery-1.12.3.js'></script>
+ <script src='js/jquery.dataTables.min.js'></script>
+
+
     <!-- /.sidebar -->
   </aside>
 
@@ -52,113 +52,113 @@ include_once("sidebar.php");
       <div class="row">
 
 		<div class="col-md-2">
-			
+
 			 <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Withdraw Payment</h3>
 
-			
+
 		 	<div class="form-group">
-              
+
 		<form method="post" action="withdraw_save.php">
 			<input type="hidden" value='' id="datepicker" name="source"  >
-			<input type="hidden" value='' id="datepicker" name="chq_no"  >		
+			<input type="hidden" value='' id="datepicker" name="chq_no"  >
         <div class="box-body">
-		
-		
-		
-          
-            
+
+
+
+
+
               <div class="form-group">
                 <label>Type</label>
   <select class="form-control " name="type" style="width: 100%;" id="p_type" onchange="view_payment_date(this.value);" autofocus tabindex="1" >
 	                <option value="1" style="color: #A7A7A7">Select Type</option>
                     <option value="Chq">Chq</option>
-					<option value="Bank">Bank to Bank Transfer</option>                  
-                </select>				
+					<option value="Bank">Bank to Bank Transfer</option>
+                </select>
 				</div>
-             
-			   
-			   
-          
-            
+
+
+
+
+
               <div class="form-group">
-				   <label>	Amount</label>
-                <input type="text" value='' name="amount" class="form-control" tabindex="2" >       
+				   <label>Amount</label>
+                <input type="text" value='' name="amount" class="form-control" tabindex="2" >
                 </div>
-				
-			
-              
-			  
-			
-			
+
+
+
+
+
+
               <div class="form-group" >
                 <label>Recipient</label>
                <input type="text" value=''  name="reci" class="form-control" tabindex="3">
 				</div>
-             
-				  
-				  
+
+
+
               <div class="form-group" >
                 <label>Reason or Comment</label>
                <input type="text" value=''  name="com" class="form-control" tabindex="3">
 				</div>
-              
-				
-				<div id='chq_no' style="display:none;" >  
-              
+
+
+				<div id='chq_no' style="display:none;" >
+
               <div class="form-group">
                <label>Chq No.</label>
                 <input type="number"   name="ch_no" class="form-control pull-right" >
                   </div>
-				
+
 		 <div class="form-group" >
                <label>Chq Date <b style="color: #DD0408">(YYYY-MM-DD)</b></label>
          <input data-provide="datepicker" data-date-format="yyyy-mm-dd" type="text" class="form-control pull-right" name="chq_date"   value="" autocomplete="off"/>
                   </div>
-					
-		
+
+
 				  </div>
-				  
+
               <div class="form-group" id='source' style="display:none;">
                 <label>Bank Name</label>
                <input type="text" value=''  name="bank" class="form-control pull-right" tabindex="3">
 				</div>
-              
-				
+
+
 			<div class="form-group" >
                <label>Issued Date <b style="color: #DD0408">(YYYY-MM-DD)</b></label>
          <input data-provide="datepicker" data-date-format="yyyy-mm-dd"  type="text" class="form-control pull-right" name="i_date"   value="<?php echo date("Y-m-d"); ?>" autocomplete="off"/>
                   </div>
-              
-                
-                  
-              
-				
-						   
+
+
+
+
+
+
 			  <div class="form-group">
-              
-				
-        
-		
+
+
+
+
         </div>
       </div>
-	   				  
-											  
+
+
       <!-- /.box -->
 <div class="form-group" id='buton' style="display:none;" >
 
-			  <input class="btn btn-info" type="submit" value="Submit" >			  
+			  <input class="btn btn-info" type="submit" value="Submit" >
 			  </form>
 			  </div></div></div></div>
-		  
-	
-  
-		  </div>  
-		  
-  
-		  
-		  
+
+
+
+		  </div>
+
+
+
+
         <!-- /.col -->
         <div class="col-md-10">
           <div class="box box-primary">
@@ -172,12 +172,12 @@ include_once("sidebar.php");
         </div>
         <!-- /.col -->
       </div>
-	   
+
 	   	<div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Withdraw List</h3>
 
-			
+
 		 	<div class="box-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -194,21 +194,21 @@ include_once("sidebar.php");
                 </tr>
                 </thead>
                 <tbody>
-			
+
 <?php $result = $db->prepare("SELECT * FROM bank WHERE date='$date' and action='0' and type='5' or type='4'");
-				
+
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-   
-					 
+
+
 				echo '<tr class="record">';
-				
-					   
-					   
+
+
+
 					   ?>
 
-			
+
                <td><?php echo $row['id'];   ?> </td>
 	       <td><?php echo $row['date'];   ?> </td>
 				<td><?php echo $row['type'];   ?> </td>
@@ -216,30 +216,30 @@ include_once("sidebar.php");
 					<td><?php echo $row['bank'];   ?></td>
 				<td><?php echo $row['chq_no'];   ?></td>
 				<td><?php echo $row['chq_date'];   ?></td>
-              <td><?php echo $row['balance'];   ?></td>                 
-<td> 
+              <td><?php echo $row['balance'];   ?></td>
+<td>
 
 <a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a>
-</td>                  
+</td>
                 </tr>
-				
-				
+
+
 				<?php }   ?>
 				</tbody>
-                
+
               </table>
-		</div></div></div>	
+		</div></div></div>
       <!-- /.row -->
     </section>
-    <!-- /.content -->	  
+    <!-- /.content -->
           <!-- /.box -->
 
-		 
+
 
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
   include("dounbr.php");
@@ -253,7 +253,7 @@ include_once("sidebar.php");
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
- 
+
 
 <!-- ./wrapper -->
 
@@ -283,9 +283,9 @@ include_once("sidebar.php");
 <script src="../../plugins/fullcalendar/fullcalendar.min.js"></script>
 
 <script>
-	
-	
-	
+
+
+
   $(function () {
     /* initialize the external events
      -----------------------------------------------------------------*/
@@ -334,7 +334,7 @@ include_once("sidebar.php");
       },
       //Random default events
       events: [
-		<?php $result = $db->prepare("SELECT * FROM bank WHERE action='0' AND type > '2'  ");				
+		<?php $result = $db->prepare("SELECT * FROM bank WHERE action='0' AND type > '2'  ");
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
@@ -342,19 +342,19 @@ include_once("sidebar.php");
 		  $type=$row['type'];
 		  $action=$row['chq_action'];
 		  $receive=$row['receive'];
-		  $split =  explode("-", $date); 
+		  $split =  explode("-", $date);
 		    $y= $split[0];
 			$m= $split[1];
-			$d= $split[2];	
+			$d= $split[2];
 		  ?>
-		  
+
         {
 		  title: '<?php echo $row['amount']."-".$row['receive']; ?>',
           start: '<?php echo $y." ,".$m," ,".$d;?>',
           backgroundColor:"<?php if($type=='5'){echo "#002091";} ?><?php if($type=='3'){echo "#f39c12";}  if($type=='4'){echo "#690dde";} if($type=='6'){echo "#d60000";} ?>", //red
           borderColor: "<?php if($action=='3'){echo "#ff0000";} ?><?php if($action=='0'){echo "#000000";} ?><?php if($action=='2'){echo "#07f01e";} ?>" //red
-        }, 
-        
+        },
+
      <?php } ?>
       ],
       editable: true,
@@ -416,34 +416,34 @@ include_once("sidebar.php");
 
       //Remove event from text input
       $("#new-event").val("");
-    }); 
+    });
   });
-	
-	
+
+
  function view_payment_date(type){
 	if(type=='Bank'){
-	document.getElementById('source').style.display='block';	
+	document.getElementById('source').style.display='block';
 	document.getElementById('chq_no').style.display='none';
 	document.getElementById('buton').style.display='block';
 		} else if(type=='Chq'){
-		document.getElementById('chq_no').style.display='block';	
+		document.getElementById('chq_no').style.display='block';
 		document.getElementById('source').style.display='none';
 		document.getElementById('buton').style.display='block';
 			}else {
-		document.getElementById('chq_no').style.display='none';	
+		document.getElementById('chq_no').style.display='none';
 		document.getElementById('source').style.display='none';
 		document.getElementById('buton').style.display='none';
-			} 
-	 }	
-	
-	
-	
-	
+			}
+	 }
+
+
+
+
 		$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
+
+
+
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
     $('#datepickerd').datepicker({ autoclose: true  });
 </script>
@@ -461,7 +461,7 @@ $(function () {
       "autoWidth": false
     });
   });
-	 
+
 
 </script>
 </body>
