@@ -53,7 +53,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
                  <img src="<?php echo $upic1;?>" class="img-circle" alt="User Image">
 
                 <p>    <?php echo $_SESSION['SESS_FIRST_NAME'];?> - <?php echo $_SESSION['SESS_LAST_NAME'];?>
-                  <small>Member since Nov. 2012</small>
+                  <small>Member -2020</small>
                 </p>
               </li>
               <!-- Menu Body -->
