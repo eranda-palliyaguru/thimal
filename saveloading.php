@@ -102,10 +102,10 @@ $g=$asasa;
 // query
 if (isset($loading_list_id)) {
 	$sql = "UPDATE loading_list
-	        SET qty=qty+?
+	        SET qty=qty+?,qty_sold=qty_sold+?
 			WHERE transaction_id=?";
 	$q = $db->prepare($sql);
-	$q->execute(array($f,$loading_list_id));
+	$q->execute(array($f,$f,$loading_list_id));
 }else {
 	$sql = "INSERT INTO loading_list (product_code,qty,price,lorry_no,profit,product_name,date,action,qty_sold,loading_time,loading_id,load_yard_before) VALUES (:b,:f,:g,:c,:h,:i,:j,:k,:l,:j1,:m,:lb)";
 	$q = $db->prepare($sql);
@@ -156,10 +156,10 @@ $loading_list_id_e=$row['transaction_id'];
 
 if (isset($loading_list_id_e)) {
 	$sql = "UPDATE loading_list
-	        SET qty=qty+?
+	        SET qty=qty+?,qty_sold=qty_sold+?
 			WHERE transaction_id=?";
 	$q = $db->prepare($sql);
-	$q->execute(array($f,$loading_list_id_e));
+	$q->execute(array($f,$f,$loading_list_id_e));
 }else {
 
 $sql = "INSERT INTO loading_list (product_code,qty,price,lorry_no,profit,product_name,date,action,qty_sold,loading_id,load_yard_before) VALUES (:b,:f,:g,:c,:h,:i,:j,:k,:l,:m,:lb)";
