@@ -116,12 +116,6 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
             <div class="box-body">
 	       <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                  <th colspan="4" ></th>
-
-				    <th colspan="5" >#</th>
-                </tr>
-
 				<tr>
 				<th>Cus_id</th>
 				<th>Customer</th>
@@ -141,7 +135,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<?php
 					$tot=0;
 	    date_default_timezone_set("Asia/Colombo");
-		$hh=date("Y/m/d");
+		$hh=date("Y-m-d");
 		$pay_type="";
 
 				//$d3=$_SESSION['SESS_FIRST_NAME'];
@@ -149,72 +143,110 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
 				$cus=$_GET['cus'];
-	if($cus=="all"){$result2z = $db->prepare("SELECT * FROM payment WHERE   pay_credit='1' AND action > '0' AND date BETWEEN '$d1' and '$d2' ORDER BY customer_id ASC");
-	}else{$result2z = $db->prepare("SELECT * FROM payment WHERE  customer_id='$cus' and pay_credit='1' AND action > '0' AND date BETWEEN '$d1' and '$d2'");}
+	if($cus=="all"){$result2z = $db->prepare("SELECT * FROM payment WHERE sales_id > '0' AND   pay_credit='1' AND action > '0' AND date BETWEEN '$d1' and '$d2' ORDER BY customer_id ASC");
+	}else{$result2z = $db->prepare("SELECT * FROM payment WHERE sales_id > '0' AND  customer_id='$cus' and pay_credit='1' AND action > '0' AND date BETWEEN '$d1' and '$d2'");}
 
 				$result2z->bindParam(':userid', $d2);
-                $result2z->execute();
-                for($i=0; $row = $result2z->fetch(); $i++){
+        $result2z->execute();
+        for($i=0; $row = $result2z->fetch(); $i++){
 				$sales_id=$row['sales_id'];
-        	$pay_id=$row['transaction_id'];
+        $pay_id=$row['transaction_id'];
 $bulk="0";
-        if ($sales_id=='0') {
-          $pay_t = $db->prepare("SELECT * FROM credit_payment WHERE action='0' AND pay_id='$pay_id'");
-          $bulk=1;
-        }else {
-        $pay_t = $db->prepare("SELECT * FROM payment WHERE  transaction_id='$pay_id'");
-        }
-        $pay_t->bindParam(':userid', $d2);
-        $pay_t->execute();
-        for($i=0; $row_t = $pay_t->fetch(); $i++){
-          $sales_id=$row_t['sales_id'];
+
 
 		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
-			    $result2->bindParam(':userid', $d2);
-                $result2->execute();
-                for($i=0; $row2 = $result2->fetch(); $i++){
-				$invo=$row2['invoice_number'];
-
+		$result2->bindParam(':userid', $d2);
+    $result2->execute();
+    for($i=0; $row2 = $result2->fetch(); $i++){
+		 $invo=$row2['invoice_number'];
 		 $pay_type=$row['type'];
-		$action=$row['action'];
-
-
-		    $date1=$row2['date'];
-			$date =  date("Y-m-d");
-				  $sday= strtotime( $date1);
+		 $action=$row['action'];
+		 $date1=$row2['date'];
+		 $date =  date("Y-m-d");
+				          $sday= strtotime( $date1);
                   $nday= strtotime($date);
                   $tdf= abs($nday-$sday);
                   $nbday1= $tdf/86400;
                   $rs1= intval($nbday1);
-
 					?>
-                <tr>
+        <tr>
 				<td><?php echo $row['customer_id'];?></td>
 				<td><?php echo $row2['name'];?></td>
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?></td>
-
 <?php
-				  $ter1=7;
+			$ter1=7;
 			$tot+=$row['amount'];
-
 			?>
-
 		<td><?php	echo $row['type'];	?></td>
 		<td><?php echo $row['chq_no'] ?></td>
 		<td><?php	echo $row['chq_date']	?></td>
-			<td><?php echo $row['amount']; ?></td>
-			<td><?php if ($bulk==1) {
+		<td><?php echo $row['amount']; ?></td>
+		<td><?php if ($bulk==1) {
     echo "<a href='bulk_payment_print.php?id=".$pay_id."' title='Click to pay' ><button class='btn btn-primary'>View</button></a>";
       } ?></td>
 				<?php
-		} } }
+		} }
 			?>
 				</tr>
+<?php
 
-                </tbody>
 
-                <tfoot class=" bg-blue" >
+        if ($cus=="all") {
+                $pay_t = $db->prepare("SELECT * FROM credit_payment WHERE action='0' AND date BETWEEN '$d1' and '$d2' ORDER BY cus_id ASC");
+                $bulk=1;
+          }else {
+                $pay_t = $db->prepare("SELECT * FROM credit_payment WHERE action='0' AND cus_id='$cus' AND date BETWEEN '$d1' and '$d2' ");
+          }
+                $pay_t->bindParam(':userid', $d2);
+                $pay_t->execute();
+                for($i=0; $row = $pay_t->fetch(); $i++){
+                $sales_id=$row['sales_id'];
+                $tr_id=$row['pay_id'];
+
+      		$result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
+      		$result2->bindParam(':userid', $d2);
+          $result2->execute();
+          for($i=0; $row2 = $result2->fetch(); $i++){
+      		 $invo=$row2['invoice_number'];
+      		 $pay_type=$row['type'];
+      		 $action=$row['action'];
+      		 $date1=$row2['date'];
+      		 $date =  date("Y-m-d");
+      				          $sday= strtotime( $date1);
+                        $nday= strtotime($date);
+                        $tdf= abs($nday-$sday);
+                        $nbday1= $tdf/86400;
+                        $rs1= intval($nbday1);
+      					?>
+        <tr>
+				<td><?php echo $row['cus_id'];?><span class="pull-right badge bg-muted">BULK</span></td>
+				<td><?php echo $row2['name'];?></td>
+				<td><?php echo $row2['transaction_id'];?></td>
+				<td><?php echo $row2['date'];?></td>
+      <?php }
+			$ter1=7;
+			$tot+=$row['pay_amount'];
+
+      $result2 = $db->prepare("SELECT * FROM payment WHERE transaction_id='$tr_id'");
+      $result2->bindParam(':userid', $d2);
+      $result2->execute();
+      for($i=0; $row2 = $result2->fetch(); $i++){
+			?>
+		<td><?php	echo $row2['type'];	?></td>
+		<td><?php echo $row2['chq_no'] ?></td>
+		<td><?php	echo $row2['chq_date']	?></td>
+		<td><?php echo $row['pay_amount']; ?></td>
+		<td><?php echo "<a href='bulk_payment_print.php?id=".$tr_id."' title='Click to pay' ><button class='btn btn-primary'>View</button></a>"; ?></td>
+
+    </tr>
+        <?php
+		} }
+			?>
+
+
+        </tbody>
+        <tfoot class=" bg-blue" >
 
 				<td  colspan="3" >Total</td>
 
