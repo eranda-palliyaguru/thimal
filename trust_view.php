@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 
 
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -30,11 +30,11 @@ include_once("sidebar.php");
     <script src="datepicker.ui.min.js"
         type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
@@ -59,128 +59,133 @@ include_once("sidebar.php");
         <li class="active">Trust</li>
       </ol>
     </section>
-   
-   
-   
-   
-   
-   
-   
+
+
+
+
+
+
+
    <section class="content">
-   
+
      <div class="box">
             <div class="box-header">
               <h3 class="box-title">Trust Data</h3>
             </div>
             <!-- /.box-header -->
-			 
+
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
-			  
+
                 <thead>
                 <tr>
-				<th>ID</th>
+				          <th>ID</th>
                   <th>Customer Name</th>
                   <th>Product</th>
-				  <th>Qty</th>
+				          <th>Qty</th>
                   <th>Date</th>
                   <th>End Date</th>
                   <th>comment</th>
-				  <th>Type</th>
+                  <th>Last Update</th>
+				          <th>Type</th>
                   <th>status</th>
-				  <th>Clear</th>
-				  
-                  
+				          <th>Clear</th>
                 </tr>
-				
+
                 </thead>
-				
+
                 <tbody>
 				<?php
-   
+
    $result = $db->prepare("SELECT * FROM trust   ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-				
-				
-				
+                $cus_id=$row['customer_id'];
+
 			?>
                 <tr class="record" >
 				<td><?php echo $row['transaction_id'];?></td>
                   <td><?php echo $row['customer_name'];?></td>
-				  
-				  
-				  
+
+
+
                   <td><?php echo $row['product'];?> </td>
 				  <td><?php echo $row['qty'];?> </td>
                   <td><?php echo $row['date'];?></td>
                   <td><?php echo $row['end_date'];?></td>
                   <td><?php echo $row['comment'];?></td>
-				  <td><small class="label pull-right bg-purple"><?php echo $row['type'];?></small></td>
-                 
-
-                  
                   <td><?php
-				  
+                  $result1 = $db->prepare("SELECT * FROM sales WHERE customer_id='$cus_id' and action='1' ORDER by transaction_id DESC limit 0,1 ");
+                		$result1->bindParam(':userid', $res);
+                		$result1->execute();
+                		for($i=0; $row1 = $result1->fetch(); $i++){
+                		echo $row1['date'];
+                		}?></td>
+				  <td><small class="label pull-right bg-purple"><?php echo $row['type'];?></small></td>
+
+
+
+                  <td><?php
+
 				  $dr=$row['status'];
 				  if($dr=="active"){
-					  
+
 					echo  '<button class="btn btn-warning"><i class="icon-trash"><i class=" glyphicon glyphicon-cog fa-spin"></i></i></button>' ;
-					  
-					  
+
+
 
 				  }
-				  
+
 				  $dr=$row['status'];
 				  if($dr=="Processing."){
-					  
+
 					echo  '<button class="btn btn-success"><i class="icon-trash"><i class=" glyphicon glyphicon-refresh fa-spin"></i></i></button>' ;
-					  
-					  
+
+
 
 				  }
-				  
+
 				  $dr=$row['status'];
 				  if($dr=="Clear"){
 					  echo  '<button class="btn btn-success"><i class="icon-trash">Clear</i></button>';
 				  }
-				  
-				  
-				  
+
+
+
 				  ?></td>
 				  <td>
 				  <?php
-				  
+
 				  if($dr=="active"){
 					  ?>
 				 <a rel="facebox" href="trust_receive.php?id=<?php echo $row['transaction_id'];?>" > <button class="btn btn-warning"><i class="icon-trash">Receive</i></button></a>
-				  <?php 
+				  <?php
 				}
-				
-				
+
+
 				?>
-				  
-				  
+
+
 				  </td>
-				 
-				  
-				   <?php 
+
+
+				   <?php
 				}
-				
+
 				?>
                 </tr>
-               
-                
+
+
                 </tbody>
                 <tfoot>
-                
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
                 </tfoot>
               </table>
             </div>
@@ -189,13 +194,13 @@ include_once("sidebar.php");
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      
-   
-   
-   
+
+
+
+
 
     <!-- Main content -->
-    
+
       <!-- /.row -->
 
     </section>
@@ -265,7 +270,7 @@ var info = 'id=' + del_id;
    url: "pay_dll.php",
    data: info,
    success: function(){
-   
+
    }
  });
          $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")

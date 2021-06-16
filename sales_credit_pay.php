@@ -98,8 +98,6 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
 		<br>
 
-
-
 			 </center>
 			 </form>
 
@@ -115,14 +113,12 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 
             <div class="box-body">
 	       <table id="example1" class="table table-bordered table-striped">
-                <thead>
+        <thead>
 				<tr>
 				<th>Cus_id</th>
 				<th>Customer</th>
 				<th>Invoice</th>
 				<th>Date</th>
-
-
 				<th>Type</th>
 				<th>CHQ No.</th>
 				<th>Chq Date</th>
@@ -131,7 +127,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				</tr>
 				</thead>
 
-                <tbody>
+        <tbody>
 				<?php
 					$tot=0;
 	    date_default_timezone_set("Asia/Colombo");
@@ -174,7 +170,7 @@ $bulk="0";
 				<td><?php echo $row2['name'];?></td>
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?></td>
-<?php
+      <?php
 			$ter1=7;
 			$tot+=$row['amount'];
 			?>
@@ -189,9 +185,7 @@ $bulk="0";
 		} }
 			?>
 				</tr>
-<?php
-
-
+      <?php
         if ($cus=="all") {
                 $pay_t = $db->prepare("SELECT * FROM credit_payment WHERE action='0' AND date BETWEEN '$d1' and '$d2' ORDER BY cus_id ASC");
                 $bulk=1;
@@ -244,19 +238,16 @@ $bulk="0";
 		} }
 			?>
 
-
         </tbody>
-        <tfoot class=" bg-blue" >
-
-				<td  colspan="3" >Total</td>
-
-
-
-
-			<td></td><td></td>
+    <tfoot class=" bg-blue" >
+		<td  colspan="3" >Total</td>
+		<td></td>
+    <td></td>
 		<td></td>
 
-	<td></td><td><span class="pull-left badge bg-muted"><?php echo $tot; ?></span></td><td></td>
+	<td></td>
+  <td><span class="pull-left badge bg-muted"><?php echo $tot; ?></span></td>
+  <td></td>
                 </tfoot>
               </table>
 
@@ -266,14 +257,6 @@ $bulk="0";
           <!-- /.box -->
         </div>
         <!-- /.col -->
-
-
-
-
-
-    <!-- Main content -->
-
-      <!-- /.row -->
 
     </section>
     <!-- /.content -->
@@ -318,19 +301,15 @@ $bulk="0";
       "info": true,
       "autoWidth": false
     });
-
    $(".select2").select2();
-
   });
 
 
 	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
-    $('#datepicker').datepicker({ autoclose: true });
-
-
+  $('#datepicker').datepicker({ autoclose: true });
 
 	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
-    $('#datepickerd').datepicker({ autoclose: true  });
+  $('#datepickerd').datepicker({ autoclose: true  });
 
 </script>
 </body>
