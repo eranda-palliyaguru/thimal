@@ -258,6 +258,7 @@ include_once("sidebar.php");
          <select class="form-control " name="to" style="width: 100%;" autofocus tabindex="1" >
               <option value="2">petty</option>
               <option value="1">main</option>
+              <option value="3">Bank</option>
                        </select>
                           </div>
         				</div>
@@ -269,7 +270,7 @@ include_once("sidebar.php");
 
                 <div class="col-md-6">
                   <div class="form-group">
-               <label>	Amount</label>
+               <label>Amount</label>
                     <input type="text" value='' name="amount" class="form-control pull-right" tabindex="2" >
                     </div>
             </div>
@@ -355,7 +356,7 @@ include_once("sidebar.php");
                   $result1->bindParam(':userid', $date);
                   $result1->execute();
                   for($i=0; $row1 = $result1->fetch(); $i++){
-                    $cash_bank=$row1['bank_action'];
+                    $cash_bank=$row1['action'];
                      }
 
 

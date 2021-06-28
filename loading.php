@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 include("head.php");
 include("connect.php");
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
-<?php 
+<?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -27,16 +27,16 @@ include_once("sidebar.php");
     <script src="datepicker.js" type="text/javascript"></script>
     <script src="datepicker.ui.min.js" type="text/javascript"></script>
  <script type="text/javascript">
-     
+
 		 $(function(){
         $("#datepicker1").datepicker({ dateFormat: 'yy/mm/dd' });
         $("#datepicker2").datepicker({ dateFormat: 'yy/mm/dd' });
-       
+
     });
 
     </script>
 
-	
+
 
 
 
@@ -48,12 +48,12 @@ include_once("sidebar.php");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Loading Form 
+        Loading Form
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-       
+
         <li class="active">loading</li>
       </ol>
     </section>
@@ -66,12 +66,12 @@ include_once("sidebar.php");
         <div class="box-header with-border">
           <h3 class="box-title">New Loading</h3>
 
-          
+
         <!-- /.box-header -->
 		<div class="form-group">
-              
+
 		<form method="post" action="save_loading.php">
-		
+
         <div class="box-body">
           <div class="row">
 			  <div class="col-md-3">
@@ -87,18 +87,18 @@ include_once("sidebar.php");
 	<?php
 				}
 			?>
-                   
+
                   </select> </div>
 			   <?php date_default_timezone_set("Asia/Colombo"); ?>
-			  
-			  
-			<div class="col-md-6">
+
+
+			<div class="col-md-3">
                <label>Driver</label>
 
-                
+
                   <select class="form-control select2" name="driver" style="width:123px; padding:4px;" autofocus >
-                  
-                  
+
+
 				  <?php
                 $result = $db->prepare("SELECT * FROM employee  ");
 		$result->bindParam(':userid', $res);
@@ -108,25 +108,26 @@ include_once("sidebar.php");
 		<option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>    </option>
 	<?php	}	?>
                 </select>
-              
-				
-        
-		
+
+
+
+
         </div>
-			  
-	
+
+
       </div>
-	</div>   				  
-											  
+	</div>
+
       <!-- /.box -->
 <div class="form-group">
-	<div class="col-md-6">
+  <div class="row">
+	<div class="col-md-3">
                <label>Helper 1</label>
 
-                
+
                   <select class="form-control select2" name="h1" style="width:123px; padding:4px;" autofocus >
-                   
-              <option value="0">Non</option>    
+
+              <option value="0">Non</option>
 				  <?php
                 $result = $db->prepare("SELECT * FROM employee  ");
 		$result->bindParam(':userid', $res);
@@ -135,13 +136,13 @@ include_once("sidebar.php");
 	?>
 		<option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>    </option>
 	<?php	}	?>
-                </select>		
-        </div>	
-			  
-	<div class="col-md-6">
+                </select>
+        </div>
+
+	<div class="col-md-3">
                <label>Helper 2</label>
 
-                
+
   <select class="form-control select2" name="h2" style="width:123px; padding:4px;" autofocus >
 	  <option value="0">Non</option>
 				  <?php
@@ -153,26 +154,26 @@ include_once("sidebar.php");
 		<option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>    </option>
 	<?php	}	?>
                 </select>
-              
-				
-        
-		
-        </div>
+
+
+
+
+        </div>  </div>
 		<br>
-  
+
 			  <input class="btn btn-info" type="submit" value="Next" >
-			  
+
 			  </form>
           <!-- /.box -->
 
         </div>
         <!-- /.col (left) -->
-       
 
-        
+
+
             <!-- /.box-body -->
-            
-            
+
+
           </div>
           <!-- /.box -->
         </div>
@@ -183,7 +184,7 @@ include_once("sidebar.php");
     </section>
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
     <?php
   include("dounbr.php");
