@@ -183,7 +183,10 @@ include("sales_all_rp_price_update.php");
    $result->bindParam(':userid', $invo);
    $result->execute();
    for($i=0; $row = $result->fetch(); $i++){ $sell_s=$row['sum(qty)'];}
-      echo $sell+$sell_s;
+if ($sell+$sell_s > 0) {
+  echo $sell+$sell_s;
+}
+
  ?></td>
  <td style="background-color:rgba(191,161,6,0.73)">
    <?php
@@ -191,7 +194,10 @@ include("sales_all_rp_price_update.php");
    $result->bindParam(':userid', $invo);
    $result->execute();
    for($i=0; $row = $result->fetch(); $i++){ $sell_val_s=$row['sum(amount)']; }
-      echo number_format($sell_val+$sell_val_s,2);
+if ($sell_val+$sell_val_s > 0) {
+    echo number_format($sell_val+$sell_val_s,2);
+}
+
 
       $sell_ma=$sell_val_s-($price_o*$sell_s)
  ?></td>
@@ -207,7 +213,10 @@ include("sales_all_rp_price_update.php");
    $result->bindParam(':userid', $invo);
    $result->execute();
    for($i=0; $row = $result->fetch(); $i++){ $dis_s=$row['sum(qty)'];}
-      echo $dis=$dis+$dis_s;
+   if ($dis+$dis_s > 0) {
+     echo $dis=$dis+$dis_s;
+   }
+
  ?></td>
  <td style="background-color:rgba(191,161,6,0.73)">
    <?php
@@ -215,13 +224,18 @@ include("sales_all_rp_price_update.php");
    $result->bindParam(':userid', $invo);
    $result->execute();
    for($i=0; $row = $result->fetch(); $i++){ $dis_val_s=$row['sum(amount)'];}
-      echo number_format($dis_val+$dis_val_s,2);
+   if ($dis_val+$dis_val_s > 0) {
+       echo number_format($dis_val+$dis_val_s,2);
+   }
+
 
       $dis_ma=($price-$price_o)*$dis_s;
       $ma11=$dis_val_s-($price*$dis_s);
  ?></td>
 
- <td style="background-color:#bfa106"> <?php    echo number_format($dis_ma=$dis_ma+$dis_m1,2);   ?>(<?php   echo $ma11+$dis_m;   ?>)</td>
+ <td style="background-color:#bfa106"> <?php  if ($dis_ma+$dis_m1 > 0) {
+   echo number_format($dis_ma=$dis_ma+$dis_m1,2); ?> (<?php echo $ma11+$dis_m.')';
+ }  ?></td>
 
 
 
@@ -240,7 +254,10 @@ include("sales_all_rp_price_update.php");
    $result->bindParam(':userid', $invo);
    $result->execute();
    for($i=0; $row = $result->fetch(); $i++){ $total+=$row['sum(amount)'];
-      echo number_format($row['sum(amount)'],2); }
+     if ($row['sum(amount)'] > 0) {
+    echo number_format($row['sum(amount)'],2);
+     }
+       }
  ?></td>
 
  <td style="background-color:#bfa106"> <?php $margin_total+=$dealer_m+$dealer_m1+$sell_m+$dis_ma;   echo number_format($dealer_m+$dealer_m1+$sell_m+$dis_ma,2); // Margin total  ?></td>
@@ -253,7 +270,7 @@ include("sales_all_rp_price_update.php");
        }?>
        <tr>
 
-         <td colspan="15"style="background-color:#aba272"><center>Total</center> </td>
+         <td colspan="14"style="background-color:#aba272"><center>Total</center> </td>
          <td style="background-color:#aba272"> Rs.<?php   echo number_format($total,2); // Margin total  ?></td>
          <td style="background-color:#aba272"> Rs.<?php   echo number_format($margin_total,2); // Margin total  ?></td>
        </tr>
