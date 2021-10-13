@@ -93,6 +93,7 @@ if($collection_id=='0'){
   $resultz->execute();
   for($i=0; $row = $resultz->fetch(); $i++){
   $credit_tr_id=$row['tr_id'];
+  $rep_amount=$row['pay_amount'];
 
   $sales_result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$credit_tr_id' ");
   $sales_result->bindParam(':userid', $inva);
