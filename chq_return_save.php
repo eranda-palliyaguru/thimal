@@ -102,7 +102,7 @@ if($collection_id=='0'){
 
     $invo_no=$row2['invoice_no'];
     $loading=$row2['loading_id'];
-    $rep_amount=$row2['pay_amount'];
+   // $rep_amount=$row2['pay_amount'];
     $rep_type=$row2['type'];
     $rep_date=$row2['date'];
     $rep_cus=$row2['customer_id'];
@@ -112,7 +112,7 @@ if($collection_id=='0'){
 
     $sql = "INSERT INTO payment (invoice_no,amount,type,date,customer_id,credit_period,sales_id,action,loading_id,memo) VALUES (?,?,?,?,?,?,?,?,?,?)";
     $q = $db->prepare($sql);
-    $q->execute(array($invo_no,$rep_amount,$rep_type,$rep_date,$rep_cus,$rep_credit,$rep_sales,"2",$loading,"CHQ RETURN"));
+    $q->execute(array($invo_no,$rep_amount,$rep_type,$rep_date,$rep_cus,$rep_credit,$rep_sales,"2",$loading,"CHQ RETURN "));
 
 
 }
