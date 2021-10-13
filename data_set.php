@@ -20,7 +20,7 @@ for($i=0; $row1 = $result->fetch(); $i++){
   $sales_id=$row1['sales_id'];
 
   
-  $resultz2 = $db->prepare("SELECT * FROM payment WHERE sales_id='$sales_id' AND type='credit'  ");
+  $resultz2 = $db->prepare("SELECT * FROM payment WHERE sales_id='$sales_id' AND type='credit' AND memo='CHQ RETURN' ");
   $resultz2->bindParam(':userid', $inva);
   $resultz2->execute();
   for($i=0; $row2 = $resultz2->fetch(); $i++){
