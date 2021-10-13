@@ -4,21 +4,34 @@ include('connect.php');
 date_default_timezone_set("Asia/Colombo");
 
 
-
-$id=1;
-    $sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id)
-          SELECT invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id FROM payment
- 		WHERE transaction_id=1 ";
-  $q = $db->prepare($sql);
-  $q->execute();
-
-  //echo("Error description: " . $sql -> error);
-  //echo mysql_error(connection);
+$resultz = $db->prepare("SELECT * FROM payment WHERE type='chq' AND chq_action='3' ");
+$resultz->bindParam(':userid', $inva);
+$resultz->execute();
+for($i=0; $row = $resultz->fetch(); $i++){
+$id=$row['transaction_id'];
 
 
+$result = $db->prepare("SELECT * FROM credit_payment WHERE pay_id='$id' ");
+$result->bindParam(':userid', $inva);
+$result->execute();
+for($i=0; $row1 = $result->fetch(); $i++){
+
+  $pay_amount=$row1['pay_amount'];
+  $sales_id=$row1['sales_id'];
+
+  
+  $resultz2 = $db->prepare("SELECT * FROM payment WHERE sales_id='$sales_id' AND type='credit'  ");
+  $resultz2->bindParam(':userid', $inva);
+  $resultz2->execute();
+  for($i=0; $row2 = $resultz2->fetch(); $i++){
+    $amount=$row2['amount'];
+    if($pay_amount < $amount){ echo $sales_id;  }
+  }
+
+ }
 
 
 
-
+}
 
 ?>
