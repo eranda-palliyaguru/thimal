@@ -25,7 +25,7 @@ for($i=0; $row1 = $result->fetch(); $i++){
   $resultz2->execute();
   for($i=0; $row2 = $resultz2->fetch(); $i++){
     $amount=$row2['amount'];
-    if($pay_amount < $amount){ echo $sales_id;  }
+    if($pay_amount < $amount){ echo $sales_id."<br>";  }
   }
 
  }
