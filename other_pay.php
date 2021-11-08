@@ -169,7 +169,7 @@ $_SESSION['posttimer'] = time();
        </div>
 			  <label for="exampleInputPassword1">Date</label>
          <div class="input-group">
-           <input type="text" name="chq_date" class="form-control pull-right" autocomplete="off" data-inputmask='"alias": "yyyy-mm-dd"' data-mask>
+           <input type="text" name="chq_date" class="form-control pull-right" autocomplete="off" data-inputmask='"mask": "9999-99-99" data-mask>
        </div>
       <br>
 	<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
