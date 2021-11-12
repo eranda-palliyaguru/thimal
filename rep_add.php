@@ -26,8 +26,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Rep Name</label>
-                <input type="text" value='' id="datepicker" name="rep_name" class="form-control pull-right" >
+                <label>Name</label>
+                <input type="text"  name="rep_name" class="form-control pull-right" >
 				</div>
               </div>
 			   <?php date_default_timezone_set("Asia/Colombo"); ?>
@@ -37,8 +37,35 @@
                
                 <div class="col-md-6">
               <div class="form-group">
-                <label>	Addrss</label>
-                <input type="text" name="address" class="form-control pull-right"  >
+                <label>Content no</label>
+                <input type="text" value='' id="datepicker" name="content" class="form-control pull-right" >
+                  
+                  </div>
+				</div>
+				 
+				
+        
+		
+        </div>
+      </div>
+	
+<div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>User Name</label>
+                <input type="text"  name="user" class="form-control pull-right" >
+				</div>
+              </div>
+
+			  
+			  
+
+               
+                <div class="col-md-6">
+              <div class="form-group">
+                <label>Password</label>
+                <input type="text" name="password" class="form-control pull-right" >
                   
                   </div>
 				</div>
@@ -54,8 +81,11 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>content no</label>
-                <input type="text" value='' id="datepicker" name="content" class="form-control pull-right" >
+                <label>Type</label>
+                <select name="content" class="form-control pull-right" >
+			<option value="1">Driver</option>
+			<option value="2">Helper</option>
+			</select>
 				</div>
               </div>
 			   <?php date_default_timezone_set("Asia/Colombo"); ?>
