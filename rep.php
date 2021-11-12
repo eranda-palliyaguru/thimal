@@ -93,22 +93,24 @@ include_once("sidebar.php");
                 <tbody>
 				<?php
    
-   $result = $db->prepare("SELECT * FROM rep   ");
+   $result = $db->prepare("SELECT * FROM employee WHERE action='1'   ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){	
 			?>
                 <tr class="record" >
 				
-                  <td><?php echo $row['rep_name'];?>
+                  <td><?php echo $row['name'];?>
                   </td>
                   
-				  <td><?php echo $row['rep_address'];?></td>
-				  <td><?php echo $row['contact_no'];?></td>
+			<td><?php echo $row['phone_no'];?></td>
+				  <td><?php echo $row['type'];?>
+			<button class="btn btn-danger"><i class="fa fa-truck"></i></button></td>
+				  
 				  
                   <td>
 				  
-				  <a href="#" id="<?php echo $row['rep_id']; ?>" class="delbutton" title="Click to Delete" >
+				  <a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete" >
 				  <button class="btn btn-danger"><i class="icon-trash">x</i></button></a></td>
 				  
 				   <?php 
