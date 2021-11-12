@@ -30,7 +30,6 @@
                 <input type="text"  name="rep_name" class="form-control pull-right" >
 				</div>
               </div>
-			   <?php date_default_timezone_set("Asia/Colombo"); ?>
 			  
 			  
 
@@ -82,13 +81,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Type</label>
-                <select name="content" class="form-control pull-right" >
+                <select name="type" class="form-control pull-right" >
 			<option value="1">Driver</option>
 			<option value="2">Helper</option>
 			</select>
 				</div>
               </div>
-			   <?php date_default_timezone_set("Asia/Colombo"); ?>
+			  
 			  
 			  
 
