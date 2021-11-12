@@ -68,9 +68,9 @@ include_once("sidebar.php");
    
      <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title">Rep Data</h3>
+              <h3 class="box-title">Employee Data</h3>
 			   <a rel="facebox" href="rep_add.php" >
-				  <button class="btn btn-info"><i class="icon-trash">Add Rep</i></button></a>
+				  <button class="btn btn-info"><i class="icon-trash">Add </i></button></a>
             </div>
             <!-- /.box-header -->
 			
@@ -92,9 +92,9 @@ include_once("sidebar.php");
 				<?php
    
    $result = $db->prepare("SELECT * FROM employee WHERE action='1'   ");
-				$result->bindParam(':userid', $date);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	
+   $result->bindParam(':userid', $date);
+   $result->execute();
+   for($i=0; $row = $result->fetch(); $i++){	
 			?>
                 <tr class="record" >
 				
