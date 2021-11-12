@@ -80,11 +80,9 @@ include_once("sidebar.php");
                 <thead>
                 <tr>
 				
-                  <th>Name</th>
-                  
-                  
-				  <th>Address</th>
-				  <th>Content no.</th>
+                  <th>Name</th>			  
+		 <th>Content no.</th>
+			<th>Type</th>
 				  <th>#</th>
                 </tr>
 				
@@ -101,13 +99,12 @@ include_once("sidebar.php");
                 <tr class="record" >
 				
                   <td><?php echo $row['name'];?>
-                  </td>
-                  
+                  </td>                
 			<td><?php echo $row['phone_no'];?></td>
-				  <td><?php echo $row['type'];?>
-			<button class="btn btn-danger"><i class="fa fa-truck"></i></button></td>
-				  
-				  
+		        <td><?php if( $row['type']==1){;?><button class="btn btn-success"><i class="fa fa-truck"></i></button>			
+			<?php } if( $row['type']==2){ ?><button class="btn btn-info"><i class="fa fa-user"></i></button><?php } ?>
+			</td>
+				  				  
                   <td>
 				  
 				  <a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click to Delete" >
