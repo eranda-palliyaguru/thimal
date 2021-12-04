@@ -170,7 +170,7 @@ include("sales_all_rp_price_update.php");
 
 ?>
 <tr>
-       <td style="background-color:#aba272"><?php echo $row1['gen_name']; ?></td>
+       <td style="background-color:#aba272"> <a href="pnl_product.php?d1=<?php echo $d1 ?>&d2=<?php echo $d2 ?>&pro=<?php echo $row1['product_id']; ?> > <?php echo $row1['gen_name']; ?> </a></td>
 
   <!------------------------------------------------------------------------------ Kaluthara ---------------------------------------------------------------------->
        <td style="background-color:rgba(191,161,6,0.42)">
