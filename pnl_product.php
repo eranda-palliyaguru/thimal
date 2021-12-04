@@ -81,7 +81,7 @@ include_once("sidebar2.php");
 	       <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th ></th>
+                  
 				   <th>Product</th>
 				   <th>Price</th>
 				    <th>QTY</th>
