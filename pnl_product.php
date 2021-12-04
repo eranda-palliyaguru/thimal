@@ -96,7 +96,7 @@ include_once("sidebar2.php");
         $date2=$_GET['d2'];
         $product=$_GET['pro'];
 
-$result2z = $db->prepare("SELECT name,price,sum(qty) FROM sales_list WHERE action='0' AND product_id='$product' AND date BETWEEN '$date1' AND '$date2' UNION price ORDER BY price DESC");
+$result2z = $db->prepare("SELECT name,price,sum(qty) FROM sales_list WHERE action='0' AND product_id='$product' AND date BETWEEN '$date1' AND '$date2' GROUP BY price ORDER BY price DESC");
 $result2z->bindParam(':userid', $d2);
 $result2z->execute();
 for($i=0; $row = $result2z->fetch(); $i++){
