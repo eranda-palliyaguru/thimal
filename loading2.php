@@ -132,7 +132,7 @@ include_once("sidebar.php");
 				
 				
 				
-                <select class="form-control select2" name="product"  data-placeholder="Select a Product" style="width: 100%;" autofocus >
+                <select  class="form-control select2" name="product"  data-placeholder="Select a Product" style="width: 100%;" autofocus >
                   
                   
 				  <?php
@@ -140,8 +140,9 @@ include_once("sidebar.php");
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
+			$qty=$row['qty'];
 	?>
-		<option value="<?php echo $row['product_id'];?>"><?php echo $row['gen_name']; ?>    </option>
+		<option <?php if($qty < 0){ ?> disabled="disabled" <?php } ?> value="<?php echo $row['product_id'];?>"><?php echo $row['gen_name']; ?>    </option>
 	<?php
 				}
 			?>
