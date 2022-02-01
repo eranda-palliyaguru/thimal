@@ -349,9 +349,9 @@ $customer_result = $db->prepare("SELECT customer_id FROM customer ");
 
 
 //-------------------------------------------------------------------------------Lorry Filter------------------------------------------------------------------------------//
-if ($lorry=="all"){ $result2 = $db->prepare("SELECT transaction_id,customer_id,invoice_number,date,name,lorry_no,amount,profit FROM sales WHERE  action='1' and customer_id='$cus_id' AND date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
+if ($lorry=="all"){ $result2 = $db->prepare("SELECT transaction_id,customer_id,invoice_number,date,name,lorry_no,amount,profit FROM sales WHERE  action='1' and customer_id='$cus_id' AND date = '$d1'  ORDER by transaction_id DESC");
 }else{
-$result2 = $db->prepare("SELECT transaction_id,customer_id,invoice_number,date,name,lorry_no,amount,profit FROM sales WHERE  action='1' AND lorry_no='$lorry' and customer_id='$cus_id' AND date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
+$result2 = $db->prepare("SELECT transaction_id,customer_id,invoice_number,date,name,lorry_no,amount,profit FROM sales WHERE  action='1' AND lorry_no='$lorry' and customer_id='$cus_id' AND date = '$d1'  ORDER by transaction_id DESC");
 }
 
 //-------------------- Sales Data-------------------//
@@ -521,9 +521,9 @@ $tot_f+=$row2['profit'];
 
 		<td><span class="pull-right badge bg-muted"><?php
 	if($filter=="cus"){
-		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0' and cus_id='$cus_id'");
+		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date = '$d1'  and product_id='$pro_id' and action='0' and cus_id='$cus_id'");
 	}else{
-		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date BETWEEN '$d1' and '$d2' and product_id='$pro_id' and action='0'  ");
+		$result = $db->prepare("SELECT sum(qty) FROM sales_list WHERE  date = '$d1'  and product_id='$pro_id' and action='0'  ");
 	}
 			$result->bindParam(':userid', $d1);
       $result->execute();
