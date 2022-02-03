@@ -220,30 +220,8 @@ $tot_f+=$row2['profit'];
 				<td  colspan="3" >Total</td>
 
 				
- <?php $invo="2520011210105934";
-				  $ter=4;			
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>				   				     				  
-				<td></td>
-	<td></td>
-					
-					<?php } ?>
-<?php
-				  $ter1=7;
-			
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+9;
-				
-			?>
-				   
-				     
-				  
-				<td></td>
-					
+ 
 
-					<?php } ?>
 					
 			<td></td><td></td><td></td><td></td>
 		<td><span class="pull-right badge bg-muted"><?php 	echo $tot;	?></span></td>
