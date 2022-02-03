@@ -223,7 +223,7 @@ $tot_f+=$row2['profit'];
  
 
 					
-			<td></td><td></td><td></td><td></td>
+			
 		<td><span class="pull-right badge bg-muted"><?php 	echo $tot;	?></span></td>
 					
 	<td><span class="pull-right badge bg-muted"><?php echo $tot_f;	?></span></td>	
