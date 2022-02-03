@@ -123,19 +123,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                 
                   <th colspan="3" ></th>
 
-				   <?php
-				  $qty=0;
-			
-				$result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");				
-				$result1->bindParam(':userid', $d2);
-                $result1->execute();
-                for($i=0; $row = $result1->fetch(); $i++){
-	            $id=$row['product_id'];
-				
-	
-			?>
-				   <th></th>
-				   <?php } ?>
+				  
 					
 					<th colspan="5" ></th> 
                   
@@ -145,10 +133,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Invoice</th>
 				<th>Date</th>
 				<th>Customer</th>				  
-					<?php
-				  $qty=0;
-			?>
-
+					
 				<th>Pay Type</th>
 				<th>Chq Date</th>
 				<th>Amount</th>
@@ -195,7 +180,7 @@ if($cus_id=="all"){
 				  
  
 
-			<td></td><td></td>		
+					
 		<?php 			
 					
 			$result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' ");
