@@ -46,7 +46,7 @@ include_once("sidebar.php");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Sales Delete Report
+        Sales Report
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
@@ -108,7 +108,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
    
      <div class="box box-danger">
             <div class="box-header">
-              <h3 class="box-title">Sales Delete Report
+              <h3 class="box-title">Sales Report
 				</h3>
             </div>
             <!-- /.box-header -->
