@@ -122,11 +122,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
                   
                 
                   <th colspan="3" ></th>
-				   <th colspan="2" >12.5kg</th>
-				   <th colspan="2" >5kg</th>
-				    <th colspan="2" >37.5kg</th>
-					
-					<th colspan="2" >2kg</th>
+
 				   <?php
 				  $qty=0;
 			
@@ -148,15 +144,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<tr>
 				<th>Invoice</th>
 				<th>Date</th>
-				<th>Customer</th>
-				   <th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
-					<th  >E</th>
-				    <th  >R</th>
+				<th>Customer</th>				  
 					<?php
 				  $qty=0;
 			?>
@@ -205,59 +193,8 @@ if($cus_id=="all"){
 				<td><?php echo $row2['date'];?></td>
                   <td><?php echo $row2['name'];?></td>
 				  
- <?php
-				  $ter=4;
-			
-				for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-	            $pro_id=$pro_id1+1;
-				$pro_id_e=$pro_id1+5;
-			?>
-				   
-				     
-				  
-				<td><span class="pull-right badge bg-muted"><?php 			
-					
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' ");
-				
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	
-		 echo $row['qty'];
-				}
-			?></span></td>
-	<td><span class="pull-right badge bg-yellow"><?php 			
-					
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-				
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	
-		 echo $row['qty'];
-				}
-			?></span></td>
-					<?php } ?>
-<?php
-				  $ter1=7;
-			
-				for($pro_id2 = 0; $pro_id2 < (int)$ter1; $pro_id2++) {
-	            $pro_id=$pro_id2+9;
-				
-			?>
-				   
-				     
-				  
-				<td><span class="pull-right badge bg-muted"><?php 			
-					
-			$result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' ");
-				
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	
-		 echo $row['qty'];
-				}
-			?></span></td>
+ 
 
-					<?php } ?>
 			<td></td><td></td>		
 		<?php 			
 					
