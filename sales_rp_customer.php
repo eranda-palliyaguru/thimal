@@ -133,9 +133,6 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Invoice</th>
 				<th>Date</th>
 				<th>Customer</th>				  
-					
-				<th>Pay Type</th>
-				<th>Chq Date</th>
 				<th>Amount</th>
 				<th>Profit</th>
 				</tr>
@@ -177,26 +174,7 @@ if($cus_id=="all"){
 				<td><?php echo $row2['transaction_id'];?></td>
 				<td><?php echo $row2['date'];?></td>
                   <td><?php echo $row2['name'];?></td>
-				  
- 
-
-					
-		<?php 			
-					
-			$result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' ");
-				
-					$result->bindParam(':userid', $d1);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){	
-		 $type= $row['type'];
-		$ch_date=$row['chq_date'];
-				}
-			?>			
-		
-		<td><?php echo $type;?></td>
-		<td><?php echo $ch_date;?></td>
-					
-					
+				  			
 		<td><?php echo $row2['amount'];?></td>		
 		<td><?php echo $row2['profit'];?>
 			<a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
@@ -222,7 +200,7 @@ $tot_f+=$row2['profit'];
 				
  
 
-					
+					<td></td><td></td>
 			
 		<td><span class="pull-right badge bg-muted"><?php 	echo $tot;	?></span></td>
 					
