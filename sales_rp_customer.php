@@ -135,6 +135,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				<th>Customer</th>				  
 				<th>Amount</th>
 				<th>Profit</th>
+			        <th>#</th>
 				</tr>
 				
                 </thead>
@@ -176,9 +177,9 @@ if($cus_id=="all"){
                   <td><?php echo $row2['name'];?></td>
 				  			
 		<td><?php echo $row2['amount'];?></td>		
-		<td><?php echo $row2['profit'];?>
-			<a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
-				  <button class="btn btn-primary">View</button></a></td>		
+		<td><?php echo $row2['profit'];?></td>
+	        <td><a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
+				  <button class="btn btn-primary">View</button></a></td>
 				
 				
 				<?php
@@ -200,11 +201,11 @@ $tot_f+=$row2['profit'];
 				
  
 
-					<td></td><td></td>
-			
+							
 		<td><span class="pull-right badge bg-muted"><?php 	echo $tot;	?></span></td>
 					
 	<td><span class="pull-right badge bg-muted"><?php echo $tot_f;	?></span></td>	
+		      <td></td>
 					 
                 </tfoot>
               </table>  
