@@ -53,7 +53,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
                  <img src="<?php echo $upic1;?>" class="img-circle" alt="User Image">
 
                 <p>    <?php echo $_SESSION['SESS_FIRST_NAME'];?> - <?php echo $_SESSION['SESS_LAST_NAME'];?>
-                  <small>Member since Nov. 2012</small>
+                  <small>Member -2020</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -150,6 +150,7 @@ $user_lewal=$_SESSION['USER_LEWAL'];
           <ul class="treeview-menu">
 		  <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>"><i class="fa fa-circle-o text-aqua"></i> Sales Report</a></li>
       <li><a href="sales_credit.php"><i class="fa fa-circle-o text-aqua "></i> Credit Report</a></li>
+     <li><a href="sales_rp_month.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Sales Month Report</a></li>
           </ul>
         </li>
 
@@ -268,7 +269,8 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 
           <ul class="treeview-menu">
 
-            <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report</a></li>
+            <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report - Day</a></li>
+            <li><a href="sales_rp_customer.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report - Month</a></li>
 
 			<li><a href="sales_credit.php"><i class="fa fa-circle-o text-aqua "></i> Credit Report</a></li>
 			<li><a href="sales_credit_pay.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Credit Payment Report</a></li>
@@ -292,7 +294,7 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 				<li><a href="purchase_view.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Report</a></li>
 <li><a href="purchase_pay_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Pay Report</a></li>
 <li><a href="sales_dll_rp.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Delete Report</a></li>
-
+<li><a href="new/go/bill_return_rp.php"><i class="fa fa-circle-o text-aqua "></i> Products Return Report</a></li>
 <li><a href="sales_rp_month.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Sales Month Report</a></li>
                 </ul>
               </li>
@@ -323,6 +325,17 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
   </li>
 <?php } ?>
 
+<?php if ($user_lewal == 2) {?>
+<li>
+    <a  href="bulk_payment.php">
+      <i class="fa fa-usd"></i> <span>Credit Payment</span>
+      <span class="pull-right-container">
+
+      </span>
+    </a>
+  </li>
+<?php } ?>
+
 
         <?php if ($user_lewal < 5) {?>
           <li>
@@ -342,6 +355,9 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
               </span>
             </a>
           </li>
+
+
+
         <?php } ?>
 <?php if ($user_lewal == 4) {?>
         <li>
@@ -372,7 +388,14 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 
 
 
+        <li>
+            <a  href="new/go/bill_return.php">
+              <i class="fa fa-level-down"></i> <span>Product Return</span>
+              <span class="pull-right-container">
 
+              </span>
+            </a>
+          </li>
 
 		  <li>
           <a  href="special_price.php">
