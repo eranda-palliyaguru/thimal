@@ -181,7 +181,7 @@ if ($sales_id==0) {
               </table>
 		</div>
 
-	</div>  </div>  </section>
+	</div>  </div>  </section></div></div>
   <!-- /.content-wrapper -->
     <?php
   include("dounbr.php");
