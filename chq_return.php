@@ -205,7 +205,7 @@ $def= $diff->format( '%r%a' );
       </div>
       <!-- /.row -->
 
-</div>
+
     <!-- /.content -->
 
 
