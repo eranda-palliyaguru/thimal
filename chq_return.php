@@ -82,7 +82,7 @@ include_once("sidebar.php");
 		<div class="input-group">
 			<div class="input-group-addon">
           <label>CHQ Type</label></div>
-   <select class="form-control select2" name="type" id="pay_type" onchange="view_payment_date(this.value);" >
+   <select class="form-control select2" name="type" id="pay_type"  >
         <option value="0">Select Type</option>
 		<option value="1">Deposit CHQ</option>
 	    <option value="2">Issue CHQ</option>
@@ -404,21 +404,7 @@ return false;
 
 
 
- function view_payment_date(type){
-	if(type=='1'){
-	document.getElementById('deposit').style.display='block';
-	document.getElementById('withdraw').style.display='none';
 
-		} else if(type=='2'){
-		document.getElementById('deposit').style.display='none';
-	    document.getElementById('withdraw').style.display='block';
-
-			}else {
-          document.getElementById('deposit').style.display='none';
-	      document.getElementById('withdraw').style.display='none';
-
-			}
-	 }
 
 </script>
 </body>
