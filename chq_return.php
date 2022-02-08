@@ -82,7 +82,7 @@ include_once("sidebar.php");
 		<div class="input-group">
 			<div class="input-group-addon">
           <label>CHQ Type</label></div>
-   <select class="form-control select2" name="type" id="pay_type"  >
+   <select class="form-control select2" name="type" id="pay_type" onchange="view_payment_date(this.value);" >
         <option value="0">Select Type</option>
 		<option value="1">Deposit CHQ</option>
 	    <option value="2">Issue CHQ</option>
@@ -96,6 +96,117 @@ include_once("sidebar.php");
 
 
 
+
+<div id='deposit' style="display:none;" > <br>
+	      <div class="row">
+	 <div class="col-md-4">
+		<div class="input-group">
+			<div class="input-group-addon">
+          <label>CHQ No</label></div>
+     <select class="form-control select2" name="chq_no1"  style="width: 100%;" >
+                         <?php
+                $result = $db->prepare("SELECT * FROM bank WHERE  type='1' AND chq_action='0'  ");
+		$result->bindParam(':userid', $res);
+		$result->execute();
+		for($i=0; $row = $result->fetch(); $i++){
+
+			$d_date=$row['chq_date'];
+			$date=date('Y-m-d');
+
+$first  = new DateTime( $d_date );
+$second = new DateTime( $date );
+$diff = $first->diff( $second );
+$def= $diff->format( '%r%a' );
+
+			if($def<30){
+
+	?>
+
+		 <option value="<?php echo $row['id']; ?>"><?php echo $row['chq_no']."_".$row['bank']; ?></option>
+  	<?php
+			}	}
+			?>
+                  </select> </div></div>
+
+	 <div class="col-md-4">
+		<div class="input-group">
+			<div class="input-group-addon">
+          <label>Reason</label></div>
+<input type="text" value='' name="reason1" class="form-control" tabindex="2" >
+ </div></div>
+
+ <div class="col-md-4">
+		<div class="input-group">
+			<div class="input-group-addon">
+          <label>Charges</label></div>
+<input type="number" value='' name="charges1" class="form-control" tabindex="2" >
+ </div></div></div>
+<input class="btn btn-info" type="submit" value="Submit" >
+</div>
+
+
+
+
+
+
+ 			<div id='withdraw' style="display:none;" > <br>
+	      <div class="row">
+	 <div class="col-md-4">
+		<div class="input-group">
+			<div class="input-group-addon">
+          <label>CHQ No</label></div>
+     <select class="form-control select2" name="chq_no"  style="width: 100%;" >
+                         <?php
+                $result = $db->prepare("SELECT * FROM bank WHERE  type='5' or type='3'  ");
+		$result->bindParam(':userid', $res);
+		$result->execute();
+		for($i=0; $row = $result->fetch(); $i++){
+
+			$d_date=$row['chq_date'];
+			$date=date('Y-m-d');
+
+$first  = new DateTime( $d_date );
+$second = new DateTime( $date );
+$diff = $first->diff( $second );
+$def= $diff->format( '%r%a' );
+
+			if($def<30){
+
+	?>
+
+		 <option value="<?php echo $row['id']; ?>"><?php echo $row['chq_no']."_".$row['receive']; ?></option>
+  	<?php
+			}	}
+			?>
+                  </select> </div></div>
+
+	 <div class="col-md-4">
+		<div class="input-group">
+			<div class="input-group-addon">
+          <label>Reason</label></div>
+<input type="text" value='' name="reason" class="form-control" tabindex="2" >
+ </div></div>
+
+ <div class="col-md-4">
+		<div class="input-group">
+			<div class="input-group-addon">
+          <label>Charges</label></div>
+<input type="number" value='' name="charges" class="form-control" tabindex="2" >
+ </div></div></div>
+<input class="btn btn-info" type="submit" value="Submit" >
+</div>
+
+          </div>
+
+			</form>
+          <!-- /.box -->
+        </div>
+        <!-- /.col (right) -->
+      </div>
+      <!-- /.row -->
+
+
+    <!-- /.content -->
 
 
 		 	<div class="box-body">
@@ -181,7 +292,7 @@ if ($sales_id==0) {
               </table>
 		</div>
 
-	</div>  </div>  </section></div></div>
+	</div>  </div>  </section></div>  </div>
   <!-- /.content-wrapper -->
     <?php
   include("dounbr.php");
@@ -293,7 +404,21 @@ return false;
 
 
 
+ function view_payment_date(type){
+	if(type=='1'){
+	document.getElementById('deposit').style.display='block';
+	document.getElementById('withdraw').style.display='none';
 
+		} else if(type=='2'){
+		document.getElementById('deposit').style.display='none';
+	    document.getElementById('withdraw').style.display='block';
+
+			}else {
+          document.getElementById('deposit').style.display='none';
+	      document.getElementById('withdraw').style.display='none';
+
+			}
+	 }
 
 </script>
 </body>
