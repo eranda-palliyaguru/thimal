@@ -524,7 +524,7 @@ $cus=$row1['name'];
                     }
                        ?>
                          <tr style="background-color:<?php echo $color_code; ?>">
-                          <td><?php echo $row['invoice_no'];?></td>
+                          <td><?php echo $row['invoice_no'];?>(credit)</td>
                           <td><?php echo $row['customer'];?></td>
                           <td><?php echo $row['pay_type'];?></td>
                           <td><?php echo $row['amount'];?></td>
