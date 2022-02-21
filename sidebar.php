@@ -269,8 +269,8 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 
           <ul class="treeview-menu">
 
-            <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report - Day</a></li>
-            <li><a href="sales_rp_customer.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report - Month</a></li>
+            <li><a href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Sales Report</a></li>
+            
 
 			<li><a href="sales_credit.php"><i class="fa fa-circle-o text-aqua "></i> Credit Report</a></li>
 			<li><a href="sales_credit_pay.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i> Credit Payment Report</a></li>
