@@ -281,6 +281,7 @@ include_once("sidebar2.php");
     $result2z->execute();
     for($i=0; $row = $result2z->fetch(); $i++){
     $sales_id=$row['sales_id'];
+    $limit=$row['credit_period'];
 
    if ($lorry=='all') {
    $result2 = $db->prepare("SELECT date,name,lorry_no,invoice_number FROM sales WHERE action='1' AND transaction_id='$sales_id'");
