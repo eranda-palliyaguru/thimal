@@ -113,26 +113,6 @@ include_once("sidebar.php");
 					  if($pd > 0){	echo '<span style="font-size: 15px" class="label label-primary">'.$pd.' Day</span>';}
 					  ?></td>
 				 <td>
-					<?php
-					$cus_cus=$row['customer_id'];
-					$result12 = $db->prepare("SELECT * FROM special_price WHERE customer_id='$cus_cus'  ");
-				$result12->bindParam(':userid', $date);
-                $result12->execute();
-                for($i=0; $row12 = $result12->fetch(); $i++){
-				$cus_id_1=$row12['customer_id'];
-					if($cus_id_1 >'1'){?><span style="font-size: 12px" class="label label-danger">special_price</span><?php } ?>
-					<?php } ?>
-
-				   <?php
-					$cus_cus=$row['customer_id'];
-					$result13 = $db->prepare("SELECT * FROM sales WHERE customer_id='$cus_cus'  ");
-				$result13->bindParam(':userid', $date);
-                $result13->execute();
-                for($i=0; $row13 = $result13->fetch(); $i++){
-				$cus_id_2=$row13['customer_id'];
-					 }
-					if($cus_id_2 >'1'){?><span class="label label-success" style="font-size: 12px">Bill</span><?php } ?>
-
 					</td>
 				  <td><?php $group_id=$row['category'];
 					$result222 = $db->prepare("SELECT * FROM customer_category WHERE id='$group_id' ");
