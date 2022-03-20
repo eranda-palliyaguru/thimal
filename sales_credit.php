@@ -276,7 +276,7 @@ include_once("sidebar2.php");
    $b_tot=0;
    $pay_tot=0;
 
-   $result2z = $db->prepare("SELECT memo,sales_id,type,action,customer_id,pay_amount,amount,transaction_id FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
+   $result2z = $db->prepare("SELECT memo,sales_id,type,action,customer_id,pay_amount,amount,transaction_id,credit_period FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
     $result2z->bindParam(':userid', $d2);
     $result2z->execute();
     for($i=0; $row = $result2z->fetch(); $i++){
