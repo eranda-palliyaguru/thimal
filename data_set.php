@@ -11,7 +11,7 @@ for($i=0; $row = $resultz->fetch(); $i++){
 
 
 
-echo $row['p.credit_period']."_____".$row['c.credit_period']."<br>";
+echo $row['p.credit_period']."<br>";
  
 
 
