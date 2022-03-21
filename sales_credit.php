@@ -331,7 +331,7 @@ include_once("sidebar2.php");
 			?>
 
 
-		<td><?php	echo $row_cus['credit_period'];	?> Day</td>
+		<td><?php	echo $row['credit_period'];	?> Day</td>
 		<td><?php echo $row['amount']-$row['pay_amount'];
 			$b_tot+=$row['amount']-$row['pay_amount'];
 			if($row['pay_amount']>'0'){?><span class="pull-right badge bg-black"><?php	echo $row['pay_amount'];?></span><?php } ?></td>
