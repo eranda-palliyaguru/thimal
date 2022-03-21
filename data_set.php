@@ -11,7 +11,9 @@ for($i=0; $row = $resultz->fetch(); $i++){
 
 
 
-echo $row['payment.credit_period']."<br>";
+echo $row['p.transaction_id']."<br>";
+ 
+
  
 
 
