@@ -9,6 +9,7 @@ $resultz->bindParam(':userid', $inva);
 $resultz->execute();
 for($i=0; $row1 = $resultz->fetch(); $i++){
 $cus_id=$row1['customer_id'];
+ $id=$row1['transaction_id'];
 
  
 $result = $db->prepare("SELECT * FROM customer  WHERE customer_id='$cus_id' ");
@@ -16,7 +17,14 @@ $result->bindParam(':userid', $inva);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
 
+ $limit=$row['credit_period'];
 
+ $sql = "UPDATE payment 
+        SET credit_period=?
+		WHERE transaction_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($limit,$id));
+ 
  
 echo $row['credit_period']."_____".$row1['credit_period']."<br>";
  
