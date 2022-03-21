@@ -116,6 +116,7 @@ $result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credi
  $result2z->execute();
  for($i=0; $row = $result2z->fetch(); $i++){
  $sales_id=$row['sales_id'];
+$limit=$row['credit_period'];
 
 if ($lorry=='all') {
 $result2 = $db->prepare("SELECT * FROM sales WHERE action='1' AND transaction_id='$sales_id'");
@@ -169,7 +170,7 @@ $tot+=$row['amount']-$row['pay_amount'];
 <td><?php echo number_format($row['amount']-$row['pay_amount'],1);
 $b_tot+=$row['amount']-$row['pay_amount']; ?></td>
 <td><?php if($row['pay_amount']>'0'){	echo number_format($row['pay_amount'],1); $pay_tot+=$row['pay_amount']; } ?></td>
-<td><?php echo $row_cus['credit_period'];?></td>
+<td><?php echo $row['credit_period'];?></td>
 <td><?php	echo $rs1;	?></td>
 
    </tr>
