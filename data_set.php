@@ -14,7 +14,7 @@ $cus_id=$row1['customer_id'];
 $result = $db->prepare("SELECT * FROM customer  WHERE customer_id='$cus_id' ");
 $result->bindParam(':userid', $inva);
 $result->execute();
-for($i=0; $row = $resultz->fetch(); $i++){
+for($i=0; $row = $result->fetch(); $i++){
 
 
  
