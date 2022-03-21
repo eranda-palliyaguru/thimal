@@ -157,7 +157,7 @@ if($rs1>=60){$color="#701144"; $color1="white";}
  <td><?php echo $row2['name'];?></td>
  <td><?php echo $row2['transaction_id'];?></td>
  <td><?php echo $row2['date'];?></td>
-<td><?php echo $row_cus['credit_period'];?></td>
+<td><?php echo $row['credit_period'];?></td>
 <?php
    $ter1=7;
 $tot+=$row['amount']-$row['pay_amount'];
