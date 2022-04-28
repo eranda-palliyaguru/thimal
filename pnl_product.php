@@ -95,7 +95,7 @@ include_once("sidebar2.php");
         $date2=$_GET['d2'];
         $product=$_GET['pro'];
 
-$result2z = $db->prepare("SELECT name,price,sum(qty) FROM sales_list WHERE action='0' AND product_id='$product' AND date BETWEEN '$date1' AND '$date2' GROUP BY price ORDER BY price DESC");
+$result2z = $db->prepare("SELECT name,price,price_id,sum(qty) FROM sales_list WHERE action='0' AND product_id='$product' AND date BETWEEN '$date1' AND '$date2' GROUP BY price ORDER BY price DESC");
 $result2z->bindParam(':userid', $d2);
 $result2z->execute();
 for($i=0; $row = $result2z->fetch(); $i++){
@@ -109,8 +109,8 @@ for($i=0; $row = $result2z->fetch(); $i++){
 	$result = $db->prepare("SELECT sell_price,o_price FROM price_update WHERE id='$price_id'");
 $result->bindParam(':userid', $d2);
 $result->execute();
-for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; } ?></td>
-        <td><?php  echo $row['price']; ?></td>		
+for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; $op=$row1['o_price']; } ?></td>
+        <td><?php  echo $row['price']-$op; ?></td>		
 				</tr>
 <?php } ?>
                 </tbody>
