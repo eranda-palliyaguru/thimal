@@ -109,8 +109,8 @@ for($i=0; $row = $result2z->fetch(); $i++){
 	$result = $db->prepare("SELECT sell_price,o_price FROM price_update WHERE id='$price_id'");
 $result->bindParam(':userid', $d2);
 $result->execute();
-for($i=0; $row1 = $result->fetch(); $i++){ echo $o=$row1['o_price'];}?></td>
-        <td><?php  echo $row['price']-$o; ?></td>		
+for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; } ?></td>
+        <td><?php  echo $row['price']; ?></td>		
 				</tr>
 <?php } ?>
                 </tbody>
