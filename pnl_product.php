@@ -99,13 +99,18 @@ $result2z = $db->prepare("SELECT name,price,sum(qty) FROM sales_list WHERE actio
 $result2z->bindParam(':userid', $d2);
 $result2z->execute();
 for($i=0; $row = $result2z->fetch(); $i++){
+	$price_id= $row['price_id'];
                     ?>
                 <tr>	
 		<td><?php echo $row['name']; ?></td>
 		<td><?php echo $row['price']; ?></td>
 		<td><?php echo $row['sum(qty)']; ?></td>	
-        <td><?php // echo $row['name']; ?></td>
-        <td><?php // echo $row['name']; ?></td>		
+        <td><?php 
+	$result = $db->prepare("SELECT sell_price,o_price FROM price_update WHERE id='$price_id'");
+$result->bindParam(':userid', $d2);
+$result->execute();
+for($i=0; $row1 = $result->fetch(); $i++){ echo $o=$row1['o_price'];}?></td>
+        <td><?php  echo $row['price']-$o; ?></td>		
 				</tr>
 <?php } ?>
                 </tbody>
