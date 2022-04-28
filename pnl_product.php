@@ -117,10 +117,13 @@ $result->execute();
 for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; $op=$row1['o_price']; } ?></td>
         <td><?php  echo $mar=$row['price']-$op; ?></td>
 			
-		<td><?php echo $total+=$row['price'] * $row['sum(qty)']; ?></td>
-		<td><?php echo $m_total+=$row['sum(qty)'] * $mar; ?></td>
+		<td><?php echo $row['price'] * $row['sum(qty)']; ?></td>
+		<td><?php echo $row['sum(qty)'] * $mar; ?></td>
 				</tr>
-<?php } ?>
+<?php 
+$total+=$row['price'] * $row['sum(qty)'];
+$m_total+=$row['sum(qty)'] * $mar;
+} ?>
                 </tbody>
 
 
