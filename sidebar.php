@@ -326,16 +326,7 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
   </li>
 <?php } ?>
 
-<?php if ($user_lewal == 2) {?>
-<li>
-    <a  href="bulk_payment.php">
-      <i class="fa fa-usd"></i> <span>Credit Payment</span>
-      <span class="pull-right-container">
 
-      </span>
-    </a>
-  </li>
-<?php } ?>
 
 
         <?php if ($user_lewal < 5) {?>
