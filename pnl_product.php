@@ -86,6 +86,8 @@ include_once("sidebar2.php");
 				    <th>QTY</th>
 					<th>Cost Price</th>
 				    <th>Margin</th>
+			<th>Price Total</th>
+			<th>Margin Total</th>
                 </tr>
 				
 				</thead>
@@ -100,6 +102,7 @@ $result2z->bindParam(':userid', $d2);
 $result2z->execute();
 for($i=0; $row = $result2z->fetch(); $i++){
 	$price_id= $row['price_id'];
+	$qty=$row['sum(qty)'];
                     ?>
                 <tr>	
 		<td><?php echo $row['name']; ?></td>
@@ -110,7 +113,10 @@ for($i=0; $row = $result2z->fetch(); $i++){
 $result->bindParam(':userid', $d2);
 $result->execute();
 for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; $op=$row1['o_price']; } ?></td>
-        <td><?php  echo $row['price']-$op; ?></td>		
+        <td><?php  echo $mar=$row['price']-$op; ?></td>
+			
+		<td><?php echo $row['price'] * $row['sum(qty)']; ?></td>
+		<td><?php echo $row['sum(qty)'] * $mar; ?></td>
 				</tr>
 <?php } ?>
                 </tbody>
