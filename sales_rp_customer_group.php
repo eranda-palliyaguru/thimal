@@ -311,6 +311,8 @@ $e12=''; $e5=''; $e32=''; $e2='';  $g12=''; $g5=''; $g32=''; $g2='';
         $product =$_GET['product'];
         $filter=$_GET['filter'];
 
+			if(!$_GET['filter']){}else{
+			
   	//		$cus_id=$_GET['cus'];
     //    $cus_type =$_GET['customer_type'];
     //    $cus_group =$_GET['group'];
@@ -542,7 +544,7 @@ $tot_f+=$row2['profit'];
               <h2>Cash Rs.<?php echo $cash_pay; ?></h2>
               <h2>CHQ Rs.<?php echo $chq_pay; ?></h2>
               <h2>Credit Rs.<?php echo $credit_pay; ?></h2>
-            </div>
+            </div> <?php } ?>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
