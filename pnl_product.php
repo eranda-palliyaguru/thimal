@@ -96,6 +96,8 @@ include_once("sidebar2.php");
 <?php 	$date1=$_GET['d1'];
         $date2=$_GET['d2'];
         $product=$_GET['pro'];
+			$m_total=0;
+			$total=0;
 
 $result2z = $db->prepare("SELECT name,price,price_id,sum(qty) FROM sales_list WHERE action='0' AND product_id='$product' AND date BETWEEN '$date1' AND '$date2' GROUP BY price ORDER BY price DESC");
 $result2z->bindParam(':userid', $d2);
@@ -115,8 +117,8 @@ $result->execute();
 for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; $op=$row1['o_price']; } ?></td>
         <td><?php  echo $mar=$row['price']-$op; ?></td>
 			
-		<td><?php echo $row['price'] * $row['sum(qty)']; ?></td>
-		<td><?php echo $row['sum(qty)'] * $mar; ?></td>
+		<td><?php echo $total+=$row['price'] * $row['sum(qty)']; ?></td>
+		<td><?php echo $m_total+=$row['sum(qty)'] * $mar; ?></td>
 				</tr>
 <?php } ?>
                 </tbody>
@@ -125,7 +127,8 @@ for($i=0; $row1 = $result->fetch(); $i++){ echo $row1['o_price']; $op=$row1['o_p
               </table>
 
 
-
+<h3> Price Total:<?php echo $total; ?> </h3>
+<h3> Margin Total:<?php echo $m_total; ?> </h3>
 
 
 
