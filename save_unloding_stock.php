@@ -82,6 +82,13 @@ $sql = "UPDATE loading_list
 $q = $db->prepare($sql);
 $q->execute(array($qty_u,$id));
 
+$un="unload";
+$sql = "UPDATE loading_list
+        SET action=?
+		WHERE transaction_id=?";
+$q = $db->prepare($sql);
+$q->execute(array($un,$id));
+
 
 
 
@@ -117,19 +124,7 @@ $q->execute(array(':b'=>$pro_cod,':f'=>$qty_u,':i'=>$p_name,':j'=>$date,':k'=>$a
 
 
 }
-$result = $db->prepare("SELECT * FROM loading_list WHERE loading_id=$lo_id ");
-$result->bindParam(':userid', $c);
-$result->execute();
-for($i=0; $row = $result->fetch(); $i++){
 
-$idr=$row['transaction_id'];
-$un="unload";
-$sql = "UPDATE loading_list
-        SET action=?
-		WHERE transaction_id=?";
-$q = $db->prepare($sql);
-$q->execute(array($un,$idr));
-}
 
 
 //$to_sum="0";
