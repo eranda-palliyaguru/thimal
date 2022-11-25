@@ -60,7 +60,7 @@ if($loding_action=="unload"){$erorr="<h2>මේවනවිටත් unload ක�
 
 if(!$erorr){
 
-$result = $db->prepare("SELECT * FROM loading_list WHERE loading_id='$lo_id' ");
+$result = $db->prepare("SELECT * FROM loading_list WHERE loading_id='$lo_id' AND action='load'");
 $result->bindParam(':userid', $c);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
