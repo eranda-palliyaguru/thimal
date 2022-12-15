@@ -28,7 +28,7 @@ $erorr="දාරිතාව ඉක්මවා Billකර ඇත කරුන�
   $pro_cod=$row['product_code'];
   $qty_sold=$row['qty_sold'];
 
-$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE loading_id ='$pro_cod'  ");
+$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE loading_id ='$pro_cod' and action='0' ");
 $result1->bindParam(':userid', $c);
 $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
