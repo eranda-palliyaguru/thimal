@@ -34,7 +34,7 @@ $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
 $qt_tot=$row1['sum(qty)'];
 }
-if($qt_tot==$qty_sold){}else{$erorr="System Error";}
+//if($qt_tot==$qty_sold){}else{$erorr="System Error";}
  }
 
 $result = $db->prepare("SELECT * FROM loading WHERE transaction_id ='$lo_id'  ");
