@@ -20,6 +20,23 @@ $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
 $erorr="දාරිතාව ඉක්මවා Billකර ඇත කරුනාකර ඉවත්කිරීමට ඇති Bill ඉවත්කර නැවත උත්සාහ කරන්න";
 	}
+
+  $result = $db->prepare("SELECT * FROM loading_list WHERE qty > qty_sold AND loading_id='$lo_id' ");
+  $result->bindParam(':userid', $c);
+  $result->execute();
+  for($i=0; $row = $result->fetch(); $i++){
+  $pro_cod=$row['product_code'];
+  $qty_sold=$row['qty_sold'];
+
+$result1 = $db->prepare("SELECT sum(qty) FROM sales_list WHERE loading_id ='$pro_cod'  ");
+$result1->bindParam(':userid', $c);
+$result1->execute();
+for($i=0; $row1 = $result1->fetch(); $i++){
+$qt_tot=$row1['sum(qty)'];
+}
+if($qt_tot==$qty_sold){}else{$erorr="System Error";}
+ }
+
 $result = $db->prepare("SELECT * FROM loading WHERE transaction_id ='$lo_id'  ");
 $result->bindParam(':userid', $c);
 $result->execute();
