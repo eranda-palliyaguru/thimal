@@ -187,8 +187,8 @@ include_once("sidebar.php");
                 <label>Location</label>
                   <select class="form-control pull-right" name="location"  >
                     
-		<option >Kaluthara Yard</option>
-		<option >Payagala Yard</option>
+		<option value="1" >Yard</option>
+		<option value="2">Customer</option>
 	    
                   </select>
                   </div>
