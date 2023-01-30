@@ -5,8 +5,9 @@
 include("head.php");
 include("connect.php");
 ?>
+
 <body class="hold-transition skin-blue sidebar-mini">
-<?php
+    <?php
 include_once("auth.php");
 $r=$_SESSION['SESS_LAST_NAME'];
 
@@ -23,25 +24,25 @@ include_once("sidebar.php");
 
 
     <!-- /.sidebar -->
-  </aside>
+    </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Home
-        <small>Preview</small>
-      </h1>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Home
+                <small>Preview</small>
+            </h1>
 
-    </section>
+        </section>
 
-    <!-- Main content -->
-    <section class="content">
+        <!-- Main content -->
+        <section class="content">
 
 
 
-	<?php
+            <?php
 		include('connect.php');
  date_default_timezone_set("Asia/Colombo");
  $cash=$_SESSION['SESS_FIRST_NAME'];
@@ -100,71 +101,71 @@ include_once("sidebar.php");
 
 
 
-	 <div class="row">
+            <div class="row">
 
 
 
 
-	 <?php     $r=$_SESSION['SESS_LAST_NAME'];
+                <?php     $r=$_SESSION['SESS_LAST_NAME'];
 
 if($r =='Cashier'){
 	?>
 
 
 
- <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
 
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo $amount_cash; ?></sup></h3>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3><?php echo $amount_cash; ?></sup></h3>
 
-              <p>My Total Collection </p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo $she_cash; ?></h3>
+                            <p>My Total Collection </p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3><?php echo $she_cash; ?></h3>
 
-              <p>Today My Share Amount</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
+                            <p>Today My Share Amount</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>65</h3>
 
-              <p>Unique Visitors</p>
+                            <p>Unique Visitors</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-</div>
 
 
-<?php }
+            <?php }
 
 else{
  ?>
@@ -173,33 +174,34 @@ else{
 
 
 
-	 <div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-red">
-              <div class="widget-user-image">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-red">
+                        <div class="widget-user-image">
 
-              </div>
-              <!-- /.widget-user-image -->
-              <h3 class="widget-user-username">Stores </h3>
-              <h5 class="widget-user-desc"></h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
-			  <?php
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">Stores </h3>
+                        <h5 class="widget-user-desc"></h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_id>=9  ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 					?>
-                <li><a href="#"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-red"><?php echo $row['qty']; ?></span></a></li>
-                <?php } ?>
-                </ul>
+                            <li><a href="#"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-red"><?php echo $row['qty']; ?></span></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
 
 
 
@@ -207,20 +209,21 @@ else{
 
 
 
-	 <div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-yellow" style="background: url('user_pic/laugh_gas_price_goes_up.jpg') center center;">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow"
+                        style="background: url('user_pic/laugh_gas_price_goes_up.jpg') center center;">
 
 
 
-              <!-- /.widget-user-image -->
-              <h2 class="widget-user-username">YARD</h2>
-              <h4 class="widget-user-desc"></h4>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked"><?php
+                        <!-- /.widget-user-image -->
+                        <h2 class="widget-user-username">YARD</h2>
+                        <h4 class="widget-user-desc"></h4>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked"><?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_name>=1  ");
 
 					$result->bindParam(':userid', $date);
@@ -229,9 +232,10 @@ else{
 
 
 					?>
-                <li><a href="#"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-red"><?php echo $row['qty']; ?></span></a></li>
-                <?php } ?>
-				<?php
+                            <li><a href="#"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-red"><?php echo $row['qty']; ?></span></a></li>
+                            <?php } ?>
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_name='' and product_id<9 ");
 				$result->bindParam(':userid', $date);
                 $result->execute();
@@ -246,15 +250,16 @@ else{
 				}
 
 					?>
-                <li><a href="#"><?php echo $row['gen_name']; ?><span class="pull-right badge bg-"><?php echo $row['qty']-$cha; ?></span>
-			<span class="pull-right badge bg-green"><?php echo $row['qty']; ?></span>
-				</a></li>
-                <?php } ?>
-              </ul>
+                            <li><a href="#"><?php echo $row['gen_name']; ?><span
+                                        class="pull-right badge bg-"><?php echo $row['qty']-$cha; ?></span>
+                                    <span class="pull-right badge bg-green"><?php echo $row['qty']; ?></span>
+                                </a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
 
 
 
@@ -262,22 +267,22 @@ else{
 
 
 
-		<div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-black">
-              <div class="widget-user-image">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-black">
+                        <div class="widget-user-image">
 
-              </div>
-              <!-- /.widget-user-image -->
-              <h3 class="widget-user-username"> Damage</h3>
-              <h5 class="widget-user-desc"></h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username"> Damage</h3>
+                        <h5 class="widget-user-desc"></h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
 
-				<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_name='' ");
 
 					$result->bindParam(':userid', $date);
@@ -287,35 +292,36 @@ else{
 					if($dama>0){
 
 					?>
-                <li><a href="damage_view.php"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-muted"><?php echo $row['damage']; ?></span></a></li>
-                <?php } }?>
-                </ul>
+                            <li><a href="damage_view.php"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-muted"><?php echo $row['damage']; ?></span></a></li>
+                            <?php } }?>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
 
 
 
 
 
 
-	<div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-red">
-              <div class="widget-user-image">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-red">
+                        <div class="widget-user-image">
 
-              </div>
-              <!-- /.widget-user-image -->
-              <h3 class="widget-user-username"> Gift Voucher</h3>
-              <h5 class="widget-user-desc"></h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username"> Gift Voucher</h3>
+                        <h5 class="widget-user-desc"></h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
 
-				<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_id=1 ");
 
 					$result->bindParam(':userid', $date);
@@ -324,11 +330,13 @@ else{
 
 
 					?>
-                <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-yellow"><?php echo $row['voucher']; ?></span></a></li>
-                <?php } ?>
+                            <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-yellow"><?php echo $row['voucher']; ?></span></a>
+                            </li>
+                            <?php } ?>
 
 
-					<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_id=2 ");
 
 					$result->bindParam(':userid', $date);
@@ -337,11 +345,13 @@ else{
 
 
 					?>
-                <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-yellow"><?php echo $row['voucher']; ?></span></a></li>
-                <?php } ?>
+                            <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-yellow"><?php echo $row['voucher']; ?></span></a>
+                            </li>
+                            <?php } ?>
 
 
-				<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_id=5 ");
 
 					$result->bindParam(':userid', $date);
@@ -350,11 +360,12 @@ else{
 
 
 					?>
-                <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-muted"><?php echo $row['voucher']; ?></span></a></li>
-                <?php } ?>
+                            <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-muted"><?php echo $row['voucher']; ?></span></a></li>
+                            <?php } ?>
 
 
-					<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_id=6 ");
 
 					$result->bindParam(':userid', $date);
@@ -363,15 +374,16 @@ else{
 
 
 					?>
-                <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-muted"><?php echo $row['voucher']; ?></span></a></li>
-                <?php } ?>
+                            <li><a href="gift_view.php"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-muted"><?php echo $row['voucher']; ?></span></a></li>
+                            <?php } ?>
 
 
-                </ul>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
 
 
 
@@ -380,22 +392,22 @@ else{
 
 
 
-		<div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-teal">
-              <div class="widget-user-image">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-teal">
+                        <div class="widget-user-image">
 
-              </div>
-              <!-- /.widget-user-image -->
-              <h3 class="widget-user-username"> Trust</h3>
-              <h5 class="widget-user-desc"></h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username"> Trust</h3>
+                        <h5 class="widget-user-desc"></h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
 
-				<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE product_name='' and product_id<9 ");
 
 					$result->bindParam(':userid', $date);
@@ -404,32 +416,33 @@ else{
 
 
 					?>
-                <li><a href="#"><?php echo $row['gen_name']; ?> <span class="pull-right badge bg-aqua"><?php echo $row['trust']; ?></span></a></li>
-                <?php } ?>
-                </ul>
+                            <li><a href="#"><?php echo $row['gen_name']; ?> <span
+                                        class="pull-right badge bg-aqua"><?php echo $row['trust']; ?></span></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
 
 
 
-		<div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user-2">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-purple">
-              <div class="widget-user-image">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-purple">
+                        <div class="widget-user-image">
 
-              </div>
-              <!-- /.widget-user-image -->
-              <h3 class="widget-user-username"> Buffer Stock Balance</h3>
-              <h5 class="widget-user-desc"></h5>
-            </div>
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username"> Buffer Stock Balance</h3>
+                        <h5 class="widget-user-desc"></h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
 
-				<?php
+                            <?php
 			  $result = $db->prepare("SELECT * FROM products WHERE  product_id<9 ");
 
 					$result->bindParam(':userid', $date);
@@ -438,23 +451,23 @@ else{
 
 
 					?>
-                <li><a href="#"><?php echo $row['gen_name']; ?>
-	<span class="pull-right badge bg-red"><?php echo $row['qty']-$row['qty2']; ?></span>
-	<span class="pull-right badge bg-aqua"><?php echo $row['qty2']; ?></span>
-					</a></li>
+                            <li><a href="#"><?php echo $row['gen_name']; ?>
+                                    <span class="pull-right badge bg-red"><?php echo $row['qty']-$row['qty2']; ?></span>
+                                    <span class="pull-right badge bg-aqua"><?php echo $row['qty2']; ?></span>
+                                </a></li>
 
-                <?php } ?>
-                </ul>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
 
 
 
-	 <!-- /----------------------------------------------------.Lorry-view --------------------------------------------------------------- -->
+            <!-- /----------------------------------------------------.Lorry-view --------------------------------------------------------------- -->
 
-	 <?php
+            <?php
 	 $result = $db->prepare("SELECT * FROM lorry WHERE action='load'  ");
 
 					$result->bindParam(':userid', $date);
@@ -480,91 +493,57 @@ else{
 
 	 ?>
 
-	 <div class="col-md-4">
-          <!-- Widget: user widget style 1 -->
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
 
-          <!-- Widget: user widget style 1 -->
-          <div class="box box-widget widget-user">
-		<a href="loading_view.php?id=<?php echo $lo_id; ?>" style="color: black">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-black" style="background: url('user_pic/images.jfif') center center;">
-              <h2 class="widget-user-username" style="color: black" ><?php echo $no; ?></h2>
-              <h3 class="widget-user-desc" style="color: darkred" ><?php echo $driver; ?></h3>
-            </div></a>
-            <div class="widget-user-image">
-              <img class="img-circle" src="<?php echo $pic; ?>" alt="User Avatar">
-            </div>
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user">
+                    <a href="loading_view.php?id=<?php echo $lo_id; ?>" style="color: black">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-black"
+                            style="background: url('user_pic/images.jfif') center center;">
+                            <h2 class="widget-user-username" style="color: black"><?php echo $no; ?></h2>
+                            <h3 class="widget-user-desc" style="color: darkred"><?php echo $driver; ?></h3>
+                        </div>
+                    </a>
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="<?php echo $pic; ?>" alt="User Avatar">
+                    </div>
 
-            <div class="box-footer no-padding">
-              <ul class="nav nav-stacked">
-			  <?php
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <?php
 
 			  $result1 = $db->prepare("SELECT * FROM loading_list WHERE loading_id='$lo_id' ");
 			  $result1->bindParam(':userid', $date);
               $result1->execute();
               for($i=0; $row1 = $result1->fetch(); $i++){
 			  if($row1['product_code']>4){
-				  ?>	 <li  style="background: url('user_pic/download.jfif') center;"> <?php
+				  ?> <li style="background: url('user_pic/download.jfif') center;"> <?php
 				  } else{
 				  echo ' <li >';
 				  }
 
 					?>
-                <a ><span class="badge bg-black"><?php echo $row1['product_name']; ?></span> <span class="pull-right badge "><?php echo $row1['qty_sold']; ?></span>
-				<span class="pull-right badge bg-red"><?php echo $row1['qty']; ?></span>
-				</a></li>
-                <?php } ?>
+                                <a><span class="badge bg-black"><?php echo $row1['product_name']; ?></span> <span
+                                        class="pull-right badge "><?php echo $row1['qty_sold']; ?></span>
+                                    <span class="pull-right badge bg-red"><?php echo $row1['qty']; ?></span>
+                                </a>
+                            </li>
+                            <?php } ?>
 
-                </ul>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
             </div>
-          </div>
-          <!-- /.widget-user -->
-        </div>
-	 <?php
+            <?php
 	 }
 	 ?>
 
-	<div class="col-lg-6 col-xs-6">
-		<div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Cash</h3>
-            </div>
-            <!-- /.box-header -->
-
-            <div class="box-body">
-
-	           	<table class="table table-bordered table-striped" >
-                <thead>
-                <tr>
-					<th>ID</th>
-					<th>Loading Date</th>
-					<th>Lorry No.</th>
-				<th>Amount (Rs.)</th>
 
 
-                </tr>
-                </thead>
-<tbody>
-
-<?php $date=date("Y-m-d");
-	$result = $db->prepare("SELECT * FROM loading WHERE  bank_action='0' AND cash_total > '0' AND action='unload'");
-					$result->bindParam(':userid', $date);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-
-
-	?>			<tr class="record">
-               <td><?php echo $row['transaction_id'];   ?> </td>
-	       <td><?php echo $row['date'];   ?> </td>
-				<td><?php echo $row['lorry_no'];   ?> </td>
-              <td>Rs.<?php echo $row['cash_total'];   ?></td>
-                </tr>
-				<?php } ?>
-				</tbody>
-              </table>
-	  </div></div></div>
-
-	<?php
+            <?php
 $resultz = $db->prepare("SELECT * FROM peti  ");
 $resultz->bindParam(':userid', $inva);
 $resultz->execute();
@@ -578,23 +557,23 @@ $ba=$rowz['amount'];
 
 
 
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3><?php echo $ba; ?></h3>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3><?php echo $ba; ?></h3>
 
-              <p>Petty Cash BOX</p>
+                        <p>Petty Cash BOX</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-group"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-group"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        </div>
-	<?php
+            <!-- ./col -->
+    </div>
+    <?php
 }
  ?>
 
@@ -624,41 +603,41 @@ $ba=$rowz['amount'];
 
 
 
-		 </section>
-</div>
+    </section>
+    </div>
     </div>
     <!-- /.content -->
 
-  <!-- /.content-wrapper -->
-  <?php
+    <!-- /.content-wrapper -->
+    <?php
   include("dounbr.php");
 ?>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+    <div class="control-sidebar-bg"></div>
 
-<!-- ./wrapper -->
+    <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="../../bootstrap/js/bootstrap.min.js"></script>
-<!-- ChartJS 1.0.1 -->
-<script src="../../plugins/chartjs/Chart.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-
-
+    <!-- jQuery 2.2.3 -->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="../../plugins/chartjs/Chart.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../dist/js/demo.js"></script>
 
 
 
 
-<!-- page script
+
+
+    <!-- page script
 <script>
   $(function () {
     /* ChartJS
@@ -868,4 +847,5 @@ $ba=$rowz['amount'];
 </script>
  -->
 </body>
+
 </html>

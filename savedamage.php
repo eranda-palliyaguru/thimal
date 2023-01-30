@@ -21,6 +21,15 @@ $sql = "UPDATE products
 $q = $db->prepare($sql);
 $q->execute(array(1,$d));
 
+if($f==1)
+{
+    $sql = "UPDATE products 
+    SET qty=qty-?
+    WHERE gen_name=?";
+$q = $db->prepare($sql);
+$q->execute(array(1,$d));
+}
+
 
 
 $sql = "INSERT INTO damage (complain_no,customer_name,cylinder_no,cylinder_type,reason,location,date,action,gas_weight,comment,type) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:i,:j,:k)";
