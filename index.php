@@ -427,42 +427,27 @@ else{
 
 
 
-            <div class="col-md-4">
-                <!-- Widget: user widget style 1 -->
-                <div class="box box-widget widget-user-2">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header bg-purple">
-                        <div class="widget-user-image">
 
-                        </div>
-                        <!-- /.widget-user-image -->
-                        <h3 class="widget-user-username"> Buffer Stock Balance</h3>
-                        <h5 class="widget-user-desc"></h5>
-                    </div>
-                    <div class="box-footer no-padding">
-                        <ul class="nav nav-stacked">
-
-                            <?php
-			  $result = $db->prepare("SELECT * FROM products WHERE  product_id<9 ");
-
-					$result->bindParam(':userid', $date);
-                $result->execute();
-                for($i=0; $row = $result->fetch(); $i++){
-
-
-					?>
-                            <li><a href="#"><?php echo $row['gen_name']; ?>
-                                    <span class="pull-right badge bg-red"><?php echo $row['qty']-$row['qty2']; ?></span>
-                                    <span class="pull-right badge bg-aqua"><?php echo $row['qty2']; ?></span>
-                                </a></li>
-
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /.widget-user -->
+            <div class="col-md-12">
+          <!-- BAR CHART -->
+          <div class="box box-solid ">
+            <div class="box-header ">
+              <h3 class="box-title">14 Day Payment Chart</h3>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn  btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+                </button>
+              </div>
             </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="bar-chart2" ></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
+        </div>
 
 
             <!-- /----------------------------------------------------.Lorry-view --------------------------------------------------------------- -->
@@ -614,10 +599,62 @@ $ba=$rowz['amount'];
     <script src="../../dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
+    <!-- Morris.js charts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="../../plugins/morris/morris.min.js"></script>
 
 
 
+<script>
+        //BAR CHART
+        var bar = new Morris.Bar({
+      element: 'bar-chart2',
+      resize: true,
+      data: [
+<?php $x=0;
+while($x <= 14) {
+  $d=strtotime("-$x Day");
+$date=date("Y-m-d", $d);
+$cash=0; $chq=0;$credit=0;
+$result1 = $db->prepare("SELECT  amount FROM payment WHERE date='$date' AND action > '0' AND type='cash' ");
+$result1->bindParam(':userid', $date);
+        $result1->execute();
+        for($i=0; $row1 = $result1->fetch(); $i++){
+$cash+=$row1['amount'];
+        }
+        $result1 = $db->prepare("SELECT  amount FROM payment WHERE date='$date' AND action > '0' AND type='chq' ");
+        $result1->bindParam(':userid', $date);
+                $result1->execute();
+                for($i=0; $row1 = $result1->fetch(); $i++){
+        $chq+=$row1['amount'];
+                }
 
+                $result1 = $db->prepare("SELECT  amount FROM payment WHERE date='$date' AND action > '0' AND type='credit' ");
+        $result1->bindParam(':userid', $date);
+                $result1->execute();
+                for($i=0; $row1 = $result1->fetch(); $i++){
+        $credit+=$row1['amount'];
+                }
+
+        $split = explode("-", $date);
+        $y= $split[0];
+        $m= $split[1];
+        $d= $split[2];
+        $date=mktime(0,0,0,$m,$d,$y);
+        $date= date('M d',$date);
+                      
+  ?>
+        {x:'<?php echo $date;?>' , a: <?php echo $cash;?> , b: <?php echo $chq;?> , c: <?php echo $credit;?>},
+  <?php  $x++; } ?>
+
+      ],
+      barColors: ['#ff9900', '#8c8c8c', '#cc0000'],
+      xkey: 'x',
+      ykeys: ['a', 'b', 'c'],
+      labels: ['CASH', 'CHQ', 'CREDIT'],
+      hideHover: 'auto'
+    });
+</script>
 
 
     <!-- page script
