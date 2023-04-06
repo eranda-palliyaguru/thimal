@@ -56,6 +56,10 @@
              $result->bindParam(':userid', $res);
              $result->execute();
              for($i=0; $row = $result->fetch(); $i++){ 
+
+                if($row['action'] =="0"){$action='<span class="badge badge-success">Active</span>';
+                }else{$action='<span class="badge badge-danger">Deactive</span>';}
+
                 if($row['type'] =="1"){$type='<span class="badge badge-success">Channel</span>';}
                 if($row['type'] =="2"){$type='<span class="badge badge-warning">Commercial</span>';}
                 if($row['type'] =="3"){$type='<span class="badge badge-danger">Apartment</span>';}
@@ -66,7 +70,7 @@
                                 <div class="card-body box-profile">
                                     <h3 class="profile-username text-center"><?php echo $row['customer_name']; ?></h3>
 
-                                    <p class="text-muted text-center"><?php echo $type; ?></p>
+                                    <p class="text-muted text-center"><?php echo $action; ?></p>
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
@@ -278,103 +282,118 @@
                                         <div class="tab-pane" id="timeline">
                                             <!-- The timeline -->
                                             <div class="timeline timeline-inverse">
+
+                                            <?php  
+                                            $result2 = $db->prepare("SELECT date FROM sales WHERE  customer_id='$id' AND action='1' GROUP BY date  ORDER by transaction_id DESC LIMIT 30");
+                                            $result2->bindParam(':userid', $d2);
+                                            $result2->execute();
+                                            for($i=0; $row2 = $result2->fetch(); $i++){ 
+                                                $invoice_date=$row2['date'];
+                                                 ?>
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
                                                     <span class="bg-danger">
-                                                        10 Feb. 2014
+                                                        <?php echo $row2['date']; ?>
                                                     </span>
                                                 </div>
                                                 <!-- /.timeline-label -->
                                                 <!-- timeline item -->
+                                                <?php 
+                                                $result = $db->prepare("SELECT * FROM sales WHERE  customer_id='$id' AND date='$invoice_date' AND action='1'  ORDER by transaction_id DESC");
+                                                $result->bindParam(':userid', $d2);
+                                                $result->execute();
+                                                for($i=0; $row = $result->fetch(); $i++){
+                                                ?>
                                                 <div>
                                                     <i class="fas fa-envelope bg-primary"></i>
 
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 12:05</span>
+                                                        <span class="time"><i class="far fa-clock"></i> <?php echo $row['time']; ?></span>
 
-                                                        <h3 class="timeline-header"><a href="#">Support Team</a> sent
-                                                            you an email</h3>
+                                                        <h3 class="timeline-header"><a href="#">Invoice</a> - <?php echo $row['transaction_id'] ?> </h3>
 
                                                         <div class="timeline-body">
-                                                            Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                                            zoodles,
-                                                            weebly ning heekya handango imeem plugg dopplr jibjab,
-                                                            movity
-                                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo
-                                                            kaboodle
-                                                            quora plaxo ideeli hulu weebly balihoo...
+                                                        <table class="table table-bordered table-striped"> 
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Product</th>
+                                                        <th>Price</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $invoice_no=$row['invoice_number'];
+                                                $result1 = $db->prepare("SELECT * FROM sales_list WHERE invoice_no='$invoice_no' ");
+                                                $result1->bindParam(':userid', $res);
+                                                $result1->execute();
+                                                for($i=0; $row1 = $result1->fetch(); $i++){?>
+                                                    <tr>
+                                                        <td><?php echo $row1['id'] ?></td>
+                                                        <td><?php echo $row1['name']; ?></td>
+                                                        <td>Rs.<?php echo $row1['price']; ?></td>
+                                                        <td>Rs.<?php echo $row1['amount']; ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <th>Rs.<?php echo $row['amount']; ?></th>
+                                                </tr>
+                                                </tbody>
+                                               </table>
                                                         </div>
                                                         <div class="timeline-footer">
-                                                            <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                                            <a href="../../bill2.php?id=<?php echo $invoice_no; ?>" class="btn btn-primary btn-sm">Print</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
                                                 <!-- timeline item -->
+                                                <?php  ?>
                                                 <div>
                                                     <i class="fas fa-user bg-info"></i>
 
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 5 mins
-                                                            ago</span>
+                                                    <div class="timeline-item" style="background-color: #F3E9D3;">
+                                                        <span class="time"><i class="far fa-clock"></i><?php echo $row['time']; ?> </span>
 
-                                                        <h3 class="timeline-header border-0"><a href="#">Sarah Young</a>
-                                                            accepted your friend request
+                                                        <h3 class="timeline-header border-0"><a href="#">Invoice Payment</a>
                                                         </h3>
+                                                        <table class="table"> 
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Type</th>
+                                                        <th>Chq date</th>
+                                                        <th>Chq No</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php 
+                                                $result1 = $db->prepare("SELECT * FROM payment WHERE invoice_no='$invoice_no' ");
+                                                $result1->bindParam(':userid', $res);
+                                                $result1->execute();
+                                                for($i=0; $row1 = $result1->fetch(); $i++){?>
+                                                    <tr>
+                                                        <td><?php echo $row1['transaction_id'] ?></td>
+                                                        <td><?php echo $row1['type']; ?></td>
+                                                        <td><?php echo $row1['chq_date']; ?></td>
+                                                        <td><?php echo $row1['chq_no']; ?></td>
+                                                        <td>Rs.<?php echo $row1['amount']; ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                               </table>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
                                                 <!-- timeline item -->
-                                                <div>
-                                                    <i class="fas fa-comments bg-warning"></i>
 
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented
-                                                            on your post</h3>
-
-                                                        <div class="timeline-body">
-                                                            Take me to your leader!
-                                                            Switzerland is small and neutral!
-                                                            We are more like Germany, ambitious and misunderstood!
-                                                        </div>
-                                                        <div class="timeline-footer">
-                                                            <a href="#" class="btn btn-warning btn-flat btn-sm">View
-                                                                comment</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <?php } } ?>
                                                 <!-- END timeline item -->
-                                                <!-- timeline time label -->
-                                                <div class="time-label">
-                                                    <span class="bg-success">
-                                                        3 Jan. 2014
-                                                    </span>
-                                                </div>
-                                                <!-- /.timeline-label -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fas fa-camera bg-purple"></i>
-
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 2 days
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded
-                                                            new photos</h3>
-
-                                                        <div class="timeline-body">
-                                                            <img src="https://placehold.it/150x100" alt="...">
-                                                            <img src="https://placehold.it/150x100" alt="...">
-                                                            <img src="https://placehold.it/150x100" alt="...">
-                                                            <img src="https://placehold.it/150x100" alt="...">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
+                                              
                                                 <div>
                                                     <i class="far fa-clock bg-gray"></i>
                                                 </div>
@@ -383,58 +402,191 @@
                                         <!-- /.tab-pane -->
 
                                         <div class="tab-pane" id="settings">
-                                            <form class="form-horizontal">
+                                            <?php  
+                                            	 $result = $db->prepare("SELECT * FROM customer WHERE customer_id='$id' ");
+                                                 $result->bindParam(':userid', $date);
+                                                 $result->execute();
+                                                 for($i=0; $row = $result->fetch(); $i++){
+                                 
+                                                 $name=$row['customer_name'];
+                                                 $address=$row['address'];
+                                                 $acc_name=$row['acc_name'];
+                                                 $acc_no=$row['acc_no'];
+                                                 $contact=$row['contact'];
+                                                 $credit=$row['credit_period'];
+                                                 $cat_id=$row['category'];
+                                                 $type=$row['type'];
+                                                 $g12=$row['price_12'];
+                                                 $g5=$row['price_5'];
+                                                 $g37=$row['price_37'];
+                                                 $action=$row['action'];
+                                                 }
+                                            ?>
+
+                                            
+                                            <form class="form-horizontal" method="post" action="customer_update.php">
+                                            <input type="hidden" name="id" value="<?php echo $id ?>"
+                                                    class="form-control pull-right" required>
+
                                                 <div class="form-group row">
                                                     <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                                     <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputName"
-                                                            placeholder="Name">
+                                                            <input type="text" name="name" value="<?php echo $name ?>"
+                                                    class="form-control pull-right" required>
+                                                
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputEmail"
-                                                        class="col-sm-2 col-form-label">Email</label>
+                                                        class="col-sm-2 col-form-label">Contact no</label>
                                                     <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputEmail"
-                                                            placeholder="Email">
+                                                    <input type="text" name="phone_no" value="<?php echo $contact ?>"
+                                                    class="form-control pull-right" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                                    <label for="inputName2" class="col-sm-2 col-form-label">Address</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="inputName2"
-                                                            placeholder="Name">
+                                                    <input type="text" name="address" value="<?php echo $address ?>"
+                                                    class="form-control pull-right">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputExperience"
-                                                        class="col-sm-2 col-form-label">Experience</label>
+                                                        class="col-sm-2 col-form-label">Accounted Name</label>
                                                     <div class="col-sm-10">
-                                                        <textarea class="form-control" id="inputExperience"
-                                                            placeholder="Experience"></textarea>
+                                                    <input type="text" name="acc_name" value="<?php echo $acc_name ?>"
+                                                    class="form-control pull-right">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputSkills"
-                                                        class="col-sm-2 col-form-label">Skills</label>
+                                                        class="col-sm-2 col-form-label">Contact no (acc)</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="inputSkills"
-                                                            placeholder="Skills">
+                                                        <input type="text" name="acc_no" value="<?php echo $acc_no ?>"
+                                                    class="form-control pull-right">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="offset-sm-2 col-sm-10">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> I agree to the <a href="#">terms
-                                                                    and conditions</a>
-                                                            </label>
-                                                        </div>
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">Type</label>
+                                                    <div class="col-sm-10">
+                                                    <select class="form-control select2" name="type"
+                                                    class="form-control pull-right">
+                                                    <option value="<?php echo $type; ?>"></option>
+                                                    <option value="1"> Channel </option>
+                                                    <option value="2"> Commercial</option>
+                                                    <option value="3">Apartment</option>
+                                                </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">Group</label>
+                                                    <div class="col-sm-10">
+                                                    <select class="form-control select2" name="group"
+                                                    class="form-control pull-right">
+                                                    <?php
+                $result = $db->prepare("SELECT * FROM customer_category WHERE id='$cat_id' ");
+		$result->bindParam(':userid', $res);
+		$result->execute();
+		for($i=0; $row = $result->fetch(); $i++){
+	?>
+                                                    <option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>
+                                                    </option>
+                                                    <?php	}	?>
+                                                    <option value="0"> </option>
+                                                    <?php
+                $result = $db->prepare("SELECT * FROM customer_category   ");
+		$result->bindParam(':userid', $res);
+		$result->execute();
+		for($i=0; $row = $result->fetch(); $i++){
+	?>
+                                                    <option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?>
+                                                    </option>
+                                                    <?php	}	?>
+
+
+
+                                                </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">Credit Period</label>
+                                                    <div class="col-sm-10">
+                                                    <input type="text" name="credit" value="<?php echo $credit; ?>"
+                                                    class="form-control pull-right">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">12.5kg price</label>
+                                                    <div class="col-sm-10">
+                                                    <select class="form-control select2" name="g12"
+                                                    class="form-control pull-right">
+                                                    <option value="<?php echo $g12; ?>">
+                                                        <?php if ($g12=="1") {echo "Sell";} if ($g12=="0") {echo "dealer price";}?>
+                                                    </option>
+                                                    <option value="1"> Sell </option>
+                                                    <option value="0"> Dealer </option>
+
+                                                </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">5kg price</label>
+                                                    <div class="col-sm-10">
+                                                    <select class="form-control select2" name="g5"
+                                                    class="form-control pull-right">
+                                                    <option value="<?php echo $g5; ?>">
+                                                        <?php if ($g5=="1") {echo "Sell";} if ($g5=="0") {echo "dealer price";}?>
+                                                    </option>
+                                                    <option value="1"> Sell </option>
+                                                    <option value="0">Dealer </option>
+
+
+
+                                                </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">37.5kg price</label>
+                                                    <div class="col-sm-10">
+                                                    <select class="form-control select2" name="g37"
+                                                    class="form-control pull-right">
+                                                    <option value="<?php echo $g37; ?>">
+                                                        <?php if ($g37=="1") {echo "Sell";} if ($g37=="0") {echo "dealer price";}?>
+                                                    </option>
+                                                    <option value="1"> Sell </option>
+                                                    <option value="0">Dealer </option>
+                                                </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="inputSkills"
+                                                        class="col-sm-2 col-form-label">Action</label>
+                                                    <div class="col-sm-10">
+                                                    <select class="form-control select2" name="action"
+                                                    class="form-control pull-right">
+                                                    <option value="<?php echo $action; ?>">
+                                                        <?php if ($action=="0") {echo "Active";} if ($action=="1") {echo "Deactive";}?>
+                                                    </option>
+                                                    <option value="0"> Active </option>
+                                                    <option value="1">Deactive </option>
+                                                </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                                        <button type="submit" class="btn btn-danger">Update</button>
                                                     </div>
                                                 </div>
                                             </form>

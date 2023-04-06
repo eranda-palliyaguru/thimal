@@ -188,7 +188,7 @@
                     <td><?php echo $type; ?></td>
                     <td><?php echo $action; ?></td>
                     <td>
-                    <a href="profile.php?id=<?php echo $row['customer_id']; ?>" class="btn btn-primary btn-xs"><b>Edit</b></a>
+                    <a href="profile.php?id=<?php echo $row['customer_id']; ?>" class="btn btn-primary btn-xs"><i class="fa fa-user"></i></a>
                     </td>
                   </tr>
                   <?php } ?>
