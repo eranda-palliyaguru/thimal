@@ -159,7 +159,7 @@ To:<input type="text" style="width:223px; padding:4px;" name="d2" id="datepicker
 				$fil=$_GET['fil'];
 
 
-	if($fil=="all"){$result2z = $db->prepare("SELECT customer_id,customer_name FROM customer ");}else{
+	if($fil=="all"){$result2z = $db->prepare("SELECT customer_id,customer_name FROM customer WHERE action='0'");}else{
 	$result2z = $db->prepare("SELECT customer_id,customer_name FROM customer WHERE type='$fil'");}
 
 				$result2z->bindParam(':userid', $d2);
