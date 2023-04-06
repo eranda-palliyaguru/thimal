@@ -305,7 +305,7 @@
                                                 for($i=0; $row = $result->fetch(); $i++){
                                                 ?>
                                                 <div>
-                                                    <i class="fas fa-envelope bg-primary"></i>
+                                                    <i class="fas fa-list bg-primary"></i>
 
                                                     <div class="timeline-item">
                                                         <span class="time"><i class="far fa-clock"></i> <?php echo $row['time']; ?></span>
@@ -353,7 +353,7 @@
                                                 <!-- timeline item -->
                                                 <?php  ?>
                                                 <div>
-                                                    <i class="fas fa-user bg-info"></i>
+                                                    <i class="fas fa-credit-card bg-info"></i>
 
                                                     <div class="timeline-item" style="background-color: #F3E9D3;">
                                                         <span class="time"><i class="far fa-clock"></i><?php echo $row['time']; ?> </span>
