@@ -170,6 +170,14 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
           </a>
         </li>
 
+        <li>
+          <a  href="new/go/customer.php">
+            <i class="fa fa-user"></i> <span>Customer</span>
+            <span class="pull-right-container">
+
+            </span>
+          </a>
+        </li>
 
 		  <li class="treeview">
           <a href="#">
