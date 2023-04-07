@@ -271,7 +271,7 @@ th span
                     sort($product_row);
                     $arrlength = count($product_row);
                     for($x = 0; $x < $arrlength; $x++) {  ?>
-                    <td  <?php if(1 < 5){echo "style='background-color: #F39C12;'";} ?> ><?php echo $data[$product_row[$x]]; ?></td>
+                    <td  <?php if($product_row[$x] < 5){echo "style='background-color: #F39C12;'";} ?> ><?php echo $data[$product_row[$x]]; ?></td>
                     <?php unset($data[$product_row[$x]]); } ?>
                     <td><?php echo $row2['amount']; ?></td>
                     <td></td>
