@@ -21,7 +21,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="sidebar-mini sidebar-collapse sidebar-closed">
 <div class="wrapper">
   <!-- Navbar -->
   <?php include("hed.php"); ?>
@@ -97,7 +97,7 @@ th span
                 <option value="all"> All Customer </option>
 
              <?php
-                $result = $db->prepare("SELECT * FROM customer ORDER by customer_id ASC ");
+                $result = $db->prepare("SELECT customer_id,customer_name FROM customer ORDER by customer_id ASC ");
              $result->bindParam(':userid', $res);
              $result->execute();
              for($i=0; $row = $result->fetch(); $i++){
@@ -128,7 +128,7 @@ th span
                                 <option value="all"> All Lorry </option>
 
                          <?php
-                                $result = $db->prepare("SELECT * FROM lorry ORDER by lorry_id ASC ");
+                                $result = $db->prepare("SELECT lorry_no FROM lorry ORDER by lorry_id ASC ");
                    $result->bindParam(':userid', $res);
                    $result->execute();
                    for($i=0; $row = $result->fetch(); $i++){
@@ -190,7 +190,7 @@ th span
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">Sales DataTable </h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -198,7 +198,7 @@ th span
                   <thead>
                     <tr>
                       <th>Invoice</th>
-                      <th>Date AND Lorry</th>
+                      <th>Date</th>
                       <th>Customer</th>
                <?php
                $d1=$_GET['d1'];
@@ -215,9 +215,10 @@ th span
                     $result1->execute();
                     for($i=0; $row = $result1->fetch(); $i++){
                   $product_row[]=$row['product_id'];
+                  $data[$row['product_id']]="";
 
           ?>
-              <th  style="" ><span> <?php echo $row['name']; ?></span></th>
+              <th style="width: 2%;" ><span> <?php echo $row['name']; ?></span></th>
                <?php } ?>
               <th>Amount</th>
               <th>#</th>
@@ -227,10 +228,10 @@ th span
 
                     </thead>
 
-                  <tbody>
+                   <tbody>
                     <?php
-                  date_default_timezone_set("Asia/Colombo");
-                  $hh=date("Y/m/d");
+                   date_default_timezone_set("Asia/Colombo");
+                   $hh=date("Y/m/d");
 
 
                     $d1=$_GET['d1'];
@@ -240,26 +241,26 @@ th span
                     $product =$_GET['product'];
                     $cus_type =$_GET['customer_type'];
 
-                    if($cus_type=="all"){$cus_type_q="";}else{ $cus_type_q="";}
+                    if($cus_type=="all"){$cus_type_q="";}else{ $cus_type_q="customer.type='".$cus_type."' AND";}
                     if($cus_id=="all"){$cus_id_q="";}else{$cus_id_q="sales.customer_id='".$cus_id."' AND ";}
+                    if($lorry=="all"){$lorry_q="";}else{$lorry_q="sales.lorry_no='".$lorry."' AND ";}
 
-
-
-                    $result2 = $db->prepare("SELECT sales.transaction_id,sales.invoice_number , sales.name, sales.date, sales.amount FROM sales  WHERE  $cus_id_q  sales.action='1' and sales.date BETWEEN '$d1' and '$d2' ");
+                    $result2 = $db->prepare("SELECT sales.transaction_id,sales.invoice_number , sales.name, sales.date, sales.amount , sales.lorry_no , customer.type FROM sales INNER JOIN customer ON sales.customer_id=customer.customer_id WHERE  $cus_type_q  $cus_id_q  $lorry_q  sales.action='1' and sales.date BETWEEN '$d1' and '$d2' ");
                     $result2->bindParam(':userid', $d2);
                     $result2->execute();
                     for($i=0; $row2 = $result2->fetch(); $i++){
                       $invo=$row2['invoice_number'];
-                      $data[]=0;
+                      if($row2['type'] =="1"){$type='<span class="badge badge-success">Channel</span>';}
+                      if($row2['type'] =="2"){$type='<span class="badge badge-warning">Commercial</span>';}
+                      if($row2['type'] =="3"){$type='<span class="badge badge-danger">Apartment</span>';}
 
-                    $result3 = $db->prepare("SELECT qty , product_id FROM sales_list  WHERE invoice_no='$invo' ");
-                    $result3->bindParam(':userid', $d2);
-                    $result3->execute();
-                    for($i=0; $row3 = $result3->fetch(); $i++){
+                     $result3 = $db->prepare("SELECT qty , product_id FROM sales_list  WHERE invoice_no='$invo' ");
+                     $result3->bindParam(':userid', $d2);
+                     $result3->execute();
+                     for($i=0; $row3 = $result3->fetch(); $i++){
                      $data[$row3['product_id']]=$row3['qty'];
                     }
                     
-                  
                   ?>
                     <tr>
 
@@ -271,10 +272,10 @@ th span
                     sort($product_row);
                     $arrlength = count($product_row);
                     for($x = 0; $x < $arrlength; $x++) {  ?>
-                    <td  <?php if($product_row[$x] < 5){echo "style='background-color: #F39C12;'";} ?> ><?php echo $data[$product_row[$x]]; ?></td>
-                    <?php unset($data[$product_row[$x]]); } ?>
+                    <td  <?php if($product_row[$x] < 5){echo "style='background-color: #F39C12;width: 10px;'";} ?> ><?php echo $data[$product_row[$x]]; ?></td>
+                    <?php $data[$product_row[$x]]=""; } ?>
                     <td><?php echo $row2['amount']; ?></td>
-                    <td></td>
+                    <td><span class="pull-right badge bg-yellow"><?php echo $row2['lorry_no'];?></span> <?php echo $type; ?></td>
                    
                     </tr>
                     <?php }  ?>
