@@ -76,8 +76,8 @@ th span
 
 
 
-                    From :<input type="text" style="width:123px; padding:4px;" name="d1" id="datepicker" value="<?php echo $_GET['d1']; ?>" autocomplete="off" />
-                    To:<input type="text" style="width:123px; padding:4px;" name="d2" id="datepickerd"  value="<?php echo $_GET['d2']; ?>" autocomplete="off"/>
+                    From :<input type="date" style="width:123px; padding:4px;" name="d1" id="datepicker" value="<?php echo $_GET['d1']; ?>" autocomplete="off" />
+                    To:<input type="date" style="width:123px; padding:4px;" name="d2" id="datepickerd"  value="<?php echo $_GET['d2']; ?>" autocomplete="off"/>
 
 
 
@@ -204,24 +204,25 @@ th span
                       <th>Invoice</th>
                       <th>Date AND Lorry</th>
                       <th>Customer</th>
-
-               <th  >12.5kg</th>
-               <th  >5kg</th>
-                <th  >37.5kg</th>
-
-              <th  >2kg</th>
                <?php
+               $d1=$_GET['d1'];
+               $d2=$_GET['d2'];
+               $cus_id=$_GET['cus'];
+               $lorry =$_GET['lorry'];
+               $product =$_GET['product'];
+               $cus_type =$_GET['customer_type'];
               $qty=0;
 
-            $result1 = $db->prepare("SELECT * FROM products WHERE  product_id>='9' ORDER by product_id ASC");
+
+            $result1 = $db->prepare("SELECT sales_list.name , sales_list.product_id FROM sales INNER JOIN sales_list ON sales.invoice_number=sales_list.invoice_no  WHERE sales.action='1' AND  sales.date BETWEEN '$d1' AND '$d2' GROUP BY sales_list.product_id ORDER BY sales_list.product_id ASC");
             $result1->bindParam(':userid', $d2);
                     $result1->execute();
                     for($i=0; $row = $result1->fetch(); $i++){
-                  $id=$row['product_id'];
+                  
 
 
           ?>
-              <th  style="" ><span> <?php echo $row['gen_name']; ?></span></th>
+              <th  style="" ><span> <?php echo $row['name']; ?></span></th>
                <?php } ?>
 
 
@@ -251,200 +252,52 @@ th span
                     $product =$_GET['product'];
                     $cus_type =$_GET['customer_type'];
 
-
-                  if($product=='all'){ $pro1='0'; $pro2='50'; }
-                  if($product=='1'){$pro1='0'; $pro2='5'; }
-                  if($product=='2'){$pro1='4'; $pro2='9'; }
-                  if($product=='3'){$pro1='9'; $pro2='50'; }
-
-
-                  if($cus_id=="all"){
-
-                  if($lorry=="all"){ $result2 = $db->prepare("SELECT * FROM sales WHERE  action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-                  }else{ $result2 = $db->prepare("SELECT * FROM sales WHERE  action='1' and lorry_no='$lorry' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-                  }
+                    if($cus_type=="all"){$cus_type_q="";}else{ $cus_type_q="";}
+                    if($cus_id=="all"){$cus_id_q="";}else{$cus_id_q="sales.customer_id='".$cus_id."' AND ";}
 
 
 
-                  $cus=">0";
-
-                  }else{
-                  if($lorry=="all"){ $result2 = $db->prepare("SELECT * FROM sales WHERE  customer_id='$cus_id' and action='1' and date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-                  }else{ $result2 = $db->prepare("SELECT * FROM sales WHERE  action='1' and lorry_no='$lorry' and customer_id='$cus_id' AND date BETWEEN '$d1' and '$d2' ORDER by transaction_id DESC");
-                  }
-                  $cus="=".$cus_id;
-                  }
-
-
-
+                    $result2 = $db->prepare("SELECT sales.transaction_id,sales.invoice_number , sales.name, sales.date FROM sales  WHERE  $cus_id_q  sales.action='1' and sales.date BETWEEN '$d1' and '$d2' ");
                     $result2->bindParam(':userid', $d2);
                     $result2->execute();
                     for($i=0; $row2 = $result2->fetch(); $i++){
-                    $invo=$row2['invoice_number'];
-                    $customer_id=$row2['customer_id'];
+                      $invo=$row2['invoice_number'];
 
-
-                  $emty_miter=0;
-                    $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id > '$pro1' AND product_id < '$pro2' and  action='0' ");
-
-                        $result->bindParam(':userid', $d1);
-                              $result->execute();
-                              for($i=0; $row = $result->fetch(); $i++){
-                   $emty_miter = $row['qty'];
-                      }
-                  $cus_t=0;
-                  if ($cus_type=="all") {$result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$customer_id'  ");}else {
-                  $result = $db->prepare("SELECT * FROM customer WHERE  customer_id='$customer_id' AND type='$cus_type'  ");
-                  }
-                          $result->bindParam(':userid', $d1);
-                                $result->execute();
-                                for($i=0; $row = $result->fetch(); $i++){
-                     $cus_t = $row['customer_id'];
-                        }
-
-                  if($emty_miter > 0){
-                  if($cus_t > 0){
-
+                    $result3 = $db->prepare("SELECT qty , product_id FROM sales_list  WHERE invoice_no='$invo' ");
+                    $result3->bindParam(':userid', $d2);
+                    $result3->execute();
+                    for($i=0; $row3 = $result3->fetch(); $i++){
+                     $data[$row3['product_id']]=$row3['qty'];
+                    }
+                    
+                  
                   ?>
-                            <tr>
+                    <tr>
 
                     <td><?php echo $row2['transaction_id'];?></td>
-                    <td><?php echo $row2['date'];?>
-                  <span class="pull-right badge bg-green"><?php echo $row2['lorry_no'];?> </span>
-                    </td>
-                              <td><?php echo $row2['name'];?></td>
-
-                  <?php
-                      $ter=4;
-
-                    for($pro_id1 = 0; $pro_id1 < (int)$ter; $pro_id1++) {
-                          $pro_id=$pro_id1+1;
-                    $pro_id_e=$pro_id1+5;
-                  ?>
-
-
-
-                    <td><span class="pull-right badge bg-muted"><?php
-
-                  $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id_e' AND action='0' ");
-
-                      $result->bindParam(':userid', $d1);
-                            $result->execute();
-                            for($i=0; $row = $result->fetch(); $i++){
-                  echo $row['qty'];
-
-
-                  if ($pro_id_e=='5') { $e12+=$row['qty']; }
-                  if ($pro_id_e=='6') { $e5+=$row['qty']; }
-                  if ($pro_id_e=='7') { $e32+=$row['qty']; }
-                  if ($pro_id_e=='8') { $e2+=$row['qty']; }
-                    }
-                  ?></span>
-                  <span class="pull-right badge bg-yellow"><?php
-
-                  $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' AND action='0' ");
-
-                      $result->bindParam(':userid', $d1);
-                            $result->execute();
-                            for($i=0; $row = $result->fetch(); $i++){
-                  echo $row['qty'];
-
-                  if ($pro_id=='1') { $g12+=$row['qty']; }
-                  if ($pro_id=='2') { $g5+=$row['qty']; }
-                  if ($pro_id=='3') { $g32+=$row['qty']; }
-                  if ($pro_id=='4') { $g2+=$row['qty']; }
-                    }
-                  ?></span></td>
-                      <?php } ?>
-                  <?php
-                  $result111212 = $db->prepare("SELECT * FROM products WHERE product_id >'9' ");
-
-                  $result111212->bindParam(':userid', $d1);
-                      $result111212->execute();
-                      for($i=0; $row111212 = $result111212->fetch(); $i++){
-                  $pro_id= $row111212['product_id'];
-
-
-
-
-                  ?>
-
-
-
-                    <td><span class="pull-right badge bg-muted"><?php
-
-                  $result = $db->prepare("SELECT * FROM sales_list WHERE  invoice_no='$invo' and product_id='$pro_id' AND action='0' ");
-
-                      $result->bindParam(':userid', $d1);
-                            $result->execute();
-                            for($i=0; $row = $result->fetch(); $i++){
-                  echo $row['qty'];
-                    }
-                  ?></span></td>
-
-                      <?php } ?>
-
-                  <?php
-
-                  $result = $db->prepare("SELECT * FROM payment WHERE  invoice_no='$invo' ");
-
-                      $result->bindParam(':userid', $d1);
-                            $result->execute();
-                            for($i=0; $row = $result->fetch(); $i++){
-                  $type= $row['type'];
-                  $ch_date=$row['chq_date'];
-                    }
-
-                    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  invoice_no='$invo' AND type = 'credit' AND action > '0'  ");
-                    $result->bindParam(':userid', $d1);
-                          $result->execute();
-                          for($i=0; $row = $result->fetch(); $i++){
-                    $credit_pay1= $row['sum(amount)'];
-                    }
-                    $credit_pay+= $credit_pay1;
-
-                    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  invoice_no='$invo' AND type = 'cash' AND action > '0'  ");
-                      $result->bindParam(':userid', $d1);
-                            $result->execute();
-                            for($i=0; $row = $result->fetch(); $i++){
-                    $cash_pay1=$row['sum(amount)'];
-                    }
-                    $cash_pay+=$cash_pay1;
-
-                    $result = $db->prepare("SELECT sum(amount) FROM payment WHERE  invoice_no='$invo' AND type = 'chq' AND action > '0'  ");
-                        $result->bindParam(':userid', $d1);
-                              $result->execute();
-                              for($i=0; $row = $result->fetch(); $i++){
-                    $chq_pay1= $row['sum(amount)'];
-                      }
-                      $chq_pay+= $chq_pay1;
-                  ?>
-
-                  <td><?php echo $type;?></td>
-                  <td><?php echo $ch_date;?></td>
-
-
-                  <td><?php echo $row2['amount'];?></td>
-                  <td><?php echo $row2['profit'];?>
-                  <a href="bill2.php?id=<?php echo $row2['invoice_number'];?>"   title="Click to pay" >
-                      <button class="btn btn-primary">View</button></a></td>
-
-
-                    <?php
-                  $tot+=$row2['amount'];
-                  $tot_f+=$row2['profit'];
-
-                  } } }
-
-
-                  ?>
+                    <td><?php echo $row2['date'];?></td>
+                    <td><?php echo $row2['name'];?></td>
+                    
+                    <?php 
+                    
+                    $result1->execute();
+                    for($i=0; $row20 = $result1->fetch(); $i++){   ?>
+                    <td><?php echo $data[$row20['product_id']]; ?></td>
+                    <?php } ?>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                   
                     </tr>
+                    <?php   }  ?>
                   
                   </tbody>
                   <tfoot>
 
                   </tfoot>
                 </table>
+                
               </div>
               <!-- /.card-body -->
             </div>
