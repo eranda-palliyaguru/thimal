@@ -196,11 +196,7 @@ th span
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped" data-show-fullscreen="true">
                   <thead>
-
-
                     <tr>
-
-
                       <th>Invoice</th>
                       <th>Date AND Lorry</th>
                       <th>Customer</th>
@@ -218,18 +214,13 @@ th span
             $result1->bindParam(':userid', $d2);
                     $result1->execute();
                     for($i=0; $row = $result1->fetch(); $i++){
-                  
-
+                  $product_row[]=array($row['product_id']);
 
           ?>
               <th  style="" ><span> <?php echo $row['name']; ?></span></th>
                <?php } ?>
-
-
-              <th>Pay Type</th>
-              <th>Chq Date</th>
               <th>Amount</th>
-              <th>Margin</th>
+              <th>#</th>
                     </tr>
 
 
@@ -240,9 +231,6 @@ th span
                     <?php
                   date_default_timezone_set("Asia/Colombo");
                   $hh=date("Y/m/d");
-                  $tot=0;	$tot_f=0; $cash_pay=0; $chq_pay=0; $credit_pay=0; $cash_pay1=0; $chq_pay1=0; $credit_pay1=0;
-
-                  $e12=''; $e5=''; $e32=''; $e2='';  $g12=''; $g5=''; $g32=''; $g2='';
 
 
                     $d1=$_GET['d1'];
@@ -257,7 +245,7 @@ th span
 
 
 
-                    $result2 = $db->prepare("SELECT sales.transaction_id,sales.invoice_number , sales.name, sales.date FROM sales  WHERE  $cus_id_q  sales.action='1' and sales.date BETWEEN '$d1' and '$d2' ");
+                    $result2 = $db->prepare("SELECT sales.transaction_id,sales.invoice_number , sales.name, sales.date, sales.amount FROM sales  WHERE  $cus_id_q  sales.action='1' and sales.date BETWEEN '$d1' and '$d2' ");
                     $result2->bindParam(':userid', $d2);
                     $result2->execute();
                     for($i=0; $row2 = $result2->fetch(); $i++){
@@ -279,14 +267,12 @@ th span
                     <td><?php echo $row2['name'];?></td>
                     
                     <?php 
-                    
-                    $result1->execute();
-                    for($i=0; $row20 = $result1->fetch(); $i++){   ?>
-                    <td><?php echo $data[$row20['product_id']]; ?></td>
+                    asort($product_row);
+                    $arrlength = count($product_row);
+                    for($x = 0; $x < $arrlength; $x++) {  ?>
+                    <td  <?php if($x+1 < 5){echo "style='background-color: #F39C12;'";} ?> ><?php echo $data[$x+1]; ?></td>
                     <?php } ?>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo $row2['amount']; ?></td>
                     <td></td>
                    
                     </tr>
