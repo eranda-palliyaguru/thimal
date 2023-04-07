@@ -214,7 +214,7 @@ th span
             $result1->bindParam(':userid', $d2);
                     $result1->execute();
                     for($i=0; $row = $result1->fetch(); $i++){
-                  $product_row[]=array($row['product_id']);
+                  $product_row[]=$row['product_id'];
 
           ?>
               <th  style="" ><span> <?php echo $row['name']; ?></span></th>
@@ -250,6 +250,7 @@ th span
                     $result2->execute();
                     for($i=0; $row2 = $result2->fetch(); $i++){
                       $invo=$row2['invoice_number'];
+                      $data[]=0;
 
                     $result3 = $db->prepare("SELECT qty , product_id FROM sales_list  WHERE invoice_no='$invo' ");
                     $result3->bindParam(':userid', $d2);
@@ -267,16 +268,16 @@ th span
                     <td><?php echo $row2['name'];?></td>
                     
                     <?php 
-                    asort($product_row);
+                    sort($product_row);
                     $arrlength = count($product_row);
                     for($x = 0; $x < $arrlength; $x++) {  ?>
-                    <td  <?php if($x+1 < 5){echo "style='background-color: #F39C12;'";} ?> ><?php echo $data[$x+1]; ?></td>
-                    <?php } ?>
+                    <td  <?php if(1 < 5){echo "style='background-color: #F39C12;'";} ?> ><?php echo $data[$product_row[$x]]; ?></td>
+                    <?php unset($data[$product_row[$x]]); } ?>
                     <td><?php echo $row2['amount']; ?></td>
                     <td></td>
                    
                     </tr>
-                    <?php   }  ?>
+                    <?php }  ?>
                   
                   </tbody>
                   <tfoot>
