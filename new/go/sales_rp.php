@@ -207,10 +207,14 @@ th span
                $lorry =$_GET['lorry'];
                $product =$_GET['product'];
                $cus_type =$_GET['customer_type'];
-              $qty=0;
+               $qty=0;
 
+               if($product==""){$product_q="";}
+               if($product==1){$product_q="sales_list.product_id < 5  AND";}
+               if($product==2){$product_q="sales_list.product_id > 4  AND sales_list.product_id < 9 AND";}
+               if($product==3){$product_q="sales_list.product_id > 9  AND";}
 
-            $result1 = $db->prepare("SELECT sales_list.name , sales_list.product_id FROM sales INNER JOIN sales_list ON sales.invoice_number=sales_list.invoice_no  WHERE sales.action='1' AND  sales.date BETWEEN '$d1' AND '$d2' GROUP BY sales_list.product_id ORDER BY sales_list.product_id ASC");
+            $result1 = $db->prepare("SELECT sales_list.name , sales_list.product_id FROM sales INNER JOIN sales_list ON sales.invoice_number=sales_list.invoice_no  WHERE $product_q sales.action='1' AND  sales.date BETWEEN '$d1' AND '$d2' GROUP BY sales_list.product_id ORDER BY sales_list.product_id ASC");
             $result1->bindParam(':userid', $d2);
                     $result1->execute();
                     for($i=0; $row = $result1->fetch(); $i++){
@@ -231,15 +235,6 @@ th span
                    <tbody>
                     <?php
                    date_default_timezone_set("Asia/Colombo");
-                   $hh=date("Y/m/d");
-
-
-                    $d1=$_GET['d1'];
-                    $d2=$_GET['d2'];
-                    $cus_id=$_GET['cus'];
-                    $lorry =$_GET['lorry'];
-                    $product =$_GET['product'];
-                    $cus_type =$_GET['customer_type'];
 
                     if($cus_type=="all"){$cus_type_q="";}else{ $cus_type_q="customer.type='".$cus_type."' AND";}
                     if($cus_id=="all"){$cus_id_q="";}else{$cus_id_q="sales.customer_id='".$cus_id."' AND ";}
