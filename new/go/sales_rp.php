@@ -209,7 +209,7 @@ th span
                $cus_type =$_GET['customer_type'];
                $qty=0;
 
-               if($product==""){$product_q="";}
+               if($product=="all"){$product_q="";}
                if($product==1){$product_q="sales_list.product_id < 5  AND";}
                if($product==2){$product_q="sales_list.product_id > 4  AND sales_list.product_id < 9 AND";}
                if($product==3){$product_q="sales_list.product_id > 9  AND";}
