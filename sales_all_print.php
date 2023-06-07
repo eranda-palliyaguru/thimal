@@ -105,7 +105,7 @@ $margin_total=0;
     $price_o=$row1['o_price'];
   //  $area=$row1['area'];
 
-$dealer="";$dealer1=""; $dealer_qty="";$dealer_qty1=""; $sell="";$sell_val="";  $dis="";$dis_val=""; $sell_m="";$dis_m="";$dis_m1=""; $dealer_m="";  $dealer_m1=""; $sell_v1="";
+$dealer=0;$dealer1=0; $dealer_qty=0;$dealer_qty1=0; $sell=0;$sell_val=0;  $dis=0;$dis_val=0; $sell_m=0;$dis_m=0;$dis_m1=0; $dealer_m=0;  $dealer_m1=0; $sell_v1=0;
 
     $result1122 = $db->prepare("SELECT * FROM price_update WHERE product_id='$tebal_id'  ORDER BY id ASC ");
     $result1122->bindParam(':userid', $invo);
@@ -133,7 +133,7 @@ include("sales_all_rp_price_update.php");
 
  ?></td>
  <td style="background-color:rgba(191,161,6,0.73)">
-   <?php
+   <?php 
    $result = $db->prepare("SELECT sum(amount) FROM sales_list WHERE product_id='$tebal_id' AND area='2' AND  price_id='0' AND  action='0' AND date BETWEEN '$d1' and '$d2' ");
    $result->bindParam(':userid', $invo);
    $result->execute();
