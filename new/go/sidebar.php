@@ -91,6 +91,11 @@ $upic1=$row1['upic'];
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sales Report</p>
                             </a>
+
+                            <a href="margin_rp.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Margin Report</p>
+                            </a>
                         </li>
                         
                     </ul>

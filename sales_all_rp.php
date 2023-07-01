@@ -32,10 +32,6 @@ $cus_res = $db->prepare("SELECT * FROM customer WHERE area = '2'  ");
                   		WHERE cus_id=?";
                   $q = $db->prepare($sql);
                   $q->execute(array($cus_type,$cus_id));
-
-
-
-
                 }
 
 ?>

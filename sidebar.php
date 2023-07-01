@@ -298,7 +298,7 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
               </a>
                 <ul class="treeview-menu">
 				<li><a href="sales_rp_special.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i class="fa fa-circle-o text-aqua "></i>Special Price Sales</a></li>
-				<li><a href="sales_all_rp.php?d1=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Day End Report </a></li>
+				<li><a href="sales_all_rp.php?d1=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> PNL Report </a></li>
 				<li><a href="damage_view.php"><i class="fa fa-circle-o text-aqua "></i> Damage Report</a></li>
 	<li><a href="stock_error.php"><i class="fa fa-circle-o text-aqua "></i> Stock Error</a></li>
 				<li><a href="purchase_view.php?d1=<?php echo $date;?>&d2=<?php echo $date;?>"><i class="fa fa-circle-o text-aqua "></i> Purchase Report</a></li>
