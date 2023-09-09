@@ -60,7 +60,7 @@ $price=$sell_price;
 
 
 
-$result35 = $db->prepare("SELECT * FROM special_price WHERE product_id='$pro_id' and customer_id='$cus_id' ORDER by id DESC ");
+$result35 = $db->prepare("SELECT * FROM special_price WHERE product_id='$pro_id' and customer_id='$cus_id'  ");
 		$result35->bindParam(':userid', $res);
 		$result35->execute();
 		for($i=0; $row35 = $result35->fetch(); $i++){
