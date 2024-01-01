@@ -3,6 +3,7 @@ session_start();
 include('connect.php');
 $id =$_POST['id'];
 $name = $_POST['name'];
+$vat_no=$_POST['vat_no'];
 $address = $_POST['address'];
 $acc_no = $_POST['acc_no'];
 $acc_name = $_POST['acc_name'];
@@ -16,10 +17,10 @@ $g37=$_POST['g37'];
 
 
 $sql = "UPDATE customer
-        SET customer_name=?, address=?, contact=?,acc_name=?,acc_no=?,type=?,credit_period=?,category=?,price_12=?,price_5=?,price_37=?
+        SET customer_name=?, address=?, contact=?,acc_name=?,acc_no=?,type=?,credit_period=?,category=?,price_12=?,price_5=?,price_37=?,vat_no=?
 		WHERE customer_id=?";
 $q = $db->prepare($sql);
-$q->execute(array($name,$address,$phone_no,$acc_name,$acc_no,$type,$credit_limit,$group,$g12,$g5,$g37,$id));
+$q->execute(array($name,$address,$phone_no,$acc_name,$acc_no,$type,$credit_limit,$group,$g12,$g5,$g37,$vat_no,$id));
 
 
 
