@@ -84,7 +84,7 @@ include_once("sidebar.php");
                   <th>Address</th>
                   <th>Contact No</th>
 					<th>Credit Period</th>
-				 <th>Type</th>
+				 <th>VAT No.</th>
                   <th>Group</th>
 
 				  <th>#</th>
@@ -112,7 +112,7 @@ include_once("sidebar.php");
 				  <td><?php $pd=$row['credit_period'];
 					  if($pd > 0){	echo '<span style="font-size: 15px" class="label label-primary">'.$pd.' Day</span>';}
 					  ?></td>
-				 <td>
+				 <td> <?php echo $row['vat_no'];  ?>
 					</td>
 				  <td><?php $group_id=$row['category'];
 					$result222 = $db->prepare("SELECT * FROM customer_category WHERE id='$group_id' ");
