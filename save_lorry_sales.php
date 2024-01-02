@@ -33,6 +33,7 @@ $result = $db->prepare("SELECT * FROM customer WHERE customer_id='$cus_id' ");
 		for($i=0; $row = $result->fetch(); $i++){
 $cus=$row['customer_name'];
 $add=$row['address'];
+$vat_no=$row['vat_no'];
 $price12=$row['price_12'];
 $price37=$row['price_37'];
 $price5=$row['price_5'];
@@ -107,9 +108,12 @@ $result1 = $db->prepare("SELECT sum(profit) FROM sales_list WHERE invoice_no='$i
 		$tot_profit=$row1['sum(profit)'];
 		}
 
-$sql = "INSERT INTO sales (invoice_number,cashier,date,amount,balance,profit,name,lorry_no,loading_id,customer_id,rep,address) VALUES (:a,:b,:c,:d,:d,:e,:f,:g,:lo,:cus,:rep,:add)";
+$vat_ac=0;
+if(strlen($vat_no) > 7){$vat_ac=1;}
+
+$sql = "INSERT INTO sales (invoice_number,cashier,date,amount,balance,profit,name,lorry_no,loading_id,customer_id,rep,address,cus_vat_no,vat_action) VALUES (:a,:b,:c,:d,:d,:e,:f,:g,:lo,:cus,:rep,:add,:vat_no,:vat_a)";
 $ql = $db->prepare($sql);
-$ql->execute(array(':a'=>$invo,':b'=>$mid,':c'=>$date,':d'=>$total,':e'=>$tot_profit,':f'=>$cus,':g'=>$lorry,':lo'=>$loading_id,':cus'=>$cus_id,':rep'=>$u_name,':add'=>$add));
+$ql->execute(array(':a'=>$invo,':b'=>$mid,':c'=>$date,':d'=>$total,':e'=>$tot_profit,':f'=>$cus,':g'=>$lorry,':lo'=>$loading_id,':cus'=>$cus_id,':rep'=>$u_name,':add'=>$add,':vat_no'=>$vat_no,':vat_a'=>$vat_ac));
 
 header("location: sales_pay.php?id=$invo");
 ?>
