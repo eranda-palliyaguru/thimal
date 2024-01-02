@@ -179,7 +179,7 @@ if($balance>1){header("location: other_pay.php?id=$a1");}else{
 //------------- Update Action --------------//
 $action=1;
 
-$vat_amount=($bill_amount/100)*18;
+$vat_amount=($bill_amount/118)*18;
 	$sql = "UPDATE sales
 	        SET action=?,vat=?
 			WHERE transaction_id=?";
