@@ -51,10 +51,19 @@ if (!isset($_GET['id'])) {
 				 for($i=0; $row = $result->fetch(); $i++){
 					$date=$row['date'];
 					$inv=$row['transaction_id'];
+					$cus_id=$row['customer_id'];
 				 }
 
 
-			 } ?>
+			 } 
+			 
+			 $result = $db->prepare('SELECT * FROM customer WHERE  customer_id=:id ');
+			 $result->bindParam(':id', $cus_id);
+			 $result->execute();
+			 for($i=0; $row = $result->fetch(); $i++){ $vat_no=$row['vat_no']; }
+			 if(strlen($vat_no) > 0){ $vat_action=1;}
+
+			 ?>
 
 
 	  <div class="row">
@@ -65,6 +74,7 @@ if (!isset($_GET['id'])) {
 	  <h5>Thimal Enterprises (Pvt.) Ltd <br>
 	 33B/1 Katuwawala, Boralasgamuwa <br>
 	 011-2 509 801<br>
+	 <?php if($vat_action==1){ echo "VAT Reg: 114691577-7000 <br>"; } ?>
 		  <b>Invoice no.<?php echo $inv; ?> </b><br>
 	<br>
 		  Date:<?php date_default_timezone_set("Asia/Colombo");
@@ -89,6 +99,7 @@ if (!isset($_GET['id'])) {
 
 				echo "<b>Customer: </b>".$row['name'].".....";
 					echo "<br>";
+				if($vat_action==1){ echo "VAT No:".$vat_no." <br>"; }
 					echo "<b>Customer id: </b>".$row['customer_id'];
 					echo "<br>";
 					echo "<b>loading id: </b>".$row['loading_id'];
@@ -137,16 +148,30 @@ if (!isset($_GET['id'])) {
 					<td><?php echo $num;?></td>
                   <td><?php echo $row['name'];?></td>
 				  <td><?php echo $row['qty'];?></td>
-                  <td>Rs.<?php echo $row['price'];?></td>
-				  <td>Rs.<?php echo $row['amount'];?></td>
+                  <td>Rs.<?php if($vat_action==1){ echo number_format((($row['price']/118)*100),2); }else{$row['price'];} ?></td>
+				  <td>Rs.<?php if($vat_action==1){ echo number_format((($row['amount']/118)*100),2); }else{$row['amount'];} ?></td>
 					<?php $tot_amount+= $row['amount'];?>
                   <?php } ?>
                  </tr>
+				 <?php if($vat_action==1){ ?>
+					<tr>
+					<td></td><td></td><td></td><td>Sub Total: </td>
+
+
+						<td>Rs.<?php echo number_format((($tot_amount/118)*100),2);?></td>
+					</tr>
+					<tr>
+					<td></td><td></td><td></td><td>VAT: </td>
+
+
+					<td>Rs.<?php echo number_format((($tot_amount/118)*18),2);?></td>
+					</tr>
+				<?php } ?>
 					<tr>
 					<td></td><td></td><td></td><td>Total: </td>
 
 
-						<td>Rs.<?php echo $tot_amount;?></td>
+						<td>Rs.<?php echo number_format($tot_amount,2);?></td>
 					</tr>
                 </tbody>
                 <tfoot>
