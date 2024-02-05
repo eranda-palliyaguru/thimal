@@ -97,10 +97,10 @@ if (!isset($_GET['id'])) {
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
 
-				echo "<b>Customer: </b>".$row['name'].".....";
+				echo "<b>Customer: </b>".$row['name'].".......";
 					echo "<br>";
 				if($vat_action==1){ echo "VAT No:".$vat_no." <br>"; }
-				echo "<b>Address: </b>".$address;
+				echo "<b>Address: </b>".$address.".....";
 					echo "<br>";
 					echo "<b>Customer id: </b>".$row['customer_id'];
 					echo "<br>";
