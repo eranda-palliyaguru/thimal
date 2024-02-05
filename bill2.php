@@ -61,7 +61,7 @@ if (!isset($_GET['id'])) {
 			 $result->bindParam(':id', $cus_id);
 			 $result->execute();
 			 for($i=0; $row = $result->fetch(); $i++){ $vat_no=$row['vat_no']; }
-			 if(strlen($vat_no) > 0){ $vat_action=1;}
+			 if(strlen($vat_no) > 0){ $vat_action=1; $address=$row['address'];}
 
 			 ?>
 
@@ -100,6 +100,8 @@ if (!isset($_GET['id'])) {
 				echo "<b>Customer: </b>".$row['name'].".....";
 					echo "<br>";
 				if($vat_action==1){ echo "VAT No:".$vat_no." <br>"; }
+				echo "<b>Address: </b>".$address;
+					echo "<br>";
 					echo "<b>Customer id: </b>".$row['customer_id'];
 					echo "<br>";
 					echo "<b>loading id: </b>".$row['loading_id'];
@@ -113,7 +115,7 @@ if (!isset($_GET['id'])) {
 			</h5></small>
         <!-- /.col -->
 		  <div class="col-xs-4">
-          <h3>Final Bill
+          <h3>  <?php if($vat_action==1){ echo "TAX INVOICE"; }else{ echo "INVOICE";} ?>
 		  <?php
 
 					$tot_amount=0;		  ?>
