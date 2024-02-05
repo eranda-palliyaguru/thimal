@@ -150,8 +150,8 @@ if (!isset($_GET['id'])) {
 					<td><?php echo $num;?></td>
                   <td><?php echo $row['name'];?></td>
 				  <td><?php echo $row['qty'];?></td>
-                  <td>Rs.<?php if($vat_action==1){ echo number_format((($row['price']/118)*100),2); }else{$row['price'];} ?></td>
-				  <td>Rs.<?php if($vat_action==1){ echo number_format((($row['amount']/118)*100),2); }else{$row['amount'];} ?></td>
+                  <td>Rs.<?php if($vat_action==1){ echo number_format((($row['price']/118)*100),2); }else{ echo $row['price'];} ?></td>
+				  <td>Rs.<?php if($vat_action==1){ echo number_format((($row['price']/118)*100)*$row['qty'],2); }else{ echo $row['amount'];} ?></td>
 					<?php $tot_amount+= $row['amount'];?>
                   <?php } ?>
                  </tr>
