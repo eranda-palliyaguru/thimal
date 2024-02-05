@@ -60,8 +60,8 @@ if (!isset($_GET['id'])) {
 			 $result = $db->prepare('SELECT * FROM customer WHERE  customer_id=:id ');
 			 $result->bindParam(':id', $cus_id);
 			 $result->execute();
-			 for($i=0; $row = $result->fetch(); $i++){ $vat_no=$row['vat_no']; }
-			 if(strlen($vat_no) > 0){ $vat_action=1; $address=$row['address'];}
+			 for($i=0; $row = $result->fetch(); $i++){ $vat_no=$row['vat_no']; $address=$row['address']; }
+			 if(strlen($vat_no) > 0){ $vat_action=1; }
 
 			 ?>
 
