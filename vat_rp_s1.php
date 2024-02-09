@@ -122,7 +122,7 @@ include_once("sidebar.php");
 				                $d1=$_GET['d1'];
 				                $d2=$_GET['d2'];
                                 $tot=0;$vat=0;
-                                $result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE  sales.date BETWEEN '$d1' and '$d2' ");
+                                $result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE  sales.action='1' AND sales.date BETWEEN '$d1' and '$d2' ");
                                 $result1->bindParam(':userid', $c);
                                 $result1->execute();
                                 for($i=0; $row = $result1->fetch(); $i++){
