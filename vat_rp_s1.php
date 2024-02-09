@@ -121,32 +121,33 @@ include_once("sidebar.php");
                include("connect.php");
 				$d1=$_GET['d1'];
 				$d2=$_GET['d2'];
-			    $r=$_GET['r'];
-$tot="";
+$tot=0;$vat=0;
 $result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE  sales.date BETWEEN '$d1' and '$d2' ");
 $result1->bindParam(':userid', $c);
 $result1->execute();
 for($i=0; $row = $result1->fetch(); $i++){
+    list($y, $m,$d) = explode('-', $row['date']);
+    $date=$m.'-'.$d.'-'.$y;
 			?>
 
                             <tr>
                                 <td><?php echo $i+1;?></td>
-                                <td><?php echo $row['date'];?></td>
+                                <td><?php echo $date;?></td>
                                 <td><?php echo $row['transaction_id'];?></td>
                                 <td><?php echo $row['vat_no'];?></td>
                                 <td><?php echo $row['name'];?></td>
                                 <td></td>
-                                <td><?php echo number_format($row['amount'],2);?></td>
+                                <td><?php echo number_format(($row['amount']/118)*100,2);?></td>
                                 <td><?php echo number_format(($row['amount']/118)*18,2) ; ?></td>
 
                             </tr>
-                            <?php $tot+=$row['amount'];}   ?></td>
+                            <?php $tot+=($row['amount']/118)*100; $vat+=($row['amount']/118)*18; }   ?></td>
                             </tr>
                         </tbody>
                         <tfoot>
-                            <td colspan="5"></td>
-                            <td>Rs.<?php echo $tot;?></td>
-                            <td colspan="3"></td>
+                            <td colspan="6"></td>
+                            <td>Rs.<?php echo number_format($tot,2);?></td>
+                            <td>Rs.<?php echo number_format($vat,2);?></td>
                         </tfoot>
                     </table>
 
