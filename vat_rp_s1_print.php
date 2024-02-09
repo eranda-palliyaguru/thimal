@@ -4,7 +4,7 @@ include("connect.php");
 // Fetch data from the database
 $d1 = $_GET['d1'];
 $d2 = $_GET['d2']; $sr=1;
-$result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE  sales.date BETWEEN '$d1' and '$d2' ");
+$result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE sales.action='1' AND  sales.date BETWEEN '$d1' and '$d2' ");
 $result1->execute();
 
 // Set headers for CSV download
