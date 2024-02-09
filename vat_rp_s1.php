@@ -96,7 +96,7 @@ include_once("sidebar.php");
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title"> Sales VAT <a
-                            href="pay_sum_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>&r=<?php echo $_GET['r'] ?>"
+                            href="vat_rp_s1_print.php?d1=<?php echo $_GET['d1'] ?>&d2=<?php echo $_GET['d2'] ?>"
                             title="Click to Print">
                             <button class="btn btn-danger">Print</button></a></h3>
                 </div>
@@ -118,17 +118,17 @@ include_once("sidebar.php");
                         </thead>
                         <tbody>
                             <?php
-               include("connect.php");
-				$d1=$_GET['d1'];
-				$d2=$_GET['d2'];
-$tot=0;$vat=0;
-$result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE  sales.date BETWEEN '$d1' and '$d2' ");
-$result1->bindParam(':userid', $c);
-$result1->execute();
-for($i=0; $row = $result1->fetch(); $i++){
-    list($y, $m,$d) = explode('-', $row['date']);
-    $date=$m.'-'.$d.'-'.$y;
-			?>
+                               include("connect.php");
+				                $d1=$_GET['d1'];
+				                $d2=$_GET['d2'];
+                                $tot=0;$vat=0;
+                                $result1 = $db->prepare("SELECT * FROM sales JOIN customer ON sales.customer_id=customer.customer_id WHERE  sales.date BETWEEN '$d1' and '$d2' ");
+                                $result1->bindParam(':userid', $c);
+                                $result1->execute();
+                                for($i=0; $row = $result1->fetch(); $i++){
+                                    list($y, $m,$d) = explode('-', $row['date']);
+                                    $date=$m.'-'.$d.'-'.$y;
+                                			?>
 
                             <tr>
                                 <td><?php echo $i+1;?></td>
@@ -136,7 +136,7 @@ for($i=0; $row = $result1->fetch(); $i++){
                                 <td><?php echo $row['transaction_id'];?></td>
                                 <td><?php echo $row['vat_no'];?></td>
                                 <td><?php echo $row['name'];?></td>
-                                <td></td>
+                                <td>Refill Gas and related items</td>
                                 <td><?php echo number_format(($row['amount']/118)*100,2);?></td>
                                 <td><?php echo number_format(($row['amount']/118)*18,2) ; ?></td>
 
