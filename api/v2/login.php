@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 //echo $r_data[0];
 $user=$_POST['user'];
-$password=sha1($_POST['password']);
+$password=$_POST['password'];
 
 
 
@@ -22,13 +22,14 @@ $result->execute();
 for($i=0; $row = $result->fetch(); $i++){ 
     $user_id=$row['id'];
     $name=$row['name'];
+    $action="ok";
  }
  
 
  $key=sha1(date('syihadm'));
 
 
-    $action="ok";
+    
 
 
 
