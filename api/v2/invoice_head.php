@@ -17,9 +17,13 @@ $result = $db->prepare("SELECT * FROM sales WHERE cashier='$user' ORDER by trans
 $result->bindParam(':userid', $res);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){ 
-    $result_array = array ("invoice_no" => $row['invoice_number'],
+    $result_array = array ("invoice_no" => $row['transaction_id'],
     "name" => $row['name'],
     "date" => $row['date'],
+    "time" => $row['time'],
+    "loading_id" => $row['loading_id'],
+    "rep"=>$row['rep'],
+    "cus_vat" => $row['cus_vat_no'],
     "action" => 'ok',
     "lorry_no" => $row['lorry_no']);
  }
