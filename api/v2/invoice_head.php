@@ -17,6 +17,10 @@ $result = $db->prepare("SELECT * FROM sales WHERE cashier='$user' ORDER by trans
 $result->bindParam(':userid', $res);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){ 
+    $total=$row['amount'];
+    $vat=($total/118)*18;
+    $sub_total=$total-$vat;
+
     $result_array = array ("invoice_no" => $row['invoice_number'],
     "sales_id" => $row['transaction_id'],
     "name" => $row['name'],
@@ -26,7 +30,10 @@ for($i=0; $row = $result->fetch(); $i++){
     "rep"=>$row['rep'],
     "cus_vat" => $row['cus_vat_no'],
     "action" => 'ok',
-    "lorry_no" => $row['lorry_no']);
+    "lorry_no" => $row['lorry_no'],
+    "total" =>number_format($total,2),
+    "vat"=>number_format($vat,2),
+    "sub_total"=>number_format($sub_total,2));
  }
  
 
