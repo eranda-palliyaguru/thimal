@@ -23,6 +23,10 @@ for($i=0; $row = $result->fetch(); $i++){
 
     $result_array[] = array ("invoice_no" => $row['invoice_number'],
     "name" => $row['name'],
+    "date" => $row['date'],
+    "time" => $row['time'],
+    "lorry_no" => $row['lorry_no'],
+    "rep"=>$row['rep'],
     "action" => 'ok',
     "total" =>number_format($total,2));
  }
