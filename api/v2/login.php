@@ -20,7 +20,7 @@ $result = $db->prepare("SELECT * FROM user WHERE username='$user' AND password='
 $result->bindParam(':userid', $res);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){ 
-    $user_id=$row['id'];
+    $user_id=$row['EmployeeId'];
     $name=$row['name'];
     $action="ok";
  }
