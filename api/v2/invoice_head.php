@@ -29,6 +29,7 @@ for($i=0; $row = $result->fetch(); $i++){
     "loading_id" => $row['loading_id'],
     "rep"=>$row['rep'],
     "cus_vat" => $row['cus_vat_no'],
+    "vat_action" => $row['vat_action'],
     "action" => 'ok',
     "lorry_no" => $row['lorry_no'],
     "total" =>number_format($total,2),
