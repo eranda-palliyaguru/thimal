@@ -30,6 +30,7 @@ for($i=0; $row = $result->fetch(); $i++){
     "rep"=>$row['rep'],
     "cus_vat" => $row['cus_vat_no'],
     "vat_action" => $row['vat_action'],
+    "address"=>$row['address'],
     "action" => 'ok',
     "lorry_no" => $row['lorry_no'],
     "total" =>number_format($total,2),
