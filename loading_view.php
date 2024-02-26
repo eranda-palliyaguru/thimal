@@ -268,7 +268,7 @@ $unload=$row['action'];
                                 <?php $id = $_GET['id'];
   $sales_list = array();
 
-  $result = $db->prepare("SELECT * , sales_list.qty as qty2  FROM sales_list JOIN products ON sales_list.product_id = products.product_id WHERE sales_list.loading_id=:id  ORDER BY products.product_id ");
+  $result = $db->prepare("SELECT * , sales_list.qty as qty2  FROM sales_list JOIN products ON sales_list.product_id = products.product_id WHERE sales_list.loading_id=:id AND sales_list.action='0'  ORDER BY products.product_id ");
   $result->bindParam(':id', $id);
   $result->execute();
   for ($i = 0; $row = $result->fetch(); $i++) {
@@ -294,7 +294,7 @@ $unload=$row['action'];
 
 
 
-  $result = $db->prepare("SELECT * FROM sales WHERE loading_id=:id  ");
+  $result = $db->prepare("SELECT * FROM sales WHERE loading_id=:id AND action='1' ");
   $result->bindParam(':id', $id);
   $result->execute();
   for ($i = 0; $row = $result->fetch(); $i++) { //row
