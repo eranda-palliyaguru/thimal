@@ -300,10 +300,11 @@ $unload=$row['action'];
   for ($i = 0; $row = $result->fetch(); $i++) { //row
     $invo = $row['invoice_number'];
     $cus = $row['name'];
+    $sales_id=$row['transaction_id'];
 
     $temp = array();
 
-    $temp['invo'] =  $invo;
+    $temp['invo'] =  $sales_id;
     $temp['cus'] =  $cus;
 
     foreach ($product as $p_id) { //colum
