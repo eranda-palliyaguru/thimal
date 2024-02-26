@@ -249,7 +249,7 @@ $unload=$row['action'];
                                     <th>R</th>
 
                                     <?php  $ass_list = array();
-    $result = $db->prepare("SELECT *  FROM sales_list JOIN products ON sales_list.product_id = products.product_id WHERE sales_list.loading_id=:id AND products.type='accessory' GROUP BY products.product_id ");
+    $result = $db->prepare("SELECT *  FROM sales_list JOIN products ON sales_list.product_id = products.product_id WHERE sales_list.loading_id=:id AND products.type='accessory' AND sales_list.action = 0 GROUP BY products.product_id ");
     $result->bindParam(':id', $id);
     $result->execute();
     for ($i = 0; $row = $result->fetch(); $i++) { 
