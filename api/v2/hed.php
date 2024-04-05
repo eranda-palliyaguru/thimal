@@ -21,7 +21,7 @@ for($i=0; $row = $result->fetch(); $i++){
     $vat=($total/118)*18;
     $sub_total=$total-$vat;
 
-    $result_array = array ("invoice_no" => $row['invoice_number'],
+    $result_array[] = array ("invoice_no" => $row['invoice_number'],
     "sales_id" => $row['transaction_id'],
     "name" => $row['name'],
     "date" => $row['date'],
