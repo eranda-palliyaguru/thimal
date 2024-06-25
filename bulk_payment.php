@@ -315,7 +315,7 @@ for($i=0; $rowz = $resultz->fetch(); $i++){
               <label>Invoice NO</label>
               <select class="form-control select2" name="invo" style="width: 100%;" autofocus>
         <?php
-  $result = $db->prepare("SELECT * FROM payment WHERE type='credit' AND action='2' ");
+  $result = $db->prepare("SELECT * FROM payment WHERE type='credit' AND action='2' AND amount > pay_amount ");
   $result->bindParam(':userid', $ttr);
   $result->execute();
   for($i=0; $row = $result->fetch(); $i++){
