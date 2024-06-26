@@ -374,6 +374,15 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 
 
             <?php if ($user_lewal < 5) {?>
+                <li>
+                    <a href="../v2">
+                        <i class="fa fa-dashboard"></i> <span>New Update</span>
+                        <span class="pull-right-container">
+
+                        </span>
+                    </a>
+                </li>
+            
             <li>
                 <a href="credit_collection.php">
                     <i class="fa fa-usd"></i> <span>Credit Collection</span>
