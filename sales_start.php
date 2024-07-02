@@ -21,15 +21,7 @@ $_SESSION['page']="START";
 ?>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script>
 
-$(document).ready(function(){
-	setInterval(function(){
-		$("#screen").load('lorry_gps_view.php')
-
-	}, 5000);
-});
-</script>
 
 
 <link rel="stylesheet" href="datepicker.css"
