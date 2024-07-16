@@ -13,7 +13,7 @@ $invoice_no=$_POST['invoice_no'];
 
 
 
-$result = $db->prepare("SELECT * FROM sales WHERE invoice_number='$invoice_no' ORDER by transaction_id DESC limit 0,1 ");
+$result = $db->prepare("SELECT * FROM sales WHERE invoice_number='$invoice_no' AND action='1' ORDER by transaction_id DESC limit 0,1 ");
 $result->bindParam(':userid', $res);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){ 
