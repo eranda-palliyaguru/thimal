@@ -369,6 +369,16 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
                 </a>
             </li>
             <?php } ?>
+            <?php if ($_SESSION['SESS_FIRST_NAME'] == 'Sewwandi') {?>
+            <li>
+                <a href="bulk_payment.php">
+                    <i class="fa fa-usd"></i> <span>Credit Payment</span>
+                    <span class="pull-right-container">
+
+                    </span>
+                </a>
+            </li>
+            <?php } ?>
 
 
 
