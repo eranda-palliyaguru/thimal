@@ -287,12 +287,8 @@ if ($user_lewal==1) { include('admin_sidebar.php'); }else { ?>
 
                     <ul class="treeview-menu">
 
-                        <li><a
-                                href="sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i
-                                    class="fa fa-circle-o text-aqua "></i> Sales Report</a></li>
-                        <li><a
-                                href="new/go/sales_rp.php?d1=<?php echo date("Y-m-d");?>&d2=<?php echo date("Y-m-d");?>&cus=all"><i
-                                    class="fa fa-circle-o text-aqua "></i> Sales Report new</a></li>
+                        
+                        
                         <li><a href="sales_rp_customer_group.php"><i class="fa fa-circle-o text-aqua "></i> Sales
                                 Report-Customer</a></li>
 
