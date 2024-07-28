@@ -471,7 +471,7 @@ for ($i = 0; $row = $result->fetch(); $i++) {
                 for($i=0; $row = $result->fetch(); $i++){
 				$invo=$row['invoice_no'];
 
-$result1 = $db->prepare("SELECT * FROM sales WHERE  invoice_number=$invo and action='1' ");
+$result1 = $db->prepare("SELECT * FROM sales WHERE  invoice_number= '$invo' and action='1' ");
 $result1->bindParam(':userid', $c);
 $result1->execute();
 for($i=0; $row1 = $result1->fetch(); $i++){
@@ -485,7 +485,8 @@ $cus=$row1['name'];
 			?>
 
                                 <tr>
-                                    <td><?php echo $in;?></td>
+                                    <td><?php echo $in;?>
+                                </td>
 
                                     <td><?php echo $cus;?></td>
                                     <td><?php echo $row['type'];?></td>
