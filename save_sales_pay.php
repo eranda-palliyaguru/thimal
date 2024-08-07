@@ -148,7 +148,7 @@ if ($qty_2kg >= $in_qty) {
 $action='0';
 
 
-//--------------------- Check bublicate ----------------------//
+//--------------------- Check dublicate ----------------------//
 if (isset($_POST) ) {
    if (isset($_SESSION['posttimer'])) {
 
@@ -158,7 +158,7 @@ if (isset($_POST) ) {
 
 $sql = "INSERT INTO payment (invoice_no,pay_amount,amount,type,chq_date,chq_no,bank,date,customer_id,credit_period,sales_id,action,loading_id,memo) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:cus,:crp,:sid,:act,:lod,:memo)";
 $q = $db->prepare($sql);
-$q->execute(array(':a'=>$a1,':b'=>$amount_pay,':c'=>$amount,':d'=>$type,':e'=>$date,':h'=>$now,':f'=>$f,':g'=>$g,':cus'=>$cus_id,':crp'=>$credit_p,':sid'=>$sales_id,':act'=>$action,':lod'=>$loding_id,':memo'=>$memo ));
+$q->execute(array(':a'=>$sales_id,':b'=>$amount_pay,':c'=>$amount,':d'=>$type,':e'=>$date,':h'=>$now,':f'=>$f,':g'=>$g,':cus'=>$cus_id,':crp'=>$credit_p,':sid'=>$sales_id,':act'=>$action,':lod'=>$loding_id,':memo'=>$memo ));
 
 
 $sql = "UPDATE sales
@@ -188,10 +188,10 @@ $vat_amount=($bill_amount/118)*18;
 
 	$time=date("H:i");
 	$sql = "UPDATE sales
-	        SET time=?
+	        SET time=?, invoice_number=?
 			WHERE transaction_id=?";
 	$q = $db->prepare($sql);
-	$q->execute(array($time,$sales_id));
+	$q->execute(array($time,$sales_id,$sales_id));
 
 	$ac=0;
 	$sql = "UPDATE sales_list
@@ -201,10 +201,16 @@ $vat_amount=($bill_amount/118)*18;
 	$q->execute(array($ac,$a1));
 
 	$sql = "UPDATE sales_list
-					SET sales_id=?
+					SET sales_id=?,invoice_no=?
 			WHERE invoice_no=?";
 	$q = $db->prepare($sql);
-	$q->execute(array($sales_id,$a1));
+	$q->execute(array($sales_id,$sales_id,$a1));
+
+	$a1=$sales_id;
+
+
+
+
 //-------------*/ Update Action --------------//
 
 //------------- Update QTY --------------//
