@@ -48,7 +48,7 @@ $cash_total=$row['cash_total'];
 $loding_action=$row['action'];
 	}
 
-$result = $db->prepare("SELECT sum(amount) FROM payment WHERE loading_id ='$lo_id' and type='cash' and action >'0' ");
+$result = $db->prepare("SELECT sum(amount) FROM payment WHERE loading_id ='$lo_id' and type='cash' and action >'0' AND action < 10 ");
 $result->bindParam(':userid', $c);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){
