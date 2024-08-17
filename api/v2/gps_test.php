@@ -6,6 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+$text='';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Display all POST parameters
     foreach ($_POST as $key => $value) {
