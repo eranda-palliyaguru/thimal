@@ -101,8 +101,13 @@ $resultz->execute();
 for($i=0; $rowz = $resultz->fetch(); $i++){
 $sales_id=$rowz['sales_id'];
 $c_amount=$rowz['amount'];
-//$cus_id=$rowz['customer_id'];
+$invoice_no=$rowz['invoice_no'];
 $type=$rowz['type'];
+if(strlen($rowz['invoice_no']) > 10){
+	$invoice_no=$rowz['sales_id'];
+}else{
+$invoice_no=$rowz['invoice_no'];
+}
 }
 
 $result = $db->prepare("SELECT * FROM sales  WHERE transaction_id='$sales_id'   ");
@@ -132,9 +137,9 @@ $balence=$payment_amount-$coll_tot;
 
 $now=date('Y-m-d');
 
-$sql = "INSERT INTO credit_payment (tr_id,sales_id,collection_id,pay_amount,credit_amount,cus_id,date,action,cus,type) VALUES (:tr_id,:s_id,:p_id,:p_amo,:c_amo,:cus,:date,:act,:cus_n,:type)";
+$sql = "INSERT INTO credit_payment (tr_id,sales_id,collection_id,pay_amount,credit_amount,cus_id,date,action,cus,type,invoice_no) VALUES (:tr_id,:s_id,:p_id,:p_amo,:c_amo,:cus,:date,:act,:cus_n,:type,:invo)";
 $q = $db->prepare($sql);
-$q->execute(array(':tr_id'=>$tr_id,':s_id'=>$sales_id,':p_id'=>$collection_id,':p_amo'=>$pay_amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$now,':act'=>$act,':cus_n'=>$customer,':type'=>$type));
+$q->execute(array(':tr_id'=>$tr_id,':s_id'=>$sales_id,':p_id'=>$collection_id,':p_amo'=>$pay_amount,':c_amo'=>$c_amount,':cus'=>$cus_id,':date'=>$now,':act'=>$act,':cus_n'=>$customer,':type'=>$type,':invo'=>$invoice_no));
 
 $balence=$balence-$pay_amount;
 if ($balence >= 0) {
