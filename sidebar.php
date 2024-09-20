@@ -135,6 +135,14 @@ $user_lewal=$_SESSION['USER_LEWAL'];
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="../v2">
+                        <i class="fa fa-dashboard"></i> <span>New Update</span>
+                        <span class="pull-right-container">
+
+                        </span>
+                    </a>
+                </li>
 
 
 
