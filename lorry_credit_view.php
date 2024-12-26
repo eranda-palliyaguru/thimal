@@ -96,7 +96,7 @@ if($r =='admin'){
 				<?php
    $cus=$_GET['cus'];
 	$tot=0;
-	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' and type='credit' and customer_id='$cus'");
+	$result2z = $db->prepare("SELECT * FROM payment WHERE action='2' AND type='credit' AND customer_id='$cus' AND amount > pay_amount");
 
 
 
